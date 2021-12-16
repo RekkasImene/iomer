@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:iomer/webService/origines.dart';
+import 'package:iomer/webService/origines_service.dart';
 import 'package:iomer/webService/site.dart';
 import 'package:iomer/webService/site_service.dart';
 
@@ -14,11 +16,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late Future<Site> futureSite;
-
+  late Future<Origines> futureOrigines;
   @override
   void initState() {
     super.initState();
+    int id =2;
     futureSite = fetchSite();
+    futureOrigines = fetchOrigines(id);
+    
   }
 
   @override

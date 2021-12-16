@@ -1,42 +1,7 @@
-import 'package:flutter/material.dart';
-
 import 'dart:async';
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
-
-Future<Album> fetchAlbum() async {
-  final response = await http.get(Uri.parse('http://localhost:8080/ServerFunctionInvoker/GETSITES'));
-
-  if (response.statusCode == 200) {
-    print(response.body);
-    return Album.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
-  }
-}
-
-class Album {
-  final int userId;
-  final int id;
-  final String title;
-
-  Album({
-    required this.userId,
-    required this.id,
-    required this.title,
-  });
-
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-    );
-  }
-}
+import 'package:flutter/material.dart';
+import 'package:iomer/webService/site.dart';
+import 'package:iomer/webService/site_service.dart';
 
 void main() => runApp(const MyApp());
 
@@ -48,12 +13,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Future<Album> futureAlbum;
+  late Future<Site> futureSite;
 
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchAlbum();
+    futureSite = fetchSite();
   }
 
   @override
@@ -68,11 +33,11 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Fetch Data Example'),
         ),
         body: Center(
-          child: FutureBuilder<Album>(
-            future: futureAlbum,
+          child: FutureBuilder<Site>(
+            future: futureSite,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Text(snapshot.data!.title);
+                return Text(snapshot.data!.nomsite);
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }
@@ -86,4 +51,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-

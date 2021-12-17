@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:iomer/webService/site.dart';
 import 'package:http/http.dart' as http;
 
-var url = 'https://silent-fireant-91.loca.lt';
+var url = 'https://328c-46-193-65-137.ngrok.io';
 
 Future<Site> fetchSite() async {
   final response = await http

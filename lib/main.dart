@@ -1,5 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:iomer/webService/equipements.dart';
+import 'package:iomer/webService/equipements_service.dart';
+import 'package:iomer/webService/matricules.dart';
+import 'package:iomer/webService/matricules_service.dart';
 import 'package:iomer/webService/origines.dart';
 import 'package:iomer/webService/origines_service.dart';
 import 'package:iomer/webService/site.dart';
@@ -17,12 +21,18 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late Future<Site> futureSite;
   late Future<Origines> futureOrigines;
+  late Future<Matricules> futureMatricules;
+  late Future<Equipements> futureEquipements;
   @override
   void initState() {
     super.initState();
-    int id =2;
+    int idSite =2;
+    int idOrigine =21;
     futureSite = fetchSite();
-    futureOrigines = fetchOrigines(id);
+    futureOrigines = fetchOrigines(idSite);
+    futureMatricules=fetchMatricules(idOrigine);
+    futureEquipements=fetchEquipements(idSite);
+
     
   }
 

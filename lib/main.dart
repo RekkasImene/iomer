@@ -40,13 +40,13 @@ class _MyAppState extends State<MyApp> {
     futureOTs=fetchOTs(idSite, idOrigine);
     futureOTTaches=fetchOTTaches(idOT);
 
-    
+
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Fetch Data Example',
+      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

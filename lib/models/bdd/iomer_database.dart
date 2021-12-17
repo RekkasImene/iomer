@@ -17,7 +17,7 @@ import 'document.dart';
 import 'equipement.dart';
 import 'matricule.dart';
 
-part 'generate/iomerDatabase.g.dart';
+part 'iomer_database.g.dart';
 
 LazyDatabase _openConnection() {
   // the LazyDatabase util lets us find the right location for the file async.
@@ -32,11 +32,15 @@ LazyDatabase _openConnection() {
 
 @DriftDatabase(tables: [Articles,Categories,Documents,Equipements,Matricules,
   Origines,Ot,Reservations,Sites,Taches],
-    daos: [ArticleDao]
+    daos: [ArticleDao,CategorieDao,EquipementDao,MatriculeDao,OrigineDao,OtDao,
+      ReservationDao,SiteDao,TacheDao]
 )
 class IomerDatabase extends _$IomerDatabase {
   IomerDatabase() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
+
+  Future insertSite(Site site) => into(sites).insert(site);
+
 }

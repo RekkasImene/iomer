@@ -1,12 +1,12 @@
 import 'package:drift/drift.dart';
 
-import 'iomerDatabase.dart';
+import 'iomer_database.dart';
 part 'generate/document.g.dart';
 
 class Documents extends Table {
   IntColumn get idAttachement => integer().autoIncrement()();
   IntColumn get idOt =>
-      integer().nullable().customConstraint('NULL REFERENCES M2_OT(idOt)')();
+      integer().nullable().customConstraint('NULL REFERENCES Ot(idOt)')();
   TextColumn get attachement => text().withLength(min: 1, max: 48)();
 
   @override

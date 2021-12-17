@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'iomerDatabase.dart';
+import 'iomer_database.dart';
 part 'generate/article.g.dart';
 
 class Articles extends Table {

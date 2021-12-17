@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../iomerDatabase.dart';
+part of 'iomer_database.dart';
 
 // **************************************************************************
 // MoorGenerator
@@ -464,7 +464,7 @@ class $CategoriesTable extends Categories
       'id_site', aliasedName, true,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES table Sites(idSite)');
+      $customConstraints: 'NULL REFERENCES Sites(idSite)');
   final VerificationMeta _codeCategorieMeta =
       const VerificationMeta('codeCategorie');
   late final GeneratedColumn<String?> codeCategorie = GeneratedColumn<String?>(
@@ -697,7 +697,7 @@ class $DocumentsTable extends Documents
       'id_ot', aliasedName, true,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES M2_OT(idOt)');
+      $customConstraints: 'NULL REFERENCES Ot(idOt)');
   final VerificationMeta _attachementMeta =
       const VerificationMeta('attachement');
   late final GeneratedColumn<String?> attachement = GeneratedColumn<String?>(
@@ -945,7 +945,7 @@ class $EquipementsTable extends Equipements
       'id_site', aliasedName, true,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES table Sites(idSite)');
+      $customConstraints: 'NULL REFERENCES Sites(idSite)');
   final VerificationMeta _codeEquipementMeta =
       const VerificationMeta('codeEquipement');
   late final GeneratedColumn<String?> codeEquipement = GeneratedColumn<String?>(
@@ -1258,7 +1258,7 @@ class $MatriculesTable extends Matricules
       'id_origine', aliasedName, true,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES table Origin(idOrigin)');
+      $customConstraints: 'NULL REFERENCES Origines(idOrigin)');
   final VerificationMeta _codeMatriculeMeta =
       const VerificationMeta('codeMatricule');
   late final GeneratedColumn<String?> codeMatricule = GeneratedColumn<String?>(
@@ -1553,7 +1553,7 @@ class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
       'id_site', aliasedName, true,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES table Sites(idSite)');
+      $customConstraints: 'NULL REFERENCES Sites(idSite)');
   final VerificationMeta _codeOriginMeta = const VerificationMeta('codeOrigin');
   late final GeneratedColumn<String?> codeOrigin = GeneratedColumn<String?>(
       'code_origin', aliasedName, false,
@@ -2073,21 +2073,21 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
       'id_origine', aliasedName, true,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES table Origines(idOrigine)');
+      $customConstraints: 'NULL REFERENCES Origines(idOrigin)');
   final VerificationMeta _idCategorieMeta =
       const VerificationMeta('idCategorie');
   late final GeneratedColumn<int?> idCategorie = GeneratedColumn<int?>(
       'id_categorie', aliasedName, true,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES table Categories(idCategorie)');
+      $customConstraints: 'NULL REFERENCES Categories(idCategorie)');
   final VerificationMeta _idEquipementMeta =
       const VerificationMeta('idEquipement');
   late final GeneratedColumn<int?> idEquipement = GeneratedColumn<int?>(
       'id_equipement', aliasedName, true,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES table Equipements(idEquipement)');
+      $customConstraints: 'NULL REFERENCES Equipements(idEquipement)');
   final VerificationMeta _codeOtMeta = const VerificationMeta('codeOt');
   late final GeneratedColumn<String?> codeOt = GeneratedColumn<String?>(
       'code_ot', aliasedName, false,
@@ -2505,7 +2505,7 @@ class $ReservationsTable extends Reservations
       'id_ot', aliasedName, true,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES M2_OT(idOt)');
+      $customConstraints: 'NULL REFERENCES Ot(idOt)');
   final VerificationMeta _codeArticleMeta =
       const VerificationMeta('codeArticle');
   late final GeneratedColumn<String?> codeArticle = GeneratedColumn<String?>(
@@ -2514,7 +2514,7 @@ class $ReservationsTable extends Reservations
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 24),
       typeName: 'TEXT',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES Article(idArticle)');
+      $customConstraints: 'NULL REFERENCES Articles(idArticle)');
   final VerificationMeta _libelleArticleMeta =
       const VerificationMeta('libelleArticle');
   late final GeneratedColumn<String?> libelleArticle = GeneratedColumn<String?>(
@@ -3087,7 +3087,7 @@ class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
       'id_ot', aliasedName, true,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES M2_OT(idOt)');
+      $customConstraints: 'NULL REFERENCES Ot(idOt)');
   final VerificationMeta _codeTacheMeta = const VerificationMeta('codeTache');
   late final GeneratedColumn<String?> codeTache = GeneratedColumn<String?>(
       'code_tache', aliasedName, false,
@@ -3205,6 +3205,15 @@ abstract class _$IomerDatabase extends GeneratedDatabase {
   late final $SitesTable sites = $SitesTable(this);
   late final $TachesTable taches = $TachesTable(this);
   late final ArticleDao articleDao = ArticleDao(this as IomerDatabase);
+  late final CategorieDao categorieDao = CategorieDao(this as IomerDatabase);
+  late final EquipementDao equipementDao = EquipementDao(this as IomerDatabase);
+  late final MatriculeDao matriculeDao = MatriculeDao(this as IomerDatabase);
+  late final OrigineDao origineDao = OrigineDao(this as IomerDatabase);
+  late final OtDao otDao = OtDao(this as IomerDatabase);
+  late final ReservationDao reservationDao =
+      ReservationDao(this as IomerDatabase);
+  late final SiteDao siteDao = SiteDao(this as IomerDatabase);
+  late final TacheDao tacheDao = TacheDao(this as IomerDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override

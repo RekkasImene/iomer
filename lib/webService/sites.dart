@@ -1,18 +1,18 @@
-class Site {
+class Sites {
   final int idsite;
   final String codesite;
   final String nomsite;
   final String adressesite;
 
-  Site({
+  Sites({
     required this.idsite,
     required this.codesite,
     required this.nomsite,
     required this.adressesite,
   });
 
-  factory Site.fromJson(Map<String, dynamic> json) {
-    return Site(
+  factory Sites.fromJson(Map<String, dynamic> json) {
+    return Sites(
       idsite: json['IDSITE'],
       codesite: json['CODESITE'],
       nomsite: json['NOMSITE'],

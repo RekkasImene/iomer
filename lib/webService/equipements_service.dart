@@ -2,22 +2,23 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 
-import 'package:iomer/webService/origines.dart';
+import 'equipements.dart';
+
 
 var url = 'https://328c-46-193-65-137.ngrok.io';
 
-Future<Origines> fetchOrigines(int id) async {
+Future<Equipements> fetchEquipements(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetOrigines/$id'));
+      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetEquipements/$id'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
     log(response.body.toString());
-    return Origines.fromJson(jsonDecode(response.body));
+    return Equipements.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
-    throw Exception('Failed to load Origines');
+    throw Exception('Failed to load Equipements');
   }
 }

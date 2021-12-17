@@ -1,6 +1,8 @@
 import 'package:drift/drift.dart';
+import 'iomerDatabase.dart';
+part 'generate/reservation.g.dart';
 
-class M2_reservation extends Table {
+class Reservations extends Table {
   IntColumn get idPiece => integer().autoIncrement()();
   IntColumn get idOt =>
       integer().nullable().customConstraint('NULL REFERENCES M2_OT(idOt)')();
@@ -15,4 +17,12 @@ class M2_reservation extends Table {
 
   @override
   Set<Column> get primaryKey => {idPiece};
+}
+
+@DriftAccessor(
+    tables:[Reservations]
+)
+class ReservationDao extends DatabaseAccessor<IomerDatabase> with _$ReservationDaoMixin{
+  final IomerDatabase db;
+  ReservationDao(this.db):super (db);
 }

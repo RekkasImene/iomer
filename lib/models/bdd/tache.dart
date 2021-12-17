@@ -1,4 +1,6 @@
 import 'package:drift/drift.dart';
+import 'iomerDatabase.dart';
+part 'generate/tache.g.dart';
 
 class Taches extends Table {
   IntColumn get idOt =>
@@ -11,4 +13,12 @@ class Taches extends Table {
 
   @override
   Set<Column> get primaryKey => {codeTache};
+}
+
+@DriftAccessor(
+    tables:[Taches]
+)
+class TacheDao extends DatabaseAccessor<IomerDatabase> with _$TacheDaoMixin{
+  final IomerDatabase db;
+  TacheDao(this.db):super (db);
 }

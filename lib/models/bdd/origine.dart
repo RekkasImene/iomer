@@ -1,6 +1,8 @@
 import 'package:drift/drift.dart';
+import 'iomerDatabase.dart';
+part 'generate/origine.g.dart';
 
-class Origin extends Table {
+class Origines extends Table {
   IntColumn get idOrigin => integer().autoIncrement()();
   IntColumn get idSite => integer()
       .nullable()
@@ -10,4 +12,12 @@ class Origin extends Table {
 
   @override
   Set<Column> get primaryKey => {idOrigin};
+}
+
+@DriftAccessor(
+    tables:[Origines]
+)
+class OrigineDao extends DatabaseAccessor<IomerDatabase> with _$OrigineDaoMixin{
+  final IomerDatabase db;
+  OrigineDao(this.db):super (db);
 }

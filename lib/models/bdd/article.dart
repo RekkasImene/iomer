@@ -1,6 +1,8 @@
 import 'package:drift/drift.dart';
+import 'iomerDatabase.dart';
+part 'generate/article.g.dart';
 
-class Article extends Table {
+class Articles extends Table {
   IntColumn get idArticle => integer().autoIncrement()();
   TextColumn get codeArticle => text().withLength(min: 1, max: 16)();
   TextColumn get libelleArticle => text().withLength(min: 1, max: 48)();
@@ -8,4 +10,12 @@ class Article extends Table {
 
   @override
   Set<Column> get primaryKey => {idArticle, codeArticle};
+}
+
+@DriftAccessor(
+  tables:[Articles]
+)
+class ArticleDao extends DatabaseAccessor<IomerDatabase> with _$ArticleDaoMixin{
+  final IomerDatabase db;
+  ArticleDao(this.db):super (db);
 }

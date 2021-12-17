@@ -1,4 +1,7 @@
 import 'package:drift/drift.dart';
+import 'iomerDatabase.dart';
+part 'generate/categorie.g.dart';
+
 
 class Categories extends Table {
   IntColumn get idCategorie => integer().autoIncrement()();
@@ -10,4 +13,11 @@ class Categories extends Table {
 
   @override
   Set<Column> get primaryKey => {idCategorie};
+}
+@DriftAccessor(
+    tables:[Categories]
+)
+class CategorieDao extends DatabaseAccessor<IomerDatabase> with _$CategorieDaoMixin{
+  final IomerDatabase db;
+  CategorieDao(this.db):super (db);
 }

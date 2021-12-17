@@ -8,20 +8,28 @@ import 'dart:io';
 
 
 class Ot extends Table{
-  IntColumn get id_ot=>integer().autoIncrement()();
-  IntColumn get id_origin => integer()();
-  IntColumn get id_categorie => integer()();
-  IntColumn get id_equipement => integer()();
-  TextColumn get code_ot => text().withLength(min:0,max: 24)();
-  TextColumn get libell_ot => text().withLength(min:0,max: 48)();
-  TextColumn get coment_ot => text().withLength(min:0,max: 2048)();
-  RealColumn get temps_ot => real()();
-  TextColumn get statut_ot=> text().withLength(min:1,max: 1)();
+  IntColumn get idOt=>integer().autoIncrement()();
+  IntColumn get idOrigin => integer()
+      .nullable()
+      .customConstraint('NULL REFERENCES table Sites(idOrigin)')();
+  IntColumn get idCategorie => integer()
+      .nullable()
+      .customConstraint('NULL REFERENCES table Sites(idCategorie)')();
+  IntColumn get idEquipement => integer()
+      .nullable()
+      .customConstraint('NULL REFERENCES table Sites(idEquipement)')();
+  TextColumn get codeOt => text().withLength(min:0,max: 24)();
+  TextColumn get libellOt => text().withLength(min:0,max: 48)();
+  TextColumn get comentOt => text().withLength(min:0,max: 2048)();
+  RealColumn get tempsOt => real()();
+  TextColumn get statutOt=> text().withLength(min:1,max: 1)();
 
-  DateTimeColumn get dt_open_ot=>dateTime()(); //date  (Unix timestamp in seconds)
-  DateTimeColumn get dt_exec_ot=>dateTime()();
-  DateTimeColumn get dt_wait_ot=>dateTime()();
-  DateTimeColumn get dt_canc_ot=>dateTime()();
-  DateTimeColumn get dt_clos_ot=>dateTime()();
+  DateTimeColumn get dtOpenOt=>dateTime()(); //date  (Unix timestamp in seconds)
+  DateTimeColumn get dtExecOt=>dateTime()();
+  DateTimeColumn get dtWaitOt=>dateTime()();
+  DateTimeColumn get dtCancOt=>dateTime()();
+  DateTimeColumn get dtClosOt=>dateTime()();
 
+  @override
+  Set<Column> get primaryKey => {idOt};
 }

@@ -1,23 +1,16 @@
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as p;
-import 'dart:io';
-
-
-
 
 class Ot extends Table{
   IntColumn get idOt=>integer().autoIncrement()();
-  IntColumn get idOrigin => integer()
+  IntColumn get idOrigine => integer()
       .nullable()
-      .customConstraint('NULL REFERENCES table Sites(idOrigin)')();
+      .customConstraint('NULL REFERENCES table Origines(idOrigine)')();
   IntColumn get idCategorie => integer()
       .nullable()
-      .customConstraint('NULL REFERENCES table Sites(idCategorie)')();
+      .customConstraint('NULL REFERENCES table Categories(idCategorie)')();
   IntColumn get idEquipement => integer()
       .nullable()
-      .customConstraint('NULL REFERENCES table Sites(idEquipement)')();
+      .customConstraint('NULL REFERENCES table Equipements(idEquipement)')();
   TextColumn get codeOt => text().withLength(min:0,max: 24)();
   TextColumn get libellOt => text().withLength(min:0,max: 48)();
   TextColumn get comentOt => text().withLength(min:0,max: 2048)();

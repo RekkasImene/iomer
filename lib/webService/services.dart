@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:iomer/webService/ot_taches.dart';
 import 'package:iomer/webService/ots.dart';
-import 'package:iomer/webService/site.dart';
+import 'package:iomer/webService/sites.dart';
 import 'package:http/http.dart' as http;
 import 'categories.dart';
 import 'equipements.dart';
@@ -12,13 +12,13 @@ import 'origines.dart';
 var url = 'https://chatty-shrimp-11.loca.lt/';
 
 /* Get Sites */
-Future<Site> fetchSite() async {
+Future<Sites> fetchSite() async {
   final response = await http
       .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetSites'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());
-    return Site.fromJson(jsonDecode(response.body));
+    return Sites.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load site');
   }

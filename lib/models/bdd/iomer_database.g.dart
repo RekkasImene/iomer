@@ -12,11 +12,13 @@ class Article extends DataClass implements Insertable<Article> {
   final String codeArticle;
   final String libelleArticle;
   final int qteArticle;
+
   Article(
       {required this.idArticle,
       required this.codeArticle,
       required this.libelleArticle,
       required this.qteArticle});
+
   factory Article.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Article(
@@ -30,6 +32,7 @@ class Article extends DataClass implements Insertable<Article> {
           .mapFromDatabaseResponse(data['${effectivePrefix}qte_article'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -59,6 +62,7 @@ class Article extends DataClass implements Insertable<Article> {
       qteArticle: serializer.fromJson<int>(json['qteArticle']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -81,6 +85,7 @@ class Article extends DataClass implements Insertable<Article> {
         libelleArticle: libelleArticle ?? this.libelleArticle,
         qteArticle: qteArticle ?? this.qteArticle,
       );
+
   @override
   String toString() {
     return (StringBuffer('Article(')
@@ -95,6 +100,7 @@ class Article extends DataClass implements Insertable<Article> {
   @override
   int get hashCode =>
       Object.hash(idArticle, codeArticle, libelleArticle, qteArticle);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -110,12 +116,14 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
   final Value<String> codeArticle;
   final Value<String> libelleArticle;
   final Value<int> qteArticle;
+
   const ArticlesCompanion({
     this.idArticle = const Value.absent(),
     this.codeArticle = const Value.absent(),
     this.libelleArticle = const Value.absent(),
     this.qteArticle = const Value.absent(),
   });
+
   ArticlesCompanion.insert({
     required int idArticle,
     required String codeArticle,
@@ -125,6 +133,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
         codeArticle = Value(codeArticle),
         libelleArticle = Value(libelleArticle),
         qteArticle = Value(qteArticle);
+
   static Insertable<Article> custom({
     Expression<int>? idArticle,
     Expression<String>? codeArticle,
@@ -185,7 +194,9 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
 class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $ArticlesTable(this._db, [this._alias]);
+
   final VerificationMeta _idArticleMeta = const VerificationMeta('idArticle');
   late final GeneratedColumn<int?> idArticle = GeneratedColumn<int?>(
       'id_article', aliasedName, false,
@@ -212,13 +223,17 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
   late final GeneratedColumn<int?> qteArticle = GeneratedColumn<int?>(
       'qte_article', aliasedName, false,
       typeName: 'INTEGER', requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns =>
       [idArticle, codeArticle, libelleArticle, qteArticle];
+
   @override
   String get aliasedName => _alias ?? 'articles';
+
   @override
   String get actualTableName => 'articles';
+
   @override
   VerificationContext validateIntegrity(Insertable<Article> instance,
       {bool isInserting = false}) {
@@ -259,6 +274,7 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {idArticle, codeArticle};
+
   @override
   Article map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Article.fromData(data,
@@ -276,11 +292,13 @@ class Categorie extends DataClass implements Insertable<Categorie> {
   final int? idSite;
   final String codeCategorie;
   final String libelleCategorie;
+
   Categorie(
       {required this.idCategorie,
       this.idSite,
       required this.codeCategorie,
       required this.libelleCategorie});
+
   factory Categorie.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Categorie(
@@ -294,6 +312,7 @@ class Categorie extends DataClass implements Insertable<Categorie> {
           data['${effectivePrefix}libelle_categorie'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -326,6 +345,7 @@ class Categorie extends DataClass implements Insertable<Categorie> {
       libelleCategorie: serializer.fromJson<String>(json['libelleCategorie']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -348,6 +368,7 @@ class Categorie extends DataClass implements Insertable<Categorie> {
         codeCategorie: codeCategorie ?? this.codeCategorie,
         libelleCategorie: libelleCategorie ?? this.libelleCategorie,
       );
+
   @override
   String toString() {
     return (StringBuffer('Categorie(')
@@ -362,6 +383,7 @@ class Categorie extends DataClass implements Insertable<Categorie> {
   @override
   int get hashCode =>
       Object.hash(idCategorie, idSite, codeCategorie, libelleCategorie);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -377,12 +399,14 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
   final Value<int?> idSite;
   final Value<String> codeCategorie;
   final Value<String> libelleCategorie;
+
   const CategoriesCompanion({
     this.idCategorie = const Value.absent(),
     this.idSite = const Value.absent(),
     this.codeCategorie = const Value.absent(),
     this.libelleCategorie = const Value.absent(),
   });
+
   CategoriesCompanion.insert({
     this.idCategorie = const Value.absent(),
     this.idSite = const Value.absent(),
@@ -390,6 +414,7 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
     required String libelleCategorie,
   })  : codeCategorie = Value(codeCategorie),
         libelleCategorie = Value(libelleCategorie);
+
   static Insertable<Categorie> custom({
     Expression<int>? idCategorie,
     Expression<int?>? idSite,
@@ -451,7 +476,9 @@ class $CategoriesTable extends Categories
     with TableInfo<$CategoriesTable, Categorie> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $CategoriesTable(this._db, [this._alias]);
+
   final VerificationMeta _idCategorieMeta =
       const VerificationMeta('idCategorie');
   late final GeneratedColumn<int?> idCategorie = GeneratedColumn<int?>(
@@ -481,13 +508,17 @@ class $CategoriesTable extends Categories
               minTextLength: 1, maxTextLength: 48),
           typeName: 'TEXT',
           requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns =>
       [idCategorie, idSite, codeCategorie, libelleCategorie];
+
   @override
   String get aliasedName => _alias ?? 'categories';
+
   @override
   String get actualTableName => 'categories';
+
   @override
   VerificationContext validateIntegrity(Insertable<Categorie> instance,
       {bool isInserting = false}) {
@@ -524,6 +555,7 @@ class $CategoriesTable extends Categories
 
   @override
   Set<GeneratedColumn> get $primaryKey => {idCategorie};
+
   @override
   Categorie map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Categorie.fromData(data,
@@ -540,7 +572,9 @@ class Document extends DataClass implements Insertable<Document> {
   final int idAttachement;
   final int? idOt;
   final String attachement;
+
   Document({required this.idAttachement, this.idOt, required this.attachement});
+
   factory Document.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Document(
@@ -552,6 +586,7 @@ class Document extends DataClass implements Insertable<Document> {
           .mapFromDatabaseResponse(data['${effectivePrefix}attachement'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -580,6 +615,7 @@ class Document extends DataClass implements Insertable<Document> {
       attachement: serializer.fromJson<String>(json['attachement']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -596,6 +632,7 @@ class Document extends DataClass implements Insertable<Document> {
         idOt: idOt ?? this.idOt,
         attachement: attachement ?? this.attachement,
       );
+
   @override
   String toString() {
     return (StringBuffer('Document(')
@@ -608,6 +645,7 @@ class Document extends DataClass implements Insertable<Document> {
 
   @override
   int get hashCode => Object.hash(idAttachement, idOt, attachement);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -621,16 +659,19 @@ class DocumentsCompanion extends UpdateCompanion<Document> {
   final Value<int> idAttachement;
   final Value<int?> idOt;
   final Value<String> attachement;
+
   const DocumentsCompanion({
     this.idAttachement = const Value.absent(),
     this.idOt = const Value.absent(),
     this.attachement = const Value.absent(),
   });
+
   DocumentsCompanion.insert({
     this.idAttachement = const Value.absent(),
     this.idOt = const Value.absent(),
     required String attachement,
   }) : attachement = Value(attachement);
+
   static Insertable<Document> custom({
     Expression<int>? idAttachement,
     Expression<int?>? idOt,
@@ -684,7 +725,9 @@ class $DocumentsTable extends Documents
     with TableInfo<$DocumentsTable, Document> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $DocumentsTable(this._db, [this._alias]);
+
   final VerificationMeta _idAttachementMeta =
       const VerificationMeta('idAttachement');
   late final GeneratedColumn<int?> idAttachement = GeneratedColumn<int?>(
@@ -706,12 +749,16 @@ class $DocumentsTable extends Documents
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
       typeName: 'TEXT',
       requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns => [idAttachement, idOt, attachement];
+
   @override
   String get aliasedName => _alias ?? 'documents';
+
   @override
   String get actualTableName => 'documents';
+
   @override
   VerificationContext validateIntegrity(Insertable<Document> instance,
       {bool isInserting = false}) {
@@ -740,6 +787,7 @@ class $DocumentsTable extends Documents
 
   @override
   Set<GeneratedColumn> get $primaryKey => {idAttachement};
+
   @override
   Document map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Document.fromData(data,
@@ -757,11 +805,13 @@ class Equipement extends DataClass implements Insertable<Equipement> {
   final int? idSite;
   final String codeEquipement;
   final String libelleEquipement;
+
   Equipement(
       {required this.idEquipement,
       this.idSite,
       required this.codeEquipement,
       required this.libelleEquipement});
+
   factory Equipement.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Equipement(
@@ -775,6 +825,7 @@ class Equipement extends DataClass implements Insertable<Equipement> {
           data['${effectivePrefix}libelle_equipement'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -807,6 +858,7 @@ class Equipement extends DataClass implements Insertable<Equipement> {
       libelleEquipement: serializer.fromJson<String>(json['libelleEquipement']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -829,6 +881,7 @@ class Equipement extends DataClass implements Insertable<Equipement> {
         codeEquipement: codeEquipement ?? this.codeEquipement,
         libelleEquipement: libelleEquipement ?? this.libelleEquipement,
       );
+
   @override
   String toString() {
     return (StringBuffer('Equipement(')
@@ -843,6 +896,7 @@ class Equipement extends DataClass implements Insertable<Equipement> {
   @override
   int get hashCode =>
       Object.hash(idEquipement, idSite, codeEquipement, libelleEquipement);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -858,12 +912,14 @@ class EquipementsCompanion extends UpdateCompanion<Equipement> {
   final Value<int?> idSite;
   final Value<String> codeEquipement;
   final Value<String> libelleEquipement;
+
   const EquipementsCompanion({
     this.idEquipement = const Value.absent(),
     this.idSite = const Value.absent(),
     this.codeEquipement = const Value.absent(),
     this.libelleEquipement = const Value.absent(),
   });
+
   EquipementsCompanion.insert({
     this.idEquipement = const Value.absent(),
     this.idSite = const Value.absent(),
@@ -871,6 +927,7 @@ class EquipementsCompanion extends UpdateCompanion<Equipement> {
     required String libelleEquipement,
   })  : codeEquipement = Value(codeEquipement),
         libelleEquipement = Value(libelleEquipement);
+
   static Insertable<Equipement> custom({
     Expression<int>? idEquipement,
     Expression<int?>? idSite,
@@ -932,7 +989,9 @@ class $EquipementsTable extends Equipements
     with TableInfo<$EquipementsTable, Equipement> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $EquipementsTable(this._db, [this._alias]);
+
   final VerificationMeta _idEquipementMeta =
       const VerificationMeta('idEquipement');
   late final GeneratedColumn<int?> idEquipement = GeneratedColumn<int?>(
@@ -962,13 +1021,17 @@ class $EquipementsTable extends Equipements
               minTextLength: 1, maxTextLength: 48),
           typeName: 'TEXT',
           requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns =>
       [idEquipement, idSite, codeEquipement, libelleEquipement];
+
   @override
   String get aliasedName => _alias ?? 'equipements';
+
   @override
   String get actualTableName => 'equipements';
+
   @override
   VerificationContext validateIntegrity(Insertable<Equipement> instance,
       {bool isInserting = false}) {
@@ -1005,6 +1068,7 @@ class $EquipementsTable extends Equipements
 
   @override
   Set<GeneratedColumn> get $primaryKey => {idEquipement};
+
   @override
   Equipement map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Equipement.fromData(data,
@@ -1024,6 +1088,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
   final String nomMatricule;
   final String prenomMatricule;
   final bool checked;
+
   Matricule(
       {required this.idMatricule,
       this.idOrigine,
@@ -1031,6 +1096,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
       required this.nomMatricule,
       required this.prenomMatricule,
       required this.checked});
+
   factory Matricule.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Matricule(
@@ -1048,6 +1114,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
           .mapFromDatabaseResponse(data['${effectivePrefix}checked'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1087,6 +1154,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
       checked: serializer.fromJson<bool>(json['checked']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -1115,6 +1183,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
         prenomMatricule: prenomMatricule ?? this.prenomMatricule,
         checked: checked ?? this.checked,
       );
+
   @override
   String toString() {
     return (StringBuffer('Matricule(')
@@ -1131,6 +1200,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
   @override
   int get hashCode => Object.hash(idMatricule, idOrigine, codeMatricule,
       nomMatricule, prenomMatricule, checked);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1150,6 +1220,7 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
   final Value<String> nomMatricule;
   final Value<String> prenomMatricule;
   final Value<bool> checked;
+
   const MatriculesCompanion({
     this.idMatricule = const Value.absent(),
     this.idOrigine = const Value.absent(),
@@ -1158,6 +1229,7 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
     this.prenomMatricule = const Value.absent(),
     this.checked = const Value.absent(),
   });
+
   MatriculesCompanion.insert({
     this.idMatricule = const Value.absent(),
     this.idOrigine = const Value.absent(),
@@ -1168,6 +1240,7 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
   })  : codeMatricule = Value(codeMatricule),
         nomMatricule = Value(nomMatricule),
         prenomMatricule = Value(prenomMatricule);
+
   static Insertable<Matricule> custom({
     Expression<int>? idMatricule,
     Expression<int?>? idOrigine,
@@ -1245,7 +1318,9 @@ class $MatriculesTable extends Matricules
     with TableInfo<$MatriculesTable, Matricule> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $MatriculesTable(this._db, [this._alias]);
+
   final VerificationMeta _idMatriculeMeta =
       const VerificationMeta('idMatricule');
   late final GeneratedColumn<int?> idMatricule = GeneratedColumn<int?>(
@@ -1290,6 +1365,7 @@ class $MatriculesTable extends Matricules
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (checked IN (0, 1))',
       defaultValue: const Constant(false));
+
   @override
   List<GeneratedColumn> get $columns => [
         idMatricule,
@@ -1299,10 +1375,13 @@ class $MatriculesTable extends Matricules
         prenomMatricule,
         checked
       ];
+
   @override
   String get aliasedName => _alias ?? 'matricules';
+
   @override
   String get actualTableName => 'matricules';
+
   @override
   VerificationContext validateIntegrity(Insertable<Matricule> instance,
       {bool isInserting = false}) {
@@ -1351,6 +1430,7 @@ class $MatriculesTable extends Matricules
 
   @override
   Set<GeneratedColumn> get $primaryKey => {idMatricule};
+
   @override
   Matricule map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Matricule.fromData(data,
@@ -1368,11 +1448,13 @@ class Origine extends DataClass implements Insertable<Origine> {
   final int? idSite;
   final String codeOrigin;
   final String libelleOrigin;
+
   Origine(
       {required this.idOrigin,
       this.idSite,
       required this.codeOrigin,
       required this.libelleOrigin});
+
   factory Origine.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Origine(
@@ -1386,6 +1468,7 @@ class Origine extends DataClass implements Insertable<Origine> {
           .mapFromDatabaseResponse(data['${effectivePrefix}libelle_origin'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1418,6 +1501,7 @@ class Origine extends DataClass implements Insertable<Origine> {
       libelleOrigin: serializer.fromJson<String>(json['libelleOrigin']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -1440,6 +1524,7 @@ class Origine extends DataClass implements Insertable<Origine> {
         codeOrigin: codeOrigin ?? this.codeOrigin,
         libelleOrigin: libelleOrigin ?? this.libelleOrigin,
       );
+
   @override
   String toString() {
     return (StringBuffer('Origine(')
@@ -1453,6 +1538,7 @@ class Origine extends DataClass implements Insertable<Origine> {
 
   @override
   int get hashCode => Object.hash(idOrigin, idSite, codeOrigin, libelleOrigin);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1468,12 +1554,14 @@ class OriginesCompanion extends UpdateCompanion<Origine> {
   final Value<int?> idSite;
   final Value<String> codeOrigin;
   final Value<String> libelleOrigin;
+
   const OriginesCompanion({
     this.idOrigin = const Value.absent(),
     this.idSite = const Value.absent(),
     this.codeOrigin = const Value.absent(),
     this.libelleOrigin = const Value.absent(),
   });
+
   OriginesCompanion.insert({
     this.idOrigin = const Value.absent(),
     this.idSite = const Value.absent(),
@@ -1481,6 +1569,7 @@ class OriginesCompanion extends UpdateCompanion<Origine> {
     required String libelleOrigin,
   })  : codeOrigin = Value(codeOrigin),
         libelleOrigin = Value(libelleOrigin);
+
   static Insertable<Origine> custom({
     Expression<int>? idOrigin,
     Expression<int?>? idSite,
@@ -1541,7 +1630,9 @@ class OriginesCompanion extends UpdateCompanion<Origine> {
 class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $OriginesTable(this._db, [this._alias]);
+
   final VerificationMeta _idOriginMeta = const VerificationMeta('idOrigin');
   late final GeneratedColumn<int?> idOrigin = GeneratedColumn<int?>(
       'id_origin', aliasedName, false,
@@ -1569,13 +1660,17 @@ class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
       typeName: 'TEXT',
       requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns =>
       [idOrigin, idSite, codeOrigin, libelleOrigin];
+
   @override
   String get aliasedName => _alias ?? 'origines';
+
   @override
   String get actualTableName => 'origines';
+
   @override
   VerificationContext validateIntegrity(Insertable<Origine> instance,
       {bool isInserting = false}) {
@@ -1610,6 +1705,7 @@ class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {idOrigin};
+
   @override
   Origine map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Origine.fromData(data,
@@ -1637,6 +1733,7 @@ class OtData extends DataClass implements Insertable<OtData> {
   final DateTime dtWaitOt;
   final DateTime dtCancOt;
   final DateTime dtClosOt;
+
   OtData(
       {required this.idOt,
       this.idOrigine,
@@ -1652,6 +1749,7 @@ class OtData extends DataClass implements Insertable<OtData> {
       required this.dtWaitOt,
       required this.dtCancOt,
       required this.dtClosOt});
+
   factory OtData.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return OtData(
@@ -1685,6 +1783,7 @@ class OtData extends DataClass implements Insertable<OtData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}dt_clos_ot'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1756,6 +1855,7 @@ class OtData extends DataClass implements Insertable<OtData> {
       dtClosOt: serializer.fromJson<DateTime>(json['dtClosOt']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -1808,6 +1908,7 @@ class OtData extends DataClass implements Insertable<OtData> {
         dtCancOt: dtCancOt ?? this.dtCancOt,
         dtClosOt: dtClosOt ?? this.dtClosOt,
       );
+
   @override
   String toString() {
     return (StringBuffer('OtData(')
@@ -1845,6 +1946,7 @@ class OtData extends DataClass implements Insertable<OtData> {
       dtWaitOt,
       dtCancOt,
       dtClosOt);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1880,6 +1982,7 @@ class OtCompanion extends UpdateCompanion<OtData> {
   final Value<DateTime> dtWaitOt;
   final Value<DateTime> dtCancOt;
   final Value<DateTime> dtClosOt;
+
   const OtCompanion({
     this.idOt = const Value.absent(),
     this.idOrigine = const Value.absent(),
@@ -1896,6 +1999,7 @@ class OtCompanion extends UpdateCompanion<OtData> {
     this.dtCancOt = const Value.absent(),
     this.dtClosOt = const Value.absent(),
   });
+
   OtCompanion.insert({
     this.idOt = const Value.absent(),
     this.idOrigine = const Value.absent(),
@@ -1921,6 +2025,7 @@ class OtCompanion extends UpdateCompanion<OtData> {
         dtWaitOt = Value(dtWaitOt),
         dtCancOt = Value(dtCancOt),
         dtClosOt = Value(dtClosOt);
+
   static Insertable<OtData> custom({
     Expression<int>? idOt,
     Expression<int?>? idOrigine,
@@ -2061,13 +2166,16 @@ class OtCompanion extends UpdateCompanion<OtData> {
 class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $OtTable(this._db, [this._alias]);
+
   final VerificationMeta _idOtMeta = const VerificationMeta('idOt');
   late final GeneratedColumn<int?> idOt = GeneratedColumn<int?>(
       'id_ot', aliasedName, false,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
+
   final VerificationMeta _idOrigineMeta = const VerificationMeta('idOrigine');
   late final GeneratedColumn<int?> idOrigine = GeneratedColumn<int?>(
       'id_origine', aliasedName, true,
@@ -2140,6 +2248,7 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
   late final GeneratedColumn<DateTime?> dtClosOt = GeneratedColumn<DateTime?>(
       'dt_clos_ot', aliasedName, false,
       typeName: 'INTEGER', requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns => [
         idOt,
@@ -2157,10 +2266,13 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
         dtCancOt,
         dtClosOt
       ];
+
   @override
   String get aliasedName => _alias ?? 'ot';
+
   @override
   String get actualTableName => 'ot';
+
   @override
   VerificationContext validateIntegrity(Insertable<OtData> instance,
       {bool isInserting = false}) {
@@ -2251,6 +2363,7 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {idOt};
+
   @override
   OtData map(Map<String, dynamic> data, {String? tablePrefix}) {
     return OtData.fromData(data,
@@ -2270,6 +2383,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
   final String libelleArticle;
   final int qteArticle;
   final int idArticle;
+
   Reservation(
       {required this.idPiece,
       this.idOt,
@@ -2277,6 +2391,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
       required this.libelleArticle,
       required this.qteArticle,
       required this.idArticle});
+
   factory Reservation.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Reservation(
@@ -2294,6 +2409,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
           .mapFromDatabaseResponse(data['${effectivePrefix}id_article'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2335,6 +2451,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
       idArticle: serializer.fromJson<int>(json['idArticle']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -2363,6 +2480,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
         qteArticle: qteArticle ?? this.qteArticle,
         idArticle: idArticle ?? this.idArticle,
       );
+
   @override
   String toString() {
     return (StringBuffer('Reservation(')
@@ -2379,6 +2497,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
   @override
   int get hashCode => Object.hash(
       idPiece, idOt, codeArticle, libelleArticle, qteArticle, idArticle);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2398,6 +2517,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
   final Value<String> libelleArticle;
   final Value<int> qteArticle;
   final Value<int> idArticle;
+
   const ReservationsCompanion({
     this.idPiece = const Value.absent(),
     this.idOt = const Value.absent(),
@@ -2406,6 +2526,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
     this.qteArticle = const Value.absent(),
     this.idArticle = const Value.absent(),
   });
+
   ReservationsCompanion.insert({
     this.idPiece = const Value.absent(),
     this.idOt = const Value.absent(),
@@ -2416,6 +2537,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
   })  : libelleArticle = Value(libelleArticle),
         qteArticle = Value(qteArticle),
         idArticle = Value(idArticle);
+
   static Insertable<Reservation> custom({
     Expression<int>? idPiece,
     Expression<int?>? idOt,
@@ -2493,7 +2615,9 @@ class $ReservationsTable extends Reservations
     with TableInfo<$ReservationsTable, Reservation> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $ReservationsTable(this._db, [this._alias]);
+
   final VerificationMeta _idPieceMeta = const VerificationMeta('idPiece');
   late final GeneratedColumn<int?> idPiece = GeneratedColumn<int?>(
       'id_piece', aliasedName, false,
@@ -2531,13 +2655,17 @@ class $ReservationsTable extends Reservations
   late final GeneratedColumn<int?> idArticle = GeneratedColumn<int?>(
       'id_article', aliasedName, false,
       typeName: 'INTEGER', requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns =>
       [idPiece, idOt, codeArticle, libelleArticle, qteArticle, idArticle];
+
   @override
   String get aliasedName => _alias ?? 'reservations';
+
   @override
   String get actualTableName => 'reservations';
+
   @override
   VerificationContext validateIntegrity(Insertable<Reservation> instance,
       {bool isInserting = false}) {
@@ -2584,6 +2712,7 @@ class $ReservationsTable extends Reservations
 
   @override
   Set<GeneratedColumn> get $primaryKey => {idPiece};
+
   @override
   Reservation map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Reservation.fromData(data,
@@ -2601,11 +2730,13 @@ class Site extends DataClass implements Insertable<Site> {
   final String codeSite;
   final String nomSite;
   final String adresseSite;
+
   Site(
       {required this.idSite,
       required this.codeSite,
       required this.nomSite,
       required this.adresseSite});
+
   factory Site.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Site(
@@ -2619,6 +2750,7 @@ class Site extends DataClass implements Insertable<Site> {
           .mapFromDatabaseResponse(data['${effectivePrefix}adresse_site'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2648,6 +2780,7 @@ class Site extends DataClass implements Insertable<Site> {
       adresseSite: serializer.fromJson<String>(json['adresseSite']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -2670,6 +2803,7 @@ class Site extends DataClass implements Insertable<Site> {
         nomSite: nomSite ?? this.nomSite,
         adresseSite: adresseSite ?? this.adresseSite,
       );
+
   @override
   String toString() {
     return (StringBuffer('Site(')
@@ -2683,6 +2817,7 @@ class Site extends DataClass implements Insertable<Site> {
 
   @override
   int get hashCode => Object.hash(idSite, codeSite, nomSite, adresseSite);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2698,12 +2833,14 @@ class SitesCompanion extends UpdateCompanion<Site> {
   final Value<String> codeSite;
   final Value<String> nomSite;
   final Value<String> adresseSite;
+
   const SitesCompanion({
     this.idSite = const Value.absent(),
     this.codeSite = const Value.absent(),
     this.nomSite = const Value.absent(),
     this.adresseSite = const Value.absent(),
   });
+
   SitesCompanion.insert({
     this.idSite = const Value.absent(),
     required String codeSite,
@@ -2712,6 +2849,7 @@ class SitesCompanion extends UpdateCompanion<Site> {
   })  : codeSite = Value(codeSite),
         nomSite = Value(nomSite),
         adresseSite = Value(adresseSite);
+
   static Insertable<Site> custom({
     Expression<int>? idSite,
     Expression<String>? codeSite,
@@ -2772,7 +2910,9 @@ class SitesCompanion extends UpdateCompanion<Site> {
 class $SitesTable extends Sites with TableInfo<$SitesTable, Site> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $SitesTable(this._db, [this._alias]);
+
   final VerificationMeta _idSiteMeta = const VerificationMeta('idSite');
   late final GeneratedColumn<int?> idSite = GeneratedColumn<int?>(
       'id_site', aliasedName, false,
@@ -2801,13 +2941,17 @@ class $SitesTable extends Sites with TableInfo<$SitesTable, Site> {
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
       typeName: 'TEXT',
       requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns =>
       [idSite, codeSite, nomSite, adresseSite];
+
   @override
   String get aliasedName => _alias ?? 'sites';
+
   @override
   String get actualTableName => 'sites';
+
   @override
   VerificationContext validateIntegrity(Insertable<Site> instance,
       {bool isInserting = false}) {
@@ -2842,6 +2986,7 @@ class $SitesTable extends Sites with TableInfo<$SitesTable, Site> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {idSite};
+
   @override
   Site map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Site.fromData(data,
@@ -2861,6 +3006,7 @@ class Tache extends DataClass implements Insertable<Tache> {
   final String statutTache;
   final String commentTache;
   final int idTache;
+
   Tache(
       {this.idOt,
       required this.codeTache,
@@ -2868,6 +3014,7 @@ class Tache extends DataClass implements Insertable<Tache> {
       required this.statutTache,
       required this.commentTache,
       required this.idTache});
+
   factory Tache.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Tache(
@@ -2885,6 +3032,7 @@ class Tache extends DataClass implements Insertable<Tache> {
           .mapFromDatabaseResponse(data['${effectivePrefix}id_tache'])!,
     );
   }
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2922,6 +3070,7 @@ class Tache extends DataClass implements Insertable<Tache> {
       idTache: serializer.fromJson<int>(json['idTache']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -2950,6 +3099,7 @@ class Tache extends DataClass implements Insertable<Tache> {
         commentTache: commentTache ?? this.commentTache,
         idTache: idTache ?? this.idTache,
       );
+
   @override
   String toString() {
     return (StringBuffer('Tache(')
@@ -2966,6 +3116,7 @@ class Tache extends DataClass implements Insertable<Tache> {
   @override
   int get hashCode => Object.hash(
       idOt, codeTache, libelleTache, statutTache, commentTache, idTache);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2985,6 +3136,7 @@ class TachesCompanion extends UpdateCompanion<Tache> {
   final Value<String> statutTache;
   final Value<String> commentTache;
   final Value<int> idTache;
+
   const TachesCompanion({
     this.idOt = const Value.absent(),
     this.codeTache = const Value.absent(),
@@ -2993,6 +3145,7 @@ class TachesCompanion extends UpdateCompanion<Tache> {
     this.commentTache = const Value.absent(),
     this.idTache = const Value.absent(),
   });
+
   TachesCompanion.insert({
     this.idOt = const Value.absent(),
     required String codeTache,
@@ -3005,6 +3158,7 @@ class TachesCompanion extends UpdateCompanion<Tache> {
         statutTache = Value(statutTache),
         commentTache = Value(commentTache),
         idTache = Value(idTache);
+
   static Insertable<Tache> custom({
     Expression<int?>? idOt,
     Expression<String>? codeTache,
@@ -3081,7 +3235,9 @@ class TachesCompanion extends UpdateCompanion<Tache> {
 class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
   final GeneratedDatabase _db;
   final String? _alias;
+
   $TachesTable(this._db, [this._alias]);
+
   final VerificationMeta _idOtMeta = const VerificationMeta('idOt');
   late final GeneratedColumn<int?> idOt = GeneratedColumn<int?>(
       'id_ot', aliasedName, true,
@@ -3123,13 +3279,17 @@ class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
   late final GeneratedColumn<int?> idTache = GeneratedColumn<int?>(
       'id_tache', aliasedName, false,
       typeName: 'INTEGER', requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns =>
       [idOt, codeTache, libelleTache, statutTache, commentTache, idTache];
+
   @override
   String get aliasedName => _alias ?? 'taches';
+
   @override
   String get actualTableName => 'taches';
+
   @override
   VerificationContext validateIntegrity(Insertable<Tache> instance,
       {bool isInserting = false}) {
@@ -3180,6 +3340,7 @@ class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {codeTache};
+
   @override
   Tache map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Tache.fromData(data,
@@ -3214,8 +3375,10 @@ abstract class _$IomerDatabase extends GeneratedDatabase {
       ReservationDao(this as IomerDatabase);
   late final SiteDao siteDao = SiteDao(this as IomerDatabase);
   late final TacheDao tacheDao = TacheDao(this as IomerDatabase);
+
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
+
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
         articles,

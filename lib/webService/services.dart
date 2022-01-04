@@ -9,7 +9,7 @@ import 'equipements.dart';
 import 'matricules.dart';
 import 'origines.dart';
 
-var url = 'https://red-donkey-69.loca.lt';
+var url = 'https://chatty-shrimp-11.loca.lt/';
 
 /* Get Sites */
 Future<Site> fetchSite() async {
@@ -89,7 +89,7 @@ Future<OTs> fetchOTs(int idSite, int idOrigine) async {
   }
 }
 
-/* Get OT Taches */
+/* Get OT tâches */
 Future<OTTaches> fetchOTTaches(int idOT) async {
   final response = await http
       .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GETOT_TACHES/$idOT'));

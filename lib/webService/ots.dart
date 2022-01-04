@@ -33,7 +33,6 @@ class OTs {
       libelleOT: json['LIBELLEOT'],
       tempsOT: json['TEMPSOT'],
       statusOT:json['STATUSOT'] ,
-
     );
   }
 }

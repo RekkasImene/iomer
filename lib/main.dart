@@ -26,6 +26,7 @@ class _MyAppState extends State<MyApp> {
   late Future<Categories> futureCategories;
   late Future<OTs> futureOTs;
   late Future<OTTaches> futureOTTaches;
+
   @override
   void initState() {
     super.initState();
@@ -39,8 +40,6 @@ class _MyAppState extends State<MyApp> {
     futureCategories=fetchCategories(idSite);
     futureOTs=fetchOTs(idSite, idOrigine);
     futureOTTaches=fetchOTTaches(idOT);
-
-    
   }
 
   @override

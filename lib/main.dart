@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:developer';
+import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
@@ -24,7 +26,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Future<Sites> futureSite;
+  late Future<List<Site>> futureSite;
   late Future<Origines> futureOrigines;
   late Future<Matricules> futureMatricules;
   late Future<Equipements> futureEquipements;
@@ -32,26 +34,48 @@ class _MyAppState extends State<MyApp> {
   late Future<OTs> futureOTs;
   late Future<OTTaches> futureOTTaches;
   @override
-  void initState() {
+  void initState()  {
     super.initState();
-    int idSite =2;
-    int idOrigine =21;
-    int idOT=203;
-    futureSite = fetchSite();
-    futureOrigines = fetchOrigines(idSite);
+
+    IomerDatabase database;
+    database = IomerDatabase();
+    final site = SitesCompanion.insert(
+        CODESITE: 'iiii',
+        NOMSITE:  'ssss',
+        ADRESSESITE: 'hh',
+    );
+    database.insertSite(site);
+    futureSite=fetchSite();
+
+    futureSite.then((value) {value.map((e) {
+
+        database.insertSite(SitesCompanion.insert(
+          CODESITE: e.CODESITE,
+          NOMSITE:  e.NOMSITE,
+          ADRESSESITE: e.ADRESSESITE,));
+
+        log('site e : '+e.NOMSITE);}
+    );
+
+    }).catchError((error){
+      log('notre erreur------'+error);
+    });
+    /*fetchSite().then((value) {futureSite = value;}
+    ).catchError((error){
+      print('notre erreur------'+error);
+    });*/
+    /*futureOrigines = fetchOrigines(idSite);
     futureMatricules=fetchMatricules(idOrigine);
     futureEquipements=fetchEquipements(idSite);
     futureCategories=fetchCategories(idSite);
     futureOTs=fetchOTs(idSite, idOrigine);
-    futureOTTaches=fetchOTTaches(idOT);
+    futureOTTaches=fetchOTTaches(idOT);*/
 
-    IomerDatabase database;
-    database = IomerDatabase();
-    final site = Site(
- nomSite: 'azerty', codeSite: 'zero', adresseSite: 'klklkl', idSite: 1,
-    );
 
-    database.insertSite(site);
+
+
+
+
   }
 
   @override
@@ -66,22 +90,8 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Fetch Data Example'),
         ),
-        body: Center(
-          child: FutureBuilder<Sites>(
-            future: futureSite,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.data!.nomsite);
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
 
-              // By default, show a loading spinner.
-              return const CircularProgressIndicator();
-            },
-          ),
         ),
-      ),
     );
   }
 }

@@ -40,30 +40,27 @@ class _MyAppState extends State<MyApp> {
     IomerDatabase database;
     database = IomerDatabase();
     final site = SitesCompanion.insert(
-        CODESITE: 'iiii',
+        CODESITE: 'aaa',
         NOMSITE:  'ssss',
         ADRESSESITE: 'hh',
     );
     database.insertSite(site);
+
     futureSite=fetchSite();
 
-    futureSite.then((value) {value.map((e) {
-
+    futureSite.then((value) {
+      value.forEach((e) {
         database.insertSite(SitesCompanion.insert(
           CODESITE: e.CODESITE,
           NOMSITE:  e.NOMSITE,
           ADRESSESITE: e.ADRESSESITE,));
-
-        log('site e : '+e.NOMSITE);}
+}
     );
 
     }).catchError((error){
-      log('notre erreur------'+error);
+      log(error);
     });
-    /*fetchSite().then((value) {futureSite = value;}
-    ).catchError((error){
-      print('notre erreur------'+error);
-    });*/
+
     /*futureOrigines = fetchOrigines(idSite);
     futureMatricules=fetchMatricules(idOrigine);
     futureEquipements=fetchEquipements(idSite);

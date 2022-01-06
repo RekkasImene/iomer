@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:drift/drift.dart';
 import 'dart:io';
-import 'package:drift/drift.dart';
+import 'dart:ffi';
 
 import 'article.dart';
 import 'categorie.dart';
@@ -41,6 +41,6 @@ class IomerDatabase extends _$IomerDatabase {
   @override
   int get schemaVersion => 1;
 
-  Future insertSite(Site site) => into(sites).insert(site);
+  Future insertSite(SitesCompanion site) => into(sites).insert(site);
 
 }

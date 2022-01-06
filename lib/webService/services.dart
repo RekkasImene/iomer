@@ -1,25 +1,29 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/ot_taches.dart';
 import 'package:iomer/webService/ots.dart';
-import 'package:iomer/webService/sites.dart';
 import 'package:http/http.dart' as http;
 import 'categories.dart';
 import 'equipements.dart';
 import 'matricules.dart';
 import 'origines.dart';
 
-var url = 'https://chatty-shrimp-11.loca.lt/';
+var url = 'https://weak-badger-77.loca.lt';
 
 /* Get Sites */
-Future<Sites> fetchSite() async {
-  final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetSites'));
-
+Future<List<Site>> fetchSite() async {
+  final response = await http.get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetSites'));
   if (response.statusCode == 200) {
     log(response.body.toString());
-    return Sites.fromJson(jsonDecode(response.body));
-  } else {
+    List<Site> sites;
+    log('sitejson : xxxxxxx');
+    sites=(json.decode(response.body) as List)
+        .map((siteJson) => Site.fromJson(siteJson))
+        .toList();
+    log('sitejson : xxxxxxx'+sites.length.toString());
+    return sites;
+        } else {
     throw Exception('Failed to load site');
   }
 }
@@ -89,7 +93,7 @@ Future<OTs> fetchOTs(int idSite, int idOrigine) async {
   }
 }
 
-/* Get OT tâches */
+/* Get OT Taches */
 Future<OTTaches> fetchOTTaches(int idOT) async {
   final response = await http
       .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GETOT_TACHES/$idOT'));

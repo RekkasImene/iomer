@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomer/ui/accueil_screen.dart';
+import 'package:iomer/ui/cloture_screen.dart';
+import 'package:iomer/ui/new_ot_screen.dart';
 import 'package:iomer/webService/categories.dart';
 import 'package:iomer/webService/equipements.dart';
 import 'package:iomer/webService/matricules.dart';
@@ -58,11 +61,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
 
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
+        title: 'Iomer',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+        ),
+      home: AccueilScreen() /*Scaffold(
         appBar: AppBar(
           title: const Text('Fetch Data Example'),
         ),
@@ -81,7 +85,7 @@ class _MyAppState extends State<MyApp> {
             },
           ),
         ),
-      ),
+      ),*/
     );
   }
 }

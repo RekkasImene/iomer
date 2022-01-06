@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
@@ -11,9 +13,12 @@ import 'package:iomer/webService/ots.dart';
 import 'package:iomer/webService/services.dart';
 import 'package:iomer/webService/sites.dart';
 
-void main() {
 
+void main() async {
   runApp(const MyApp());
+
+  Site unsite  = await fetchSite();
+  log("Uuuuuuuuuuuuuuuuuuuuuuuuuuu --- "+unsite.toString());
 }
 
 class MyApp extends StatefulWidget {
@@ -24,35 +29,41 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Future<Sites> futureSite;
-  late Future<Origines> futureOrigines;
-  late Future<Matricules> futureMatricules;
-  late Future<Equipements> futureEquipements;
-  late Future<Categories> futureCategories;
-  late Future<OTs> futureOTs;
-  late Future<OTTaches> futureOTTaches;
+
+  //late Future<Sites> futureSite;
+  //late Future<Origines> futureOrigines;
+  //late Future<Matricules> futureMatricules;
+  //late Future<Equipements> futureEquipements;
+  //late Future<Categories> futureCategories;
+  //late Future<OTs> futureOTs;
+  //late Future<OTTaches> futureOTTaches;
+
+
   @override
   void initState() {
     super.initState();
-    int idSite =2;
-    int idOrigine =21;
-    int idOT=203;
-    futureSite = fetchSite();
-    futureOrigines = fetchOrigines(idSite);
-    futureMatricules=fetchMatricules(idOrigine);
-    futureEquipements=fetchEquipements(idSite);
-    futureCategories=fetchCategories(idSite);
-    futureOTs=fetchOTs(idSite, idOrigine);
-    futureOTTaches=fetchOTTaches(idOT);
 
-    IomerDatabase database;
-    database = IomerDatabase();
+    int idsite =2;
+    int idorigine =21;
+    int idOT=203;
+
+    //futureOrigines = fetchOrigines(idSite);
+    //futureMatricules=fetchMatricules(idOrigine);
+    //futureEquipements=fetchEquipements(idSite);
+    //futureCategories=fetchCategories(idSite);
+    //futureOTs=fetchOTs(idSite, idOrigine);
+    //futureOTTaches=fetchOTTaches(idOT);
+
+    IomerDatabase database = IomerDatabase();
+
     final site = Site(
- nomSite: 'azerty', codeSite: 'zero', adresseSite: 'klklkl', idSite: 1,
+      NOMSITE: 'azerty', CODESITE: 'zero', ADRESSESITE: 'klklkl', IDSITE: 2
     );
 
-    database.insertSite(site);
+    //database.insertSite(site);
+    //database.insertSite(site2);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +78,11 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Fetch Data Example'),
         ),
         body: Center(
-          child: FutureBuilder<Sites>(
-            future: futureSite,
+          child: FutureBuilder<Site>(
+
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Text(snapshot.data!.nomsite);
+                return Text(snapshot.data!.NOMSITE);
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }

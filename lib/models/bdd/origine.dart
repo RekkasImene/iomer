@@ -17,6 +17,7 @@ class Origines extends Table {
 @DriftAccessor(
     tables:[Origines]
 )
+
 class OrigineDao extends DatabaseAccessor<IomerDatabase> with _$OrigineDaoMixin{
   final IomerDatabase db;
   OrigineDao(this.db):super (db);

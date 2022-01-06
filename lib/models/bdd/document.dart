@@ -16,6 +16,7 @@ class Documents extends Table {
 @DriftAccessor(
     tables:[Documents]
 )
+
 class DocumentDao extends DatabaseAccessor<IomerDatabase> with _$DocumentDaoMixin{
   final IomerDatabase db;
   DocumentDao(this.db):super (db);

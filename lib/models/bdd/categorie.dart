@@ -17,6 +17,7 @@ class Categories extends Table {
 @DriftAccessor(
     tables:[Categories]
 )
+
 class CategorieDao extends DatabaseAccessor<IomerDatabase> with _$CategorieDaoMixin{
   final IomerDatabase db;
   CategorieDao(this.db):super (db);

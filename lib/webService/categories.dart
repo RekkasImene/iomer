@@ -17,7 +17,6 @@ class Categories {
       idCategorie: json['IDCATEGORIE'],
       codeCategorie: json['CODECATEGORIE'],
       libelleCategorie: json['LIBELLECATEGORIE'],
-
     );
   }
 }

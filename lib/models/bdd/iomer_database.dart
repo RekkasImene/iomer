@@ -1,5 +1,4 @@
 import 'package:drift/native.dart';
-import 'package:flutter/foundation.dart';
 import 'package:iomer/models/bdd/origine.dart';
 import 'package:iomer/models/bdd/ot.dart';
 import 'package:iomer/models/bdd/reservation.dart';
@@ -9,7 +8,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:drift/drift.dart';
 import 'dart:io';
-import 'package:drift/drift.dart';
 
 import 'article.dart';
 import 'categorie.dart';
@@ -35,6 +33,7 @@ LazyDatabase _openConnection() {
     daos: [ArticleDao,CategorieDao,EquipementDao,MatriculeDao,OrigineDao,OtDao,
       ReservationDao,SiteDao,TacheDao]
 )
+
 class IomerDatabase extends _$IomerDatabase {
   IomerDatabase() : super(_openConnection());
 

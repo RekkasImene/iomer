@@ -19,6 +19,7 @@ class Matricules extends Table {
 @DriftAccessor(
     tables:[Matricules]
 )
+
 class MatriculeDao extends DatabaseAccessor<IomerDatabase> with _$MatriculeDaoMixin{
   final IomerDatabase db;
   MatriculeDao(this.db):super (db);

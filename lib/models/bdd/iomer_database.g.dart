@@ -2597,44 +2597,44 @@ class $ReservationsTable extends Reservations
 }
 
 class Site extends DataClass implements Insertable<Site> {
-  final int idSite;
-  final String codeSite;
-  final String nomSite;
-  final String adresseSite;
+  final int IDSITE;
+  final String CODESITE;
+  final String NOMSITE;
+  final String ADRESSESITE;
   Site(
-      {required this.idSite,
-      required this.codeSite,
-      required this.nomSite,
-      required this.adresseSite});
+      {required this.IDSITE,
+      required this.CODESITE,
+      required this.NOMSITE,
+      required this.ADRESSESITE});
   factory Site.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Site(
-      idSite: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_site'])!,
-      codeSite: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}code_site'])!,
-      nomSite: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}nom_site'])!,
-      adresseSite: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}adresse_site'])!,
+      IDSITE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idsite'])!,
+      CODESITE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codesite'])!,
+      NOMSITE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nomsite'])!,
+      ADRESSESITE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}adressesite'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id_site'] = Variable<int>(idSite);
-    map['code_site'] = Variable<String>(codeSite);
-    map['nom_site'] = Variable<String>(nomSite);
-    map['adresse_site'] = Variable<String>(adresseSite);
+    map['idsite'] = Variable<int>(IDSITE);
+    map['codesite'] = Variable<String>(CODESITE);
+    map['nomsite'] = Variable<String>(NOMSITE);
+    map['adressesite'] = Variable<String>(ADRESSESITE);
     return map;
   }
 
   SitesCompanion toCompanion(bool nullToAbsent) {
     return SitesCompanion(
-      idSite: Value(idSite),
-      codeSite: Value(codeSite),
-      nomSite: Value(nomSite),
-      adresseSite: Value(adresseSite),
+      IDSITE: Value(IDSITE),
+      CODESITE: Value(CODESITE),
+      NOMSITE: Value(NOMSITE),
+      ADRESSESITE: Value(ADRESSESITE),
     );
   }
 
@@ -2642,117 +2642,117 @@ class Site extends DataClass implements Insertable<Site> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Site(
-      idSite: serializer.fromJson<int>(json['idSite']),
-      codeSite: serializer.fromJson<String>(json['codeSite']),
-      nomSite: serializer.fromJson<String>(json['nomSite']),
-      adresseSite: serializer.fromJson<String>(json['adresseSite']),
+      IDSITE: serializer.fromJson<int>(json['IDSITE']),
+      CODESITE: serializer.fromJson<String>(json['CODESITE']),
+      NOMSITE: serializer.fromJson<String>(json['NOMSITE']),
+      ADRESSESITE: serializer.fromJson<String>(json['ADRESSESITE']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'idSite': serializer.toJson<int>(idSite),
-      'codeSite': serializer.toJson<String>(codeSite),
-      'nomSite': serializer.toJson<String>(nomSite),
-      'adresseSite': serializer.toJson<String>(adresseSite),
+      'IDSITE': serializer.toJson<int>(IDSITE),
+      'CODESITE': serializer.toJson<String>(CODESITE),
+      'NOMSITE': serializer.toJson<String>(NOMSITE),
+      'ADRESSESITE': serializer.toJson<String>(ADRESSESITE),
     };
   }
 
   Site copyWith(
-          {int? idSite,
-          String? codeSite,
-          String? nomSite,
-          String? adresseSite}) =>
+          {int? IDSITE,
+          String? CODESITE,
+          String? NOMSITE,
+          String? ADRESSESITE}) =>
       Site(
-        idSite: idSite ?? this.idSite,
-        codeSite: codeSite ?? this.codeSite,
-        nomSite: nomSite ?? this.nomSite,
-        adresseSite: adresseSite ?? this.adresseSite,
+        IDSITE: IDSITE ?? this.IDSITE,
+        CODESITE: CODESITE ?? this.CODESITE,
+        NOMSITE: NOMSITE ?? this.NOMSITE,
+        ADRESSESITE: ADRESSESITE ?? this.ADRESSESITE,
       );
   @override
   String toString() {
     return (StringBuffer('Site(')
-          ..write('idSite: $idSite, ')
-          ..write('codeSite: $codeSite, ')
-          ..write('nomSite: $nomSite, ')
-          ..write('adresseSite: $adresseSite')
+          ..write('IDSITE: $IDSITE, ')
+          ..write('CODESITE: $CODESITE, ')
+          ..write('NOMSITE: $NOMSITE, ')
+          ..write('ADRESSESITE: $ADRESSESITE')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(idSite, codeSite, nomSite, adresseSite);
+  int get hashCode => Object.hash(IDSITE, CODESITE, NOMSITE, ADRESSESITE);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Site &&
-          other.idSite == this.idSite &&
-          other.codeSite == this.codeSite &&
-          other.nomSite == this.nomSite &&
-          other.adresseSite == this.adresseSite);
+          other.IDSITE == this.IDSITE &&
+          other.CODESITE == this.CODESITE &&
+          other.NOMSITE == this.NOMSITE &&
+          other.ADRESSESITE == this.ADRESSESITE);
 }
 
 class SitesCompanion extends UpdateCompanion<Site> {
-  final Value<int> idSite;
-  final Value<String> codeSite;
-  final Value<String> nomSite;
-  final Value<String> adresseSite;
+  final Value<int> IDSITE;
+  final Value<String> CODESITE;
+  final Value<String> NOMSITE;
+  final Value<String> ADRESSESITE;
   const SitesCompanion({
-    this.idSite = const Value.absent(),
-    this.codeSite = const Value.absent(),
-    this.nomSite = const Value.absent(),
-    this.adresseSite = const Value.absent(),
+    this.IDSITE = const Value.absent(),
+    this.CODESITE = const Value.absent(),
+    this.NOMSITE = const Value.absent(),
+    this.ADRESSESITE = const Value.absent(),
   });
   SitesCompanion.insert({
-    this.idSite = const Value.absent(),
-    required String codeSite,
-    required String nomSite,
-    required String adresseSite,
-  })  : codeSite = Value(codeSite),
-        nomSite = Value(nomSite),
-        adresseSite = Value(adresseSite);
+    this.IDSITE = const Value.absent(),
+    required String CODESITE,
+    required String NOMSITE,
+    required String ADRESSESITE,
+  })  : CODESITE = Value(CODESITE),
+        NOMSITE = Value(NOMSITE),
+        ADRESSESITE = Value(ADRESSESITE);
   static Insertable<Site> custom({
-    Expression<int>? idSite,
-    Expression<String>? codeSite,
-    Expression<String>? nomSite,
-    Expression<String>? adresseSite,
+    Expression<int>? IDSITE,
+    Expression<String>? CODESITE,
+    Expression<String>? NOMSITE,
+    Expression<String>? ADRESSESITE,
   }) {
     return RawValuesInsertable({
-      if (idSite != null) 'id_site': idSite,
-      if (codeSite != null) 'code_site': codeSite,
-      if (nomSite != null) 'nom_site': nomSite,
-      if (adresseSite != null) 'adresse_site': adresseSite,
+      if (IDSITE != null) 'idsite': IDSITE,
+      if (CODESITE != null) 'codesite': CODESITE,
+      if (NOMSITE != null) 'nomsite': NOMSITE,
+      if (ADRESSESITE != null) 'adressesite': ADRESSESITE,
     });
   }
 
   SitesCompanion copyWith(
-      {Value<int>? idSite,
-      Value<String>? codeSite,
-      Value<String>? nomSite,
-      Value<String>? adresseSite}) {
+      {Value<int>? IDSITE,
+      Value<String>? CODESITE,
+      Value<String>? NOMSITE,
+      Value<String>? ADRESSESITE}) {
     return SitesCompanion(
-      idSite: idSite ?? this.idSite,
-      codeSite: codeSite ?? this.codeSite,
-      nomSite: nomSite ?? this.nomSite,
-      adresseSite: adresseSite ?? this.adresseSite,
+      IDSITE: IDSITE ?? this.IDSITE,
+      CODESITE: CODESITE ?? this.CODESITE,
+      NOMSITE: NOMSITE ?? this.NOMSITE,
+      ADRESSESITE: ADRESSESITE ?? this.ADRESSESITE,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (idSite.present) {
-      map['id_site'] = Variable<int>(idSite.value);
+    if (IDSITE.present) {
+      map['idsite'] = Variable<int>(IDSITE.value);
     }
-    if (codeSite.present) {
-      map['code_site'] = Variable<String>(codeSite.value);
+    if (CODESITE.present) {
+      map['codesite'] = Variable<String>(CODESITE.value);
     }
-    if (nomSite.present) {
-      map['nom_site'] = Variable<String>(nomSite.value);
+    if (NOMSITE.present) {
+      map['nomsite'] = Variable<String>(NOMSITE.value);
     }
-    if (adresseSite.present) {
-      map['adresse_site'] = Variable<String>(adresseSite.value);
+    if (ADRESSESITE.present) {
+      map['adressesite'] = Variable<String>(ADRESSESITE.value);
     }
     return map;
   }
@@ -2760,10 +2760,10 @@ class SitesCompanion extends UpdateCompanion<Site> {
   @override
   String toString() {
     return (StringBuffer('SitesCompanion(')
-          ..write('idSite: $idSite, ')
-          ..write('codeSite: $codeSite, ')
-          ..write('nomSite: $nomSite, ')
-          ..write('adresseSite: $adresseSite')
+          ..write('IDSITE: $IDSITE, ')
+          ..write('CODESITE: $CODESITE, ')
+          ..write('NOMSITE: $NOMSITE, ')
+          ..write('ADRESSESITE: $ADRESSESITE')
           ..write(')'))
         .toString();
   }
@@ -2773,37 +2773,37 @@ class $SitesTable extends Sites with TableInfo<$SitesTable, Site> {
   final GeneratedDatabase _db;
   final String? _alias;
   $SitesTable(this._db, [this._alias]);
-  final VerificationMeta _idSiteMeta = const VerificationMeta('idSite');
-  late final GeneratedColumn<int?> idSite = GeneratedColumn<int?>(
-      'id_site', aliasedName, false,
+  final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
+  late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
+      'idsite', aliasedName, false,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _codeSiteMeta = const VerificationMeta('codeSite');
-  late final GeneratedColumn<String?> codeSite = GeneratedColumn<String?>(
-      'code_site', aliasedName, false,
+  final VerificationMeta _CODESITEMeta = const VerificationMeta('CODESITE');
+  late final GeneratedColumn<String?> CODESITE = GeneratedColumn<String?>(
+      'codesite', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
       typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _nomSiteMeta = const VerificationMeta('nomSite');
-  late final GeneratedColumn<String?> nomSite = GeneratedColumn<String?>(
-      'nom_site', aliasedName, false,
+  final VerificationMeta _NOMSITEMeta = const VerificationMeta('NOMSITE');
+  late final GeneratedColumn<String?> NOMSITE = GeneratedColumn<String?>(
+      'nomsite', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
       typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _adresseSiteMeta =
-      const VerificationMeta('adresseSite');
-  late final GeneratedColumn<String?> adresseSite = GeneratedColumn<String?>(
-      'adresse_site', aliasedName, false,
+  final VerificationMeta _ADRESSESITEMeta =
+      const VerificationMeta('ADRESSESITE');
+  late final GeneratedColumn<String?> ADRESSESITE = GeneratedColumn<String?>(
+      'adressesite', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
       typeName: 'TEXT',
       requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [idSite, codeSite, nomSite, adresseSite];
+      [IDSITE, CODESITE, NOMSITE, ADRESSESITE];
   @override
   String get aliasedName => _alias ?? 'sites';
   @override
@@ -2813,35 +2813,35 @@ class $SitesTable extends Sites with TableInfo<$SitesTable, Site> {
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_site')) {
-      context.handle(_idSiteMeta,
-          idSite.isAcceptableOrUnknown(data['id_site']!, _idSiteMeta));
+    if (data.containsKey('idsite')) {
+      context.handle(_IDSITEMeta,
+          IDSITE.isAcceptableOrUnknown(data['idsite']!, _IDSITEMeta));
     }
-    if (data.containsKey('code_site')) {
-      context.handle(_codeSiteMeta,
-          codeSite.isAcceptableOrUnknown(data['code_site']!, _codeSiteMeta));
+    if (data.containsKey('codesite')) {
+      context.handle(_CODESITEMeta,
+          CODESITE.isAcceptableOrUnknown(data['codesite']!, _CODESITEMeta));
     } else if (isInserting) {
-      context.missing(_codeSiteMeta);
+      context.missing(_CODESITEMeta);
     }
-    if (data.containsKey('nom_site')) {
-      context.handle(_nomSiteMeta,
-          nomSite.isAcceptableOrUnknown(data['nom_site']!, _nomSiteMeta));
+    if (data.containsKey('nomsite')) {
+      context.handle(_NOMSITEMeta,
+          NOMSITE.isAcceptableOrUnknown(data['nomsite']!, _NOMSITEMeta));
     } else if (isInserting) {
-      context.missing(_nomSiteMeta);
+      context.missing(_NOMSITEMeta);
     }
-    if (data.containsKey('adresse_site')) {
+    if (data.containsKey('adressesite')) {
       context.handle(
-          _adresseSiteMeta,
-          adresseSite.isAcceptableOrUnknown(
-              data['adresse_site']!, _adresseSiteMeta));
+          _ADRESSESITEMeta,
+          ADRESSESITE.isAcceptableOrUnknown(
+              data['adressesite']!, _ADRESSESITEMeta));
     } else if (isInserting) {
-      context.missing(_adresseSiteMeta);
+      context.missing(_ADRESSESITEMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idSite};
+  Set<GeneratedColumn> get $primaryKey => {IDSITE};
   @override
   Site map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Site.fromData(data,

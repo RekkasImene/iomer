@@ -8,6 +8,17 @@ class FirstScreen extends StatefulWidget{
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+  //TODO a remplacer avec données (les memes que pour l'ecran cloture)
+  List<String> _texts = [
+    "Jean Michelle",
+    "Jean Pierre",
+    "Pierre Jean",
+    "Jean Marie Cecile",
+    "Pierre",
+    "Paul",
+    "Jack"
+  ];
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -32,12 +43,13 @@ class _FirstScreenState extends State<FirstScreen> {
               child: Container(
                 decoration: BoxDecoration(border: Border.all(color: Colors.black)),
                 //padding: const EdgeInsets.all(16.0) ,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  padding: const EdgeInsets.all(16.0) ,
-                  children: const [
-
-                  ],
+                child: ListView.builder(
+                  itemCount: _texts.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(_texts[index]),
+                    );
+                  },
                 ),
               ),
             ),

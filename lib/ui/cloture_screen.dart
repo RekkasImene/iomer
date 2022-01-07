@@ -8,8 +8,8 @@ class ClotureOtScreen extends StatefulWidget{
 }
 
 class _ClotureOtScreenState extends State<ClotureOtScreen> {
+  //TODO a remplacer avec données (les memes que pour l'ecran first_screen)
 
-  //TODO a remplacer avec données
   List<String> _texts = [
     "Jean Michelle",
     "Jean Pierre",

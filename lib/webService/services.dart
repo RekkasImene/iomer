@@ -12,26 +12,24 @@ import 'origines.dart';
 var url = 'https://weak-badger-77.loca.lt';
 
 /* Get Sites */
-Future<List<Site>> fetchSite() async {
+Future<List<Map<Site, dynamic>>> fetchSite() async {
   final response = await http.get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetSites'));
   if (response.statusCode == 200) {
     log(response.body.toString());
     List<Site> sites;
-    log('sitejson : xxxxxxx');
-    sites=(json.decode(response.body) as List)
-        .map((siteJson) => Site.fromJson(siteJson))
-        .toList();
-    log('sitejson : xxxxxxx'+sites.length.toString());
-    return sites;
-        } else {
+
+    sites= (json.decode(response.body) as List).map((siteJson) => Site.fromJson(siteJson)).toList();
+
+    return List<Map<Site, dynamic>>.from(json.decode(response.body));
+
+  } else {
     throw Exception('Failed to load site');
   }
 }
 
 /* Get Origines */
 Future<Origines> fetchOrigines(int id) async {
-  final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetOrigines/$id'));
+  final response = await http.get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetOrigines/$id'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());

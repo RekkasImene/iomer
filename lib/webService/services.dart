@@ -9,24 +9,16 @@ import 'equipements.dart';
 import 'matricules.dart';
 import 'origines.dart';
 
-var url = 'https://unlucky-husky-89.loca.lt';
+var url = 'https://tricky-stingray-92.loca.lt';
 
 /* Get Sites */
 Future<List<Site>> fetchSite() async {
   final response = await http.get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetSites'));
   if (response.statusCode == 200) {
-    log(response.body.toString());
-
-    String nestedObjText =
-        '[{"IDSITE":1 , "NOMSITE": "Site 01", "ADRESSESITE": "Adresse S01" , "CODESITE": "S01"},{"IDSITE":2 , "NOMSITE": "Site 02", "ADRESSESITE": "Adresse S02" , "CODESITE": "S02"}]';
-
-    List<dynamic> parsedListJson = jsonDecode(nestedObjText);
-    log('sitejson : +++++++ ${parsedListJson.toString()}');
-    List<Site> sites = List<Site>.from(parsedListJson.map((model)=> Site.fromJson(model)));
-    /*List<Site> sites;
+    List<Site> sites;
     sites=(json.decode(response.body) as List)
         .map((siteJson) => Site.fromJson(siteJson))
-        .toList();*/
+        .toList();
     return sites;
         } else {
     throw Exception('Failed to load site');

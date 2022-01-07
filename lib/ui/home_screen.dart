@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:iomer/ui/first_screen.dart';
 
-class AccueilScreen extends StatefulWidget{
-  const AccueilScreen({Key? key}):super(key: key);
+class HomeScreen extends StatefulWidget{
+  const HomeScreen({Key? key}):super(key: key);
 
   @override
-  State<AccueilScreen> createState() => _AccueilScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _AccueilScreenState extends State<AccueilScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   //TODO a remplacer avec données
   List<String> _texts = [
     "Lille",

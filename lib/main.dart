@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/categories.dart';
@@ -11,7 +9,6 @@ import 'package:iomer/webService/origines.dart';
 import 'package:iomer/webService/ot_taches.dart';
 import 'package:iomer/webService/ots.dart';
 import 'package:iomer/webService/services.dart';
-import 'package:iomer/webService/sites.dart';
 
 void main() {
 
@@ -39,13 +36,6 @@ class _MyAppState extends State<MyApp> {
 
     IomerDatabase database;
     database = IomerDatabase();
-    final site = SitesCompanion.insert(
-        CODESITE: 'aaa',
-        NOMSITE:  'ssss',
-        ADRESSESITE: 'hh',
-    );
-    database.insertSite(site);
-
     futureSite=fetchSite();
 
     futureSite.then((value) {

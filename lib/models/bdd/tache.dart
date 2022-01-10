@@ -15,9 +15,7 @@ class Taches extends Table {
   Set<Column> get primaryKey => {CODETACHE,IDTACHE};
 }
 
-@DriftAccessor(
-    tables:[Taches]
-)
+@DriftAccessor(tables:[Taches])
 class TacheDao extends DatabaseAccessor<IomerDatabase> with _$TacheDaoMixin{
   final IomerDatabase db;
   TacheDao(this.db):super (db);

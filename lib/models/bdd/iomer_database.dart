@@ -2,6 +2,7 @@ import 'package:drift/native.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
+import 'package:iomer/models/bdd/config.dart';
 import 'package:iomer/models/bdd/origine.dart';
 import 'package:iomer/models/bdd/ot.dart';
 import 'package:iomer/models/bdd/reservation.dart';
@@ -33,9 +34,9 @@ LazyDatabase _openConnection() {
 }
 
 @DriftDatabase(tables: [Articles,Categories,Documents,Equipements,Matricules,
-  Origines,Ot,Reservations,Sites,Taches],
+  Origines,Ot,Reservations,Sites,Taches,Config],
     daos: [ArticleDao,CategorieDao,EquipementDao,MatriculeDao,OrigineDao,OtDao,
-      ReservationDao,SiteDao,TacheDao]
+      ReservationDao,SiteDao,TacheDao,ConfigDao]
 )
 @Environment(Env.prod)
 @injectable

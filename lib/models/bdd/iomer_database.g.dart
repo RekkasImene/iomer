@@ -3269,6 +3269,304 @@ class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
   }
 }
 
+class ConfigData extends DataClass implements Insertable<ConfigData> {
+  final int IDSITE;
+  final String CODEPOCKET;
+  final String NOMPOCKET;
+  final int IDORIGINE;
+  final int IDORIGINAL;
+  ConfigData(
+      {required this.IDSITE,
+      required this.CODEPOCKET,
+      required this.NOMPOCKET,
+      required this.IDORIGINE,
+      required this.IDORIGINAL});
+  factory ConfigData.fromData(Map<String, dynamic> data, {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return ConfigData(
+      IDSITE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idsite'])!,
+      CODEPOCKET: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codepocket'])!,
+      NOMPOCKET: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nompocket'])!,
+      IDORIGINE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idorigine'])!,
+      IDORIGINAL: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idoriginal'])!,
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['idsite'] = Variable<int>(IDSITE);
+    map['codepocket'] = Variable<String>(CODEPOCKET);
+    map['nompocket'] = Variable<String>(NOMPOCKET);
+    map['idorigine'] = Variable<int>(IDORIGINE);
+    map['idoriginal'] = Variable<int>(IDORIGINAL);
+    return map;
+  }
+
+  ConfigCompanion toCompanion(bool nullToAbsent) {
+    return ConfigCompanion(
+      IDSITE: Value(IDSITE),
+      CODEPOCKET: Value(CODEPOCKET),
+      NOMPOCKET: Value(NOMPOCKET),
+      IDORIGINE: Value(IDORIGINE),
+      IDORIGINAL: Value(IDORIGINAL),
+    );
+  }
+
+  factory ConfigData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ConfigData(
+      IDSITE: serializer.fromJson<int>(json['IDSITE']),
+      CODEPOCKET: serializer.fromJson<String>(json['CODEPOCKET']),
+      NOMPOCKET: serializer.fromJson<String>(json['NOMPOCKET']),
+      IDORIGINE: serializer.fromJson<int>(json['IDORIGINE']),
+      IDORIGINAL: serializer.fromJson<int>(json['IDORIGINAL']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'IDSITE': serializer.toJson<int>(IDSITE),
+      'CODEPOCKET': serializer.toJson<String>(CODEPOCKET),
+      'NOMPOCKET': serializer.toJson<String>(NOMPOCKET),
+      'IDORIGINE': serializer.toJson<int>(IDORIGINE),
+      'IDORIGINAL': serializer.toJson<int>(IDORIGINAL),
+    };
+  }
+
+  ConfigData copyWith(
+          {int? IDSITE,
+          String? CODEPOCKET,
+          String? NOMPOCKET,
+          int? IDORIGINE,
+          int? IDORIGINAL}) =>
+      ConfigData(
+        IDSITE: IDSITE ?? this.IDSITE,
+        CODEPOCKET: CODEPOCKET ?? this.CODEPOCKET,
+        NOMPOCKET: NOMPOCKET ?? this.NOMPOCKET,
+        IDORIGINE: IDORIGINE ?? this.IDORIGINE,
+        IDORIGINAL: IDORIGINAL ?? this.IDORIGINAL,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ConfigData(')
+          ..write('IDSITE: $IDSITE, ')
+          ..write('CODEPOCKET: $CODEPOCKET, ')
+          ..write('NOMPOCKET: $NOMPOCKET, ')
+          ..write('IDORIGINE: $IDORIGINE, ')
+          ..write('IDORIGINAL: $IDORIGINAL')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(IDSITE, CODEPOCKET, NOMPOCKET, IDORIGINE, IDORIGINAL);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ConfigData &&
+          other.IDSITE == this.IDSITE &&
+          other.CODEPOCKET == this.CODEPOCKET &&
+          other.NOMPOCKET == this.NOMPOCKET &&
+          other.IDORIGINE == this.IDORIGINE &&
+          other.IDORIGINAL == this.IDORIGINAL);
+}
+
+class ConfigCompanion extends UpdateCompanion<ConfigData> {
+  final Value<int> IDSITE;
+  final Value<String> CODEPOCKET;
+  final Value<String> NOMPOCKET;
+  final Value<int> IDORIGINE;
+  final Value<int> IDORIGINAL;
+  const ConfigCompanion({
+    this.IDSITE = const Value.absent(),
+    this.CODEPOCKET = const Value.absent(),
+    this.NOMPOCKET = const Value.absent(),
+    this.IDORIGINE = const Value.absent(),
+    this.IDORIGINAL = const Value.absent(),
+  });
+  ConfigCompanion.insert({
+    required int IDSITE,
+    required String CODEPOCKET,
+    required String NOMPOCKET,
+    required int IDORIGINE,
+    required int IDORIGINAL,
+  })  : IDSITE = Value(IDSITE),
+        CODEPOCKET = Value(CODEPOCKET),
+        NOMPOCKET = Value(NOMPOCKET),
+        IDORIGINE = Value(IDORIGINE),
+        IDORIGINAL = Value(IDORIGINAL);
+  static Insertable<ConfigData> custom({
+    Expression<int>? IDSITE,
+    Expression<String>? CODEPOCKET,
+    Expression<String>? NOMPOCKET,
+    Expression<int>? IDORIGINE,
+    Expression<int>? IDORIGINAL,
+  }) {
+    return RawValuesInsertable({
+      if (IDSITE != null) 'idsite': IDSITE,
+      if (CODEPOCKET != null) 'codepocket': CODEPOCKET,
+      if (NOMPOCKET != null) 'nompocket': NOMPOCKET,
+      if (IDORIGINE != null) 'idorigine': IDORIGINE,
+      if (IDORIGINAL != null) 'idoriginal': IDORIGINAL,
+    });
+  }
+
+  ConfigCompanion copyWith(
+      {Value<int>? IDSITE,
+      Value<String>? CODEPOCKET,
+      Value<String>? NOMPOCKET,
+      Value<int>? IDORIGINE,
+      Value<int>? IDORIGINAL}) {
+    return ConfigCompanion(
+      IDSITE: IDSITE ?? this.IDSITE,
+      CODEPOCKET: CODEPOCKET ?? this.CODEPOCKET,
+      NOMPOCKET: NOMPOCKET ?? this.NOMPOCKET,
+      IDORIGINE: IDORIGINE ?? this.IDORIGINE,
+      IDORIGINAL: IDORIGINAL ?? this.IDORIGINAL,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (IDSITE.present) {
+      map['idsite'] = Variable<int>(IDSITE.value);
+    }
+    if (CODEPOCKET.present) {
+      map['codepocket'] = Variable<String>(CODEPOCKET.value);
+    }
+    if (NOMPOCKET.present) {
+      map['nompocket'] = Variable<String>(NOMPOCKET.value);
+    }
+    if (IDORIGINE.present) {
+      map['idorigine'] = Variable<int>(IDORIGINE.value);
+    }
+    if (IDORIGINAL.present) {
+      map['idoriginal'] = Variable<int>(IDORIGINAL.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ConfigCompanion(')
+          ..write('IDSITE: $IDSITE, ')
+          ..write('CODEPOCKET: $CODEPOCKET, ')
+          ..write('NOMPOCKET: $NOMPOCKET, ')
+          ..write('IDORIGINE: $IDORIGINE, ')
+          ..write('IDORIGINAL: $IDORIGINAL')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ConfigTable extends Config with TableInfo<$ConfigTable, ConfigData> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $ConfigTable(this._db, [this._alias]);
+  final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
+  late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
+      'idsite', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: true,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
+  final VerificationMeta _CODEPOCKETMeta = const VerificationMeta('CODEPOCKET');
+  late final GeneratedColumn<String?> CODEPOCKET = GeneratedColumn<String?>(
+      'codepocket', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 16),
+      typeName: 'TEXT',
+      requiredDuringInsert: true);
+  final VerificationMeta _NOMPOCKETMeta = const VerificationMeta('NOMPOCKET');
+  late final GeneratedColumn<String?> NOMPOCKET = GeneratedColumn<String?>(
+      'nompocket', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
+      typeName: 'TEXT',
+      requiredDuringInsert: true);
+  final VerificationMeta _IDORIGINEMeta = const VerificationMeta('IDORIGINE');
+  late final GeneratedColumn<int?> IDORIGINE = GeneratedColumn<int?>(
+      'idorigine', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: true,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
+  final VerificationMeta _IDORIGINALMeta = const VerificationMeta('IDORIGINAL');
+  late final GeneratedColumn<int?> IDORIGINAL = GeneratedColumn<int?>(
+      'idoriginal', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: true,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
+  @override
+  List<GeneratedColumn> get $columns =>
+      [IDSITE, CODEPOCKET, NOMPOCKET, IDORIGINE, IDORIGINAL];
+  @override
+  String get aliasedName => _alias ?? 'config';
+  @override
+  String get actualTableName => 'config';
+  @override
+  VerificationContext validateIntegrity(Insertable<ConfigData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('idsite')) {
+      context.handle(_IDSITEMeta,
+          IDSITE.isAcceptableOrUnknown(data['idsite']!, _IDSITEMeta));
+    } else if (isInserting) {
+      context.missing(_IDSITEMeta);
+    }
+    if (data.containsKey('codepocket')) {
+      context.handle(
+          _CODEPOCKETMeta,
+          CODEPOCKET.isAcceptableOrUnknown(
+              data['codepocket']!, _CODEPOCKETMeta));
+    } else if (isInserting) {
+      context.missing(_CODEPOCKETMeta);
+    }
+    if (data.containsKey('nompocket')) {
+      context.handle(_NOMPOCKETMeta,
+          NOMPOCKET.isAcceptableOrUnknown(data['nompocket']!, _NOMPOCKETMeta));
+    } else if (isInserting) {
+      context.missing(_NOMPOCKETMeta);
+    }
+    if (data.containsKey('idorigine')) {
+      context.handle(_IDORIGINEMeta,
+          IDORIGINE.isAcceptableOrUnknown(data['idorigine']!, _IDORIGINEMeta));
+    } else if (isInserting) {
+      context.missing(_IDORIGINEMeta);
+    }
+    if (data.containsKey('idoriginal')) {
+      context.handle(
+          _IDORIGINALMeta,
+          IDORIGINAL.isAcceptableOrUnknown(
+              data['idoriginal']!, _IDORIGINALMeta));
+    } else if (isInserting) {
+      context.missing(_IDORIGINALMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {CODEPOCKET};
+  @override
+  ConfigData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return ConfigData.fromData(data,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  }
+
+  @override
+  $ConfigTable createAlias(String alias) {
+    return $ConfigTable(_db, alias);
+  }
+}
+
 abstract class _$IomerDatabase extends GeneratedDatabase {
   _$IomerDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final $ArticlesTable articles = $ArticlesTable(this);
@@ -3281,6 +3579,7 @@ abstract class _$IomerDatabase extends GeneratedDatabase {
   late final $ReservationsTable reservations = $ReservationsTable(this);
   late final $SitesTable sites = $SitesTable(this);
   late final $TachesTable taches = $TachesTable(this);
+  late final $ConfigTable config = $ConfigTable(this);
   late final ArticleDao articleDao = ArticleDao(this as IomerDatabase);
   late final CategorieDao categorieDao = CategorieDao(this as IomerDatabase);
   late final EquipementDao equipementDao = EquipementDao(this as IomerDatabase);
@@ -3291,6 +3590,7 @@ abstract class _$IomerDatabase extends GeneratedDatabase {
       ReservationDao(this as IomerDatabase);
   late final SiteDao siteDao = SiteDao(this as IomerDatabase);
   late final TacheDao tacheDao = TacheDao(this as IomerDatabase);
+  late final ConfigDao configDao = ConfigDao(this as IomerDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
@@ -3304,6 +3604,7 @@ abstract class _$IomerDatabase extends GeneratedDatabase {
         ot,
         reservations,
         sites,
-        taches
+        taches,
+        config
       ];
 }

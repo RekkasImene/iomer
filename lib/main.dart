@@ -2,12 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/webService/categories.dart';
-import 'package:iomer/webService/equipements.dart';
-import 'package:iomer/webService/matricules.dart';
-import 'package:iomer/webService/origines.dart';
-import 'package:iomer/webService/ot_taches.dart';
-import 'package:iomer/webService/ots.dart';
 import 'package:iomer/webService/services.dart';
 
 void main() {
@@ -24,12 +18,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late Future<List<Site>> futureSite;
-  late Future<Origines> futureOrigines;
-  late Future<Matricules> futureMatricules;
-  late Future<Equipements> futureEquipements;
-  late Future<Categories> futureCategories;
-  late Future<OTs> futureOTs;
-  late Future<OTTaches> futureOTTaches;
+  late Future<List<Origine>> futureOrigines;
+  late Future<List<Matricule>> futureMatricules;
+  late Future<List<Equipement>> futureEquipements;
+  late Future<List<Categorie>> futureCategories;
+  late Future<List<OtData>> futureOTs;
+  late Future<List<Tache>> futureOTTaches;
   @override
   void initState()  {
     super.initState();
@@ -44,9 +38,7 @@ class _MyAppState extends State<MyApp> {
           CODESITE: e.CODESITE,
           NOMSITE:  e.NOMSITE,
           ADRESSESITE: e.ADRESSESITE,));
-}
-    );
-
+      });
     }).catchError((error){
       log(error);
     });

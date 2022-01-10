@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
-
+import 'package:iomer/ui/home_screen.dart';
 
 import 'package:iomer/ui/select_machine.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -17,13 +15,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  
   @override
   void initState() {
     super.initState();
-    
-
-  
   }
 
   @override
@@ -32,7 +26,7 @@ class _MyAppState extends State<MyApp> {
       title: 'IOmere',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
-      home: const SelectMachine(),
+      home: const HomeScreen(),
     );
   }
 }

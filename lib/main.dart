@@ -2,9 +2,8 @@ import 'dart:async';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/ui/accueil_screen.dart';
-import 'package:iomer/ui/action_screen.dart';
-import 'package:iomer/ui/report_screen.dart';
+import 'package:iomer/ui/cloture_screen.dart';
+import 'package:iomer/ui/new_ot_screen.dart';
 import 'package:iomer/webService/categories.dart';
 import 'package:iomer/webService/equipements.dart';
 import 'package:iomer/webService/matricules.dart';
@@ -62,10 +61,32 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'IOmere',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.green),
-      home: const ReportScreen(),
-    );
+        title: 'Iomer',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+        ),
+        home:
+            ClotureOtScreen() /*Scaffold(
+        appBar: AppBar(
+          title: const Text('Fetch Data Example'),
+        ),
+        body: Center(
+          child: FutureBuilder<Sites>(
+            future: futureSite,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data!.nomsite);
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+
+              // By default, show a loading spinner.
+              return const CircularProgressIndicator();
+            },
+          ),
+        ),
+      ),*/
+        );
   }
 }

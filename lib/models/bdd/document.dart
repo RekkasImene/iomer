@@ -4,13 +4,13 @@ import 'iomer_database.dart';
 part 'generate/document.g.dart';
 
 class Documents extends Table {
-  IntColumn get idAttachement => integer().autoIncrement()();
-  IntColumn get idOt =>
-      integer().nullable().customConstraint('NULL REFERENCES Ot(idOt)')();
-  TextColumn get attachement => text().withLength(min: 1, max: 48)();
+  IntColumn get IDATTACHEMENT => integer().autoIncrement()();
+  IntColumn get IDOT =>
+      integer().nullable().customConstraint('NULL REFERENCES Ot(IDOT)')();
+  TextColumn get ATTACHEMENT => text().withLength(min: 1, max: 48)();
 
   @override
-  Set<Column> get primaryKey => {idAttachement};
+  Set<Column> get primaryKey => {IDATTACHEMENT};
 }
 
 @DriftAccessor(

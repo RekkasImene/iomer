@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/select_machine_screen.dart';
+import 'package:iomer/ui/select_machine.dart';
 
 class ClotureOtScreen extends StatefulWidget{
   const ClotureOtScreen({Key? key}):super(key: key);
@@ -109,17 +109,20 @@ class _ClotureOtScreenState extends State<ClotureOtScreen> {
             ),
             const SizedBox(height: 20),
 
-            ElevatedButton(
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SelectMachine()),);
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SelectMachine()),);
 
-              },
-              child: const Text('Clôturer OT'),
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20)
+                },
+                child: const Text('Clôturer OT'),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20)
+                ),
               ),
             ),
           ],

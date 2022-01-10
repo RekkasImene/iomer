@@ -119,16 +119,20 @@ class _SelectMachine extends State<SelectMachine>{
                    const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [ ElevatedButton(onPressed: (){}, child: 
-                 const Text('Scan machine'),
-                 style: ButtonStyle (backgroundColor: MaterialStateProperty.all(Colors.green),
-                
-                
-                textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 15)),
-              
-                
-                ),
-                 ),],)
+              children: [ SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(onPressed: (){}, child:
+                   const Text('Scan machine'),
+                   style: ButtonStyle (backgroundColor: MaterialStateProperty.all(Colors.green),
+
+
+
+                  textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 15)),
+
+
+                  ),
+                   ),
+              ),],)
             
                 ],
                 ),

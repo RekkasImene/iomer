@@ -2619,6 +2619,8 @@ class Site extends DataClass implements Insertable<Site> {
           .mapFromDatabaseResponse(data['${effectivePrefix}adressesite'])!,
     );
   }
+
+  String? get nomsite => null;
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};

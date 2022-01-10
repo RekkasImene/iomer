@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart' as http;
 
@@ -7,7 +6,7 @@ var url = 'https://dangerous-eagle-94.loca.lt';
 
 /* Get Sites */
 Future<List<Site>> fetchSite() async {
-  final response = await http.get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetSites'));
+  final response = await http.get(Uri.parse('$url/GetSites'));
   if (response.statusCode == 200) {
     List<Site> sites;
     sites=(json.decode(response.body) as List)
@@ -22,7 +21,7 @@ Future<List<Site>> fetchSite() async {
 /* Get Origines */
 Future<List<Origine>> fetchOrigines(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetOrigines/$id'));
+      .get(Uri.parse('$url/GetOrigines/$id'));
 
   if (response.statusCode == 200) {
     List<Origine> origines;
@@ -38,7 +37,7 @@ Future<List<Origine>> fetchOrigines(int id) async {
 /* Get Matricules */
 Future<List<Matricule>> fetchMatricules(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetMatricules/$id'));
+      .get(Uri.parse('$url/GetMatricules/$id'));
 
   if (response.statusCode == 200) {
     List<Matricule> matricules;
@@ -54,7 +53,7 @@ Future<List<Matricule>> fetchMatricules(int id) async {
 /* Get Equipements */
 Future<List<Equipement>> fetchEquipements(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetEquipements/$id'));
+      .get(Uri.parse('$url/GetEquipements/$id'));
 
   if (response.statusCode == 200) {
     List<Equipement> equipements;
@@ -70,7 +69,7 @@ Future<List<Equipement>> fetchEquipements(int id) async {
 /* Get Categories */
 Future<List<Categorie>> fetchCategories(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetCategories/$id'));
+      .get(Uri.parse('$url/GetCategories/$id'));
 
   if (response.statusCode == 200) {
     List<Categorie> categories;
@@ -86,7 +85,7 @@ Future<List<Categorie>> fetchCategories(int id) async {
 /* Get OTs */
 Future<List<OtData>> fetchOTs(int idSite, int idOrigine) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetOts/$idSite/$idOrigine'));
+      .get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
 
   if (response.statusCode == 200) {
     List<OtData> ots;
@@ -102,7 +101,7 @@ Future<List<OtData>> fetchOTs(int idSite, int idOrigine) async {
 /* Get OT Taches */
 Future<List<Tache>> fetchOTTaches(int idOT) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GETOT_TACHES/$idOT'));
+      .get(Uri.parse('$url/GETOT_TACHES/$idOT'));
 
   if (response.statusCode == 200) {
     List<Tache> taches;

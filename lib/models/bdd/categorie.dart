@@ -4,15 +4,15 @@ part 'generate/categorie.g.dart';
 
 
 class Categories extends Table {
-  IntColumn get idCategorie => integer().autoIncrement()();
-  IntColumn get idSite => integer()
+  IntColumn get IDCATEGORIE => integer().autoIncrement()();
+  IntColumn get IDSITE => integer()
       .nullable()
-      .customConstraint('NULL REFERENCES Sites(idSite)')();
-  TextColumn get codeCategorie => text().withLength(min: 1, max: 12)();
-  TextColumn get libelleCategorie => text().withLength(min: 1, max: 48)();
+      .customConstraint('NULL REFERENCES Sites(IDSITE)')();
+  TextColumn get CODECATEGORIE => text().withLength(min: 1, max: 12)();
+  TextColumn get LIBELLECATEGORIE => text().withLength(min: 1, max: 48)();
 
   @override
-  Set<Column> get primaryKey => {idCategorie};
+  Set<Column> get primaryKey => {IDCATEGORIE};
 }
 @DriftAccessor(
     tables:[Categories]

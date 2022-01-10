@@ -7,6 +7,7 @@ class Sites extends Table {
   TextColumn get CODESITE => text().withLength(min: 1, max: 50)();
   TextColumn get NOMSITE => text().withLength(min: 1, max: 50)();
   TextColumn get ADRESSESITE => text().withLength(min: 1, max: 50)();
+  IntColumn get IDORIGINAL =>integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {IDSITE};
@@ -18,6 +19,6 @@ class SiteDao extends DatabaseAccessor<IomerDatabase> with _$SiteDaoMixin{
   final IomerDatabase db;
   SiteDao(this.db):super (db);
 
-
-  Future insertSite(Site site) => into(sites).insert(site);
+  Future insertSite(SitesCompanion site) => into(sites).insert(site);
+  Future<List<Site>> getAllSites() => select(sites).get();
 }

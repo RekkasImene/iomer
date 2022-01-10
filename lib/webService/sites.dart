@@ -10,13 +10,4 @@ class Sites {
     required this.nomsite,
     required this.adressesite,
   });
-
-  factory Sites.fromJson(Map<String, dynamic> json) {
-    return Sites(
-      idsite: json['IDSITE'],
-      codesite: json['CODESITE'],
-      nomsite: json['NOMSITE'],
-      adressesite: json['ADRESSESITE'],
-    );
-  }
 }

@@ -9,27 +9,27 @@ import 'equipements.dart';
 import 'matricules.dart';
 import 'origines.dart';
 
-var url = 'https://dangerous-eagle-94.loca.lt/';
+var url = 'https://weak-badger-77.loca.lt';
 
 /* Get Sites */
-Future<List<Site>> fetchSite() async {
-  final response = await http.get(Uri.parse('$url/GetSites'));
+Future<List<Map<Site, dynamic>>> fetchSite() async {
+  final response = await http.get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetSites'));
   if (response.statusCode == 200) {
-    print(response.body.toString());
+    log(response.body.toString());
     List<Site> sites;
-    sites=(json.decode(response.body) as List)
-        .map((siteJson) => Site.fromJson(siteJson))
-        .toList();
-    return sites;
-        } else {
+
+    sites= (json.decode(response.body) as List).map((siteJson) => Site.fromJson(siteJson)).toList();
+
+    return List<Map<Site, dynamic>>.from(json.decode(response.body));
+
+  } else {
     throw Exception('Failed to load site');
   }
 }
 
 /* Get Origines */
 Future<Origines> fetchOrigines(int id) async {
-  final response = await http
-      .get(Uri.parse('$url/GetOrigines/$id'));
+  final response = await http.get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetOrigines/$id'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());
@@ -42,7 +42,7 @@ Future<Origines> fetchOrigines(int id) async {
 /* Get Matricules */
 Future<Matricules> fetchMatricules(int id) async {
   final response = await http
-      .get(Uri.parse('$url/GetMatricules/$id'));
+      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetMatricules/$id'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());
@@ -55,7 +55,7 @@ Future<Matricules> fetchMatricules(int id) async {
 /* Get Equipements */
 Future<Equipements> fetchEquipements(int id) async {
   final response = await http
-      .get(Uri.parse('$url/GetEquipements/$id'));
+      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetEquipements/$id'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());
@@ -68,7 +68,7 @@ Future<Equipements> fetchEquipements(int id) async {
 /* Get Categories */
 Future<Categories> fetchCategories(int id) async {
   final response = await http
-      .get(Uri.parse('$url/GetCategories/$id'));
+      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetCategories/$id'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());
@@ -81,7 +81,7 @@ Future<Categories> fetchCategories(int id) async {
 /* Get OTs */
 Future<OTs> fetchOTs(int idSite, int idOrigine) async {
   final response = await http
-      .get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
+      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetOts/$idSite/$idOrigine'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());
@@ -94,7 +94,7 @@ Future<OTs> fetchOTs(int idSite, int idOrigine) async {
 /* Get OT Taches */
 Future<OTTaches> fetchOTTaches(int idOT) async {
   final response = await http
-      .get(Uri.parse('$url/GETOT_TACHES/$idOT'));
+      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GETOT_TACHES/$idOT'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());

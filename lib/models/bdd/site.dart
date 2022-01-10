@@ -12,7 +12,10 @@ class Sites extends Table {
   Set<Column> get primaryKey => {IDSITE};
 }
 
-@DriftAccessor(tables:[Sites])
+@DriftAccessor(
+    tables:[Sites]
+)
+
 class SiteDao extends DatabaseAccessor<IomerDatabase> with _$SiteDaoMixin{
   final IomerDatabase db;
   SiteDao(this.db):super (db);

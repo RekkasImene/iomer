@@ -19,9 +19,7 @@ class Reservations extends Table {
   Set<Column> get primaryKey => {idPiece};
 }
 
-@DriftAccessor(
-    tables:[Reservations]
-)
+@DriftAccessor(tables:[Reservations])
 class ReservationDao extends DatabaseAccessor<IomerDatabase> with _$ReservationDaoMixin{
   final IomerDatabase db;
   ReservationDao(this.db):super (db);

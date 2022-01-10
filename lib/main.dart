@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomer/models/repository.dart';
 import 'package:iomer/webService/categories.dart';
 import 'package:iomer/webService/equipements.dart';
 import 'package:iomer/webService/matricules.dart';
@@ -11,7 +12,6 @@ import 'package:iomer/webService/ots.dart';
 import 'package:iomer/webService/services.dart';
 
 void main() {
-
   runApp(const MyApp());
 }
 
@@ -23,6 +23,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   late Future<List<Site>> futureSite;
   late Future<Origines> futureOrigines;
   late Future<Matricules> futureMatricules;
@@ -30,44 +31,19 @@ class _MyAppState extends State<MyApp> {
   late Future<Categories> futureCategories;
   late Future<OTs> futureOTs;
   late Future<OTTaches> futureOTTaches;
+
   @override
-  void initState()  {
+  void initState() {
     super.initState();
 
+    // Création de la base de donnée :
     IomerDatabase database;
     database = IomerDatabase();
-    futureSite=fetchSite();
-
-    futureSite.then((value) {
-      value.forEach((e) {
-        database.insertSite(SitesCompanion.insert(
-          CODESITE: e.CODESITE,
-          NOMSITE:  e.NOMSITE,
-          ADRESSESITE: e.ADRESSESITE,));
-}
-    );
-
-    }).catchError((error){
-      log(error);
-    });
-
-    /*futureOrigines = fetchOrigines(idSite);
-    futureMatricules=fetchMatricules(idOrigine);
-    futureEquipements=fetchEquipements(idSite);
-    futureCategories=fetchCategories(idSite);
-    futureOTs=fetchOTs(idSite, idOrigine);
-    futureOTTaches=fetchOTTaches(idOT);*/
-
-
-
-
-
-
+    futureSite = fetchSite();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -77,8 +53,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Fetch Data Example'),
         ),
-
-        ),
+      ),
     );
   }
 }

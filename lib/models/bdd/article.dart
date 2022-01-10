@@ -12,9 +12,7 @@ class Articles extends Table {
   Set<Column> get primaryKey => {idArticle, codeArticle};
 }
 
-@DriftAccessor(
-  tables:[Articles]
-)
+@DriftAccessor(tables:[Articles])
 class ArticleDao extends DatabaseAccessor<IomerDatabase> with _$ArticleDaoMixin{
   final IomerDatabase db;
   ArticleDao(this.db):super (db);

@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 import 'iomer_database.dart';
 part 'generate/ot.g.dart';
 
+
 class Ot extends Table{
   IntColumn get idOt=>integer().autoIncrement()();
   IntColumn get idOrigine => integer()
@@ -29,9 +30,7 @@ class Ot extends Table{
   Set<Column> get primaryKey => {idOt};
 }
 
-@DriftAccessor(
-    tables:[Ot]
-)
+@DriftAccessor(tables:[Ot])
 class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin{
   final IomerDatabase db;
   OtDao(this.db):super (db);

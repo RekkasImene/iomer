@@ -9,12 +9,13 @@ import 'equipements.dart';
 import 'matricules.dart';
 import 'origines.dart';
 
-var url = 'https://tricky-stingray-92.loca.lt';
+var url = 'https://dangerous-eagle-94.loca.lt/';
 
 /* Get Sites */
 Future<List<Site>> fetchSite() async {
-  final response = await http.get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetSites'));
+  final response = await http.get(Uri.parse('$url/GetSites'));
   if (response.statusCode == 200) {
+    print(response.body.toString());
     List<Site> sites;
     sites=(json.decode(response.body) as List)
         .map((siteJson) => Site.fromJson(siteJson))
@@ -28,7 +29,7 @@ Future<List<Site>> fetchSite() async {
 /* Get Origines */
 Future<Origines> fetchOrigines(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetOrigines/$id'));
+      .get(Uri.parse('$url/GetOrigines/$id'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());
@@ -41,7 +42,7 @@ Future<Origines> fetchOrigines(int id) async {
 /* Get Matricules */
 Future<Matricules> fetchMatricules(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetMatricules/$id'));
+      .get(Uri.parse('$url/GetMatricules/$id'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());
@@ -54,7 +55,7 @@ Future<Matricules> fetchMatricules(int id) async {
 /* Get Equipements */
 Future<Equipements> fetchEquipements(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetEquipements/$id'));
+      .get(Uri.parse('$url/GetEquipements/$id'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());
@@ -67,7 +68,7 @@ Future<Equipements> fetchEquipements(int id) async {
 /* Get Categories */
 Future<Categories> fetchCategories(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetCategories/$id'));
+      .get(Uri.parse('$url/GetCategories/$id'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());
@@ -80,7 +81,7 @@ Future<Categories> fetchCategories(int id) async {
 /* Get OTs */
 Future<OTs> fetchOTs(int idSite, int idOrigine) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetOts/$idSite/$idOrigine'));
+      .get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());
@@ -93,7 +94,7 @@ Future<OTs> fetchOTs(int idSite, int idOrigine) async {
 /* Get OT Taches */
 Future<OTTaches> fetchOTTaches(int idOT) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GETOT_TACHES/$idOT'));
+      .get(Uri.parse('$url/GETOT_TACHES/$idOT'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());

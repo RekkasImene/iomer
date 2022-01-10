@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 import 'iomer_database.dart';
 part 'generate/matricule.g.dart';
 
+
 class Matricules extends Table {
   IntColumn get idMatricule => integer().autoIncrement()();
   IntColumn get idOrigine => integer()
@@ -16,9 +17,7 @@ class Matricules extends Table {
   Set<Column> get primaryKey => {idMatricule};
 }
 
-@DriftAccessor(
-    tables:[Matricules]
-)
+@DriftAccessor(tables:[Matricules])
 class MatriculeDao extends DatabaseAccessor<IomerDatabase> with _$MatriculeDaoMixin{
   final IomerDatabase db;
   MatriculeDao(this.db):super (db);

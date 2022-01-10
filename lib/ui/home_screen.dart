@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iomer/ui/first_screen.dart';
 
-class HomeScreen extends StatefulWidget{
-  const HomeScreen({Key? key}):super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -10,74 +10,110 @@ class HomeScreen extends StatefulWidget{
 
 class _HomeScreenState extends State<HomeScreen> {
   //TODO a remplacer avec données
-  final List<String> _texts = [
-    "Lille",
-    "Paris",
-    "st germain",
-    "Marseille",
-    "Lyon",
-    "Toulouse",
-    "St lazare",
-    "Rouen",
-    "Chalons"
+  String dropdown_value_site = '';
+  String dropdown_value_services = '';
+  var site_items = [
+    '',
+    'Paris',
+    'Rouen',
+    'Chalon'
   ];
 
+  var service_items=[
+    '',
+    'Electricien',
+    'Mecanicien',
+    'Plombier'
+  ];
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Iomer'),
       ),
       body: Container(
         padding: const EdgeInsets.all(20.0),
-          child: Column(
-
-            children: [
-              const Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                    "Site :",style: TextStyle(fontSize: 20),
-                ),
-
+        child: Column(
+          children: [
+            const Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "Selectionner le Site et le Service :",
+                style: TextStyle(fontSize: 20),
               ),
-              const SizedBox(height: 20),
-
-              /*expanded permet de remplir la place*/
-              Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-                    //padding: const EdgeInsets.all(16.0) ,
-                    child: ListView.builder(
-                      itemCount: _texts.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(_texts[index]),
-                        );
+            ),
+            const SizedBox(height: 20),
+            Column(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Row(
+                    children: [
+                      const Text("Site : "),
+                      DropdownButton(
+                        value: dropdown_value_site,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: site_items.map((String items) {
+                          return DropdownMenuItem(value: items, child: Text(items));
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdown_value_site =newValue!;
+                          });
                         },
-                    ),
-                  ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-
-                child: ElevatedButton(
-                  //pour griser
-                  onPressed: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const FirstScreen()),);
-                  },
-                  child: const Text('Valider'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
-                    padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20)
+                      ),
+                    ],
                   ),
                 ),
+
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Row(
+                    children: [
+                      const Text("Service : "),
+
+                      DropdownButton(
+                        value: dropdown_value_services,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: service_items.map((String items) {
+                          return DropdownMenuItem(value: items, child: Text(items));
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdown_value_services =newValue!;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                )
+
+              ],
+            ),
+
+            /*expanded permet de remplir la place*/
+const Expanded(child: SizedBox()),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                //pour griser
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const FirstScreen()),
+                  );
+                },
+                child: const Text('Valider'),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20)),
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
       ),
     );
   }

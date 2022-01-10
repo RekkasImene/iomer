@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iomer/ui/select_machine.dart';
 
-class FirstScreen extends StatefulWidget{
-  const FirstScreen({Key? key}):super(key: key);
+class FirstScreen extends StatefulWidget {
+  const FirstScreen({Key? key}) : super(key: key);
 
   @override
   State<FirstScreen> createState() => _FirstScreenState();
@@ -28,7 +28,7 @@ class _FirstScreenState extends State<FirstScreen> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Iomer'),
@@ -40,16 +40,17 @@ class _FirstScreenState extends State<FirstScreen> {
             const Align(
               alignment: Alignment.topLeft,
               child: Text(
-                "Sélectionner les intervenants :",style: TextStyle(fontSize: 20),
+                "Sélectionner les intervenants :",
+                style: TextStyle(fontSize: 20),
               ),
-
             ),
             const SizedBox(height: 20),
 
             /*expanded permet de remplir la place*/
             Expanded(
               child: Container(
-                  decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.black)),
                   //padding: const EdgeInsets.all(16.0) ,
                   child: ListView.builder(
                     itemCount: _texts.length,
@@ -58,33 +59,33 @@ class _FirstScreenState extends State<FirstScreen> {
                         title: Text(_texts[index]),
                         value: _isChecked[index],
                         onChanged: (val) {
-                          setState(() {
-                            _isChecked[index] = val!;
-                          },
+                          setState(
+                            () {
+                              _isChecked[index] = val!;
+                            },
                           );
                         },
                       );
                     },
-                  )
-              ),
+                  )),
             ),
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
-
               child: ElevatedButton(
                 //pour griser
-                onPressed:() {
+                onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SelectMachine()),);
+                        builder: (context) => const SelectMachine()),
+                  );
                 },
                 child: const Text('Valider'),
                 style: ElevatedButton.styleFrom(
                     primary: Colors.green,
-                    padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20)
-                ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20)),
               ),
             ),
           ],

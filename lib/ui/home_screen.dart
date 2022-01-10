@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget{
 
 class _HomeScreenState extends State<HomeScreen> {
   //TODO a remplacer avec données
-  List<String> _texts = [
+  final List<String> _texts = [
     "Lille",
     "Paris",
     "st germain",
@@ -66,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       context,
                       MaterialPageRoute(builder: (context) => const FirstScreen()),);
                 },
-                //onPressed:(),
                 child: const Text('Valider'),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.green,

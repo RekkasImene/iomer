@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:iomer/ui/action_screen.dart';
+import 'package:iomer/ui/new_part_screen.dart';
 
 class PartsScreen extends StatefulWidget{
   const PartsScreen({Key? key}):super(key: key);
@@ -180,6 +182,9 @@ class _PartsScreenState extends State<PartsScreen> {
               Align(
                 child: ElevatedButton(
                   onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const NewPartScreen()),);
 
                   },
                   child: const Text('Ajout'),
@@ -196,6 +201,9 @@ class _PartsScreenState extends State<PartsScreen> {
 
             ElevatedButton(
               onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ActionScreen()),);
 
               },
               child: const Text('Valider'),

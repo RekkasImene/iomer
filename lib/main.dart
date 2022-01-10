@@ -6,6 +6,7 @@ import 'package:iomer/ui/cloture_screen.dart';
 import 'package:iomer/ui/first_screen.dart';
 import 'package:iomer/ui/home_screen.dart';
 import 'package:iomer/ui/action_screen.dart';
+import 'package:iomer/ui/new_part_screen.dart';
 import 'package:iomer/ui/parts_screen.dart';
 import 'package:iomer/ui/select_machine_screen.dart';
 import 'package:iomer/ui/tasks_screen.dart';
@@ -69,7 +70,7 @@ class _MyAppState extends State<MyApp> {
       title: 'IOmere',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
-      home: const TasksScreen(),
+      home: const NewPartScreen(),
     );
   }
 }

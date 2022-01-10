@@ -48,7 +48,7 @@ class _SelectMachine extends State<SelectMachine>{
               padding: EdgeInsets.symmetric(horizontal: 8,vertical: 16),
               child:
               TextField
-                (decoration: InputDecoration(border: UnderlineInputBorder(),labelText: 'Nom machine'
+                (decoration: InputDecoration(border: UnderlineInputBorder(),labelText: 'Code machine'
               ),
               ),
 
@@ -93,6 +93,9 @@ class _SelectMachine extends State<SelectMachine>{
                     itemCount: _list.length,
                     itemBuilder: (context, index) {
                      return ListTile(
+
+                       onTap: (){
+                         },
                     title: Text(_list[index])
                     );
                     },
@@ -103,9 +106,18 @@ class _SelectMachine extends State<SelectMachine>{
                    children:  [
                    Align(
                      alignment: Alignment.bottomRight,
-                     child: IconButton(icon: const Icon(Icons.add),
-                      onPressed: (){},
-                      ),
+                     child: ClipRRect(
+                
+                child: Container(
+    height: 30.0,
+    width: 30.0,
+    color: const Color(0xFFB9F6CA),
+    
+    child: const Icon(Icons.add, color: Colors.white, size: 18.0),
+  ),
+                
+               
+              ),
                    ),
                  ],
                  ),
@@ -122,6 +134,7 @@ class _SelectMachine extends State<SelectMachine>{
               children: [ ElevatedButton(onPressed: (){}, child: 
                  const Text('Scan machine'),
                  style: ButtonStyle (backgroundColor: MaterialStateProperty.all(Colors.green),
+                 
                 
                 
                 textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 15)),

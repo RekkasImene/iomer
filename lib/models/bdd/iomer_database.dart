@@ -1,5 +1,7 @@
 import 'package:drift/native.dart';
 import 'package:flutter/foundation.dart';
+import 'package:injectable/injectable.dart';
+import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/origine.dart';
 import 'package:iomer/models/bdd/ot.dart';
 import 'package:iomer/models/bdd/reservation.dart';
@@ -35,12 +37,11 @@ LazyDatabase _openConnection() {
     daos: [ArticleDao,CategorieDao,EquipementDao,MatriculeDao,OrigineDao,OtDao,
       ReservationDao,SiteDao,TacheDao]
 )
+@Environment(Env.prod)
+@injectable
 class IomerDatabase extends _$IomerDatabase {
   IomerDatabase() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
-
-  Future insertSite(SitesCompanion site) => into(sites).insert(site);
-
 }

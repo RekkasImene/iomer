@@ -2,9 +2,13 @@ import 'dart:async';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomer/ui/cloture_screen.dart';
+import 'package:iomer/ui/first_screen.dart';
 import 'package:iomer/ui/home_screen.dart';
 import 'package:iomer/ui/action_screen.dart';
 import 'package:iomer/ui/parts_screen.dart';
+import 'package:iomer/ui/select_machine_screen.dart';
+import 'package:iomer/ui/tasks_screen.dart';
 import 'package:iomer/webService/categories.dart';
 import 'package:iomer/webService/equipements.dart';
 import 'package:iomer/webService/matricules.dart';
@@ -65,7 +69,7 @@ class _MyAppState extends State<MyApp> {
       title: 'IOmere',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
-      home: const PartsScreen(),
+      home: const TasksScreen(),
     );
   }
 }

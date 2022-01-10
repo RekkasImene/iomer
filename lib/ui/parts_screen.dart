@@ -38,6 +38,12 @@ class _PartsScreenState extends State<PartsScreen> {
   late List<bool> _isChecked;
 
   @override
+  void initState() {
+    super.initState();
+    _isChecked = List<bool>.filled(parts.length, false);
+  }
+
+  @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
@@ -100,50 +106,65 @@ class _PartsScreenState extends State<PartsScreen> {
                   child: ListView.builder(
                     itemCount: parts.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        child: Column(
-                          children: [
-                            CheckboxListTile(
-                              title:Text (parts[index]['code']),
-                              subtitle:Text (parts[index]['quantite']+"x "+parts[index]['libelle']) ,
-                              //secondary: Text (parts[index]['quantite'],
+                      return Column(
+                        children: [
+                          CheckboxListTile(
+                            title:Text (parts[index]['code']),
+                            subtitle:Text (parts[index]['libelle']) ,
+                            //secondary: Text (parts[index]['quantite'],
 
-                              value: _isChecked[index],
-                              onChanged: (val) {
-                                setState(() {
-                                  _isChecked[index] = val!;
+                            value: _isChecked[index],
+                            onChanged: (val) {
+                              setState(() {
+                                _isChecked[index] = val!;
 
-                                  },
-                                );
                                 },
-                            ),
-                            Row(
-                              children:<Widget>[
-                              ElevatedButton(onPressed: (){
-
-                            },
-                              child: const Text('-'),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.green,
-                                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10)
-                              ),
-                            ),
-                              ElevatedButton(onPressed: (){
+                              );
+                              },
+                          ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                            children:[
+                            SizedBox(
+                              width: 40, // <-- Your width
+                              height: 30,
+                              child: ElevatedButton(onPressed: (){
 
                               },
+                                child: const Text('-'),
+                              style: ButtonStyle(
+                                shape:MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0)
+                                  )
+                                )
+                              ),
+                          ),
+                            ),
+                            Text(parts[index]['quantite']),
+                            SizedBox(
+                              width: 40, // <-- Your width
+                              height: 30,
+                              child: ElevatedButton(onPressed: (){
+
+                              },
+
                                 child: const Text('+'),
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.green,
-                                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10)
+                                style: ButtonStyle(
+                                    shape:MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(18.0)
+                                        )
+                                    )
                                 ),
                               ),
-                              ]
                             ),
+                            ]
+                          ),
 
 
 
-                          ],
-                        ),
+                        ],
                       );
 
                     },

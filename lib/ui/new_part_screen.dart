@@ -137,17 +137,21 @@ class _NewPartScreenState extends State<NewPartScreen> {
 
             const SizedBox(height: 10),
 
-            ElevatedButton(
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const PartsScreen()),);
+            SizedBox(
+              width: double.infinity,
 
-              },
-              child: const Text('Valider'),
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20)
+              child: ElevatedButton(
+                onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PartsScreen()),);
+
+                },
+                child: const Text('Valider'),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20)
+                ),
               ),
             ),
           ],

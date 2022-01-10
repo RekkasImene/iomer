@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/select_machine_screen.dart';
+import 'package:iomer/ui/select_machine.dart';
 
 class FirstScreen extends StatefulWidget{
   const FirstScreen({Key? key}):super(key: key);
@@ -69,18 +69,22 @@ class _FirstScreenState extends State<FirstScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              //pour griser
-              onPressed:() {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SelectMachine()),);
-              },
-              child: const Text('Valider'),
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20)
+            SizedBox(
+              width: double.infinity,
+
+              child: ElevatedButton(
+                //pour griser
+                onPressed:() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SelectMachine()),);
+                },
+                child: const Text('Valider'),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20)
+                ),
               ),
             ),
           ],

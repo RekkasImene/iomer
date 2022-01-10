@@ -117,14 +117,18 @@ class _TasksScreenState extends State<TasksScreen> {
 
             const SizedBox(height: 10),
 
-            ElevatedButton(
-              onPressed: (){
+            SizedBox(
+              width: double.infinity,
 
-              },
-              child: const Text('Valider'),
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20)
+              child: ElevatedButton(
+                onPressed: (){
+
+                },
+                child: const Text('Valider'),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20)
+                ),
               ),
             ),
           ],

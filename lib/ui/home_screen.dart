@@ -59,17 +59,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                //pour griser
-                onPressed: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const FirstScreen()),);
-                },
-                child: const Text('Valider'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20)
+              SizedBox(
+                width: double.infinity,
+
+                child: ElevatedButton(
+                  //pour griser
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const FirstScreen()),);
+                  },
+                  child: const Text('Valider'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 20)
+                  ),
                 ),
               ),
             ],

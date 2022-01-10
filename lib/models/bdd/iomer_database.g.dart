@@ -8,44 +8,50 @@ part of 'iomer_database.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class Article extends DataClass implements Insertable<Article> {
-  final int idArticle;
-  final String codeArticle;
-  final String libelleArticle;
-  final int qteArticle;
+  final int IDARTICLE;
+  final String CODEARTICLE;
+  final String LIBELLEARTICLE;
+  final int QTEARTICLE;
+  final int IDARTICLEWS;
   Article(
-      {required this.idArticle,
-      required this.codeArticle,
-      required this.libelleArticle,
-      required this.qteArticle});
+      {required this.IDARTICLE,
+      required this.CODEARTICLE,
+      required this.LIBELLEARTICLE,
+      required this.QTEARTICLE,
+      required this.IDARTICLEWS});
   factory Article.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Article(
-      idArticle: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_article'])!,
-      codeArticle: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}code_article'])!,
-      libelleArticle: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}libelle_article'])!,
-      qteArticle: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}qte_article'])!,
+      IDARTICLE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idarticle'])!,
+      CODEARTICLE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codearticle'])!,
+      LIBELLEARTICLE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}libellearticle'])!,
+      QTEARTICLE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}qtearticle'])!,
+      IDARTICLEWS: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idarticlews'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id_article'] = Variable<int>(idArticle);
-    map['code_article'] = Variable<String>(codeArticle);
-    map['libelle_article'] = Variable<String>(libelleArticle);
-    map['qte_article'] = Variable<int>(qteArticle);
+    map['idarticle'] = Variable<int>(IDARTICLE);
+    map['codearticle'] = Variable<String>(CODEARTICLE);
+    map['libellearticle'] = Variable<String>(LIBELLEARTICLE);
+    map['qtearticle'] = Variable<int>(QTEARTICLE);
+    map['idarticlews'] = Variable<int>(IDARTICLEWS);
     return map;
   }
 
   ArticlesCompanion toCompanion(bool nullToAbsent) {
     return ArticlesCompanion(
-      idArticle: Value(idArticle),
-      codeArticle: Value(codeArticle),
-      libelleArticle: Value(libelleArticle),
-      qteArticle: Value(qteArticle),
+      IDARTICLE: Value(IDARTICLE),
+      CODEARTICLE: Value(CODEARTICLE),
+      LIBELLEARTICLE: Value(LIBELLEARTICLE),
+      QTEARTICLE: Value(QTEARTICLE),
+      IDARTICLEWS: Value(IDARTICLEWS),
     );
   }
 
@@ -53,119 +59,136 @@ class Article extends DataClass implements Insertable<Article> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Article(
-      idArticle: serializer.fromJson<int>(json['idArticle']),
-      codeArticle: serializer.fromJson<String>(json['codeArticle']),
-      libelleArticle: serializer.fromJson<String>(json['libelleArticle']),
-      qteArticle: serializer.fromJson<int>(json['qteArticle']),
+      IDARTICLE: serializer.fromJson<int>(json['IDARTICLE']),
+      CODEARTICLE: serializer.fromJson<String>(json['CODEARTICLE']),
+      LIBELLEARTICLE: serializer.fromJson<String>(json['LIBELLEARTICLE']),
+      QTEARTICLE: serializer.fromJson<int>(json['QTEARTICLE']),
+      IDARTICLEWS: serializer.fromJson<int>(json['IDARTICLEWS']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'idArticle': serializer.toJson<int>(idArticle),
-      'codeArticle': serializer.toJson<String>(codeArticle),
-      'libelleArticle': serializer.toJson<String>(libelleArticle),
-      'qteArticle': serializer.toJson<int>(qteArticle),
+      'IDARTICLE': serializer.toJson<int>(IDARTICLE),
+      'CODEARTICLE': serializer.toJson<String>(CODEARTICLE),
+      'LIBELLEARTICLE': serializer.toJson<String>(LIBELLEARTICLE),
+      'QTEARTICLE': serializer.toJson<int>(QTEARTICLE),
+      'IDARTICLEWS': serializer.toJson<int>(IDARTICLEWS),
     };
   }
 
   Article copyWith(
-          {int? idArticle,
-          String? codeArticle,
-          String? libelleArticle,
-          int? qteArticle}) =>
+          {int? IDARTICLE,
+          String? CODEARTICLE,
+          String? LIBELLEARTICLE,
+          int? QTEARTICLE,
+          int? IDARTICLEWS}) =>
       Article(
-        idArticle: idArticle ?? this.idArticle,
-        codeArticle: codeArticle ?? this.codeArticle,
-        libelleArticle: libelleArticle ?? this.libelleArticle,
-        qteArticle: qteArticle ?? this.qteArticle,
+        IDARTICLE: IDARTICLE ?? this.IDARTICLE,
+        CODEARTICLE: CODEARTICLE ?? this.CODEARTICLE,
+        LIBELLEARTICLE: LIBELLEARTICLE ?? this.LIBELLEARTICLE,
+        QTEARTICLE: QTEARTICLE ?? this.QTEARTICLE,
+        IDARTICLEWS: IDARTICLEWS ?? this.IDARTICLEWS,
       );
   @override
   String toString() {
     return (StringBuffer('Article(')
-          ..write('idArticle: $idArticle, ')
-          ..write('codeArticle: $codeArticle, ')
-          ..write('libelleArticle: $libelleArticle, ')
-          ..write('qteArticle: $qteArticle')
+          ..write('IDARTICLE: $IDARTICLE, ')
+          ..write('CODEARTICLE: $CODEARTICLE, ')
+          ..write('LIBELLEARTICLE: $LIBELLEARTICLE, ')
+          ..write('QTEARTICLE: $QTEARTICLE, ')
+          ..write('IDARTICLEWS: $IDARTICLEWS')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(idArticle, codeArticle, libelleArticle, qteArticle);
+  int get hashCode => Object.hash(
+      IDARTICLE, CODEARTICLE, LIBELLEARTICLE, QTEARTICLE, IDARTICLEWS);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Article &&
-          other.idArticle == this.idArticle &&
-          other.codeArticle == this.codeArticle &&
-          other.libelleArticle == this.libelleArticle &&
-          other.qteArticle == this.qteArticle);
+          other.IDARTICLE == this.IDARTICLE &&
+          other.CODEARTICLE == this.CODEARTICLE &&
+          other.LIBELLEARTICLE == this.LIBELLEARTICLE &&
+          other.QTEARTICLE == this.QTEARTICLE &&
+          other.IDARTICLEWS == this.IDARTICLEWS);
 }
 
 class ArticlesCompanion extends UpdateCompanion<Article> {
-  final Value<int> idArticle;
-  final Value<String> codeArticle;
-  final Value<String> libelleArticle;
-  final Value<int> qteArticle;
+  final Value<int> IDARTICLE;
+  final Value<String> CODEARTICLE;
+  final Value<String> LIBELLEARTICLE;
+  final Value<int> QTEARTICLE;
+  final Value<int> IDARTICLEWS;
   const ArticlesCompanion({
-    this.idArticle = const Value.absent(),
-    this.codeArticle = const Value.absent(),
-    this.libelleArticle = const Value.absent(),
-    this.qteArticle = const Value.absent(),
+    this.IDARTICLE = const Value.absent(),
+    this.CODEARTICLE = const Value.absent(),
+    this.LIBELLEARTICLE = const Value.absent(),
+    this.QTEARTICLE = const Value.absent(),
+    this.IDARTICLEWS = const Value.absent(),
   });
   ArticlesCompanion.insert({
-    required int idArticle,
-    required String codeArticle,
-    required String libelleArticle,
-    required int qteArticle,
-  })  : idArticle = Value(idArticle),
-        codeArticle = Value(codeArticle),
-        libelleArticle = Value(libelleArticle),
-        qteArticle = Value(qteArticle);
+    required int IDARTICLE,
+    required String CODEARTICLE,
+    required String LIBELLEARTICLE,
+    required int QTEARTICLE,
+    required int IDARTICLEWS,
+  })  : IDARTICLE = Value(IDARTICLE),
+        CODEARTICLE = Value(CODEARTICLE),
+        LIBELLEARTICLE = Value(LIBELLEARTICLE),
+        QTEARTICLE = Value(QTEARTICLE),
+        IDARTICLEWS = Value(IDARTICLEWS);
   static Insertable<Article> custom({
-    Expression<int>? idArticle,
-    Expression<String>? codeArticle,
-    Expression<String>? libelleArticle,
-    Expression<int>? qteArticle,
+    Expression<int>? IDARTICLE,
+    Expression<String>? CODEARTICLE,
+    Expression<String>? LIBELLEARTICLE,
+    Expression<int>? QTEARTICLE,
+    Expression<int>? IDARTICLEWS,
   }) {
     return RawValuesInsertable({
-      if (idArticle != null) 'id_article': idArticle,
-      if (codeArticle != null) 'code_article': codeArticle,
-      if (libelleArticle != null) 'libelle_article': libelleArticle,
-      if (qteArticle != null) 'qte_article': qteArticle,
+      if (IDARTICLE != null) 'idarticle': IDARTICLE,
+      if (CODEARTICLE != null) 'codearticle': CODEARTICLE,
+      if (LIBELLEARTICLE != null) 'libellearticle': LIBELLEARTICLE,
+      if (QTEARTICLE != null) 'qtearticle': QTEARTICLE,
+      if (IDARTICLEWS != null) 'idarticlews': IDARTICLEWS,
     });
   }
 
   ArticlesCompanion copyWith(
-      {Value<int>? idArticle,
-      Value<String>? codeArticle,
-      Value<String>? libelleArticle,
-      Value<int>? qteArticle}) {
+      {Value<int>? IDARTICLE,
+      Value<String>? CODEARTICLE,
+      Value<String>? LIBELLEARTICLE,
+      Value<int>? QTEARTICLE,
+      Value<int>? IDARTICLEWS}) {
     return ArticlesCompanion(
-      idArticle: idArticle ?? this.idArticle,
-      codeArticle: codeArticle ?? this.codeArticle,
-      libelleArticle: libelleArticle ?? this.libelleArticle,
-      qteArticle: qteArticle ?? this.qteArticle,
+      IDARTICLE: IDARTICLE ?? this.IDARTICLE,
+      CODEARTICLE: CODEARTICLE ?? this.CODEARTICLE,
+      LIBELLEARTICLE: LIBELLEARTICLE ?? this.LIBELLEARTICLE,
+      QTEARTICLE: QTEARTICLE ?? this.QTEARTICLE,
+      IDARTICLEWS: IDARTICLEWS ?? this.IDARTICLEWS,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (idArticle.present) {
-      map['id_article'] = Variable<int>(idArticle.value);
+    if (IDARTICLE.present) {
+      map['idarticle'] = Variable<int>(IDARTICLE.value);
     }
-    if (codeArticle.present) {
-      map['code_article'] = Variable<String>(codeArticle.value);
+    if (CODEARTICLE.present) {
+      map['codearticle'] = Variable<String>(CODEARTICLE.value);
     }
-    if (libelleArticle.present) {
-      map['libelle_article'] = Variable<String>(libelleArticle.value);
+    if (LIBELLEARTICLE.present) {
+      map['libellearticle'] = Variable<String>(LIBELLEARTICLE.value);
     }
-    if (qteArticle.present) {
-      map['qte_article'] = Variable<int>(qteArticle.value);
+    if (QTEARTICLE.present) {
+      map['qtearticle'] = Variable<int>(QTEARTICLE.value);
+    }
+    if (IDARTICLEWS.present) {
+      map['idarticlews'] = Variable<int>(IDARTICLEWS.value);
     }
     return map;
   }
@@ -173,10 +196,11 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
   @override
   String toString() {
     return (StringBuffer('ArticlesCompanion(')
-          ..write('idArticle: $idArticle, ')
-          ..write('codeArticle: $codeArticle, ')
-          ..write('libelleArticle: $libelleArticle, ')
-          ..write('qteArticle: $qteArticle')
+          ..write('IDARTICLE: $IDARTICLE, ')
+          ..write('CODEARTICLE: $CODEARTICLE, ')
+          ..write('LIBELLEARTICLE: $LIBELLEARTICLE, ')
+          ..write('QTEARTICLE: $QTEARTICLE, ')
+          ..write('IDARTICLEWS: $IDARTICLEWS')
           ..write(')'))
         .toString();
   }
@@ -186,39 +210,40 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
   final GeneratedDatabase _db;
   final String? _alias;
   $ArticlesTable(this._db, [this._alias]);
-  final VerificationMeta _idArticleMeta = const VerificationMeta('idArticle');
-  @override
-  late final GeneratedColumn<int?> idArticle = GeneratedColumn<int?>(
-      'id_article', aliasedName, false,
-      type: const IntType(),
+  final VerificationMeta _IDARTICLEMeta = const VerificationMeta('IDARTICLE');
+  late final GeneratedColumn<int?> IDARTICLE = GeneratedColumn<int?>(
+      'idarticle', aliasedName, false,
+      typeName: 'INTEGER',
       requiredDuringInsert: true,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _codeArticleMeta =
-      const VerificationMeta('codeArticle');
-  @override
-  late final GeneratedColumn<String?> codeArticle = GeneratedColumn<String?>(
-      'code_article', aliasedName, false,
+  final VerificationMeta _CODEARTICLEMeta =
+      const VerificationMeta('CODEARTICLE');
+  late final GeneratedColumn<String?> CODEARTICLE = GeneratedColumn<String?>(
+      'codearticle', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 16),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _libelleArticleMeta =
-      const VerificationMeta('libelleArticle');
-  @override
-  late final GeneratedColumn<String?> libelleArticle = GeneratedColumn<String?>(
-      'libelle_article', aliasedName, false,
+  final VerificationMeta _LIBELLEARTICLEMeta =
+      const VerificationMeta('LIBELLEARTICLE');
+  late final GeneratedColumn<String?> LIBELLEARTICLE = GeneratedColumn<String?>(
+      'libellearticle', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _qteArticleMeta = const VerificationMeta('qteArticle');
-  @override
-  late final GeneratedColumn<int?> qteArticle = GeneratedColumn<int?>(
-      'qte_article', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
+  final VerificationMeta _QTEARTICLEMeta = const VerificationMeta('QTEARTICLE');
+  late final GeneratedColumn<int?> QTEARTICLE = GeneratedColumn<int?>(
+      'qtearticle', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
+  final VerificationMeta _IDARTICLEWSMeta =
+      const VerificationMeta('IDARTICLEWS');
+  late final GeneratedColumn<int?> IDARTICLEWS = GeneratedColumn<int?>(
+      'idarticlews', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [idArticle, codeArticle, libelleArticle, qteArticle];
+      [IDARTICLE, CODEARTICLE, LIBELLEARTICLE, QTEARTICLE, IDARTICLEWS];
   @override
   String get aliasedName => _alias ?? 'articles';
   @override
@@ -228,41 +253,49 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_article')) {
-      context.handle(_idArticleMeta,
-          idArticle.isAcceptableOrUnknown(data['id_article']!, _idArticleMeta));
+    if (data.containsKey('idarticle')) {
+      context.handle(_IDARTICLEMeta,
+          IDARTICLE.isAcceptableOrUnknown(data['idarticle']!, _IDARTICLEMeta));
     } else if (isInserting) {
-      context.missing(_idArticleMeta);
+      context.missing(_IDARTICLEMeta);
     }
-    if (data.containsKey('code_article')) {
+    if (data.containsKey('codearticle')) {
       context.handle(
-          _codeArticleMeta,
-          codeArticle.isAcceptableOrUnknown(
-              data['code_article']!, _codeArticleMeta));
+          _CODEARTICLEMeta,
+          CODEARTICLE.isAcceptableOrUnknown(
+              data['codearticle']!, _CODEARTICLEMeta));
     } else if (isInserting) {
-      context.missing(_codeArticleMeta);
+      context.missing(_CODEARTICLEMeta);
     }
-    if (data.containsKey('libelle_article')) {
+    if (data.containsKey('libellearticle')) {
       context.handle(
-          _libelleArticleMeta,
-          libelleArticle.isAcceptableOrUnknown(
-              data['libelle_article']!, _libelleArticleMeta));
+          _LIBELLEARTICLEMeta,
+          LIBELLEARTICLE.isAcceptableOrUnknown(
+              data['libellearticle']!, _LIBELLEARTICLEMeta));
     } else if (isInserting) {
-      context.missing(_libelleArticleMeta);
+      context.missing(_LIBELLEARTICLEMeta);
     }
-    if (data.containsKey('qte_article')) {
+    if (data.containsKey('qtearticle')) {
       context.handle(
-          _qteArticleMeta,
-          qteArticle.isAcceptableOrUnknown(
-              data['qte_article']!, _qteArticleMeta));
+          _QTEARTICLEMeta,
+          QTEARTICLE.isAcceptableOrUnknown(
+              data['qtearticle']!, _QTEARTICLEMeta));
     } else if (isInserting) {
-      context.missing(_qteArticleMeta);
+      context.missing(_QTEARTICLEMeta);
+    }
+    if (data.containsKey('idarticlews')) {
+      context.handle(
+          _IDARTICLEWSMeta,
+          IDARTICLEWS.isAcceptableOrUnknown(
+              data['idarticlews']!, _IDARTICLEWSMeta));
+    } else if (isInserting) {
+      context.missing(_IDARTICLEWSMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idArticle, codeArticle};
+  Set<GeneratedColumn> get $primaryKey => {IDARTICLE, CODEARTICLE};
   @override
   Article map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Article.fromData(data,
@@ -276,47 +309,47 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
 }
 
 class Categorie extends DataClass implements Insertable<Categorie> {
-  final int idCategorie;
-  final int? idSite;
-  final String codeCategorie;
-  final String libelleCategorie;
+  final int IDCATEGORIE;
+  final int? IDSITE;
+  final String CODECATEGORIE;
+  final String LIBELLECATEGORIE;
   Categorie(
-      {required this.idCategorie,
-      this.idSite,
-      required this.codeCategorie,
-      required this.libelleCategorie});
+      {required this.IDCATEGORIE,
+      this.IDSITE,
+      required this.CODECATEGORIE,
+      required this.LIBELLECATEGORIE});
   factory Categorie.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Categorie(
-      idCategorie: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_categorie'])!,
-      idSite: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_site']),
-      codeCategorie: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}code_categorie'])!,
-      libelleCategorie: const StringType().mapFromDatabaseResponse(
-          data['${effectivePrefix}libelle_categorie'])!,
+      IDCATEGORIE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idcategorie'])!,
+      IDSITE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idsite']),
+      CODECATEGORIE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codecategorie'])!,
+      LIBELLECATEGORIE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}libellecategorie'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id_categorie'] = Variable<int>(idCategorie);
-    if (!nullToAbsent || idSite != null) {
-      map['id_site'] = Variable<int?>(idSite);
+    map['idcategorie'] = Variable<int>(IDCATEGORIE);
+    if (!nullToAbsent || IDSITE != null) {
+      map['idsite'] = Variable<int?>(IDSITE);
     }
-    map['code_categorie'] = Variable<String>(codeCategorie);
-    map['libelle_categorie'] = Variable<String>(libelleCategorie);
+    map['codecategorie'] = Variable<String>(CODECATEGORIE);
+    map['libellecategorie'] = Variable<String>(LIBELLECATEGORIE);
     return map;
   }
 
   CategoriesCompanion toCompanion(bool nullToAbsent) {
     return CategoriesCompanion(
-      idCategorie: Value(idCategorie),
-      idSite:
-          idSite == null && nullToAbsent ? const Value.absent() : Value(idSite),
-      codeCategorie: Value(codeCategorie),
-      libelleCategorie: Value(libelleCategorie),
+      IDCATEGORIE: Value(IDCATEGORIE),
+      IDSITE:
+          IDSITE == null && nullToAbsent ? const Value.absent() : Value(IDSITE),
+      CODECATEGORIE: Value(CODECATEGORIE),
+      LIBELLECATEGORIE: Value(LIBELLECATEGORIE),
     );
   }
 
@@ -324,117 +357,117 @@ class Categorie extends DataClass implements Insertable<Categorie> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Categorie(
-      idCategorie: serializer.fromJson<int>(json['idCategorie']),
-      idSite: serializer.fromJson<int?>(json['idSite']),
-      codeCategorie: serializer.fromJson<String>(json['codeCategorie']),
-      libelleCategorie: serializer.fromJson<String>(json['libelleCategorie']),
+      IDCATEGORIE: serializer.fromJson<int>(json['IDCATEGORIE']),
+      IDSITE: serializer.fromJson<int?>(json['IDSITE']),
+      CODECATEGORIE: serializer.fromJson<String>(json['CODECATEGORIE']),
+      LIBELLECATEGORIE: serializer.fromJson<String>(json['LIBELLECATEGORIE']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'idCategorie': serializer.toJson<int>(idCategorie),
-      'idSite': serializer.toJson<int?>(idSite),
-      'codeCategorie': serializer.toJson<String>(codeCategorie),
-      'libelleCategorie': serializer.toJson<String>(libelleCategorie),
+      'IDCATEGORIE': serializer.toJson<int>(IDCATEGORIE),
+      'IDSITE': serializer.toJson<int?>(IDSITE),
+      'CODECATEGORIE': serializer.toJson<String>(CODECATEGORIE),
+      'LIBELLECATEGORIE': serializer.toJson<String>(LIBELLECATEGORIE),
     };
   }
 
   Categorie copyWith(
-          {int? idCategorie,
-          int? idSite,
-          String? codeCategorie,
-          String? libelleCategorie}) =>
+          {int? IDCATEGORIE,
+          int? IDSITE,
+          String? CODECATEGORIE,
+          String? LIBELLECATEGORIE}) =>
       Categorie(
-        idCategorie: idCategorie ?? this.idCategorie,
-        idSite: idSite ?? this.idSite,
-        codeCategorie: codeCategorie ?? this.codeCategorie,
-        libelleCategorie: libelleCategorie ?? this.libelleCategorie,
+        IDCATEGORIE: IDCATEGORIE ?? this.IDCATEGORIE,
+        IDSITE: IDSITE ?? this.IDSITE,
+        CODECATEGORIE: CODECATEGORIE ?? this.CODECATEGORIE,
+        LIBELLECATEGORIE: LIBELLECATEGORIE ?? this.LIBELLECATEGORIE,
       );
   @override
   String toString() {
     return (StringBuffer('Categorie(')
-          ..write('idCategorie: $idCategorie, ')
-          ..write('idSite: $idSite, ')
-          ..write('codeCategorie: $codeCategorie, ')
-          ..write('libelleCategorie: $libelleCategorie')
+          ..write('IDCATEGORIE: $IDCATEGORIE, ')
+          ..write('IDSITE: $IDSITE, ')
+          ..write('CODECATEGORIE: $CODECATEGORIE, ')
+          ..write('LIBELLECATEGORIE: $LIBELLECATEGORIE')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode =>
-      Object.hash(idCategorie, idSite, codeCategorie, libelleCategorie);
+      Object.hash(IDCATEGORIE, IDSITE, CODECATEGORIE, LIBELLECATEGORIE);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Categorie &&
-          other.idCategorie == this.idCategorie &&
-          other.idSite == this.idSite &&
-          other.codeCategorie == this.codeCategorie &&
-          other.libelleCategorie == this.libelleCategorie);
+          other.IDCATEGORIE == this.IDCATEGORIE &&
+          other.IDSITE == this.IDSITE &&
+          other.CODECATEGORIE == this.CODECATEGORIE &&
+          other.LIBELLECATEGORIE == this.LIBELLECATEGORIE);
 }
 
 class CategoriesCompanion extends UpdateCompanion<Categorie> {
-  final Value<int> idCategorie;
-  final Value<int?> idSite;
-  final Value<String> codeCategorie;
-  final Value<String> libelleCategorie;
+  final Value<int> IDCATEGORIE;
+  final Value<int?> IDSITE;
+  final Value<String> CODECATEGORIE;
+  final Value<String> LIBELLECATEGORIE;
   const CategoriesCompanion({
-    this.idCategorie = const Value.absent(),
-    this.idSite = const Value.absent(),
-    this.codeCategorie = const Value.absent(),
-    this.libelleCategorie = const Value.absent(),
+    this.IDCATEGORIE = const Value.absent(),
+    this.IDSITE = const Value.absent(),
+    this.CODECATEGORIE = const Value.absent(),
+    this.LIBELLECATEGORIE = const Value.absent(),
   });
   CategoriesCompanion.insert({
-    this.idCategorie = const Value.absent(),
-    this.idSite = const Value.absent(),
-    required String codeCategorie,
-    required String libelleCategorie,
-  })  : codeCategorie = Value(codeCategorie),
-        libelleCategorie = Value(libelleCategorie);
+    this.IDCATEGORIE = const Value.absent(),
+    this.IDSITE = const Value.absent(),
+    required String CODECATEGORIE,
+    required String LIBELLECATEGORIE,
+  })  : CODECATEGORIE = Value(CODECATEGORIE),
+        LIBELLECATEGORIE = Value(LIBELLECATEGORIE);
   static Insertable<Categorie> custom({
-    Expression<int>? idCategorie,
-    Expression<int?>? idSite,
-    Expression<String>? codeCategorie,
-    Expression<String>? libelleCategorie,
+    Expression<int>? IDCATEGORIE,
+    Expression<int?>? IDSITE,
+    Expression<String>? CODECATEGORIE,
+    Expression<String>? LIBELLECATEGORIE,
   }) {
     return RawValuesInsertable({
-      if (idCategorie != null) 'id_categorie': idCategorie,
-      if (idSite != null) 'id_site': idSite,
-      if (codeCategorie != null) 'code_categorie': codeCategorie,
-      if (libelleCategorie != null) 'libelle_categorie': libelleCategorie,
+      if (IDCATEGORIE != null) 'idcategorie': IDCATEGORIE,
+      if (IDSITE != null) 'idsite': IDSITE,
+      if (CODECATEGORIE != null) 'codecategorie': CODECATEGORIE,
+      if (LIBELLECATEGORIE != null) 'libellecategorie': LIBELLECATEGORIE,
     });
   }
 
   CategoriesCompanion copyWith(
-      {Value<int>? idCategorie,
-      Value<int?>? idSite,
-      Value<String>? codeCategorie,
-      Value<String>? libelleCategorie}) {
+      {Value<int>? IDCATEGORIE,
+      Value<int?>? IDSITE,
+      Value<String>? CODECATEGORIE,
+      Value<String>? LIBELLECATEGORIE}) {
     return CategoriesCompanion(
-      idCategorie: idCategorie ?? this.idCategorie,
-      idSite: idSite ?? this.idSite,
-      codeCategorie: codeCategorie ?? this.codeCategorie,
-      libelleCategorie: libelleCategorie ?? this.libelleCategorie,
+      IDCATEGORIE: IDCATEGORIE ?? this.IDCATEGORIE,
+      IDSITE: IDSITE ?? this.IDSITE,
+      CODECATEGORIE: CODECATEGORIE ?? this.CODECATEGORIE,
+      LIBELLECATEGORIE: LIBELLECATEGORIE ?? this.LIBELLECATEGORIE,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (idCategorie.present) {
-      map['id_categorie'] = Variable<int>(idCategorie.value);
+    if (IDCATEGORIE.present) {
+      map['idcategorie'] = Variable<int>(IDCATEGORIE.value);
     }
-    if (idSite.present) {
-      map['id_site'] = Variable<int?>(idSite.value);
+    if (IDSITE.present) {
+      map['idsite'] = Variable<int?>(IDSITE.value);
     }
-    if (codeCategorie.present) {
-      map['code_categorie'] = Variable<String>(codeCategorie.value);
+    if (CODECATEGORIE.present) {
+      map['codecategorie'] = Variable<String>(CODECATEGORIE.value);
     }
-    if (libelleCategorie.present) {
-      map['libelle_categorie'] = Variable<String>(libelleCategorie.value);
+    if (LIBELLECATEGORIE.present) {
+      map['libellecategorie'] = Variable<String>(LIBELLECATEGORIE.value);
     }
     return map;
   }
@@ -442,10 +475,10 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
   @override
   String toString() {
     return (StringBuffer('CategoriesCompanion(')
-          ..write('idCategorie: $idCategorie, ')
-          ..write('idSite: $idSite, ')
-          ..write('codeCategorie: $codeCategorie, ')
-          ..write('libelleCategorie: $libelleCategorie')
+          ..write('IDCATEGORIE: $IDCATEGORIE, ')
+          ..write('IDSITE: $IDSITE, ')
+          ..write('CODECATEGORIE: $CODECATEGORIE, ')
+          ..write('LIBELLECATEGORIE: $LIBELLECATEGORIE')
           ..write(')'))
         .toString();
   }
@@ -456,42 +489,38 @@ class $CategoriesTable extends Categories
   final GeneratedDatabase _db;
   final String? _alias;
   $CategoriesTable(this._db, [this._alias]);
-  final VerificationMeta _idCategorieMeta =
-      const VerificationMeta('idCategorie');
-  @override
-  late final GeneratedColumn<int?> idCategorie = GeneratedColumn<int?>(
-      'id_categorie', aliasedName, false,
-      type: const IntType(),
+  final VerificationMeta _IDCATEGORIEMeta =
+      const VerificationMeta('IDCATEGORIE');
+  late final GeneratedColumn<int?> IDCATEGORIE = GeneratedColumn<int?>(
+      'idcategorie', aliasedName, false,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idSiteMeta = const VerificationMeta('idSite');
-  @override
-  late final GeneratedColumn<int?> idSite = GeneratedColumn<int?>(
-      'id_site', aliasedName, true,
-      type: const IntType(),
+  final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
+  late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
+      'idsite', aliasedName, true,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES Sites(idSite)');
-  final VerificationMeta _codeCategorieMeta =
-      const VerificationMeta('codeCategorie');
-  @override
-  late final GeneratedColumn<String?> codeCategorie = GeneratedColumn<String?>(
-      'code_categorie', aliasedName, false,
+      $customConstraints: 'NULL REFERENCES Sites(IDSITE)');
+  final VerificationMeta _CODECATEGORIEMeta =
+      const VerificationMeta('CODECATEGORIE');
+  late final GeneratedColumn<String?> CODECATEGORIE = GeneratedColumn<String?>(
+      'codecategorie', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 12),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _libelleCategorieMeta =
-      const VerificationMeta('libelleCategorie');
-  @override
-  late final GeneratedColumn<String?> libelleCategorie =
-      GeneratedColumn<String?>('libelle_categorie', aliasedName, false,
+  final VerificationMeta _LIBELLECATEGORIEMeta =
+      const VerificationMeta('LIBELLECATEGORIE');
+  late final GeneratedColumn<String?> LIBELLECATEGORIE =
+      GeneratedColumn<String?>('libellecategorie', aliasedName, false,
           additionalChecks: GeneratedColumn.checkTextLength(
               minTextLength: 1, maxTextLength: 48),
-          type: const StringType(),
+          typeName: 'TEXT',
           requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [idCategorie, idSite, codeCategorie, libelleCategorie];
+      [IDCATEGORIE, IDSITE, CODECATEGORIE, LIBELLECATEGORIE];
   @override
   String get aliasedName => _alias ?? 'categories';
   @override
@@ -501,37 +530,37 @@ class $CategoriesTable extends Categories
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_categorie')) {
+    if (data.containsKey('idcategorie')) {
       context.handle(
-          _idCategorieMeta,
-          idCategorie.isAcceptableOrUnknown(
-              data['id_categorie']!, _idCategorieMeta));
+          _IDCATEGORIEMeta,
+          IDCATEGORIE.isAcceptableOrUnknown(
+              data['idcategorie']!, _IDCATEGORIEMeta));
     }
-    if (data.containsKey('id_site')) {
-      context.handle(_idSiteMeta,
-          idSite.isAcceptableOrUnknown(data['id_site']!, _idSiteMeta));
+    if (data.containsKey('idsite')) {
+      context.handle(_IDSITEMeta,
+          IDSITE.isAcceptableOrUnknown(data['idsite']!, _IDSITEMeta));
     }
-    if (data.containsKey('code_categorie')) {
+    if (data.containsKey('codecategorie')) {
       context.handle(
-          _codeCategorieMeta,
-          codeCategorie.isAcceptableOrUnknown(
-              data['code_categorie']!, _codeCategorieMeta));
+          _CODECATEGORIEMeta,
+          CODECATEGORIE.isAcceptableOrUnknown(
+              data['codecategorie']!, _CODECATEGORIEMeta));
     } else if (isInserting) {
-      context.missing(_codeCategorieMeta);
+      context.missing(_CODECATEGORIEMeta);
     }
-    if (data.containsKey('libelle_categorie')) {
+    if (data.containsKey('libellecategorie')) {
       context.handle(
-          _libelleCategorieMeta,
-          libelleCategorie.isAcceptableOrUnknown(
-              data['libelle_categorie']!, _libelleCategorieMeta));
+          _LIBELLECATEGORIEMeta,
+          LIBELLECATEGORIE.isAcceptableOrUnknown(
+              data['libellecategorie']!, _LIBELLECATEGORIEMeta));
     } else if (isInserting) {
-      context.missing(_libelleCategorieMeta);
+      context.missing(_LIBELLECATEGORIEMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idCategorie};
+  Set<GeneratedColumn> get $primaryKey => {IDCATEGORIE};
   @override
   Categorie map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Categorie.fromData(data,
@@ -545,37 +574,37 @@ class $CategoriesTable extends Categories
 }
 
 class Document extends DataClass implements Insertable<Document> {
-  final int idAttachement;
-  final int? idOt;
-  final String attachement;
-  Document({required this.idAttachement, this.idOt, required this.attachement});
+  final int IDATTACHEMENT;
+  final int? IDOT;
+  final String ATTACHEMENT;
+  Document({required this.IDATTACHEMENT, this.IDOT, required this.ATTACHEMENT});
   factory Document.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Document(
-      idAttachement: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_attachement'])!,
-      idOt: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_ot']),
-      attachement: const StringType()
+      IDATTACHEMENT: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idattachement'])!,
+      IDOT: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idot']),
+      ATTACHEMENT: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}attachement'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id_attachement'] = Variable<int>(idAttachement);
-    if (!nullToAbsent || idOt != null) {
-      map['id_ot'] = Variable<int?>(idOt);
+    map['idattachement'] = Variable<int>(IDATTACHEMENT);
+    if (!nullToAbsent || IDOT != null) {
+      map['idot'] = Variable<int?>(IDOT);
     }
-    map['attachement'] = Variable<String>(attachement);
+    map['attachement'] = Variable<String>(ATTACHEMENT);
     return map;
   }
 
   DocumentsCompanion toCompanion(bool nullToAbsent) {
     return DocumentsCompanion(
-      idAttachement: Value(idAttachement),
-      idOt: idOt == null && nullToAbsent ? const Value.absent() : Value(idOt),
-      attachement: Value(attachement),
+      IDATTACHEMENT: Value(IDATTACHEMENT),
+      IDOT: IDOT == null && nullToAbsent ? const Value.absent() : Value(IDOT),
+      ATTACHEMENT: Value(ATTACHEMENT),
     );
   }
 
@@ -583,96 +612,96 @@ class Document extends DataClass implements Insertable<Document> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Document(
-      idAttachement: serializer.fromJson<int>(json['idAttachement']),
-      idOt: serializer.fromJson<int?>(json['idOt']),
-      attachement: serializer.fromJson<String>(json['attachement']),
+      IDATTACHEMENT: serializer.fromJson<int>(json['IDATTACHEMENT']),
+      IDOT: serializer.fromJson<int?>(json['IDOT']),
+      ATTACHEMENT: serializer.fromJson<String>(json['ATTACHEMENT']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'idAttachement': serializer.toJson<int>(idAttachement),
-      'idOt': serializer.toJson<int?>(idOt),
-      'attachement': serializer.toJson<String>(attachement),
+      'IDATTACHEMENT': serializer.toJson<int>(IDATTACHEMENT),
+      'IDOT': serializer.toJson<int?>(IDOT),
+      'ATTACHEMENT': serializer.toJson<String>(ATTACHEMENT),
     };
   }
 
-  Document copyWith({int? idAttachement, int? idOt, String? attachement}) =>
+  Document copyWith({int? IDATTACHEMENT, int? IDOT, String? ATTACHEMENT}) =>
       Document(
-        idAttachement: idAttachement ?? this.idAttachement,
-        idOt: idOt ?? this.idOt,
-        attachement: attachement ?? this.attachement,
+        IDATTACHEMENT: IDATTACHEMENT ?? this.IDATTACHEMENT,
+        IDOT: IDOT ?? this.IDOT,
+        ATTACHEMENT: ATTACHEMENT ?? this.ATTACHEMENT,
       );
   @override
   String toString() {
     return (StringBuffer('Document(')
-          ..write('idAttachement: $idAttachement, ')
-          ..write('idOt: $idOt, ')
-          ..write('attachement: $attachement')
+          ..write('IDATTACHEMENT: $IDATTACHEMENT, ')
+          ..write('IDOT: $IDOT, ')
+          ..write('ATTACHEMENT: $ATTACHEMENT')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(idAttachement, idOt, attachement);
+  int get hashCode => Object.hash(IDATTACHEMENT, IDOT, ATTACHEMENT);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Document &&
-          other.idAttachement == this.idAttachement &&
-          other.idOt == this.idOt &&
-          other.attachement == this.attachement);
+          other.IDATTACHEMENT == this.IDATTACHEMENT &&
+          other.IDOT == this.IDOT &&
+          other.ATTACHEMENT == this.ATTACHEMENT);
 }
 
 class DocumentsCompanion extends UpdateCompanion<Document> {
-  final Value<int> idAttachement;
-  final Value<int?> idOt;
-  final Value<String> attachement;
+  final Value<int> IDATTACHEMENT;
+  final Value<int?> IDOT;
+  final Value<String> ATTACHEMENT;
   const DocumentsCompanion({
-    this.idAttachement = const Value.absent(),
-    this.idOt = const Value.absent(),
-    this.attachement = const Value.absent(),
+    this.IDATTACHEMENT = const Value.absent(),
+    this.IDOT = const Value.absent(),
+    this.ATTACHEMENT = const Value.absent(),
   });
   DocumentsCompanion.insert({
-    this.idAttachement = const Value.absent(),
-    this.idOt = const Value.absent(),
-    required String attachement,
-  }) : attachement = Value(attachement);
+    this.IDATTACHEMENT = const Value.absent(),
+    this.IDOT = const Value.absent(),
+    required String ATTACHEMENT,
+  }) : ATTACHEMENT = Value(ATTACHEMENT);
   static Insertable<Document> custom({
-    Expression<int>? idAttachement,
-    Expression<int?>? idOt,
-    Expression<String>? attachement,
+    Expression<int>? IDATTACHEMENT,
+    Expression<int?>? IDOT,
+    Expression<String>? ATTACHEMENT,
   }) {
     return RawValuesInsertable({
-      if (idAttachement != null) 'id_attachement': idAttachement,
-      if (idOt != null) 'id_ot': idOt,
-      if (attachement != null) 'attachement': attachement,
+      if (IDATTACHEMENT != null) 'idattachement': IDATTACHEMENT,
+      if (IDOT != null) 'idot': IDOT,
+      if (ATTACHEMENT != null) 'attachement': ATTACHEMENT,
     });
   }
 
   DocumentsCompanion copyWith(
-      {Value<int>? idAttachement,
-      Value<int?>? idOt,
-      Value<String>? attachement}) {
+      {Value<int>? IDATTACHEMENT,
+      Value<int?>? IDOT,
+      Value<String>? ATTACHEMENT}) {
     return DocumentsCompanion(
-      idAttachement: idAttachement ?? this.idAttachement,
-      idOt: idOt ?? this.idOt,
-      attachement: attachement ?? this.attachement,
+      IDATTACHEMENT: IDATTACHEMENT ?? this.IDATTACHEMENT,
+      IDOT: IDOT ?? this.IDOT,
+      ATTACHEMENT: ATTACHEMENT ?? this.ATTACHEMENT,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (idAttachement.present) {
-      map['id_attachement'] = Variable<int>(idAttachement.value);
+    if (IDATTACHEMENT.present) {
+      map['idattachement'] = Variable<int>(IDATTACHEMENT.value);
     }
-    if (idOt.present) {
-      map['id_ot'] = Variable<int?>(idOt.value);
+    if (IDOT.present) {
+      map['idot'] = Variable<int?>(IDOT.value);
     }
-    if (attachement.present) {
-      map['attachement'] = Variable<String>(attachement.value);
+    if (ATTACHEMENT.present) {
+      map['attachement'] = Variable<String>(ATTACHEMENT.value);
     }
     return map;
   }
@@ -680,9 +709,9 @@ class DocumentsCompanion extends UpdateCompanion<Document> {
   @override
   String toString() {
     return (StringBuffer('DocumentsCompanion(')
-          ..write('idAttachement: $idAttachement, ')
-          ..write('idOt: $idOt, ')
-          ..write('attachement: $attachement')
+          ..write('IDATTACHEMENT: $IDATTACHEMENT, ')
+          ..write('IDOT: $IDOT, ')
+          ..write('ATTACHEMENT: $ATTACHEMENT')
           ..write(')'))
         .toString();
   }
@@ -693,32 +722,29 @@ class $DocumentsTable extends Documents
   final GeneratedDatabase _db;
   final String? _alias;
   $DocumentsTable(this._db, [this._alias]);
-  final VerificationMeta _idAttachementMeta =
-      const VerificationMeta('idAttachement');
-  @override
-  late final GeneratedColumn<int?> idAttachement = GeneratedColumn<int?>(
-      'id_attachement', aliasedName, false,
-      type: const IntType(),
+  final VerificationMeta _IDATTACHEMENTMeta =
+      const VerificationMeta('IDATTACHEMENT');
+  late final GeneratedColumn<int?> IDATTACHEMENT = GeneratedColumn<int?>(
+      'idattachement', aliasedName, false,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idOtMeta = const VerificationMeta('idOt');
-  @override
-  late final GeneratedColumn<int?> idOt = GeneratedColumn<int?>(
-      'id_ot', aliasedName, true,
-      type: const IntType(),
+  final VerificationMeta _IDOTMeta = const VerificationMeta('IDOT');
+  late final GeneratedColumn<int?> IDOT = GeneratedColumn<int?>(
+      'idot', aliasedName, true,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES Ot(idOt)');
-  final VerificationMeta _attachementMeta =
-      const VerificationMeta('attachement');
-  @override
-  late final GeneratedColumn<String?> attachement = GeneratedColumn<String?>(
+      $customConstraints: 'NULL REFERENCES Ot(IDOT)');
+  final VerificationMeta _ATTACHEMENTMeta =
+      const VerificationMeta('ATTACHEMENT');
+  late final GeneratedColumn<String?> ATTACHEMENT = GeneratedColumn<String?>(
       'attachement', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [idAttachement, idOt, attachement];
+  List<GeneratedColumn> get $columns => [IDATTACHEMENT, IDOT, ATTACHEMENT];
   @override
   String get aliasedName => _alias ?? 'documents';
   @override
@@ -728,29 +754,29 @@ class $DocumentsTable extends Documents
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_attachement')) {
+    if (data.containsKey('idattachement')) {
       context.handle(
-          _idAttachementMeta,
-          idAttachement.isAcceptableOrUnknown(
-              data['id_attachement']!, _idAttachementMeta));
+          _IDATTACHEMENTMeta,
+          IDATTACHEMENT.isAcceptableOrUnknown(
+              data['idattachement']!, _IDATTACHEMENTMeta));
     }
-    if (data.containsKey('id_ot')) {
+    if (data.containsKey('idot')) {
       context.handle(
-          _idOtMeta, idOt.isAcceptableOrUnknown(data['id_ot']!, _idOtMeta));
+          _IDOTMeta, IDOT.isAcceptableOrUnknown(data['idot']!, _IDOTMeta));
     }
     if (data.containsKey('attachement')) {
       context.handle(
-          _attachementMeta,
-          attachement.isAcceptableOrUnknown(
-              data['attachement']!, _attachementMeta));
+          _ATTACHEMENTMeta,
+          ATTACHEMENT.isAcceptableOrUnknown(
+              data['attachement']!, _ATTACHEMENTMeta));
     } else if (isInserting) {
-      context.missing(_attachementMeta);
+      context.missing(_ATTACHEMENTMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idAttachement};
+  Set<GeneratedColumn> get $primaryKey => {IDATTACHEMENT};
   @override
   Document map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Document.fromData(data,
@@ -764,47 +790,47 @@ class $DocumentsTable extends Documents
 }
 
 class Equipement extends DataClass implements Insertable<Equipement> {
-  final int idEquipement;
-  final int? idSite;
-  final String codeEquipement;
-  final String libelleEquipement;
+  final int IDEQUIPEMENT;
+  final int? IDSITE;
+  final String CODEEQUIPEMENT;
+  final String LIBELLEEQUIPEMENT;
   Equipement(
-      {required this.idEquipement,
-      this.idSite,
-      required this.codeEquipement,
-      required this.libelleEquipement});
+      {required this.IDEQUIPEMENT,
+      this.IDSITE,
+      required this.CODEEQUIPEMENT,
+      required this.LIBELLEEQUIPEMENT});
   factory Equipement.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Equipement(
-      idEquipement: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_equipement'])!,
-      idSite: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_site']),
-      codeEquipement: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}code_equipement'])!,
-      libelleEquipement: const StringType().mapFromDatabaseResponse(
-          data['${effectivePrefix}libelle_equipement'])!,
+      IDEQUIPEMENT: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idequipement'])!,
+      IDSITE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idsite']),
+      CODEEQUIPEMENT: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codeequipement'])!,
+      LIBELLEEQUIPEMENT: const StringType().mapFromDatabaseResponse(
+          data['${effectivePrefix}libelleequipement'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id_equipement'] = Variable<int>(idEquipement);
-    if (!nullToAbsent || idSite != null) {
-      map['id_site'] = Variable<int?>(idSite);
+    map['idequipement'] = Variable<int>(IDEQUIPEMENT);
+    if (!nullToAbsent || IDSITE != null) {
+      map['idsite'] = Variable<int?>(IDSITE);
     }
-    map['code_equipement'] = Variable<String>(codeEquipement);
-    map['libelle_equipement'] = Variable<String>(libelleEquipement);
+    map['codeequipement'] = Variable<String>(CODEEQUIPEMENT);
+    map['libelleequipement'] = Variable<String>(LIBELLEEQUIPEMENT);
     return map;
   }
 
   EquipementsCompanion toCompanion(bool nullToAbsent) {
     return EquipementsCompanion(
-      idEquipement: Value(idEquipement),
-      idSite:
-          idSite == null && nullToAbsent ? const Value.absent() : Value(idSite),
-      codeEquipement: Value(codeEquipement),
-      libelleEquipement: Value(libelleEquipement),
+      IDEQUIPEMENT: Value(IDEQUIPEMENT),
+      IDSITE:
+          IDSITE == null && nullToAbsent ? const Value.absent() : Value(IDSITE),
+      CODEEQUIPEMENT: Value(CODEEQUIPEMENT),
+      LIBELLEEQUIPEMENT: Value(LIBELLEEQUIPEMENT),
     );
   }
 
@@ -812,117 +838,117 @@ class Equipement extends DataClass implements Insertable<Equipement> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Equipement(
-      idEquipement: serializer.fromJson<int>(json['idEquipement']),
-      idSite: serializer.fromJson<int?>(json['idSite']),
-      codeEquipement: serializer.fromJson<String>(json['codeEquipement']),
-      libelleEquipement: serializer.fromJson<String>(json['libelleEquipement']),
+      IDEQUIPEMENT: serializer.fromJson<int>(json['IDEQUIPEMENT']),
+      IDSITE: serializer.fromJson<int?>(json['IDSITE']),
+      CODEEQUIPEMENT: serializer.fromJson<String>(json['CODEEQUIPEMENT']),
+      LIBELLEEQUIPEMENT: serializer.fromJson<String>(json['LIBELLEEQUIPEMENT']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'idEquipement': serializer.toJson<int>(idEquipement),
-      'idSite': serializer.toJson<int?>(idSite),
-      'codeEquipement': serializer.toJson<String>(codeEquipement),
-      'libelleEquipement': serializer.toJson<String>(libelleEquipement),
+      'IDEQUIPEMENT': serializer.toJson<int>(IDEQUIPEMENT),
+      'IDSITE': serializer.toJson<int?>(IDSITE),
+      'CODEEQUIPEMENT': serializer.toJson<String>(CODEEQUIPEMENT),
+      'LIBELLEEQUIPEMENT': serializer.toJson<String>(LIBELLEEQUIPEMENT),
     };
   }
 
   Equipement copyWith(
-          {int? idEquipement,
-          int? idSite,
-          String? codeEquipement,
-          String? libelleEquipement}) =>
+          {int? IDEQUIPEMENT,
+          int? IDSITE,
+          String? CODEEQUIPEMENT,
+          String? LIBELLEEQUIPEMENT}) =>
       Equipement(
-        idEquipement: idEquipement ?? this.idEquipement,
-        idSite: idSite ?? this.idSite,
-        codeEquipement: codeEquipement ?? this.codeEquipement,
-        libelleEquipement: libelleEquipement ?? this.libelleEquipement,
+        IDEQUIPEMENT: IDEQUIPEMENT ?? this.IDEQUIPEMENT,
+        IDSITE: IDSITE ?? this.IDSITE,
+        CODEEQUIPEMENT: CODEEQUIPEMENT ?? this.CODEEQUIPEMENT,
+        LIBELLEEQUIPEMENT: LIBELLEEQUIPEMENT ?? this.LIBELLEEQUIPEMENT,
       );
   @override
   String toString() {
     return (StringBuffer('Equipement(')
-          ..write('idEquipement: $idEquipement, ')
-          ..write('idSite: $idSite, ')
-          ..write('codeEquipement: $codeEquipement, ')
-          ..write('libelleEquipement: $libelleEquipement')
+          ..write('IDEQUIPEMENT: $IDEQUIPEMENT, ')
+          ..write('IDSITE: $IDSITE, ')
+          ..write('CODEEQUIPEMENT: $CODEEQUIPEMENT, ')
+          ..write('LIBELLEEQUIPEMENT: $LIBELLEEQUIPEMENT')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode =>
-      Object.hash(idEquipement, idSite, codeEquipement, libelleEquipement);
+      Object.hash(IDEQUIPEMENT, IDSITE, CODEEQUIPEMENT, LIBELLEEQUIPEMENT);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Equipement &&
-          other.idEquipement == this.idEquipement &&
-          other.idSite == this.idSite &&
-          other.codeEquipement == this.codeEquipement &&
-          other.libelleEquipement == this.libelleEquipement);
+          other.IDEQUIPEMENT == this.IDEQUIPEMENT &&
+          other.IDSITE == this.IDSITE &&
+          other.CODEEQUIPEMENT == this.CODEEQUIPEMENT &&
+          other.LIBELLEEQUIPEMENT == this.LIBELLEEQUIPEMENT);
 }
 
 class EquipementsCompanion extends UpdateCompanion<Equipement> {
-  final Value<int> idEquipement;
-  final Value<int?> idSite;
-  final Value<String> codeEquipement;
-  final Value<String> libelleEquipement;
+  final Value<int> IDEQUIPEMENT;
+  final Value<int?> IDSITE;
+  final Value<String> CODEEQUIPEMENT;
+  final Value<String> LIBELLEEQUIPEMENT;
   const EquipementsCompanion({
-    this.idEquipement = const Value.absent(),
-    this.idSite = const Value.absent(),
-    this.codeEquipement = const Value.absent(),
-    this.libelleEquipement = const Value.absent(),
+    this.IDEQUIPEMENT = const Value.absent(),
+    this.IDSITE = const Value.absent(),
+    this.CODEEQUIPEMENT = const Value.absent(),
+    this.LIBELLEEQUIPEMENT = const Value.absent(),
   });
   EquipementsCompanion.insert({
-    this.idEquipement = const Value.absent(),
-    this.idSite = const Value.absent(),
-    required String codeEquipement,
-    required String libelleEquipement,
-  })  : codeEquipement = Value(codeEquipement),
-        libelleEquipement = Value(libelleEquipement);
+    this.IDEQUIPEMENT = const Value.absent(),
+    this.IDSITE = const Value.absent(),
+    required String CODEEQUIPEMENT,
+    required String LIBELLEEQUIPEMENT,
+  })  : CODEEQUIPEMENT = Value(CODEEQUIPEMENT),
+        LIBELLEEQUIPEMENT = Value(LIBELLEEQUIPEMENT);
   static Insertable<Equipement> custom({
-    Expression<int>? idEquipement,
-    Expression<int?>? idSite,
-    Expression<String>? codeEquipement,
-    Expression<String>? libelleEquipement,
+    Expression<int>? IDEQUIPEMENT,
+    Expression<int?>? IDSITE,
+    Expression<String>? CODEEQUIPEMENT,
+    Expression<String>? LIBELLEEQUIPEMENT,
   }) {
     return RawValuesInsertable({
-      if (idEquipement != null) 'id_equipement': idEquipement,
-      if (idSite != null) 'id_site': idSite,
-      if (codeEquipement != null) 'code_equipement': codeEquipement,
-      if (libelleEquipement != null) 'libelle_equipement': libelleEquipement,
+      if (IDEQUIPEMENT != null) 'idequipement': IDEQUIPEMENT,
+      if (IDSITE != null) 'idsite': IDSITE,
+      if (CODEEQUIPEMENT != null) 'codeequipement': CODEEQUIPEMENT,
+      if (LIBELLEEQUIPEMENT != null) 'libelleequipement': LIBELLEEQUIPEMENT,
     });
   }
 
   EquipementsCompanion copyWith(
-      {Value<int>? idEquipement,
-      Value<int?>? idSite,
-      Value<String>? codeEquipement,
-      Value<String>? libelleEquipement}) {
+      {Value<int>? IDEQUIPEMENT,
+      Value<int?>? IDSITE,
+      Value<String>? CODEEQUIPEMENT,
+      Value<String>? LIBELLEEQUIPEMENT}) {
     return EquipementsCompanion(
-      idEquipement: idEquipement ?? this.idEquipement,
-      idSite: idSite ?? this.idSite,
-      codeEquipement: codeEquipement ?? this.codeEquipement,
-      libelleEquipement: libelleEquipement ?? this.libelleEquipement,
+      IDEQUIPEMENT: IDEQUIPEMENT ?? this.IDEQUIPEMENT,
+      IDSITE: IDSITE ?? this.IDSITE,
+      CODEEQUIPEMENT: CODEEQUIPEMENT ?? this.CODEEQUIPEMENT,
+      LIBELLEEQUIPEMENT: LIBELLEEQUIPEMENT ?? this.LIBELLEEQUIPEMENT,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (idEquipement.present) {
-      map['id_equipement'] = Variable<int>(idEquipement.value);
+    if (IDEQUIPEMENT.present) {
+      map['idequipement'] = Variable<int>(IDEQUIPEMENT.value);
     }
-    if (idSite.present) {
-      map['id_site'] = Variable<int?>(idSite.value);
+    if (IDSITE.present) {
+      map['idsite'] = Variable<int?>(IDSITE.value);
     }
-    if (codeEquipement.present) {
-      map['code_equipement'] = Variable<String>(codeEquipement.value);
+    if (CODEEQUIPEMENT.present) {
+      map['codeequipement'] = Variable<String>(CODEEQUIPEMENT.value);
     }
-    if (libelleEquipement.present) {
-      map['libelle_equipement'] = Variable<String>(libelleEquipement.value);
+    if (LIBELLEEQUIPEMENT.present) {
+      map['libelleequipement'] = Variable<String>(LIBELLEEQUIPEMENT.value);
     }
     return map;
   }
@@ -930,10 +956,10 @@ class EquipementsCompanion extends UpdateCompanion<Equipement> {
   @override
   String toString() {
     return (StringBuffer('EquipementsCompanion(')
-          ..write('idEquipement: $idEquipement, ')
-          ..write('idSite: $idSite, ')
-          ..write('codeEquipement: $codeEquipement, ')
-          ..write('libelleEquipement: $libelleEquipement')
+          ..write('IDEQUIPEMENT: $IDEQUIPEMENT, ')
+          ..write('IDSITE: $IDSITE, ')
+          ..write('CODEEQUIPEMENT: $CODEEQUIPEMENT, ')
+          ..write('LIBELLEEQUIPEMENT: $LIBELLEEQUIPEMENT')
           ..write(')'))
         .toString();
   }
@@ -944,42 +970,38 @@ class $EquipementsTable extends Equipements
   final GeneratedDatabase _db;
   final String? _alias;
   $EquipementsTable(this._db, [this._alias]);
-  final VerificationMeta _idEquipementMeta =
-      const VerificationMeta('idEquipement');
-  @override
-  late final GeneratedColumn<int?> idEquipement = GeneratedColumn<int?>(
-      'id_equipement', aliasedName, false,
-      type: const IntType(),
+  final VerificationMeta _IDEQUIPEMENTMeta =
+      const VerificationMeta('IDEQUIPEMENT');
+  late final GeneratedColumn<int?> IDEQUIPEMENT = GeneratedColumn<int?>(
+      'idequipement', aliasedName, false,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idSiteMeta = const VerificationMeta('idSite');
-  @override
-  late final GeneratedColumn<int?> idSite = GeneratedColumn<int?>(
-      'id_site', aliasedName, true,
-      type: const IntType(),
+  final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
+  late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
+      'idsite', aliasedName, true,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES Sites(idSite)');
-  final VerificationMeta _codeEquipementMeta =
-      const VerificationMeta('codeEquipement');
-  @override
-  late final GeneratedColumn<String?> codeEquipement = GeneratedColumn<String?>(
-      'code_equipement', aliasedName, false,
+      $customConstraints: 'NULL REFERENCES Sites(IDSITE)');
+  final VerificationMeta _CODEEQUIPEMENTMeta =
+      const VerificationMeta('CODEEQUIPEMENT');
+  late final GeneratedColumn<String?> CODEEQUIPEMENT = GeneratedColumn<String?>(
+      'codeequipement', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 12),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _libelleEquipementMeta =
-      const VerificationMeta('libelleEquipement');
-  @override
-  late final GeneratedColumn<String?> libelleEquipement =
-      GeneratedColumn<String?>('libelle_equipement', aliasedName, false,
+  final VerificationMeta _LIBELLEEQUIPEMENTMeta =
+      const VerificationMeta('LIBELLEEQUIPEMENT');
+  late final GeneratedColumn<String?> LIBELLEEQUIPEMENT =
+      GeneratedColumn<String?>('libelleequipement', aliasedName, false,
           additionalChecks: GeneratedColumn.checkTextLength(
               minTextLength: 1, maxTextLength: 48),
-          type: const StringType(),
+          typeName: 'TEXT',
           requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [idEquipement, idSite, codeEquipement, libelleEquipement];
+      [IDEQUIPEMENT, IDSITE, CODEEQUIPEMENT, LIBELLEEQUIPEMENT];
   @override
   String get aliasedName => _alias ?? 'equipements';
   @override
@@ -989,37 +1011,37 @@ class $EquipementsTable extends Equipements
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_equipement')) {
+    if (data.containsKey('idequipement')) {
       context.handle(
-          _idEquipementMeta,
-          idEquipement.isAcceptableOrUnknown(
-              data['id_equipement']!, _idEquipementMeta));
+          _IDEQUIPEMENTMeta,
+          IDEQUIPEMENT.isAcceptableOrUnknown(
+              data['idequipement']!, _IDEQUIPEMENTMeta));
     }
-    if (data.containsKey('id_site')) {
-      context.handle(_idSiteMeta,
-          idSite.isAcceptableOrUnknown(data['id_site']!, _idSiteMeta));
+    if (data.containsKey('idsite')) {
+      context.handle(_IDSITEMeta,
+          IDSITE.isAcceptableOrUnknown(data['idsite']!, _IDSITEMeta));
     }
-    if (data.containsKey('code_equipement')) {
+    if (data.containsKey('codeequipement')) {
       context.handle(
-          _codeEquipementMeta,
-          codeEquipement.isAcceptableOrUnknown(
-              data['code_equipement']!, _codeEquipementMeta));
+          _CODEEQUIPEMENTMeta,
+          CODEEQUIPEMENT.isAcceptableOrUnknown(
+              data['codeequipement']!, _CODEEQUIPEMENTMeta));
     } else if (isInserting) {
-      context.missing(_codeEquipementMeta);
+      context.missing(_CODEEQUIPEMENTMeta);
     }
-    if (data.containsKey('libelle_equipement')) {
+    if (data.containsKey('libelleequipement')) {
       context.handle(
-          _libelleEquipementMeta,
-          libelleEquipement.isAcceptableOrUnknown(
-              data['libelle_equipement']!, _libelleEquipementMeta));
+          _LIBELLEEQUIPEMENTMeta,
+          LIBELLEEQUIPEMENT.isAcceptableOrUnknown(
+              data['libelleequipement']!, _LIBELLEEQUIPEMENTMeta));
     } else if (isInserting) {
-      context.missing(_libelleEquipementMeta);
+      context.missing(_LIBELLEEQUIPEMENTMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idEquipement};
+  Set<GeneratedColumn> get $primaryKey => {IDEQUIPEMENT};
   @override
   Equipement map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Equipement.fromData(data,
@@ -1033,60 +1055,60 @@ class $EquipementsTable extends Equipements
 }
 
 class Matricule extends DataClass implements Insertable<Matricule> {
-  final int idMatricule;
-  final int? idOrigine;
-  final String codeMatricule;
-  final String nomMatricule;
-  final String prenomMatricule;
-  final bool checked;
+  final int IDMATRICULE;
+  final int? IDORIGINE;
+  final String CODEMATRICULE;
+  final String NOMMATRICULE;
+  final String PRENOMMATRICULE;
+  final bool CHECKED;
   Matricule(
-      {required this.idMatricule,
-      this.idOrigine,
-      required this.codeMatricule,
-      required this.nomMatricule,
-      required this.prenomMatricule,
-      required this.checked});
+      {required this.IDMATRICULE,
+      this.IDORIGINE,
+      required this.CODEMATRICULE,
+      required this.NOMMATRICULE,
+      required this.PRENOMMATRICULE,
+      required this.CHECKED});
   factory Matricule.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Matricule(
-      idMatricule: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_matricule'])!,
-      idOrigine: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_origine']),
-      codeMatricule: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}code_matricule'])!,
-      nomMatricule: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}nom_matricule'])!,
-      prenomMatricule: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}prenom_matricule'])!,
-      checked: const BoolType()
+      IDMATRICULE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idmatricule'])!,
+      IDORIGINE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idorigine']),
+      CODEMATRICULE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codematricule'])!,
+      NOMMATRICULE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}nommatricule'])!,
+      PRENOMMATRICULE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}prenommatricule'])!,
+      CHECKED: const BoolType()
           .mapFromDatabaseResponse(data['${effectivePrefix}checked'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id_matricule'] = Variable<int>(idMatricule);
-    if (!nullToAbsent || idOrigine != null) {
-      map['id_origine'] = Variable<int?>(idOrigine);
+    map['idmatricule'] = Variable<int>(IDMATRICULE);
+    if (!nullToAbsent || IDORIGINE != null) {
+      map['idorigine'] = Variable<int?>(IDORIGINE);
     }
-    map['code_matricule'] = Variable<String>(codeMatricule);
-    map['nom_matricule'] = Variable<String>(nomMatricule);
-    map['prenom_matricule'] = Variable<String>(prenomMatricule);
-    map['checked'] = Variable<bool>(checked);
+    map['codematricule'] = Variable<String>(CODEMATRICULE);
+    map['nommatricule'] = Variable<String>(NOMMATRICULE);
+    map['prenommatricule'] = Variable<String>(PRENOMMATRICULE);
+    map['checked'] = Variable<bool>(CHECKED);
     return map;
   }
 
   MatriculesCompanion toCompanion(bool nullToAbsent) {
     return MatriculesCompanion(
-      idMatricule: Value(idMatricule),
-      idOrigine: idOrigine == null && nullToAbsent
+      IDMATRICULE: Value(IDMATRICULE),
+      IDORIGINE: IDORIGINE == null && nullToAbsent
           ? const Value.absent()
-          : Value(idOrigine),
-      codeMatricule: Value(codeMatricule),
-      nomMatricule: Value(nomMatricule),
-      prenomMatricule: Value(prenomMatricule),
-      checked: Value(checked),
+          : Value(IDORIGINE),
+      CODEMATRICULE: Value(CODEMATRICULE),
+      NOMMATRICULE: Value(NOMMATRICULE),
+      PRENOMMATRICULE: Value(PRENOMMATRICULE),
+      CHECKED: Value(CHECKED),
     );
   }
 
@@ -1094,150 +1116,150 @@ class Matricule extends DataClass implements Insertable<Matricule> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Matricule(
-      idMatricule: serializer.fromJson<int>(json['idMatricule']),
-      idOrigine: serializer.fromJson<int?>(json['idOrigine']),
-      codeMatricule: serializer.fromJson<String>(json['codeMatricule']),
-      nomMatricule: serializer.fromJson<String>(json['nomMatricule']),
-      prenomMatricule: serializer.fromJson<String>(json['prenomMatricule']),
-      checked: serializer.fromJson<bool>(json['checked']),
+      IDMATRICULE: serializer.fromJson<int>(json['IDMATRICULE']),
+      IDORIGINE: serializer.fromJson<int?>(json['IDORIGINE']),
+      CODEMATRICULE: serializer.fromJson<String>(json['CODEMATRICULE']),
+      NOMMATRICULE: serializer.fromJson<String>(json['NOMMATRICULE']),
+      PRENOMMATRICULE: serializer.fromJson<String>(json['PRENOMMATRICULE']),
+      CHECKED: serializer.fromJson<bool>(json['CHECKED']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'idMatricule': serializer.toJson<int>(idMatricule),
-      'idOrigine': serializer.toJson<int?>(idOrigine),
-      'codeMatricule': serializer.toJson<String>(codeMatricule),
-      'nomMatricule': serializer.toJson<String>(nomMatricule),
-      'prenomMatricule': serializer.toJson<String>(prenomMatricule),
-      'checked': serializer.toJson<bool>(checked),
+      'IDMATRICULE': serializer.toJson<int>(IDMATRICULE),
+      'IDORIGINE': serializer.toJson<int?>(IDORIGINE),
+      'CODEMATRICULE': serializer.toJson<String>(CODEMATRICULE),
+      'NOMMATRICULE': serializer.toJson<String>(NOMMATRICULE),
+      'PRENOMMATRICULE': serializer.toJson<String>(PRENOMMATRICULE),
+      'CHECKED': serializer.toJson<bool>(CHECKED),
     };
   }
 
   Matricule copyWith(
-          {int? idMatricule,
-          int? idOrigine,
-          String? codeMatricule,
-          String? nomMatricule,
-          String? prenomMatricule,
-          bool? checked}) =>
+          {int? IDMATRICULE,
+          int? IDORIGINE,
+          String? CODEMATRICULE,
+          String? NOMMATRICULE,
+          String? PRENOMMATRICULE,
+          bool? CHECKED}) =>
       Matricule(
-        idMatricule: idMatricule ?? this.idMatricule,
-        idOrigine: idOrigine ?? this.idOrigine,
-        codeMatricule: codeMatricule ?? this.codeMatricule,
-        nomMatricule: nomMatricule ?? this.nomMatricule,
-        prenomMatricule: prenomMatricule ?? this.prenomMatricule,
-        checked: checked ?? this.checked,
+        IDMATRICULE: IDMATRICULE ?? this.IDMATRICULE,
+        IDORIGINE: IDORIGINE ?? this.IDORIGINE,
+        CODEMATRICULE: CODEMATRICULE ?? this.CODEMATRICULE,
+        NOMMATRICULE: NOMMATRICULE ?? this.NOMMATRICULE,
+        PRENOMMATRICULE: PRENOMMATRICULE ?? this.PRENOMMATRICULE,
+        CHECKED: CHECKED ?? this.CHECKED,
       );
   @override
   String toString() {
     return (StringBuffer('Matricule(')
-          ..write('idMatricule: $idMatricule, ')
-          ..write('idOrigine: $idOrigine, ')
-          ..write('codeMatricule: $codeMatricule, ')
-          ..write('nomMatricule: $nomMatricule, ')
-          ..write('prenomMatricule: $prenomMatricule, ')
-          ..write('checked: $checked')
+          ..write('IDMATRICULE: $IDMATRICULE, ')
+          ..write('IDORIGINE: $IDORIGINE, ')
+          ..write('CODEMATRICULE: $CODEMATRICULE, ')
+          ..write('NOMMATRICULE: $NOMMATRICULE, ')
+          ..write('PRENOMMATRICULE: $PRENOMMATRICULE, ')
+          ..write('CHECKED: $CHECKED')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(idMatricule, idOrigine, codeMatricule,
-      nomMatricule, prenomMatricule, checked);
+  int get hashCode => Object.hash(IDMATRICULE, IDORIGINE, CODEMATRICULE,
+      NOMMATRICULE, PRENOMMATRICULE, CHECKED);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Matricule &&
-          other.idMatricule == this.idMatricule &&
-          other.idOrigine == this.idOrigine &&
-          other.codeMatricule == this.codeMatricule &&
-          other.nomMatricule == this.nomMatricule &&
-          other.prenomMatricule == this.prenomMatricule &&
-          other.checked == this.checked);
+          other.IDMATRICULE == this.IDMATRICULE &&
+          other.IDORIGINE == this.IDORIGINE &&
+          other.CODEMATRICULE == this.CODEMATRICULE &&
+          other.NOMMATRICULE == this.NOMMATRICULE &&
+          other.PRENOMMATRICULE == this.PRENOMMATRICULE &&
+          other.CHECKED == this.CHECKED);
 }
 
 class MatriculesCompanion extends UpdateCompanion<Matricule> {
-  final Value<int> idMatricule;
-  final Value<int?> idOrigine;
-  final Value<String> codeMatricule;
-  final Value<String> nomMatricule;
-  final Value<String> prenomMatricule;
-  final Value<bool> checked;
+  final Value<int> IDMATRICULE;
+  final Value<int?> IDORIGINE;
+  final Value<String> CODEMATRICULE;
+  final Value<String> NOMMATRICULE;
+  final Value<String> PRENOMMATRICULE;
+  final Value<bool> CHECKED;
   const MatriculesCompanion({
-    this.idMatricule = const Value.absent(),
-    this.idOrigine = const Value.absent(),
-    this.codeMatricule = const Value.absent(),
-    this.nomMatricule = const Value.absent(),
-    this.prenomMatricule = const Value.absent(),
-    this.checked = const Value.absent(),
+    this.IDMATRICULE = const Value.absent(),
+    this.IDORIGINE = const Value.absent(),
+    this.CODEMATRICULE = const Value.absent(),
+    this.NOMMATRICULE = const Value.absent(),
+    this.PRENOMMATRICULE = const Value.absent(),
+    this.CHECKED = const Value.absent(),
   });
   MatriculesCompanion.insert({
-    this.idMatricule = const Value.absent(),
-    this.idOrigine = const Value.absent(),
-    required String codeMatricule,
-    required String nomMatricule,
-    required String prenomMatricule,
-    this.checked = const Value.absent(),
-  })  : codeMatricule = Value(codeMatricule),
-        nomMatricule = Value(nomMatricule),
-        prenomMatricule = Value(prenomMatricule);
+    this.IDMATRICULE = const Value.absent(),
+    this.IDORIGINE = const Value.absent(),
+    required String CODEMATRICULE,
+    required String NOMMATRICULE,
+    required String PRENOMMATRICULE,
+    this.CHECKED = const Value.absent(),
+  })  : CODEMATRICULE = Value(CODEMATRICULE),
+        NOMMATRICULE = Value(NOMMATRICULE),
+        PRENOMMATRICULE = Value(PRENOMMATRICULE);
   static Insertable<Matricule> custom({
-    Expression<int>? idMatricule,
-    Expression<int?>? idOrigine,
-    Expression<String>? codeMatricule,
-    Expression<String>? nomMatricule,
-    Expression<String>? prenomMatricule,
-    Expression<bool>? checked,
+    Expression<int>? IDMATRICULE,
+    Expression<int?>? IDORIGINE,
+    Expression<String>? CODEMATRICULE,
+    Expression<String>? NOMMATRICULE,
+    Expression<String>? PRENOMMATRICULE,
+    Expression<bool>? CHECKED,
   }) {
     return RawValuesInsertable({
-      if (idMatricule != null) 'id_matricule': idMatricule,
-      if (idOrigine != null) 'id_origine': idOrigine,
-      if (codeMatricule != null) 'code_matricule': codeMatricule,
-      if (nomMatricule != null) 'nom_matricule': nomMatricule,
-      if (prenomMatricule != null) 'prenom_matricule': prenomMatricule,
-      if (checked != null) 'checked': checked,
+      if (IDMATRICULE != null) 'idmatricule': IDMATRICULE,
+      if (IDORIGINE != null) 'idorigine': IDORIGINE,
+      if (CODEMATRICULE != null) 'codematricule': CODEMATRICULE,
+      if (NOMMATRICULE != null) 'nommatricule': NOMMATRICULE,
+      if (PRENOMMATRICULE != null) 'prenommatricule': PRENOMMATRICULE,
+      if (CHECKED != null) 'checked': CHECKED,
     });
   }
 
   MatriculesCompanion copyWith(
-      {Value<int>? idMatricule,
-      Value<int?>? idOrigine,
-      Value<String>? codeMatricule,
-      Value<String>? nomMatricule,
-      Value<String>? prenomMatricule,
-      Value<bool>? checked}) {
+      {Value<int>? IDMATRICULE,
+      Value<int?>? IDORIGINE,
+      Value<String>? CODEMATRICULE,
+      Value<String>? NOMMATRICULE,
+      Value<String>? PRENOMMATRICULE,
+      Value<bool>? CHECKED}) {
     return MatriculesCompanion(
-      idMatricule: idMatricule ?? this.idMatricule,
-      idOrigine: idOrigine ?? this.idOrigine,
-      codeMatricule: codeMatricule ?? this.codeMatricule,
-      nomMatricule: nomMatricule ?? this.nomMatricule,
-      prenomMatricule: prenomMatricule ?? this.prenomMatricule,
-      checked: checked ?? this.checked,
+      IDMATRICULE: IDMATRICULE ?? this.IDMATRICULE,
+      IDORIGINE: IDORIGINE ?? this.IDORIGINE,
+      CODEMATRICULE: CODEMATRICULE ?? this.CODEMATRICULE,
+      NOMMATRICULE: NOMMATRICULE ?? this.NOMMATRICULE,
+      PRENOMMATRICULE: PRENOMMATRICULE ?? this.PRENOMMATRICULE,
+      CHECKED: CHECKED ?? this.CHECKED,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (idMatricule.present) {
-      map['id_matricule'] = Variable<int>(idMatricule.value);
+    if (IDMATRICULE.present) {
+      map['idmatricule'] = Variable<int>(IDMATRICULE.value);
     }
-    if (idOrigine.present) {
-      map['id_origine'] = Variable<int?>(idOrigine.value);
+    if (IDORIGINE.present) {
+      map['idorigine'] = Variable<int?>(IDORIGINE.value);
     }
-    if (codeMatricule.present) {
-      map['code_matricule'] = Variable<String>(codeMatricule.value);
+    if (CODEMATRICULE.present) {
+      map['codematricule'] = Variable<String>(CODEMATRICULE.value);
     }
-    if (nomMatricule.present) {
-      map['nom_matricule'] = Variable<String>(nomMatricule.value);
+    if (NOMMATRICULE.present) {
+      map['nommatricule'] = Variable<String>(NOMMATRICULE.value);
     }
-    if (prenomMatricule.present) {
-      map['prenom_matricule'] = Variable<String>(prenomMatricule.value);
+    if (PRENOMMATRICULE.present) {
+      map['prenommatricule'] = Variable<String>(PRENOMMATRICULE.value);
     }
-    if (checked.present) {
-      map['checked'] = Variable<bool>(checked.value);
+    if (CHECKED.present) {
+      map['checked'] = Variable<bool>(CHECKED.value);
     }
     return map;
   }
@@ -1245,12 +1267,12 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
   @override
   String toString() {
     return (StringBuffer('MatriculesCompanion(')
-          ..write('idMatricule: $idMatricule, ')
-          ..write('idOrigine: $idOrigine, ')
-          ..write('codeMatricule: $codeMatricule, ')
-          ..write('nomMatricule: $nomMatricule, ')
-          ..write('prenomMatricule: $prenomMatricule, ')
-          ..write('checked: $checked')
+          ..write('IDMATRICULE: $IDMATRICULE, ')
+          ..write('IDORIGINE: $IDORIGINE, ')
+          ..write('CODEMATRICULE: $CODEMATRICULE, ')
+          ..write('NOMMATRICULE: $NOMMATRICULE, ')
+          ..write('PRENOMMATRICULE: $PRENOMMATRICULE, ')
+          ..write('CHECKED: $CHECKED')
           ..write(')'))
         .toString();
   }
@@ -1261,64 +1283,58 @@ class $MatriculesTable extends Matricules
   final GeneratedDatabase _db;
   final String? _alias;
   $MatriculesTable(this._db, [this._alias]);
-  final VerificationMeta _idMatriculeMeta =
-      const VerificationMeta('idMatricule');
-  @override
-  late final GeneratedColumn<int?> idMatricule = GeneratedColumn<int?>(
-      'id_matricule', aliasedName, false,
-      type: const IntType(),
+  final VerificationMeta _IDMATRICULEMeta =
+      const VerificationMeta('IDMATRICULE');
+  late final GeneratedColumn<int?> IDMATRICULE = GeneratedColumn<int?>(
+      'idmatricule', aliasedName, false,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idOrigineMeta = const VerificationMeta('idOrigine');
-  @override
-  late final GeneratedColumn<int?> idOrigine = GeneratedColumn<int?>(
-      'id_origine', aliasedName, true,
-      type: const IntType(),
+  final VerificationMeta _IDORIGINEMeta = const VerificationMeta('IDORIGINE');
+  late final GeneratedColumn<int?> IDORIGINE = GeneratedColumn<int?>(
+      'idorigine', aliasedName, true,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES Origines(idOrigin)');
-  final VerificationMeta _codeMatriculeMeta =
-      const VerificationMeta('codeMatricule');
-  @override
-  late final GeneratedColumn<String?> codeMatricule = GeneratedColumn<String?>(
-      'code_matricule', aliasedName, false,
+      $customConstraints: 'NULL REFERENCES Origines(IDORIGINE)');
+  final VerificationMeta _CODEMATRICULEMeta =
+      const VerificationMeta('CODEMATRICULE');
+  late final GeneratedColumn<String?> CODEMATRICULE = GeneratedColumn<String?>(
+      'codematricule', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 12),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _nomMatriculeMeta =
-      const VerificationMeta('nomMatricule');
-  @override
-  late final GeneratedColumn<String?> nomMatricule = GeneratedColumn<String?>(
-      'nom_matricule', aliasedName, false,
+  final VerificationMeta _NOMMATRICULEMeta =
+      const VerificationMeta('NOMMATRICULE');
+  late final GeneratedColumn<String?> NOMMATRICULE = GeneratedColumn<String?>(
+      'nommatricule', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _prenomMatriculeMeta =
-      const VerificationMeta('prenomMatricule');
-  @override
-  late final GeneratedColumn<String?> prenomMatricule =
-      GeneratedColumn<String?>('prenom_matricule', aliasedName, false,
+  final VerificationMeta _PRENOMMATRICULEMeta =
+      const VerificationMeta('PRENOMMATRICULE');
+  late final GeneratedColumn<String?> PRENOMMATRICULE =
+      GeneratedColumn<String?>('prenommatricule', aliasedName, false,
           additionalChecks: GeneratedColumn.checkTextLength(
               minTextLength: 1, maxTextLength: 48),
-          type: const StringType(),
+          typeName: 'TEXT',
           requiredDuringInsert: true);
-  final VerificationMeta _checkedMeta = const VerificationMeta('checked');
-  @override
-  late final GeneratedColumn<bool?> checked = GeneratedColumn<bool?>(
+  final VerificationMeta _CHECKEDMeta = const VerificationMeta('CHECKED');
+  late final GeneratedColumn<bool?> CHECKED = GeneratedColumn<bool?>(
       'checked', aliasedName, false,
-      type: const BoolType(),
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (checked IN (0, 1))',
       defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
-        idMatricule,
-        idOrigine,
-        codeMatricule,
-        nomMatricule,
-        prenomMatricule,
-        checked
+        IDMATRICULE,
+        IDORIGINE,
+        CODEMATRICULE,
+        NOMMATRICULE,
+        PRENOMMATRICULE,
+        CHECKED
       ];
   @override
   String get aliasedName => _alias ?? 'matricules';
@@ -1329,49 +1345,49 @@ class $MatriculesTable extends Matricules
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_matricule')) {
+    if (data.containsKey('idmatricule')) {
       context.handle(
-          _idMatriculeMeta,
-          idMatricule.isAcceptableOrUnknown(
-              data['id_matricule']!, _idMatriculeMeta));
+          _IDMATRICULEMeta,
+          IDMATRICULE.isAcceptableOrUnknown(
+              data['idmatricule']!, _IDMATRICULEMeta));
     }
-    if (data.containsKey('id_origine')) {
-      context.handle(_idOrigineMeta,
-          idOrigine.isAcceptableOrUnknown(data['id_origine']!, _idOrigineMeta));
+    if (data.containsKey('idorigine')) {
+      context.handle(_IDORIGINEMeta,
+          IDORIGINE.isAcceptableOrUnknown(data['idorigine']!, _IDORIGINEMeta));
     }
-    if (data.containsKey('code_matricule')) {
+    if (data.containsKey('codematricule')) {
       context.handle(
-          _codeMatriculeMeta,
-          codeMatricule.isAcceptableOrUnknown(
-              data['code_matricule']!, _codeMatriculeMeta));
+          _CODEMATRICULEMeta,
+          CODEMATRICULE.isAcceptableOrUnknown(
+              data['codematricule']!, _CODEMATRICULEMeta));
     } else if (isInserting) {
-      context.missing(_codeMatriculeMeta);
+      context.missing(_CODEMATRICULEMeta);
     }
-    if (data.containsKey('nom_matricule')) {
+    if (data.containsKey('nommatricule')) {
       context.handle(
-          _nomMatriculeMeta,
-          nomMatricule.isAcceptableOrUnknown(
-              data['nom_matricule']!, _nomMatriculeMeta));
+          _NOMMATRICULEMeta,
+          NOMMATRICULE.isAcceptableOrUnknown(
+              data['nommatricule']!, _NOMMATRICULEMeta));
     } else if (isInserting) {
-      context.missing(_nomMatriculeMeta);
+      context.missing(_NOMMATRICULEMeta);
     }
-    if (data.containsKey('prenom_matricule')) {
+    if (data.containsKey('prenommatricule')) {
       context.handle(
-          _prenomMatriculeMeta,
-          prenomMatricule.isAcceptableOrUnknown(
-              data['prenom_matricule']!, _prenomMatriculeMeta));
+          _PRENOMMATRICULEMeta,
+          PRENOMMATRICULE.isAcceptableOrUnknown(
+              data['prenommatricule']!, _PRENOMMATRICULEMeta));
     } else if (isInserting) {
-      context.missing(_prenomMatriculeMeta);
+      context.missing(_PRENOMMATRICULEMeta);
     }
     if (data.containsKey('checked')) {
-      context.handle(_checkedMeta,
-          checked.isAcceptableOrUnknown(data['checked']!, _checkedMeta));
+      context.handle(_CHECKEDMeta,
+          CHECKED.isAcceptableOrUnknown(data['checked']!, _CHECKEDMeta));
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idMatricule};
+  Set<GeneratedColumn> get $primaryKey => {IDMATRICULE};
   @override
   Matricule map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Matricule.fromData(data,
@@ -1385,47 +1401,47 @@ class $MatriculesTable extends Matricules
 }
 
 class Origine extends DataClass implements Insertable<Origine> {
-  final int idOrigin;
-  final int? idSite;
-  final String codeOrigin;
-  final String libelleOrigin;
+  final int IDORIGINE;
+  final int? IDSITE;
+  final String CODEORIGINE;
+  final String LIBELLEORIGINE;
   Origine(
-      {required this.idOrigin,
-      this.idSite,
-      required this.codeOrigin,
-      required this.libelleOrigin});
+      {required this.IDORIGINE,
+      this.IDSITE,
+      required this.CODEORIGINE,
+      required this.LIBELLEORIGINE});
   factory Origine.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Origine(
-      idOrigin: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_origin'])!,
-      idSite: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_site']),
-      codeOrigin: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}code_origin'])!,
-      libelleOrigin: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}libelle_origin'])!,
+      IDORIGINE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idorigine'])!,
+      IDSITE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idsite']),
+      CODEORIGINE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codeorigine'])!,
+      LIBELLEORIGINE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}libelleorigine'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id_origin'] = Variable<int>(idOrigin);
-    if (!nullToAbsent || idSite != null) {
-      map['id_site'] = Variable<int?>(idSite);
+    map['idorigine'] = Variable<int>(IDORIGINE);
+    if (!nullToAbsent || IDSITE != null) {
+      map['idsite'] = Variable<int?>(IDSITE);
     }
-    map['code_origin'] = Variable<String>(codeOrigin);
-    map['libelle_origin'] = Variable<String>(libelleOrigin);
+    map['codeorigine'] = Variable<String>(CODEORIGINE);
+    map['libelleorigine'] = Variable<String>(LIBELLEORIGINE);
     return map;
   }
 
   OriginesCompanion toCompanion(bool nullToAbsent) {
     return OriginesCompanion(
-      idOrigin: Value(idOrigin),
-      idSite:
-          idSite == null && nullToAbsent ? const Value.absent() : Value(idSite),
-      codeOrigin: Value(codeOrigin),
-      libelleOrigin: Value(libelleOrigin),
+      IDORIGINE: Value(IDORIGINE),
+      IDSITE:
+          IDSITE == null && nullToAbsent ? const Value.absent() : Value(IDSITE),
+      CODEORIGINE: Value(CODEORIGINE),
+      LIBELLEORIGINE: Value(LIBELLEORIGINE),
     );
   }
 
@@ -1433,116 +1449,117 @@ class Origine extends DataClass implements Insertable<Origine> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Origine(
-      idOrigin: serializer.fromJson<int>(json['idOrigin']),
-      idSite: serializer.fromJson<int?>(json['idSite']),
-      codeOrigin: serializer.fromJson<String>(json['codeOrigin']),
-      libelleOrigin: serializer.fromJson<String>(json['libelleOrigin']),
+      IDORIGINE: serializer.fromJson<int>(json['IDORIGINE']),
+      IDSITE: serializer.fromJson<int?>(json['IDSITE']),
+      CODEORIGINE: serializer.fromJson<String>(json['CODEORIGINE']),
+      LIBELLEORIGINE: serializer.fromJson<String>(json['LIBELLEORIGINE']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'idOrigin': serializer.toJson<int>(idOrigin),
-      'idSite': serializer.toJson<int?>(idSite),
-      'codeOrigin': serializer.toJson<String>(codeOrigin),
-      'libelleOrigin': serializer.toJson<String>(libelleOrigin),
+      'IDORIGINE': serializer.toJson<int>(IDORIGINE),
+      'IDSITE': serializer.toJson<int?>(IDSITE),
+      'CODEORIGINE': serializer.toJson<String>(CODEORIGINE),
+      'LIBELLEORIGINE': serializer.toJson<String>(LIBELLEORIGINE),
     };
   }
 
   Origine copyWith(
-          {int? idOrigin,
-          int? idSite,
-          String? codeOrigin,
-          String? libelleOrigin}) =>
+          {int? IDORIGINE,
+          int? IDSITE,
+          String? CODEORIGINE,
+          String? LIBELLEORIGINE}) =>
       Origine(
-        idOrigin: idOrigin ?? this.idOrigin,
-        idSite: idSite ?? this.idSite,
-        codeOrigin: codeOrigin ?? this.codeOrigin,
-        libelleOrigin: libelleOrigin ?? this.libelleOrigin,
+        IDORIGINE: IDORIGINE ?? this.IDORIGINE,
+        IDSITE: IDSITE ?? this.IDSITE,
+        CODEORIGINE: CODEORIGINE ?? this.CODEORIGINE,
+        LIBELLEORIGINE: LIBELLEORIGINE ?? this.LIBELLEORIGINE,
       );
   @override
   String toString() {
     return (StringBuffer('Origine(')
-          ..write('idOrigin: $idOrigin, ')
-          ..write('idSite: $idSite, ')
-          ..write('codeOrigin: $codeOrigin, ')
-          ..write('libelleOrigin: $libelleOrigin')
+          ..write('IDORIGINE: $IDORIGINE, ')
+          ..write('IDSITE: $IDSITE, ')
+          ..write('CODEORIGINE: $CODEORIGINE, ')
+          ..write('LIBELLEORIGINE: $LIBELLEORIGINE')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(idOrigin, idSite, codeOrigin, libelleOrigin);
+  int get hashCode =>
+      Object.hash(IDORIGINE, IDSITE, CODEORIGINE, LIBELLEORIGINE);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Origine &&
-          other.idOrigin == this.idOrigin &&
-          other.idSite == this.idSite &&
-          other.codeOrigin == this.codeOrigin &&
-          other.libelleOrigin == this.libelleOrigin);
+          other.IDORIGINE == this.IDORIGINE &&
+          other.IDSITE == this.IDSITE &&
+          other.CODEORIGINE == this.CODEORIGINE &&
+          other.LIBELLEORIGINE == this.LIBELLEORIGINE);
 }
 
 class OriginesCompanion extends UpdateCompanion<Origine> {
-  final Value<int> idOrigin;
-  final Value<int?> idSite;
-  final Value<String> codeOrigin;
-  final Value<String> libelleOrigin;
+  final Value<int> IDORIGINE;
+  final Value<int?> IDSITE;
+  final Value<String> CODEORIGINE;
+  final Value<String> LIBELLEORIGINE;
   const OriginesCompanion({
-    this.idOrigin = const Value.absent(),
-    this.idSite = const Value.absent(),
-    this.codeOrigin = const Value.absent(),
-    this.libelleOrigin = const Value.absent(),
+    this.IDORIGINE = const Value.absent(),
+    this.IDSITE = const Value.absent(),
+    this.CODEORIGINE = const Value.absent(),
+    this.LIBELLEORIGINE = const Value.absent(),
   });
   OriginesCompanion.insert({
-    this.idOrigin = const Value.absent(),
-    this.idSite = const Value.absent(),
-    required String codeOrigin,
-    required String libelleOrigin,
-  })  : codeOrigin = Value(codeOrigin),
-        libelleOrigin = Value(libelleOrigin);
+    this.IDORIGINE = const Value.absent(),
+    this.IDSITE = const Value.absent(),
+    required String CODEORIGINE,
+    required String LIBELLEORIGINE,
+  })  : CODEORIGINE = Value(CODEORIGINE),
+        LIBELLEORIGINE = Value(LIBELLEORIGINE);
   static Insertable<Origine> custom({
-    Expression<int>? idOrigin,
-    Expression<int?>? idSite,
-    Expression<String>? codeOrigin,
-    Expression<String>? libelleOrigin,
+    Expression<int>? IDORIGINE,
+    Expression<int?>? IDSITE,
+    Expression<String>? CODEORIGINE,
+    Expression<String>? LIBELLEORIGINE,
   }) {
     return RawValuesInsertable({
-      if (idOrigin != null) 'id_origin': idOrigin,
-      if (idSite != null) 'id_site': idSite,
-      if (codeOrigin != null) 'code_origin': codeOrigin,
-      if (libelleOrigin != null) 'libelle_origin': libelleOrigin,
+      if (IDORIGINE != null) 'idorigine': IDORIGINE,
+      if (IDSITE != null) 'idsite': IDSITE,
+      if (CODEORIGINE != null) 'codeorigine': CODEORIGINE,
+      if (LIBELLEORIGINE != null) 'libelleorigine': LIBELLEORIGINE,
     });
   }
 
   OriginesCompanion copyWith(
-      {Value<int>? idOrigin,
-      Value<int?>? idSite,
-      Value<String>? codeOrigin,
-      Value<String>? libelleOrigin}) {
+      {Value<int>? IDORIGINE,
+      Value<int?>? IDSITE,
+      Value<String>? CODEORIGINE,
+      Value<String>? LIBELLEORIGINE}) {
     return OriginesCompanion(
-      idOrigin: idOrigin ?? this.idOrigin,
-      idSite: idSite ?? this.idSite,
-      codeOrigin: codeOrigin ?? this.codeOrigin,
-      libelleOrigin: libelleOrigin ?? this.libelleOrigin,
+      IDORIGINE: IDORIGINE ?? this.IDORIGINE,
+      IDSITE: IDSITE ?? this.IDSITE,
+      CODEORIGINE: CODEORIGINE ?? this.CODEORIGINE,
+      LIBELLEORIGINE: LIBELLEORIGINE ?? this.LIBELLEORIGINE,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (idOrigin.present) {
-      map['id_origin'] = Variable<int>(idOrigin.value);
+    if (IDORIGINE.present) {
+      map['idorigine'] = Variable<int>(IDORIGINE.value);
     }
-    if (idSite.present) {
-      map['id_site'] = Variable<int?>(idSite.value);
+    if (IDSITE.present) {
+      map['idsite'] = Variable<int?>(IDSITE.value);
     }
-    if (codeOrigin.present) {
-      map['code_origin'] = Variable<String>(codeOrigin.value);
+    if (CODEORIGINE.present) {
+      map['codeorigine'] = Variable<String>(CODEORIGINE.value);
     }
-    if (libelleOrigin.present) {
-      map['libelle_origin'] = Variable<String>(libelleOrigin.value);
+    if (LIBELLEORIGINE.present) {
+      map['libelleorigine'] = Variable<String>(LIBELLEORIGINE.value);
     }
     return map;
   }
@@ -1550,10 +1567,10 @@ class OriginesCompanion extends UpdateCompanion<Origine> {
   @override
   String toString() {
     return (StringBuffer('OriginesCompanion(')
-          ..write('idOrigin: $idOrigin, ')
-          ..write('idSite: $idSite, ')
-          ..write('codeOrigin: $codeOrigin, ')
-          ..write('libelleOrigin: $libelleOrigin')
+          ..write('IDORIGINE: $IDORIGINE, ')
+          ..write('IDSITE: $IDSITE, ')
+          ..write('CODEORIGINE: $CODEORIGINE, ')
+          ..write('LIBELLEORIGINE: $LIBELLEORIGINE')
           ..write(')'))
         .toString();
   }
@@ -1563,40 +1580,37 @@ class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
   final GeneratedDatabase _db;
   final String? _alias;
   $OriginesTable(this._db, [this._alias]);
-  final VerificationMeta _idOriginMeta = const VerificationMeta('idOrigin');
-  @override
-  late final GeneratedColumn<int?> idOrigin = GeneratedColumn<int?>(
-      'id_origin', aliasedName, false,
-      type: const IntType(),
+  final VerificationMeta _IDORIGINEMeta = const VerificationMeta('IDORIGINE');
+  late final GeneratedColumn<int?> IDORIGINE = GeneratedColumn<int?>(
+      'idorigine', aliasedName, false,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idSiteMeta = const VerificationMeta('idSite');
-  @override
-  late final GeneratedColumn<int?> idSite = GeneratedColumn<int?>(
-      'id_site', aliasedName, true,
-      type: const IntType(),
+  final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
+  late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
+      'idsite', aliasedName, true,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES Sites(idSite)');
-  final VerificationMeta _codeOriginMeta = const VerificationMeta('codeOrigin');
-  @override
-  late final GeneratedColumn<String?> codeOrigin = GeneratedColumn<String?>(
-      'code_origin', aliasedName, false,
+      $customConstraints: 'NULL REFERENCES Sites(IDSITE)');
+  final VerificationMeta _CODEORIGINEMeta =
+      const VerificationMeta('CODEORIGINE');
+  late final GeneratedColumn<String?> CODEORIGINE = GeneratedColumn<String?>(
+      'codeorigine', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 12),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _libelleOriginMeta =
-      const VerificationMeta('libelleOrigin');
-  @override
-  late final GeneratedColumn<String?> libelleOrigin = GeneratedColumn<String?>(
-      'libelle_origin', aliasedName, false,
+  final VerificationMeta _LIBELLEORIGINEMeta =
+      const VerificationMeta('LIBELLEORIGINE');
+  late final GeneratedColumn<String?> LIBELLEORIGINE = GeneratedColumn<String?>(
+      'libelleorigine', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [idOrigin, idSite, codeOrigin, libelleOrigin];
+      [IDORIGINE, IDSITE, CODEORIGINE, LIBELLEORIGINE];
   @override
   String get aliasedName => _alias ?? 'origines';
   @override
@@ -1606,35 +1620,35 @@ class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_origin')) {
-      context.handle(_idOriginMeta,
-          idOrigin.isAcceptableOrUnknown(data['id_origin']!, _idOriginMeta));
+    if (data.containsKey('idorigine')) {
+      context.handle(_IDORIGINEMeta,
+          IDORIGINE.isAcceptableOrUnknown(data['idorigine']!, _IDORIGINEMeta));
     }
-    if (data.containsKey('id_site')) {
-      context.handle(_idSiteMeta,
-          idSite.isAcceptableOrUnknown(data['id_site']!, _idSiteMeta));
+    if (data.containsKey('idsite')) {
+      context.handle(_IDSITEMeta,
+          IDSITE.isAcceptableOrUnknown(data['idsite']!, _IDSITEMeta));
     }
-    if (data.containsKey('code_origin')) {
+    if (data.containsKey('codeorigine')) {
       context.handle(
-          _codeOriginMeta,
-          codeOrigin.isAcceptableOrUnknown(
-              data['code_origin']!, _codeOriginMeta));
+          _CODEORIGINEMeta,
+          CODEORIGINE.isAcceptableOrUnknown(
+              data['codeorigine']!, _CODEORIGINEMeta));
     } else if (isInserting) {
-      context.missing(_codeOriginMeta);
+      context.missing(_CODEORIGINEMeta);
     }
-    if (data.containsKey('libelle_origin')) {
+    if (data.containsKey('libelleorigine')) {
       context.handle(
-          _libelleOriginMeta,
-          libelleOrigin.isAcceptableOrUnknown(
-              data['libelle_origin']!, _libelleOriginMeta));
+          _LIBELLEORIGINEMeta,
+          LIBELLEORIGINE.isAcceptableOrUnknown(
+              data['libelleorigine']!, _LIBELLEORIGINEMeta));
     } else if (isInserting) {
-      context.missing(_libelleOriginMeta);
+      context.missing(_LIBELLEORIGINEMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idOrigin};
+  Set<GeneratedColumn> get $primaryKey => {IDORIGINE};
   @override
   Origine map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Origine.fromData(data,
@@ -1648,116 +1662,116 @@ class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
 }
 
 class OtData extends DataClass implements Insertable<OtData> {
-  final int idOt;
-  final int? idOrigine;
-  final int? idCategorie;
-  final int? idEquipement;
-  final String codeOt;
-  final String libellOt;
-  final String comentOt;
-  final double tempsOt;
-  final String statutOt;
-  final DateTime dtOpenOt;
-  final DateTime dtExecOt;
-  final DateTime dtWaitOt;
-  final DateTime dtCancOt;
-  final DateTime dtClosOt;
+  final int IDOT;
+  final int? IDORIGINE;
+  final int? IDCATEGORIE;
+  final int? IDEQUIPEMENT;
+  final String CODEOT;
+  final String LIBELLEOT;
+  final String COMENTOT;
+  final double TEMPSOT;
+  final String STATUTOT;
+  final DateTime DTOPENOT;
+  final DateTime DTEXECOT;
+  final DateTime DTWAITOT;
+  final DateTime DTCANCOT;
+  final DateTime DTCLOSOT;
   OtData(
-      {required this.idOt,
-      this.idOrigine,
-      this.idCategorie,
-      this.idEquipement,
-      required this.codeOt,
-      required this.libellOt,
-      required this.comentOt,
-      required this.tempsOt,
-      required this.statutOt,
-      required this.dtOpenOt,
-      required this.dtExecOt,
-      required this.dtWaitOt,
-      required this.dtCancOt,
-      required this.dtClosOt});
+      {required this.IDOT,
+      this.IDORIGINE,
+      this.IDCATEGORIE,
+      this.IDEQUIPEMENT,
+      required this.CODEOT,
+      required this.LIBELLEOT,
+      required this.COMENTOT,
+      required this.TEMPSOT,
+      required this.STATUTOT,
+      required this.DTOPENOT,
+      required this.DTEXECOT,
+      required this.DTWAITOT,
+      required this.DTCANCOT,
+      required this.DTCLOSOT});
   factory OtData.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return OtData(
-      idOt: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_ot'])!,
-      idOrigine: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_origine']),
-      idCategorie: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_categorie']),
-      idEquipement: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_equipement']),
-      codeOt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}code_ot'])!,
-      libellOt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}libell_ot'])!,
-      comentOt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}coment_ot'])!,
-      tempsOt: const RealType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}temps_ot'])!,
-      statutOt: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}statut_ot'])!,
-      dtOpenOt: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}dt_open_ot'])!,
-      dtExecOt: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}dt_exec_ot'])!,
-      dtWaitOt: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}dt_wait_ot'])!,
-      dtCancOt: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}dt_canc_ot'])!,
-      dtClosOt: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}dt_clos_ot'])!,
+      IDOT: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idot'])!,
+      IDORIGINE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idorigine']),
+      IDCATEGORIE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idcategorie']),
+      IDEQUIPEMENT: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idequipement']),
+      CODEOT: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codeot'])!,
+      LIBELLEOT: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}libelleot'])!,
+      COMENTOT: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}comentot'])!,
+      TEMPSOT: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}tempsot'])!,
+      STATUTOT: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}statutot'])!,
+      DTOPENOT: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}dtopenot'])!,
+      DTEXECOT: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}dtexecot'])!,
+      DTWAITOT: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}dtwaitot'])!,
+      DTCANCOT: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}dtcancot'])!,
+      DTCLOSOT: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}dtclosot'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id_ot'] = Variable<int>(idOt);
-    if (!nullToAbsent || idOrigine != null) {
-      map['id_origine'] = Variable<int?>(idOrigine);
+    map['idot'] = Variable<int>(IDOT);
+    if (!nullToAbsent || IDORIGINE != null) {
+      map['idorigine'] = Variable<int?>(IDORIGINE);
     }
-    if (!nullToAbsent || idCategorie != null) {
-      map['id_categorie'] = Variable<int?>(idCategorie);
+    if (!nullToAbsent || IDCATEGORIE != null) {
+      map['idcategorie'] = Variable<int?>(IDCATEGORIE);
     }
-    if (!nullToAbsent || idEquipement != null) {
-      map['id_equipement'] = Variable<int?>(idEquipement);
+    if (!nullToAbsent || IDEQUIPEMENT != null) {
+      map['idequipement'] = Variable<int?>(IDEQUIPEMENT);
     }
-    map['code_ot'] = Variable<String>(codeOt);
-    map['libell_ot'] = Variable<String>(libellOt);
-    map['coment_ot'] = Variable<String>(comentOt);
-    map['temps_ot'] = Variable<double>(tempsOt);
-    map['statut_ot'] = Variable<String>(statutOt);
-    map['dt_open_ot'] = Variable<DateTime>(dtOpenOt);
-    map['dt_exec_ot'] = Variable<DateTime>(dtExecOt);
-    map['dt_wait_ot'] = Variable<DateTime>(dtWaitOt);
-    map['dt_canc_ot'] = Variable<DateTime>(dtCancOt);
-    map['dt_clos_ot'] = Variable<DateTime>(dtClosOt);
+    map['codeot'] = Variable<String>(CODEOT);
+    map['libelleot'] = Variable<String>(LIBELLEOT);
+    map['comentot'] = Variable<String>(COMENTOT);
+    map['tempsot'] = Variable<double>(TEMPSOT);
+    map['statutot'] = Variable<String>(STATUTOT);
+    map['dtopenot'] = Variable<DateTime>(DTOPENOT);
+    map['dtexecot'] = Variable<DateTime>(DTEXECOT);
+    map['dtwaitot'] = Variable<DateTime>(DTWAITOT);
+    map['dtcancot'] = Variable<DateTime>(DTCANCOT);
+    map['dtclosot'] = Variable<DateTime>(DTCLOSOT);
     return map;
   }
 
   OtCompanion toCompanion(bool nullToAbsent) {
     return OtCompanion(
-      idOt: Value(idOt),
-      idOrigine: idOrigine == null && nullToAbsent
+      IDOT: Value(IDOT),
+      IDORIGINE: IDORIGINE == null && nullToAbsent
           ? const Value.absent()
-          : Value(idOrigine),
-      idCategorie: idCategorie == null && nullToAbsent
+          : Value(IDORIGINE),
+      IDCATEGORIE: IDCATEGORIE == null && nullToAbsent
           ? const Value.absent()
-          : Value(idCategorie),
-      idEquipement: idEquipement == null && nullToAbsent
+          : Value(IDCATEGORIE),
+      IDEQUIPEMENT: IDEQUIPEMENT == null && nullToAbsent
           ? const Value.absent()
-          : Value(idEquipement),
-      codeOt: Value(codeOt),
-      libellOt: Value(libellOt),
-      comentOt: Value(comentOt),
-      tempsOt: Value(tempsOt),
-      statutOt: Value(statutOt),
-      dtOpenOt: Value(dtOpenOt),
-      dtExecOt: Value(dtExecOt),
-      dtWaitOt: Value(dtWaitOt),
-      dtCancOt: Value(dtCancOt),
-      dtClosOt: Value(dtClosOt),
+          : Value(IDEQUIPEMENT),
+      CODEOT: Value(CODEOT),
+      LIBELLEOT: Value(LIBELLEOT),
+      COMENTOT: Value(COMENTOT),
+      TEMPSOT: Value(TEMPSOT),
+      STATUTOT: Value(STATUTOT),
+      DTOPENOT: Value(DTOPENOT),
+      DTEXECOT: Value(DTEXECOT),
+      DTWAITOT: Value(DTWAITOT),
+      DTCANCOT: Value(DTCANCOT),
+      DTCLOSOT: Value(DTCLOSOT),
     );
   }
 
@@ -1765,298 +1779,298 @@ class OtData extends DataClass implements Insertable<OtData> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return OtData(
-      idOt: serializer.fromJson<int>(json['idOt']),
-      idOrigine: serializer.fromJson<int?>(json['idOrigine']),
-      idCategorie: serializer.fromJson<int?>(json['idCategorie']),
-      idEquipement: serializer.fromJson<int?>(json['idEquipement']),
-      codeOt: serializer.fromJson<String>(json['codeOt']),
-      libellOt: serializer.fromJson<String>(json['libellOt']),
-      comentOt: serializer.fromJson<String>(json['comentOt']),
-      tempsOt: serializer.fromJson<double>(json['tempsOt']),
-      statutOt: serializer.fromJson<String>(json['statutOt']),
-      dtOpenOt: serializer.fromJson<DateTime>(json['dtOpenOt']),
-      dtExecOt: serializer.fromJson<DateTime>(json['dtExecOt']),
-      dtWaitOt: serializer.fromJson<DateTime>(json['dtWaitOt']),
-      dtCancOt: serializer.fromJson<DateTime>(json['dtCancOt']),
-      dtClosOt: serializer.fromJson<DateTime>(json['dtClosOt']),
+      IDOT: serializer.fromJson<int>(json['IDOT']),
+      IDORIGINE: serializer.fromJson<int?>(json['IDORIGINE']),
+      IDCATEGORIE: serializer.fromJson<int?>(json['IDCATEGORIE']),
+      IDEQUIPEMENT: serializer.fromJson<int?>(json['IDEQUIPEMENT']),
+      CODEOT: serializer.fromJson<String>(json['CODEOT']),
+      LIBELLEOT: serializer.fromJson<String>(json['LIBELLEOT']),
+      COMENTOT: serializer.fromJson<String>(json['COMENTOT']),
+      TEMPSOT: serializer.fromJson<double>(json['TEMPSOT']),
+      STATUTOT: serializer.fromJson<String>(json['STATUTOT']),
+      DTOPENOT: serializer.fromJson<DateTime>(json['DTOPENOT']),
+      DTEXECOT: serializer.fromJson<DateTime>(json['DTEXECOT']),
+      DTWAITOT: serializer.fromJson<DateTime>(json['DTWAITOT']),
+      DTCANCOT: serializer.fromJson<DateTime>(json['DTCANCOT']),
+      DTCLOSOT: serializer.fromJson<DateTime>(json['DTCLOSOT']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'idOt': serializer.toJson<int>(idOt),
-      'idOrigine': serializer.toJson<int?>(idOrigine),
-      'idCategorie': serializer.toJson<int?>(idCategorie),
-      'idEquipement': serializer.toJson<int?>(idEquipement),
-      'codeOt': serializer.toJson<String>(codeOt),
-      'libellOt': serializer.toJson<String>(libellOt),
-      'comentOt': serializer.toJson<String>(comentOt),
-      'tempsOt': serializer.toJson<double>(tempsOt),
-      'statutOt': serializer.toJson<String>(statutOt),
-      'dtOpenOt': serializer.toJson<DateTime>(dtOpenOt),
-      'dtExecOt': serializer.toJson<DateTime>(dtExecOt),
-      'dtWaitOt': serializer.toJson<DateTime>(dtWaitOt),
-      'dtCancOt': serializer.toJson<DateTime>(dtCancOt),
-      'dtClosOt': serializer.toJson<DateTime>(dtClosOt),
+      'IDOT': serializer.toJson<int>(IDOT),
+      'IDORIGINE': serializer.toJson<int?>(IDORIGINE),
+      'IDCATEGORIE': serializer.toJson<int?>(IDCATEGORIE),
+      'IDEQUIPEMENT': serializer.toJson<int?>(IDEQUIPEMENT),
+      'CODEOT': serializer.toJson<String>(CODEOT),
+      'LIBELLEOT': serializer.toJson<String>(LIBELLEOT),
+      'COMENTOT': serializer.toJson<String>(COMENTOT),
+      'TEMPSOT': serializer.toJson<double>(TEMPSOT),
+      'STATUTOT': serializer.toJson<String>(STATUTOT),
+      'DTOPENOT': serializer.toJson<DateTime>(DTOPENOT),
+      'DTEXECOT': serializer.toJson<DateTime>(DTEXECOT),
+      'DTWAITOT': serializer.toJson<DateTime>(DTWAITOT),
+      'DTCANCOT': serializer.toJson<DateTime>(DTCANCOT),
+      'DTCLOSOT': serializer.toJson<DateTime>(DTCLOSOT),
     };
   }
 
   OtData copyWith(
-          {int? idOt,
-          int? idOrigine,
-          int? idCategorie,
-          int? idEquipement,
-          String? codeOt,
-          String? libellOt,
-          String? comentOt,
-          double? tempsOt,
-          String? statutOt,
-          DateTime? dtOpenOt,
-          DateTime? dtExecOt,
-          DateTime? dtWaitOt,
-          DateTime? dtCancOt,
-          DateTime? dtClosOt}) =>
+          {int? IDOT,
+          int? IDORIGINE,
+          int? IDCATEGORIE,
+          int? IDEQUIPEMENT,
+          String? CODEOT,
+          String? LIBELLEOT,
+          String? COMENTOT,
+          double? TEMPSOT,
+          String? STATUTOT,
+          DateTime? DTOPENOT,
+          DateTime? DTEXECOT,
+          DateTime? DTWAITOT,
+          DateTime? DTCANCOT,
+          DateTime? DTCLOSOT}) =>
       OtData(
-        idOt: idOt ?? this.idOt,
-        idOrigine: idOrigine ?? this.idOrigine,
-        idCategorie: idCategorie ?? this.idCategorie,
-        idEquipement: idEquipement ?? this.idEquipement,
-        codeOt: codeOt ?? this.codeOt,
-        libellOt: libellOt ?? this.libellOt,
-        comentOt: comentOt ?? this.comentOt,
-        tempsOt: tempsOt ?? this.tempsOt,
-        statutOt: statutOt ?? this.statutOt,
-        dtOpenOt: dtOpenOt ?? this.dtOpenOt,
-        dtExecOt: dtExecOt ?? this.dtExecOt,
-        dtWaitOt: dtWaitOt ?? this.dtWaitOt,
-        dtCancOt: dtCancOt ?? this.dtCancOt,
-        dtClosOt: dtClosOt ?? this.dtClosOt,
+        IDOT: IDOT ?? this.IDOT,
+        IDORIGINE: IDORIGINE ?? this.IDORIGINE,
+        IDCATEGORIE: IDCATEGORIE ?? this.IDCATEGORIE,
+        IDEQUIPEMENT: IDEQUIPEMENT ?? this.IDEQUIPEMENT,
+        CODEOT: CODEOT ?? this.CODEOT,
+        LIBELLEOT: LIBELLEOT ?? this.LIBELLEOT,
+        COMENTOT: COMENTOT ?? this.COMENTOT,
+        TEMPSOT: TEMPSOT ?? this.TEMPSOT,
+        STATUTOT: STATUTOT ?? this.STATUTOT,
+        DTOPENOT: DTOPENOT ?? this.DTOPENOT,
+        DTEXECOT: DTEXECOT ?? this.DTEXECOT,
+        DTWAITOT: DTWAITOT ?? this.DTWAITOT,
+        DTCANCOT: DTCANCOT ?? this.DTCANCOT,
+        DTCLOSOT: DTCLOSOT ?? this.DTCLOSOT,
       );
   @override
   String toString() {
     return (StringBuffer('OtData(')
-          ..write('idOt: $idOt, ')
-          ..write('idOrigine: $idOrigine, ')
-          ..write('idCategorie: $idCategorie, ')
-          ..write('idEquipement: $idEquipement, ')
-          ..write('codeOt: $codeOt, ')
-          ..write('libellOt: $libellOt, ')
-          ..write('comentOt: $comentOt, ')
-          ..write('tempsOt: $tempsOt, ')
-          ..write('statutOt: $statutOt, ')
-          ..write('dtOpenOt: $dtOpenOt, ')
-          ..write('dtExecOt: $dtExecOt, ')
-          ..write('dtWaitOt: $dtWaitOt, ')
-          ..write('dtCancOt: $dtCancOt, ')
-          ..write('dtClosOt: $dtClosOt')
+          ..write('IDOT: $IDOT, ')
+          ..write('IDORIGINE: $IDORIGINE, ')
+          ..write('IDCATEGORIE: $IDCATEGORIE, ')
+          ..write('IDEQUIPEMENT: $IDEQUIPEMENT, ')
+          ..write('CODEOT: $CODEOT, ')
+          ..write('LIBELLEOT: $LIBELLEOT, ')
+          ..write('COMENTOT: $COMENTOT, ')
+          ..write('TEMPSOT: $TEMPSOT, ')
+          ..write('STATUTOT: $STATUTOT, ')
+          ..write('DTOPENOT: $DTOPENOT, ')
+          ..write('DTEXECOT: $DTEXECOT, ')
+          ..write('DTWAITOT: $DTWAITOT, ')
+          ..write('DTCANCOT: $DTCANCOT, ')
+          ..write('DTCLOSOT: $DTCLOSOT')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(
-      idOt,
-      idOrigine,
-      idCategorie,
-      idEquipement,
-      codeOt,
-      libellOt,
-      comentOt,
-      tempsOt,
-      statutOt,
-      dtOpenOt,
-      dtExecOt,
-      dtWaitOt,
-      dtCancOt,
-      dtClosOt);
+      IDOT,
+      IDORIGINE,
+      IDCATEGORIE,
+      IDEQUIPEMENT,
+      CODEOT,
+      LIBELLEOT,
+      COMENTOT,
+      TEMPSOT,
+      STATUTOT,
+      DTOPENOT,
+      DTEXECOT,
+      DTWAITOT,
+      DTCANCOT,
+      DTCLOSOT);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is OtData &&
-          other.idOt == this.idOt &&
-          other.idOrigine == this.idOrigine &&
-          other.idCategorie == this.idCategorie &&
-          other.idEquipement == this.idEquipement &&
-          other.codeOt == this.codeOt &&
-          other.libellOt == this.libellOt &&
-          other.comentOt == this.comentOt &&
-          other.tempsOt == this.tempsOt &&
-          other.statutOt == this.statutOt &&
-          other.dtOpenOt == this.dtOpenOt &&
-          other.dtExecOt == this.dtExecOt &&
-          other.dtWaitOt == this.dtWaitOt &&
-          other.dtCancOt == this.dtCancOt &&
-          other.dtClosOt == this.dtClosOt);
+          other.IDOT == this.IDOT &&
+          other.IDORIGINE == this.IDORIGINE &&
+          other.IDCATEGORIE == this.IDCATEGORIE &&
+          other.IDEQUIPEMENT == this.IDEQUIPEMENT &&
+          other.CODEOT == this.CODEOT &&
+          other.LIBELLEOT == this.LIBELLEOT &&
+          other.COMENTOT == this.COMENTOT &&
+          other.TEMPSOT == this.TEMPSOT &&
+          other.STATUTOT == this.STATUTOT &&
+          other.DTOPENOT == this.DTOPENOT &&
+          other.DTEXECOT == this.DTEXECOT &&
+          other.DTWAITOT == this.DTWAITOT &&
+          other.DTCANCOT == this.DTCANCOT &&
+          other.DTCLOSOT == this.DTCLOSOT);
 }
 
 class OtCompanion extends UpdateCompanion<OtData> {
-  final Value<int> idOt;
-  final Value<int?> idOrigine;
-  final Value<int?> idCategorie;
-  final Value<int?> idEquipement;
-  final Value<String> codeOt;
-  final Value<String> libellOt;
-  final Value<String> comentOt;
-  final Value<double> tempsOt;
-  final Value<String> statutOt;
-  final Value<DateTime> dtOpenOt;
-  final Value<DateTime> dtExecOt;
-  final Value<DateTime> dtWaitOt;
-  final Value<DateTime> dtCancOt;
-  final Value<DateTime> dtClosOt;
+  final Value<int> IDOT;
+  final Value<int?> IDORIGINE;
+  final Value<int?> IDCATEGORIE;
+  final Value<int?> IDEQUIPEMENT;
+  final Value<String> CODEOT;
+  final Value<String> LIBELLEOT;
+  final Value<String> COMENTOT;
+  final Value<double> TEMPSOT;
+  final Value<String> STATUTOT;
+  final Value<DateTime> DTOPENOT;
+  final Value<DateTime> DTEXECOT;
+  final Value<DateTime> DTWAITOT;
+  final Value<DateTime> DTCANCOT;
+  final Value<DateTime> DTCLOSOT;
   const OtCompanion({
-    this.idOt = const Value.absent(),
-    this.idOrigine = const Value.absent(),
-    this.idCategorie = const Value.absent(),
-    this.idEquipement = const Value.absent(),
-    this.codeOt = const Value.absent(),
-    this.libellOt = const Value.absent(),
-    this.comentOt = const Value.absent(),
-    this.tempsOt = const Value.absent(),
-    this.statutOt = const Value.absent(),
-    this.dtOpenOt = const Value.absent(),
-    this.dtExecOt = const Value.absent(),
-    this.dtWaitOt = const Value.absent(),
-    this.dtCancOt = const Value.absent(),
-    this.dtClosOt = const Value.absent(),
+    this.IDOT = const Value.absent(),
+    this.IDORIGINE = const Value.absent(),
+    this.IDCATEGORIE = const Value.absent(),
+    this.IDEQUIPEMENT = const Value.absent(),
+    this.CODEOT = const Value.absent(),
+    this.LIBELLEOT = const Value.absent(),
+    this.COMENTOT = const Value.absent(),
+    this.TEMPSOT = const Value.absent(),
+    this.STATUTOT = const Value.absent(),
+    this.DTOPENOT = const Value.absent(),
+    this.DTEXECOT = const Value.absent(),
+    this.DTWAITOT = const Value.absent(),
+    this.DTCANCOT = const Value.absent(),
+    this.DTCLOSOT = const Value.absent(),
   });
   OtCompanion.insert({
-    this.idOt = const Value.absent(),
-    this.idOrigine = const Value.absent(),
-    this.idCategorie = const Value.absent(),
-    this.idEquipement = const Value.absent(),
-    required String codeOt,
-    required String libellOt,
-    required String comentOt,
-    required double tempsOt,
-    required String statutOt,
-    required DateTime dtOpenOt,
-    required DateTime dtExecOt,
-    required DateTime dtWaitOt,
-    required DateTime dtCancOt,
-    required DateTime dtClosOt,
-  })  : codeOt = Value(codeOt),
-        libellOt = Value(libellOt),
-        comentOt = Value(comentOt),
-        tempsOt = Value(tempsOt),
-        statutOt = Value(statutOt),
-        dtOpenOt = Value(dtOpenOt),
-        dtExecOt = Value(dtExecOt),
-        dtWaitOt = Value(dtWaitOt),
-        dtCancOt = Value(dtCancOt),
-        dtClosOt = Value(dtClosOt);
+    this.IDOT = const Value.absent(),
+    this.IDORIGINE = const Value.absent(),
+    this.IDCATEGORIE = const Value.absent(),
+    this.IDEQUIPEMENT = const Value.absent(),
+    required String CODEOT,
+    required String LIBELLEOT,
+    required String COMENTOT,
+    required double TEMPSOT,
+    required String STATUTOT,
+    required DateTime DTOPENOT,
+    required DateTime DTEXECOT,
+    required DateTime DTWAITOT,
+    required DateTime DTCANCOT,
+    required DateTime DTCLOSOT,
+  })  : CODEOT = Value(CODEOT),
+        LIBELLEOT = Value(LIBELLEOT),
+        COMENTOT = Value(COMENTOT),
+        TEMPSOT = Value(TEMPSOT),
+        STATUTOT = Value(STATUTOT),
+        DTOPENOT = Value(DTOPENOT),
+        DTEXECOT = Value(DTEXECOT),
+        DTWAITOT = Value(DTWAITOT),
+        DTCANCOT = Value(DTCANCOT),
+        DTCLOSOT = Value(DTCLOSOT);
   static Insertable<OtData> custom({
-    Expression<int>? idOt,
-    Expression<int?>? idOrigine,
-    Expression<int?>? idCategorie,
-    Expression<int?>? idEquipement,
-    Expression<String>? codeOt,
-    Expression<String>? libellOt,
-    Expression<String>? comentOt,
-    Expression<double>? tempsOt,
-    Expression<String>? statutOt,
-    Expression<DateTime>? dtOpenOt,
-    Expression<DateTime>? dtExecOt,
-    Expression<DateTime>? dtWaitOt,
-    Expression<DateTime>? dtCancOt,
-    Expression<DateTime>? dtClosOt,
+    Expression<int>? IDOT,
+    Expression<int?>? IDORIGINE,
+    Expression<int?>? IDCATEGORIE,
+    Expression<int?>? IDEQUIPEMENT,
+    Expression<String>? CODEOT,
+    Expression<String>? LIBELLEOT,
+    Expression<String>? COMENTOT,
+    Expression<double>? TEMPSOT,
+    Expression<String>? STATUTOT,
+    Expression<DateTime>? DTOPENOT,
+    Expression<DateTime>? DTEXECOT,
+    Expression<DateTime>? DTWAITOT,
+    Expression<DateTime>? DTCANCOT,
+    Expression<DateTime>? DTCLOSOT,
   }) {
     return RawValuesInsertable({
-      if (idOt != null) 'id_ot': idOt,
-      if (idOrigine != null) 'id_origine': idOrigine,
-      if (idCategorie != null) 'id_categorie': idCategorie,
-      if (idEquipement != null) 'id_equipement': idEquipement,
-      if (codeOt != null) 'code_ot': codeOt,
-      if (libellOt != null) 'libell_ot': libellOt,
-      if (comentOt != null) 'coment_ot': comentOt,
-      if (tempsOt != null) 'temps_ot': tempsOt,
-      if (statutOt != null) 'statut_ot': statutOt,
-      if (dtOpenOt != null) 'dt_open_ot': dtOpenOt,
-      if (dtExecOt != null) 'dt_exec_ot': dtExecOt,
-      if (dtWaitOt != null) 'dt_wait_ot': dtWaitOt,
-      if (dtCancOt != null) 'dt_canc_ot': dtCancOt,
-      if (dtClosOt != null) 'dt_clos_ot': dtClosOt,
+      if (IDOT != null) 'idot': IDOT,
+      if (IDORIGINE != null) 'idorigine': IDORIGINE,
+      if (IDCATEGORIE != null) 'idcategorie': IDCATEGORIE,
+      if (IDEQUIPEMENT != null) 'idequipement': IDEQUIPEMENT,
+      if (CODEOT != null) 'codeot': CODEOT,
+      if (LIBELLEOT != null) 'libelleot': LIBELLEOT,
+      if (COMENTOT != null) 'comentot': COMENTOT,
+      if (TEMPSOT != null) 'tempsot': TEMPSOT,
+      if (STATUTOT != null) 'statutot': STATUTOT,
+      if (DTOPENOT != null) 'dtopenot': DTOPENOT,
+      if (DTEXECOT != null) 'dtexecot': DTEXECOT,
+      if (DTWAITOT != null) 'dtwaitot': DTWAITOT,
+      if (DTCANCOT != null) 'dtcancot': DTCANCOT,
+      if (DTCLOSOT != null) 'dtclosot': DTCLOSOT,
     });
   }
 
   OtCompanion copyWith(
-      {Value<int>? idOt,
-      Value<int?>? idOrigine,
-      Value<int?>? idCategorie,
-      Value<int?>? idEquipement,
-      Value<String>? codeOt,
-      Value<String>? libellOt,
-      Value<String>? comentOt,
-      Value<double>? tempsOt,
-      Value<String>? statutOt,
-      Value<DateTime>? dtOpenOt,
-      Value<DateTime>? dtExecOt,
-      Value<DateTime>? dtWaitOt,
-      Value<DateTime>? dtCancOt,
-      Value<DateTime>? dtClosOt}) {
+      {Value<int>? IDOT,
+      Value<int?>? IDORIGINE,
+      Value<int?>? IDCATEGORIE,
+      Value<int?>? IDEQUIPEMENT,
+      Value<String>? CODEOT,
+      Value<String>? LIBELLEOT,
+      Value<String>? COMENTOT,
+      Value<double>? TEMPSOT,
+      Value<String>? STATUTOT,
+      Value<DateTime>? DTOPENOT,
+      Value<DateTime>? DTEXECOT,
+      Value<DateTime>? DTWAITOT,
+      Value<DateTime>? DTCANCOT,
+      Value<DateTime>? DTCLOSOT}) {
     return OtCompanion(
-      idOt: idOt ?? this.idOt,
-      idOrigine: idOrigine ?? this.idOrigine,
-      idCategorie: idCategorie ?? this.idCategorie,
-      idEquipement: idEquipement ?? this.idEquipement,
-      codeOt: codeOt ?? this.codeOt,
-      libellOt: libellOt ?? this.libellOt,
-      comentOt: comentOt ?? this.comentOt,
-      tempsOt: tempsOt ?? this.tempsOt,
-      statutOt: statutOt ?? this.statutOt,
-      dtOpenOt: dtOpenOt ?? this.dtOpenOt,
-      dtExecOt: dtExecOt ?? this.dtExecOt,
-      dtWaitOt: dtWaitOt ?? this.dtWaitOt,
-      dtCancOt: dtCancOt ?? this.dtCancOt,
-      dtClosOt: dtClosOt ?? this.dtClosOt,
+      IDOT: IDOT ?? this.IDOT,
+      IDORIGINE: IDORIGINE ?? this.IDORIGINE,
+      IDCATEGORIE: IDCATEGORIE ?? this.IDCATEGORIE,
+      IDEQUIPEMENT: IDEQUIPEMENT ?? this.IDEQUIPEMENT,
+      CODEOT: CODEOT ?? this.CODEOT,
+      LIBELLEOT: LIBELLEOT ?? this.LIBELLEOT,
+      COMENTOT: COMENTOT ?? this.COMENTOT,
+      TEMPSOT: TEMPSOT ?? this.TEMPSOT,
+      STATUTOT: STATUTOT ?? this.STATUTOT,
+      DTOPENOT: DTOPENOT ?? this.DTOPENOT,
+      DTEXECOT: DTEXECOT ?? this.DTEXECOT,
+      DTWAITOT: DTWAITOT ?? this.DTWAITOT,
+      DTCANCOT: DTCANCOT ?? this.DTCANCOT,
+      DTCLOSOT: DTCLOSOT ?? this.DTCLOSOT,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (idOt.present) {
-      map['id_ot'] = Variable<int>(idOt.value);
+    if (IDOT.present) {
+      map['idot'] = Variable<int>(IDOT.value);
     }
-    if (idOrigine.present) {
-      map['id_origine'] = Variable<int?>(idOrigine.value);
+    if (IDORIGINE.present) {
+      map['idorigine'] = Variable<int?>(IDORIGINE.value);
     }
-    if (idCategorie.present) {
-      map['id_categorie'] = Variable<int?>(idCategorie.value);
+    if (IDCATEGORIE.present) {
+      map['idcategorie'] = Variable<int?>(IDCATEGORIE.value);
     }
-    if (idEquipement.present) {
-      map['id_equipement'] = Variable<int?>(idEquipement.value);
+    if (IDEQUIPEMENT.present) {
+      map['idequipement'] = Variable<int?>(IDEQUIPEMENT.value);
     }
-    if (codeOt.present) {
-      map['code_ot'] = Variable<String>(codeOt.value);
+    if (CODEOT.present) {
+      map['codeot'] = Variable<String>(CODEOT.value);
     }
-    if (libellOt.present) {
-      map['libell_ot'] = Variable<String>(libellOt.value);
+    if (LIBELLEOT.present) {
+      map['libelleot'] = Variable<String>(LIBELLEOT.value);
     }
-    if (comentOt.present) {
-      map['coment_ot'] = Variable<String>(comentOt.value);
+    if (COMENTOT.present) {
+      map['comentot'] = Variable<String>(COMENTOT.value);
     }
-    if (tempsOt.present) {
-      map['temps_ot'] = Variable<double>(tempsOt.value);
+    if (TEMPSOT.present) {
+      map['tempsot'] = Variable<double>(TEMPSOT.value);
     }
-    if (statutOt.present) {
-      map['statut_ot'] = Variable<String>(statutOt.value);
+    if (STATUTOT.present) {
+      map['statutot'] = Variable<String>(STATUTOT.value);
     }
-    if (dtOpenOt.present) {
-      map['dt_open_ot'] = Variable<DateTime>(dtOpenOt.value);
+    if (DTOPENOT.present) {
+      map['dtopenot'] = Variable<DateTime>(DTOPENOT.value);
     }
-    if (dtExecOt.present) {
-      map['dt_exec_ot'] = Variable<DateTime>(dtExecOt.value);
+    if (DTEXECOT.present) {
+      map['dtexecot'] = Variable<DateTime>(DTEXECOT.value);
     }
-    if (dtWaitOt.present) {
-      map['dt_wait_ot'] = Variable<DateTime>(dtWaitOt.value);
+    if (DTWAITOT.present) {
+      map['dtwaitot'] = Variable<DateTime>(DTWAITOT.value);
     }
-    if (dtCancOt.present) {
-      map['dt_canc_ot'] = Variable<DateTime>(dtCancOt.value);
+    if (DTCANCOT.present) {
+      map['dtcancot'] = Variable<DateTime>(DTCANCOT.value);
     }
-    if (dtClosOt.present) {
-      map['dt_clos_ot'] = Variable<DateTime>(dtClosOt.value);
+    if (DTCLOSOT.present) {
+      map['dtclosot'] = Variable<DateTime>(DTCLOSOT.value);
     }
     return map;
   }
@@ -2064,20 +2078,20 @@ class OtCompanion extends UpdateCompanion<OtData> {
   @override
   String toString() {
     return (StringBuffer('OtCompanion(')
-          ..write('idOt: $idOt, ')
-          ..write('idOrigine: $idOrigine, ')
-          ..write('idCategorie: $idCategorie, ')
-          ..write('idEquipement: $idEquipement, ')
-          ..write('codeOt: $codeOt, ')
-          ..write('libellOt: $libellOt, ')
-          ..write('comentOt: $comentOt, ')
-          ..write('tempsOt: $tempsOt, ')
-          ..write('statutOt: $statutOt, ')
-          ..write('dtOpenOt: $dtOpenOt, ')
-          ..write('dtExecOt: $dtExecOt, ')
-          ..write('dtWaitOt: $dtWaitOt, ')
-          ..write('dtCancOt: $dtCancOt, ')
-          ..write('dtClosOt: $dtClosOt')
+          ..write('IDOT: $IDOT, ')
+          ..write('IDORIGINE: $IDORIGINE, ')
+          ..write('IDCATEGORIE: $IDCATEGORIE, ')
+          ..write('IDEQUIPEMENT: $IDEQUIPEMENT, ')
+          ..write('CODEOT: $CODEOT, ')
+          ..write('LIBELLEOT: $LIBELLEOT, ')
+          ..write('COMENTOT: $COMENTOT, ')
+          ..write('TEMPSOT: $TEMPSOT, ')
+          ..write('STATUTOT: $STATUTOT, ')
+          ..write('DTOPENOT: $DTOPENOT, ')
+          ..write('DTEXECOT: $DTEXECOT, ')
+          ..write('DTWAITOT: $DTWAITOT, ')
+          ..write('DTCANCOT: $DTCANCOT, ')
+          ..write('DTCLOSOT: $DTCLOSOT')
           ..write(')'))
         .toString();
   }
@@ -2087,114 +2101,100 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
   final GeneratedDatabase _db;
   final String? _alias;
   $OtTable(this._db, [this._alias]);
-  final VerificationMeta _idOtMeta = const VerificationMeta('idOt');
-  @override
-  late final GeneratedColumn<int?> idOt = GeneratedColumn<int?>(
-      'id_ot', aliasedName, false,
-      type: const IntType(),
+  final VerificationMeta _IDOTMeta = const VerificationMeta('IDOT');
+  late final GeneratedColumn<int?> IDOT = GeneratedColumn<int?>(
+      'idot', aliasedName, false,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idOrigineMeta = const VerificationMeta('idOrigine');
-  @override
-  late final GeneratedColumn<int?> idOrigine = GeneratedColumn<int?>(
-      'id_origine', aliasedName, true,
-      type: const IntType(),
+  final VerificationMeta _IDORIGINEMeta = const VerificationMeta('IDORIGINE');
+  late final GeneratedColumn<int?> IDORIGINE = GeneratedColumn<int?>(
+      'idorigine', aliasedName, true,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES Origines(idOrigin)');
-  final VerificationMeta _idCategorieMeta =
-      const VerificationMeta('idCategorie');
-  @override
-  late final GeneratedColumn<int?> idCategorie = GeneratedColumn<int?>(
-      'id_categorie', aliasedName, true,
-      type: const IntType(),
+      $customConstraints: 'NULL REFERENCES Origines(IDORIGINE)');
+  final VerificationMeta _IDCATEGORIEMeta =
+      const VerificationMeta('IDCATEGORIE');
+  late final GeneratedColumn<int?> IDCATEGORIE = GeneratedColumn<int?>(
+      'idcategorie', aliasedName, true,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES Categories(idCategorie)');
-  final VerificationMeta _idEquipementMeta =
-      const VerificationMeta('idEquipement');
-  @override
-  late final GeneratedColumn<int?> idEquipement = GeneratedColumn<int?>(
-      'id_equipement', aliasedName, true,
-      type: const IntType(),
+      $customConstraints: 'NULL REFERENCES Categories(IDCATEGORIE)');
+  final VerificationMeta _IDEQUIPEMENTMeta =
+      const VerificationMeta('IDEQUIPEMENT');
+  late final GeneratedColumn<int?> IDEQUIPEMENT = GeneratedColumn<int?>(
+      'idequipement', aliasedName, true,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES Equipements(idEquipement)');
-  final VerificationMeta _codeOtMeta = const VerificationMeta('codeOt');
-  @override
-  late final GeneratedColumn<String?> codeOt = GeneratedColumn<String?>(
-      'code_ot', aliasedName, false,
+      $customConstraints: 'NULL REFERENCES Equipements(IDEQUIPEMENT)');
+  final VerificationMeta _CODEOTMeta = const VerificationMeta('CODEOT');
+  late final GeneratedColumn<String?> CODEOT = GeneratedColumn<String?>(
+      'codeot', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 0, maxTextLength: 24),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _libellOtMeta = const VerificationMeta('libellOt');
-  @override
-  late final GeneratedColumn<String?> libellOt = GeneratedColumn<String?>(
-      'libell_ot', aliasedName, false,
+  final VerificationMeta _LIBELLEOTMeta = const VerificationMeta('LIBELLEOT');
+  late final GeneratedColumn<String?> LIBELLEOT = GeneratedColumn<String?>(
+      'libelleot', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 0, maxTextLength: 48),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _comentOtMeta = const VerificationMeta('comentOt');
-  @override
-  late final GeneratedColumn<String?> comentOt = GeneratedColumn<String?>(
-      'coment_ot', aliasedName, false,
+  final VerificationMeta _COMENTOTMeta = const VerificationMeta('COMENTOT');
+  late final GeneratedColumn<String?> COMENTOT = GeneratedColumn<String?>(
+      'comentot', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
           minTextLength: 0, maxTextLength: 2048),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _tempsOtMeta = const VerificationMeta('tempsOt');
-  @override
-  late final GeneratedColumn<double?> tempsOt = GeneratedColumn<double?>(
-      'temps_ot', aliasedName, false,
-      type: const RealType(), requiredDuringInsert: true);
-  final VerificationMeta _statutOtMeta = const VerificationMeta('statutOt');
-  @override
-  late final GeneratedColumn<String?> statutOt = GeneratedColumn<String?>(
-      'statut_ot', aliasedName, false,
+  final VerificationMeta _TEMPSOTMeta = const VerificationMeta('TEMPSOT');
+  late final GeneratedColumn<double?> TEMPSOT = GeneratedColumn<double?>(
+      'tempsot', aliasedName, false,
+      typeName: 'REAL', requiredDuringInsert: true);
+  final VerificationMeta _STATUTOTMeta = const VerificationMeta('STATUTOT');
+  late final GeneratedColumn<String?> STATUTOT = GeneratedColumn<String?>(
+      'statutot', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 1),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _dtOpenOtMeta = const VerificationMeta('dtOpenOt');
-  @override
-  late final GeneratedColumn<DateTime?> dtOpenOt = GeneratedColumn<DateTime?>(
-      'dt_open_ot', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
-  final VerificationMeta _dtExecOtMeta = const VerificationMeta('dtExecOt');
-  @override
-  late final GeneratedColumn<DateTime?> dtExecOt = GeneratedColumn<DateTime?>(
-      'dt_exec_ot', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
-  final VerificationMeta _dtWaitOtMeta = const VerificationMeta('dtWaitOt');
-  @override
-  late final GeneratedColumn<DateTime?> dtWaitOt = GeneratedColumn<DateTime?>(
-      'dt_wait_ot', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
-  final VerificationMeta _dtCancOtMeta = const VerificationMeta('dtCancOt');
-  @override
-  late final GeneratedColumn<DateTime?> dtCancOt = GeneratedColumn<DateTime?>(
-      'dt_canc_ot', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
-  final VerificationMeta _dtClosOtMeta = const VerificationMeta('dtClosOt');
-  @override
-  late final GeneratedColumn<DateTime?> dtClosOt = GeneratedColumn<DateTime?>(
-      'dt_clos_ot', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
+  final VerificationMeta _DTOPENOTMeta = const VerificationMeta('DTOPENOT');
+  late final GeneratedColumn<DateTime?> DTOPENOT = GeneratedColumn<DateTime?>(
+      'dtopenot', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
+  final VerificationMeta _DTEXECOTMeta = const VerificationMeta('DTEXECOT');
+  late final GeneratedColumn<DateTime?> DTEXECOT = GeneratedColumn<DateTime?>(
+      'dtexecot', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
+  final VerificationMeta _DTWAITOTMeta = const VerificationMeta('DTWAITOT');
+  late final GeneratedColumn<DateTime?> DTWAITOT = GeneratedColumn<DateTime?>(
+      'dtwaitot', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
+  final VerificationMeta _DTCANCOTMeta = const VerificationMeta('DTCANCOT');
+  late final GeneratedColumn<DateTime?> DTCANCOT = GeneratedColumn<DateTime?>(
+      'dtcancot', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
+  final VerificationMeta _DTCLOSOTMeta = const VerificationMeta('DTCLOSOT');
+  late final GeneratedColumn<DateTime?> DTCLOSOT = GeneratedColumn<DateTime?>(
+      'dtclosot', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
-        idOt,
-        idOrigine,
-        idCategorie,
-        idEquipement,
-        codeOt,
-        libellOt,
-        comentOt,
-        tempsOt,
-        statutOt,
-        dtOpenOt,
-        dtExecOt,
-        dtWaitOt,
-        dtCancOt,
-        dtClosOt
+        IDOT,
+        IDORIGINE,
+        IDCATEGORIE,
+        IDEQUIPEMENT,
+        CODEOT,
+        LIBELLEOT,
+        COMENTOT,
+        TEMPSOT,
+        STATUTOT,
+        DTOPENOT,
+        DTEXECOT,
+        DTWAITOT,
+        DTCANCOT,
+        DTCLOSOT
       ];
   @override
   String get aliasedName => _alias ?? 'ot';
@@ -2205,91 +2205,91 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_ot')) {
+    if (data.containsKey('idot')) {
       context.handle(
-          _idOtMeta, idOt.isAcceptableOrUnknown(data['id_ot']!, _idOtMeta));
+          _IDOTMeta, IDOT.isAcceptableOrUnknown(data['idot']!, _IDOTMeta));
     }
-    if (data.containsKey('id_origine')) {
-      context.handle(_idOrigineMeta,
-          idOrigine.isAcceptableOrUnknown(data['id_origine']!, _idOrigineMeta));
+    if (data.containsKey('idorigine')) {
+      context.handle(_IDORIGINEMeta,
+          IDORIGINE.isAcceptableOrUnknown(data['idorigine']!, _IDORIGINEMeta));
     }
-    if (data.containsKey('id_categorie')) {
+    if (data.containsKey('idcategorie')) {
       context.handle(
-          _idCategorieMeta,
-          idCategorie.isAcceptableOrUnknown(
-              data['id_categorie']!, _idCategorieMeta));
+          _IDCATEGORIEMeta,
+          IDCATEGORIE.isAcceptableOrUnknown(
+              data['idcategorie']!, _IDCATEGORIEMeta));
     }
-    if (data.containsKey('id_equipement')) {
+    if (data.containsKey('idequipement')) {
       context.handle(
-          _idEquipementMeta,
-          idEquipement.isAcceptableOrUnknown(
-              data['id_equipement']!, _idEquipementMeta));
+          _IDEQUIPEMENTMeta,
+          IDEQUIPEMENT.isAcceptableOrUnknown(
+              data['idequipement']!, _IDEQUIPEMENTMeta));
     }
-    if (data.containsKey('code_ot')) {
-      context.handle(_codeOtMeta,
-          codeOt.isAcceptableOrUnknown(data['code_ot']!, _codeOtMeta));
+    if (data.containsKey('codeot')) {
+      context.handle(_CODEOTMeta,
+          CODEOT.isAcceptableOrUnknown(data['codeot']!, _CODEOTMeta));
     } else if (isInserting) {
-      context.missing(_codeOtMeta);
+      context.missing(_CODEOTMeta);
     }
-    if (data.containsKey('libell_ot')) {
-      context.handle(_libellOtMeta,
-          libellOt.isAcceptableOrUnknown(data['libell_ot']!, _libellOtMeta));
+    if (data.containsKey('libelleot')) {
+      context.handle(_LIBELLEOTMeta,
+          LIBELLEOT.isAcceptableOrUnknown(data['libelleot']!, _LIBELLEOTMeta));
     } else if (isInserting) {
-      context.missing(_libellOtMeta);
+      context.missing(_LIBELLEOTMeta);
     }
-    if (data.containsKey('coment_ot')) {
-      context.handle(_comentOtMeta,
-          comentOt.isAcceptableOrUnknown(data['coment_ot']!, _comentOtMeta));
+    if (data.containsKey('comentot')) {
+      context.handle(_COMENTOTMeta,
+          COMENTOT.isAcceptableOrUnknown(data['comentot']!, _COMENTOTMeta));
     } else if (isInserting) {
-      context.missing(_comentOtMeta);
+      context.missing(_COMENTOTMeta);
     }
-    if (data.containsKey('temps_ot')) {
-      context.handle(_tempsOtMeta,
-          tempsOt.isAcceptableOrUnknown(data['temps_ot']!, _tempsOtMeta));
+    if (data.containsKey('tempsot')) {
+      context.handle(_TEMPSOTMeta,
+          TEMPSOT.isAcceptableOrUnknown(data['tempsot']!, _TEMPSOTMeta));
     } else if (isInserting) {
-      context.missing(_tempsOtMeta);
+      context.missing(_TEMPSOTMeta);
     }
-    if (data.containsKey('statut_ot')) {
-      context.handle(_statutOtMeta,
-          statutOt.isAcceptableOrUnknown(data['statut_ot']!, _statutOtMeta));
+    if (data.containsKey('statutot')) {
+      context.handle(_STATUTOTMeta,
+          STATUTOT.isAcceptableOrUnknown(data['statutot']!, _STATUTOTMeta));
     } else if (isInserting) {
-      context.missing(_statutOtMeta);
+      context.missing(_STATUTOTMeta);
     }
-    if (data.containsKey('dt_open_ot')) {
-      context.handle(_dtOpenOtMeta,
-          dtOpenOt.isAcceptableOrUnknown(data['dt_open_ot']!, _dtOpenOtMeta));
+    if (data.containsKey('dtopenot')) {
+      context.handle(_DTOPENOTMeta,
+          DTOPENOT.isAcceptableOrUnknown(data['dtopenot']!, _DTOPENOTMeta));
     } else if (isInserting) {
-      context.missing(_dtOpenOtMeta);
+      context.missing(_DTOPENOTMeta);
     }
-    if (data.containsKey('dt_exec_ot')) {
-      context.handle(_dtExecOtMeta,
-          dtExecOt.isAcceptableOrUnknown(data['dt_exec_ot']!, _dtExecOtMeta));
+    if (data.containsKey('dtexecot')) {
+      context.handle(_DTEXECOTMeta,
+          DTEXECOT.isAcceptableOrUnknown(data['dtexecot']!, _DTEXECOTMeta));
     } else if (isInserting) {
-      context.missing(_dtExecOtMeta);
+      context.missing(_DTEXECOTMeta);
     }
-    if (data.containsKey('dt_wait_ot')) {
-      context.handle(_dtWaitOtMeta,
-          dtWaitOt.isAcceptableOrUnknown(data['dt_wait_ot']!, _dtWaitOtMeta));
+    if (data.containsKey('dtwaitot')) {
+      context.handle(_DTWAITOTMeta,
+          DTWAITOT.isAcceptableOrUnknown(data['dtwaitot']!, _DTWAITOTMeta));
     } else if (isInserting) {
-      context.missing(_dtWaitOtMeta);
+      context.missing(_DTWAITOTMeta);
     }
-    if (data.containsKey('dt_canc_ot')) {
-      context.handle(_dtCancOtMeta,
-          dtCancOt.isAcceptableOrUnknown(data['dt_canc_ot']!, _dtCancOtMeta));
+    if (data.containsKey('dtcancot')) {
+      context.handle(_DTCANCOTMeta,
+          DTCANCOT.isAcceptableOrUnknown(data['dtcancot']!, _DTCANCOTMeta));
     } else if (isInserting) {
-      context.missing(_dtCancOtMeta);
+      context.missing(_DTCANCOTMeta);
     }
-    if (data.containsKey('dt_clos_ot')) {
-      context.handle(_dtClosOtMeta,
-          dtClosOt.isAcceptableOrUnknown(data['dt_clos_ot']!, _dtClosOtMeta));
+    if (data.containsKey('dtclosot')) {
+      context.handle(_DTCLOSOTMeta,
+          DTCLOSOT.isAcceptableOrUnknown(data['dtclosot']!, _DTCLOSOTMeta));
     } else if (isInserting) {
-      context.missing(_dtClosOtMeta);
+      context.missing(_DTCLOSOTMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idOt};
+  Set<GeneratedColumn> get $primaryKey => {IDOT};
   @override
   OtData map(Map<String, dynamic> data, {String? tablePrefix}) {
     return OtData.fromData(data,
@@ -2303,62 +2303,62 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
 }
 
 class Reservation extends DataClass implements Insertable<Reservation> {
-  final int idPiece;
-  final int? idOt;
-  final String? codeArticle;
-  final String libelleArticle;
-  final int qteArticle;
-  final int idArticle;
+  final int IDPIECE;
+  final int? IDOT;
+  final String? CODEARTICLE;
+  final String LIBELLEARTICLE;
+  final int QTEARTICLE;
+  final int IDARTICLE;
   Reservation(
-      {required this.idPiece,
-      this.idOt,
-      this.codeArticle,
-      required this.libelleArticle,
-      required this.qteArticle,
-      required this.idArticle});
+      {required this.IDPIECE,
+      this.IDOT,
+      this.CODEARTICLE,
+      required this.LIBELLEARTICLE,
+      required this.QTEARTICLE,
+      required this.IDARTICLE});
   factory Reservation.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Reservation(
-      idPiece: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_piece'])!,
-      idOt: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_ot']),
-      codeArticle: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}code_article']),
-      libelleArticle: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}libelle_article'])!,
-      qteArticle: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}qte_article'])!,
-      idArticle: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_article'])!,
+      IDPIECE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idpiece'])!,
+      IDOT: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idot']),
+      CODEARTICLE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codearticle']),
+      LIBELLEARTICLE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}libellearticle'])!,
+      QTEARTICLE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}qtearticle'])!,
+      IDARTICLE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idarticle'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id_piece'] = Variable<int>(idPiece);
-    if (!nullToAbsent || idOt != null) {
-      map['id_ot'] = Variable<int?>(idOt);
+    map['idpiece'] = Variable<int>(IDPIECE);
+    if (!nullToAbsent || IDOT != null) {
+      map['idot'] = Variable<int?>(IDOT);
     }
-    if (!nullToAbsent || codeArticle != null) {
-      map['code_article'] = Variable<String?>(codeArticle);
+    if (!nullToAbsent || CODEARTICLE != null) {
+      map['codearticle'] = Variable<String?>(CODEARTICLE);
     }
-    map['libelle_article'] = Variable<String>(libelleArticle);
-    map['qte_article'] = Variable<int>(qteArticle);
-    map['id_article'] = Variable<int>(idArticle);
+    map['libellearticle'] = Variable<String>(LIBELLEARTICLE);
+    map['qtearticle'] = Variable<int>(QTEARTICLE);
+    map['idarticle'] = Variable<int>(IDARTICLE);
     return map;
   }
 
   ReservationsCompanion toCompanion(bool nullToAbsent) {
     return ReservationsCompanion(
-      idPiece: Value(idPiece),
-      idOt: idOt == null && nullToAbsent ? const Value.absent() : Value(idOt),
-      codeArticle: codeArticle == null && nullToAbsent
+      IDPIECE: Value(IDPIECE),
+      IDOT: IDOT == null && nullToAbsent ? const Value.absent() : Value(IDOT),
+      CODEARTICLE: CODEARTICLE == null && nullToAbsent
           ? const Value.absent()
-          : Value(codeArticle),
-      libelleArticle: Value(libelleArticle),
-      qteArticle: Value(qteArticle),
-      idArticle: Value(idArticle),
+          : Value(CODEARTICLE),
+      LIBELLEARTICLE: Value(LIBELLEARTICLE),
+      QTEARTICLE: Value(QTEARTICLE),
+      IDARTICLE: Value(IDARTICLE),
     );
   }
 
@@ -2366,150 +2366,150 @@ class Reservation extends DataClass implements Insertable<Reservation> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Reservation(
-      idPiece: serializer.fromJson<int>(json['idPiece']),
-      idOt: serializer.fromJson<int?>(json['idOt']),
-      codeArticle: serializer.fromJson<String?>(json['codeArticle']),
-      libelleArticle: serializer.fromJson<String>(json['libelleArticle']),
-      qteArticle: serializer.fromJson<int>(json['qteArticle']),
-      idArticle: serializer.fromJson<int>(json['idArticle']),
+      IDPIECE: serializer.fromJson<int>(json['IDPIECE']),
+      IDOT: serializer.fromJson<int?>(json['IDOT']),
+      CODEARTICLE: serializer.fromJson<String?>(json['CODEARTICLE']),
+      LIBELLEARTICLE: serializer.fromJson<String>(json['LIBELLEARTICLE']),
+      QTEARTICLE: serializer.fromJson<int>(json['QTEARTICLE']),
+      IDARTICLE: serializer.fromJson<int>(json['IDARTICLE']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'idPiece': serializer.toJson<int>(idPiece),
-      'idOt': serializer.toJson<int?>(idOt),
-      'codeArticle': serializer.toJson<String?>(codeArticle),
-      'libelleArticle': serializer.toJson<String>(libelleArticle),
-      'qteArticle': serializer.toJson<int>(qteArticle),
-      'idArticle': serializer.toJson<int>(idArticle),
+      'IDPIECE': serializer.toJson<int>(IDPIECE),
+      'IDOT': serializer.toJson<int?>(IDOT),
+      'CODEARTICLE': serializer.toJson<String?>(CODEARTICLE),
+      'LIBELLEARTICLE': serializer.toJson<String>(LIBELLEARTICLE),
+      'QTEARTICLE': serializer.toJson<int>(QTEARTICLE),
+      'IDARTICLE': serializer.toJson<int>(IDARTICLE),
     };
   }
 
   Reservation copyWith(
-          {int? idPiece,
-          int? idOt,
-          String? codeArticle,
-          String? libelleArticle,
-          int? qteArticle,
-          int? idArticle}) =>
+          {int? IDPIECE,
+          int? IDOT,
+          String? CODEARTICLE,
+          String? LIBELLEARTICLE,
+          int? QTEARTICLE,
+          int? IDARTICLE}) =>
       Reservation(
-        idPiece: idPiece ?? this.idPiece,
-        idOt: idOt ?? this.idOt,
-        codeArticle: codeArticle ?? this.codeArticle,
-        libelleArticle: libelleArticle ?? this.libelleArticle,
-        qteArticle: qteArticle ?? this.qteArticle,
-        idArticle: idArticle ?? this.idArticle,
+        IDPIECE: IDPIECE ?? this.IDPIECE,
+        IDOT: IDOT ?? this.IDOT,
+        CODEARTICLE: CODEARTICLE ?? this.CODEARTICLE,
+        LIBELLEARTICLE: LIBELLEARTICLE ?? this.LIBELLEARTICLE,
+        QTEARTICLE: QTEARTICLE ?? this.QTEARTICLE,
+        IDARTICLE: IDARTICLE ?? this.IDARTICLE,
       );
   @override
   String toString() {
     return (StringBuffer('Reservation(')
-          ..write('idPiece: $idPiece, ')
-          ..write('idOt: $idOt, ')
-          ..write('codeArticle: $codeArticle, ')
-          ..write('libelleArticle: $libelleArticle, ')
-          ..write('qteArticle: $qteArticle, ')
-          ..write('idArticle: $idArticle')
+          ..write('IDPIECE: $IDPIECE, ')
+          ..write('IDOT: $IDOT, ')
+          ..write('CODEARTICLE: $CODEARTICLE, ')
+          ..write('LIBELLEARTICLE: $LIBELLEARTICLE, ')
+          ..write('QTEARTICLE: $QTEARTICLE, ')
+          ..write('IDARTICLE: $IDARTICLE')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(
-      idPiece, idOt, codeArticle, libelleArticle, qteArticle, idArticle);
+      IDPIECE, IDOT, CODEARTICLE, LIBELLEARTICLE, QTEARTICLE, IDARTICLE);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Reservation &&
-          other.idPiece == this.idPiece &&
-          other.idOt == this.idOt &&
-          other.codeArticle == this.codeArticle &&
-          other.libelleArticle == this.libelleArticle &&
-          other.qteArticle == this.qteArticle &&
-          other.idArticle == this.idArticle);
+          other.IDPIECE == this.IDPIECE &&
+          other.IDOT == this.IDOT &&
+          other.CODEARTICLE == this.CODEARTICLE &&
+          other.LIBELLEARTICLE == this.LIBELLEARTICLE &&
+          other.QTEARTICLE == this.QTEARTICLE &&
+          other.IDARTICLE == this.IDARTICLE);
 }
 
 class ReservationsCompanion extends UpdateCompanion<Reservation> {
-  final Value<int> idPiece;
-  final Value<int?> idOt;
-  final Value<String?> codeArticle;
-  final Value<String> libelleArticle;
-  final Value<int> qteArticle;
-  final Value<int> idArticle;
+  final Value<int> IDPIECE;
+  final Value<int?> IDOT;
+  final Value<String?> CODEARTICLE;
+  final Value<String> LIBELLEARTICLE;
+  final Value<int> QTEARTICLE;
+  final Value<int> IDARTICLE;
   const ReservationsCompanion({
-    this.idPiece = const Value.absent(),
-    this.idOt = const Value.absent(),
-    this.codeArticle = const Value.absent(),
-    this.libelleArticle = const Value.absent(),
-    this.qteArticle = const Value.absent(),
-    this.idArticle = const Value.absent(),
+    this.IDPIECE = const Value.absent(),
+    this.IDOT = const Value.absent(),
+    this.CODEARTICLE = const Value.absent(),
+    this.LIBELLEARTICLE = const Value.absent(),
+    this.QTEARTICLE = const Value.absent(),
+    this.IDARTICLE = const Value.absent(),
   });
   ReservationsCompanion.insert({
-    this.idPiece = const Value.absent(),
-    this.idOt = const Value.absent(),
-    this.codeArticle = const Value.absent(),
-    required String libelleArticle,
-    required int qteArticle,
-    required int idArticle,
-  })  : libelleArticle = Value(libelleArticle),
-        qteArticle = Value(qteArticle),
-        idArticle = Value(idArticle);
+    this.IDPIECE = const Value.absent(),
+    this.IDOT = const Value.absent(),
+    this.CODEARTICLE = const Value.absent(),
+    required String LIBELLEARTICLE,
+    required int QTEARTICLE,
+    required int IDARTICLE,
+  })  : LIBELLEARTICLE = Value(LIBELLEARTICLE),
+        QTEARTICLE = Value(QTEARTICLE),
+        IDARTICLE = Value(IDARTICLE);
   static Insertable<Reservation> custom({
-    Expression<int>? idPiece,
-    Expression<int?>? idOt,
-    Expression<String?>? codeArticle,
-    Expression<String>? libelleArticle,
-    Expression<int>? qteArticle,
-    Expression<int>? idArticle,
+    Expression<int>? IDPIECE,
+    Expression<int?>? IDOT,
+    Expression<String?>? CODEARTICLE,
+    Expression<String>? LIBELLEARTICLE,
+    Expression<int>? QTEARTICLE,
+    Expression<int>? IDARTICLE,
   }) {
     return RawValuesInsertable({
-      if (idPiece != null) 'id_piece': idPiece,
-      if (idOt != null) 'id_ot': idOt,
-      if (codeArticle != null) 'code_article': codeArticle,
-      if (libelleArticle != null) 'libelle_article': libelleArticle,
-      if (qteArticle != null) 'qte_article': qteArticle,
-      if (idArticle != null) 'id_article': idArticle,
+      if (IDPIECE != null) 'idpiece': IDPIECE,
+      if (IDOT != null) 'idot': IDOT,
+      if (CODEARTICLE != null) 'codearticle': CODEARTICLE,
+      if (LIBELLEARTICLE != null) 'libellearticle': LIBELLEARTICLE,
+      if (QTEARTICLE != null) 'qtearticle': QTEARTICLE,
+      if (IDARTICLE != null) 'idarticle': IDARTICLE,
     });
   }
 
   ReservationsCompanion copyWith(
-      {Value<int>? idPiece,
-      Value<int?>? idOt,
-      Value<String?>? codeArticle,
-      Value<String>? libelleArticle,
-      Value<int>? qteArticle,
-      Value<int>? idArticle}) {
+      {Value<int>? IDPIECE,
+      Value<int?>? IDOT,
+      Value<String?>? CODEARTICLE,
+      Value<String>? LIBELLEARTICLE,
+      Value<int>? QTEARTICLE,
+      Value<int>? IDARTICLE}) {
     return ReservationsCompanion(
-      idPiece: idPiece ?? this.idPiece,
-      idOt: idOt ?? this.idOt,
-      codeArticle: codeArticle ?? this.codeArticle,
-      libelleArticle: libelleArticle ?? this.libelleArticle,
-      qteArticle: qteArticle ?? this.qteArticle,
-      idArticle: idArticle ?? this.idArticle,
+      IDPIECE: IDPIECE ?? this.IDPIECE,
+      IDOT: IDOT ?? this.IDOT,
+      CODEARTICLE: CODEARTICLE ?? this.CODEARTICLE,
+      LIBELLEARTICLE: LIBELLEARTICLE ?? this.LIBELLEARTICLE,
+      QTEARTICLE: QTEARTICLE ?? this.QTEARTICLE,
+      IDARTICLE: IDARTICLE ?? this.IDARTICLE,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (idPiece.present) {
-      map['id_piece'] = Variable<int>(idPiece.value);
+    if (IDPIECE.present) {
+      map['idpiece'] = Variable<int>(IDPIECE.value);
     }
-    if (idOt.present) {
-      map['id_ot'] = Variable<int?>(idOt.value);
+    if (IDOT.present) {
+      map['idot'] = Variable<int?>(IDOT.value);
     }
-    if (codeArticle.present) {
-      map['code_article'] = Variable<String?>(codeArticle.value);
+    if (CODEARTICLE.present) {
+      map['codearticle'] = Variable<String?>(CODEARTICLE.value);
     }
-    if (libelleArticle.present) {
-      map['libelle_article'] = Variable<String>(libelleArticle.value);
+    if (LIBELLEARTICLE.present) {
+      map['libellearticle'] = Variable<String>(LIBELLEARTICLE.value);
     }
-    if (qteArticle.present) {
-      map['qte_article'] = Variable<int>(qteArticle.value);
+    if (QTEARTICLE.present) {
+      map['qtearticle'] = Variable<int>(QTEARTICLE.value);
     }
-    if (idArticle.present) {
-      map['id_article'] = Variable<int>(idArticle.value);
+    if (IDARTICLE.present) {
+      map['idarticle'] = Variable<int>(IDARTICLE.value);
     }
     return map;
   }
@@ -2517,12 +2517,12 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
   @override
   String toString() {
     return (StringBuffer('ReservationsCompanion(')
-          ..write('idPiece: $idPiece, ')
-          ..write('idOt: $idOt, ')
-          ..write('codeArticle: $codeArticle, ')
-          ..write('libelleArticle: $libelleArticle, ')
-          ..write('qteArticle: $qteArticle, ')
-          ..write('idArticle: $idArticle')
+          ..write('IDPIECE: $IDPIECE, ')
+          ..write('IDOT: $IDOT, ')
+          ..write('CODEARTICLE: $CODEARTICLE, ')
+          ..write('LIBELLEARTICLE: $LIBELLEARTICLE, ')
+          ..write('QTEARTICLE: $QTEARTICLE, ')
+          ..write('IDARTICLE: $IDARTICLE')
           ..write(')'))
         .toString();
   }
@@ -2533,52 +2533,46 @@ class $ReservationsTable extends Reservations
   final GeneratedDatabase _db;
   final String? _alias;
   $ReservationsTable(this._db, [this._alias]);
-  final VerificationMeta _idPieceMeta = const VerificationMeta('idPiece');
-  @override
-  late final GeneratedColumn<int?> idPiece = GeneratedColumn<int?>(
-      'id_piece', aliasedName, false,
-      type: const IntType(),
+  final VerificationMeta _IDPIECEMeta = const VerificationMeta('IDPIECE');
+  late final GeneratedColumn<int?> IDPIECE = GeneratedColumn<int?>(
+      'idpiece', aliasedName, false,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _idOtMeta = const VerificationMeta('idOt');
-  @override
-  late final GeneratedColumn<int?> idOt = GeneratedColumn<int?>(
-      'id_ot', aliasedName, true,
-      type: const IntType(),
+  final VerificationMeta _IDOTMeta = const VerificationMeta('IDOT');
+  late final GeneratedColumn<int?> IDOT = GeneratedColumn<int?>(
+      'idot', aliasedName, true,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES Ot(idOt)');
-  final VerificationMeta _codeArticleMeta =
-      const VerificationMeta('codeArticle');
-  @override
-  late final GeneratedColumn<String?> codeArticle = GeneratedColumn<String?>(
-      'code_article', aliasedName, true,
+      $customConstraints: 'NULL REFERENCES Ot(IDOT)');
+  final VerificationMeta _CODEARTICLEMeta =
+      const VerificationMeta('CODEARTICLE');
+  late final GeneratedColumn<String?> CODEARTICLE = GeneratedColumn<String?>(
+      'codearticle', aliasedName, true,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 24),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES Articles(idArticle)');
-  final VerificationMeta _libelleArticleMeta =
-      const VerificationMeta('libelleArticle');
-  @override
-  late final GeneratedColumn<String?> libelleArticle = GeneratedColumn<String?>(
-      'libelle_article', aliasedName, false,
+      $customConstraints: 'NULL REFERENCES Articles(IDARTICLE)');
+  final VerificationMeta _LIBELLEARTICLEMeta =
+      const VerificationMeta('LIBELLEARTICLE');
+  late final GeneratedColumn<String?> LIBELLEARTICLE = GeneratedColumn<String?>(
+      'libellearticle', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _qteArticleMeta = const VerificationMeta('qteArticle');
-  @override
-  late final GeneratedColumn<int?> qteArticle = GeneratedColumn<int?>(
-      'qte_article', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
-  final VerificationMeta _idArticleMeta = const VerificationMeta('idArticle');
-  @override
-  late final GeneratedColumn<int?> idArticle = GeneratedColumn<int?>(
-      'id_article', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
+  final VerificationMeta _QTEARTICLEMeta = const VerificationMeta('QTEARTICLE');
+  late final GeneratedColumn<int?> QTEARTICLE = GeneratedColumn<int?>(
+      'qtearticle', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
+  final VerificationMeta _IDARTICLEMeta = const VerificationMeta('IDARTICLE');
+  late final GeneratedColumn<int?> IDARTICLE = GeneratedColumn<int?>(
+      'idarticle', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [idPiece, idOt, codeArticle, libelleArticle, qteArticle, idArticle];
+      [IDPIECE, IDOT, CODEARTICLE, LIBELLEARTICLE, QTEARTICLE, IDARTICLE];
   @override
   String get aliasedName => _alias ?? 'reservations';
   @override
@@ -2588,47 +2582,47 @@ class $ReservationsTable extends Reservations
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_piece')) {
-      context.handle(_idPieceMeta,
-          idPiece.isAcceptableOrUnknown(data['id_piece']!, _idPieceMeta));
+    if (data.containsKey('idpiece')) {
+      context.handle(_IDPIECEMeta,
+          IDPIECE.isAcceptableOrUnknown(data['idpiece']!, _IDPIECEMeta));
     }
-    if (data.containsKey('id_ot')) {
+    if (data.containsKey('idot')) {
       context.handle(
-          _idOtMeta, idOt.isAcceptableOrUnknown(data['id_ot']!, _idOtMeta));
+          _IDOTMeta, IDOT.isAcceptableOrUnknown(data['idot']!, _IDOTMeta));
     }
-    if (data.containsKey('code_article')) {
+    if (data.containsKey('codearticle')) {
       context.handle(
-          _codeArticleMeta,
-          codeArticle.isAcceptableOrUnknown(
-              data['code_article']!, _codeArticleMeta));
+          _CODEARTICLEMeta,
+          CODEARTICLE.isAcceptableOrUnknown(
+              data['codearticle']!, _CODEARTICLEMeta));
     }
-    if (data.containsKey('libelle_article')) {
+    if (data.containsKey('libellearticle')) {
       context.handle(
-          _libelleArticleMeta,
-          libelleArticle.isAcceptableOrUnknown(
-              data['libelle_article']!, _libelleArticleMeta));
+          _LIBELLEARTICLEMeta,
+          LIBELLEARTICLE.isAcceptableOrUnknown(
+              data['libellearticle']!, _LIBELLEARTICLEMeta));
     } else if (isInserting) {
-      context.missing(_libelleArticleMeta);
+      context.missing(_LIBELLEARTICLEMeta);
     }
-    if (data.containsKey('qte_article')) {
+    if (data.containsKey('qtearticle')) {
       context.handle(
-          _qteArticleMeta,
-          qteArticle.isAcceptableOrUnknown(
-              data['qte_article']!, _qteArticleMeta));
+          _QTEARTICLEMeta,
+          QTEARTICLE.isAcceptableOrUnknown(
+              data['qtearticle']!, _QTEARTICLEMeta));
     } else if (isInserting) {
-      context.missing(_qteArticleMeta);
+      context.missing(_QTEARTICLEMeta);
     }
-    if (data.containsKey('id_article')) {
-      context.handle(_idArticleMeta,
-          idArticle.isAcceptableOrUnknown(data['id_article']!, _idArticleMeta));
+    if (data.containsKey('idarticle')) {
+      context.handle(_IDARTICLEMeta,
+          IDARTICLE.isAcceptableOrUnknown(data['idarticle']!, _IDARTICLEMeta));
     } else if (isInserting) {
-      context.missing(_idArticleMeta);
+      context.missing(_IDARTICLEMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {idPiece};
+  Set<GeneratedColumn> get $primaryKey => {IDPIECE};
   @override
   Reservation map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Reservation.fromData(data,
@@ -2646,11 +2640,13 @@ class Site extends DataClass implements Insertable<Site> {
   final String CODESITE;
   final String NOMSITE;
   final String ADRESSESITE;
+  final int? IDORIGINAL;
   Site(
       {required this.IDSITE,
       required this.CODESITE,
       required this.NOMSITE,
-      required this.ADRESSESITE});
+      required this.ADRESSESITE,
+      this.IDORIGINAL});
   factory Site.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Site(
@@ -2662,6 +2658,8 @@ class Site extends DataClass implements Insertable<Site> {
           .mapFromDatabaseResponse(data['${effectivePrefix}nomsite'])!,
       ADRESSESITE: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}adressesite'])!,
+      IDORIGINAL: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idoriginal']),
     );
   }
   @override
@@ -2671,6 +2669,9 @@ class Site extends DataClass implements Insertable<Site> {
     map['codesite'] = Variable<String>(CODESITE);
     map['nomsite'] = Variable<String>(NOMSITE);
     map['adressesite'] = Variable<String>(ADRESSESITE);
+    if (!nullToAbsent || IDORIGINAL != null) {
+      map['idoriginal'] = Variable<int?>(IDORIGINAL);
+    }
     return map;
   }
 
@@ -2680,6 +2681,9 @@ class Site extends DataClass implements Insertable<Site> {
       CODESITE: Value(CODESITE),
       NOMSITE: Value(NOMSITE),
       ADRESSESITE: Value(ADRESSESITE),
+      IDORIGINAL: IDORIGINAL == null && nullToAbsent
+          ? const Value.absent()
+          : Value(IDORIGINAL),
     );
   }
 
@@ -2691,6 +2695,7 @@ class Site extends DataClass implements Insertable<Site> {
       CODESITE: serializer.fromJson<String>(json['CODESITE']),
       NOMSITE: serializer.fromJson<String>(json['NOMSITE']),
       ADRESSESITE: serializer.fromJson<String>(json['ADRESSESITE']),
+      IDORIGINAL: serializer.fromJson<int?>(json['IDORIGINAL']),
     );
   }
   @override
@@ -2701,6 +2706,7 @@ class Site extends DataClass implements Insertable<Site> {
       'CODESITE': serializer.toJson<String>(CODESITE),
       'NOMSITE': serializer.toJson<String>(NOMSITE),
       'ADRESSESITE': serializer.toJson<String>(ADRESSESITE),
+      'IDORIGINAL': serializer.toJson<int?>(IDORIGINAL),
     };
   }
 
@@ -2708,12 +2714,14 @@ class Site extends DataClass implements Insertable<Site> {
           {int? IDSITE,
           String? CODESITE,
           String? NOMSITE,
-          String? ADRESSESITE}) =>
+          String? ADRESSESITE,
+          int? IDORIGINAL}) =>
       Site(
         IDSITE: IDSITE ?? this.IDSITE,
         CODESITE: CODESITE ?? this.CODESITE,
         NOMSITE: NOMSITE ?? this.NOMSITE,
         ADRESSESITE: ADRESSESITE ?? this.ADRESSESITE,
+        IDORIGINAL: IDORIGINAL ?? this.IDORIGINAL,
       );
   @override
   String toString() {
@@ -2721,13 +2729,15 @@ class Site extends DataClass implements Insertable<Site> {
           ..write('IDSITE: $IDSITE, ')
           ..write('CODESITE: $CODESITE, ')
           ..write('NOMSITE: $NOMSITE, ')
-          ..write('ADRESSESITE: $ADRESSESITE')
+          ..write('ADRESSESITE: $ADRESSESITE, ')
+          ..write('IDORIGINAL: $IDORIGINAL')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(IDSITE, CODESITE, NOMSITE, ADRESSESITE);
+  int get hashCode =>
+      Object.hash(IDSITE, CODESITE, NOMSITE, ADRESSESITE, IDORIGINAL);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2735,7 +2745,8 @@ class Site extends DataClass implements Insertable<Site> {
           other.IDSITE == this.IDSITE &&
           other.CODESITE == this.CODESITE &&
           other.NOMSITE == this.NOMSITE &&
-          other.ADRESSESITE == this.ADRESSESITE);
+          other.ADRESSESITE == this.ADRESSESITE &&
+          other.IDORIGINAL == this.IDORIGINAL);
 }
 
 class SitesCompanion extends UpdateCompanion<Site> {
@@ -2743,17 +2754,20 @@ class SitesCompanion extends UpdateCompanion<Site> {
   final Value<String> CODESITE;
   final Value<String> NOMSITE;
   final Value<String> ADRESSESITE;
+  final Value<int?> IDORIGINAL;
   const SitesCompanion({
     this.IDSITE = const Value.absent(),
     this.CODESITE = const Value.absent(),
     this.NOMSITE = const Value.absent(),
     this.ADRESSESITE = const Value.absent(),
+    this.IDORIGINAL = const Value.absent(),
   });
   SitesCompanion.insert({
     this.IDSITE = const Value.absent(),
     required String CODESITE,
     required String NOMSITE,
     required String ADRESSESITE,
+    this.IDORIGINAL = const Value.absent(),
   })  : CODESITE = Value(CODESITE),
         NOMSITE = Value(NOMSITE),
         ADRESSESITE = Value(ADRESSESITE);
@@ -2762,12 +2776,14 @@ class SitesCompanion extends UpdateCompanion<Site> {
     Expression<String>? CODESITE,
     Expression<String>? NOMSITE,
     Expression<String>? ADRESSESITE,
+    Expression<int?>? IDORIGINAL,
   }) {
     return RawValuesInsertable({
       if (IDSITE != null) 'idsite': IDSITE,
       if (CODESITE != null) 'codesite': CODESITE,
       if (NOMSITE != null) 'nomsite': NOMSITE,
       if (ADRESSESITE != null) 'adressesite': ADRESSESITE,
+      if (IDORIGINAL != null) 'idoriginal': IDORIGINAL,
     });
   }
 
@@ -2775,12 +2791,14 @@ class SitesCompanion extends UpdateCompanion<Site> {
       {Value<int>? IDSITE,
       Value<String>? CODESITE,
       Value<String>? NOMSITE,
-      Value<String>? ADRESSESITE}) {
+      Value<String>? ADRESSESITE,
+      Value<int?>? IDORIGINAL}) {
     return SitesCompanion(
       IDSITE: IDSITE ?? this.IDSITE,
       CODESITE: CODESITE ?? this.CODESITE,
       NOMSITE: NOMSITE ?? this.NOMSITE,
       ADRESSESITE: ADRESSESITE ?? this.ADRESSESITE,
+      IDORIGINAL: IDORIGINAL ?? this.IDORIGINAL,
     );
   }
 
@@ -2799,6 +2817,9 @@ class SitesCompanion extends UpdateCompanion<Site> {
     if (ADRESSESITE.present) {
       map['adressesite'] = Variable<String>(ADRESSESITE.value);
     }
+    if (IDORIGINAL.present) {
+      map['idoriginal'] = Variable<int?>(IDORIGINAL.value);
+    }
     return map;
   }
 
@@ -2808,7 +2829,8 @@ class SitesCompanion extends UpdateCompanion<Site> {
           ..write('IDSITE: $IDSITE, ')
           ..write('CODESITE: $CODESITE, ')
           ..write('NOMSITE: $NOMSITE, ')
-          ..write('ADRESSESITE: $ADRESSESITE')
+          ..write('ADRESSESITE: $ADRESSESITE, ')
+          ..write('IDORIGINAL: $IDORIGINAL')
           ..write(')'))
         .toString();
   }
@@ -2819,40 +2841,40 @@ class $SitesTable extends Sites with TableInfo<$SitesTable, Site> {
   final String? _alias;
   $SitesTable(this._db, [this._alias]);
   final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
-  @override
   late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
       'idsite', aliasedName, false,
-      type: const IntType(),
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _CODESITEMeta = const VerificationMeta('CODESITE');
-  @override
   late final GeneratedColumn<String?> CODESITE = GeneratedColumn<String?>(
       'codesite', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
   final VerificationMeta _NOMSITEMeta = const VerificationMeta('NOMSITE');
-  @override
   late final GeneratedColumn<String?> NOMSITE = GeneratedColumn<String?>(
       'nomsite', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
   final VerificationMeta _ADRESSESITEMeta =
       const VerificationMeta('ADRESSESITE');
-  @override
   late final GeneratedColumn<String?> ADRESSESITE = GeneratedColumn<String?>(
       'adressesite', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
+  final VerificationMeta _IDORIGINALMeta = const VerificationMeta('IDORIGINAL');
+  late final GeneratedColumn<int?> IDORIGINAL = GeneratedColumn<int?>(
+      'idoriginal', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [IDSITE, CODESITE, NOMSITE, ADRESSESITE];
+      [IDSITE, CODESITE, NOMSITE, ADRESSESITE, IDORIGINAL];
   @override
   String get aliasedName => _alias ?? 'sites';
   @override
@@ -2886,6 +2908,12 @@ class $SitesTable extends Sites with TableInfo<$SitesTable, Site> {
     } else if (isInserting) {
       context.missing(_ADRESSESITEMeta);
     }
+    if (data.containsKey('idoriginal')) {
+      context.handle(
+          _IDORIGINALMeta,
+          IDORIGINAL.isAcceptableOrUnknown(
+              data['idoriginal']!, _IDORIGINALMeta));
+    }
     return context;
   }
 
@@ -2904,58 +2932,58 @@ class $SitesTable extends Sites with TableInfo<$SitesTable, Site> {
 }
 
 class Tache extends DataClass implements Insertable<Tache> {
-  final int? idOt;
-  final String codeTache;
-  final String libelleTache;
-  final String statutTache;
-  final String commentTache;
-  final int idTache;
+  final int? IDOT;
+  final String CODETACHE;
+  final String LIBELLETACHE;
+  final String STATUTTACHE;
+  final String COMMENTTACHE;
+  final int IDTACHE;
   Tache(
-      {this.idOt,
-      required this.codeTache,
-      required this.libelleTache,
-      required this.statutTache,
-      required this.commentTache,
-      required this.idTache});
+      {this.IDOT,
+      required this.CODETACHE,
+      required this.LIBELLETACHE,
+      required this.STATUTTACHE,
+      required this.COMMENTTACHE,
+      required this.IDTACHE});
   factory Tache.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Tache(
-      idOt: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_ot']),
-      codeTache: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}code_tache'])!,
-      libelleTache: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}libelle_tache'])!,
-      statutTache: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}statut_tache'])!,
-      commentTache: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}comment_tache'])!,
-      idTache: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id_tache'])!,
+      IDOT: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idot']),
+      CODETACHE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codetache'])!,
+      LIBELLETACHE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}libelletache'])!,
+      STATUTTACHE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}statuttache'])!,
+      COMMENTTACHE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}commenttache'])!,
+      IDTACHE: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}idtache'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (!nullToAbsent || idOt != null) {
-      map['id_ot'] = Variable<int?>(idOt);
+    if (!nullToAbsent || IDOT != null) {
+      map['idot'] = Variable<int?>(IDOT);
     }
-    map['code_tache'] = Variable<String>(codeTache);
-    map['libelle_tache'] = Variable<String>(libelleTache);
-    map['statut_tache'] = Variable<String>(statutTache);
-    map['comment_tache'] = Variable<String>(commentTache);
-    map['id_tache'] = Variable<int>(idTache);
+    map['codetache'] = Variable<String>(CODETACHE);
+    map['libelletache'] = Variable<String>(LIBELLETACHE);
+    map['statuttache'] = Variable<String>(STATUTTACHE);
+    map['commenttache'] = Variable<String>(COMMENTTACHE);
+    map['idtache'] = Variable<int>(IDTACHE);
     return map;
   }
 
   TachesCompanion toCompanion(bool nullToAbsent) {
     return TachesCompanion(
-      idOt: idOt == null && nullToAbsent ? const Value.absent() : Value(idOt),
-      codeTache: Value(codeTache),
-      libelleTache: Value(libelleTache),
-      statutTache: Value(statutTache),
-      commentTache: Value(commentTache),
-      idTache: Value(idTache),
+      IDOT: IDOT == null && nullToAbsent ? const Value.absent() : Value(IDOT),
+      CODETACHE: Value(CODETACHE),
+      LIBELLETACHE: Value(LIBELLETACHE),
+      STATUTTACHE: Value(STATUTTACHE),
+      COMMENTTACHE: Value(COMMENTTACHE),
+      IDTACHE: Value(IDTACHE),
     );
   }
 
@@ -2963,152 +2991,152 @@ class Tache extends DataClass implements Insertable<Tache> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Tache(
-      idOt: serializer.fromJson<int?>(json['idOt']),
-      codeTache: serializer.fromJson<String>(json['codeTache']),
-      libelleTache: serializer.fromJson<String>(json['libelleTache']),
-      statutTache: serializer.fromJson<String>(json['statutTache']),
-      commentTache: serializer.fromJson<String>(json['commentTache']),
-      idTache: serializer.fromJson<int>(json['idTache']),
+      IDOT: serializer.fromJson<int?>(json['IDOT']),
+      CODETACHE: serializer.fromJson<String>(json['CODETACHE']),
+      LIBELLETACHE: serializer.fromJson<String>(json['LIBELLETACHE']),
+      STATUTTACHE: serializer.fromJson<String>(json['STATUTTACHE']),
+      COMMENTTACHE: serializer.fromJson<String>(json['COMMENTTACHE']),
+      IDTACHE: serializer.fromJson<int>(json['IDTACHE']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'idOt': serializer.toJson<int?>(idOt),
-      'codeTache': serializer.toJson<String>(codeTache),
-      'libelleTache': serializer.toJson<String>(libelleTache),
-      'statutTache': serializer.toJson<String>(statutTache),
-      'commentTache': serializer.toJson<String>(commentTache),
-      'idTache': serializer.toJson<int>(idTache),
+      'IDOT': serializer.toJson<int?>(IDOT),
+      'CODETACHE': serializer.toJson<String>(CODETACHE),
+      'LIBELLETACHE': serializer.toJson<String>(LIBELLETACHE),
+      'STATUTTACHE': serializer.toJson<String>(STATUTTACHE),
+      'COMMENTTACHE': serializer.toJson<String>(COMMENTTACHE),
+      'IDTACHE': serializer.toJson<int>(IDTACHE),
     };
   }
 
   Tache copyWith(
-          {int? idOt,
-          String? codeTache,
-          String? libelleTache,
-          String? statutTache,
-          String? commentTache,
-          int? idTache}) =>
+          {int? IDOT,
+          String? CODETACHE,
+          String? LIBELLETACHE,
+          String? STATUTTACHE,
+          String? COMMENTTACHE,
+          int? IDTACHE}) =>
       Tache(
-        idOt: idOt ?? this.idOt,
-        codeTache: codeTache ?? this.codeTache,
-        libelleTache: libelleTache ?? this.libelleTache,
-        statutTache: statutTache ?? this.statutTache,
-        commentTache: commentTache ?? this.commentTache,
-        idTache: idTache ?? this.idTache,
+        IDOT: IDOT ?? this.IDOT,
+        CODETACHE: CODETACHE ?? this.CODETACHE,
+        LIBELLETACHE: LIBELLETACHE ?? this.LIBELLETACHE,
+        STATUTTACHE: STATUTTACHE ?? this.STATUTTACHE,
+        COMMENTTACHE: COMMENTTACHE ?? this.COMMENTTACHE,
+        IDTACHE: IDTACHE ?? this.IDTACHE,
       );
   @override
   String toString() {
     return (StringBuffer('Tache(')
-          ..write('idOt: $idOt, ')
-          ..write('codeTache: $codeTache, ')
-          ..write('libelleTache: $libelleTache, ')
-          ..write('statutTache: $statutTache, ')
-          ..write('commentTache: $commentTache, ')
-          ..write('idTache: $idTache')
+          ..write('IDOT: $IDOT, ')
+          ..write('CODETACHE: $CODETACHE, ')
+          ..write('LIBELLETACHE: $LIBELLETACHE, ')
+          ..write('STATUTTACHE: $STATUTTACHE, ')
+          ..write('COMMENTTACHE: $COMMENTTACHE, ')
+          ..write('IDTACHE: $IDTACHE')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(
-      idOt, codeTache, libelleTache, statutTache, commentTache, idTache);
+      IDOT, CODETACHE, LIBELLETACHE, STATUTTACHE, COMMENTTACHE, IDTACHE);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Tache &&
-          other.idOt == this.idOt &&
-          other.codeTache == this.codeTache &&
-          other.libelleTache == this.libelleTache &&
-          other.statutTache == this.statutTache &&
-          other.commentTache == this.commentTache &&
-          other.idTache == this.idTache);
+          other.IDOT == this.IDOT &&
+          other.CODETACHE == this.CODETACHE &&
+          other.LIBELLETACHE == this.LIBELLETACHE &&
+          other.STATUTTACHE == this.STATUTTACHE &&
+          other.COMMENTTACHE == this.COMMENTTACHE &&
+          other.IDTACHE == this.IDTACHE);
 }
 
 class TachesCompanion extends UpdateCompanion<Tache> {
-  final Value<int?> idOt;
-  final Value<String> codeTache;
-  final Value<String> libelleTache;
-  final Value<String> statutTache;
-  final Value<String> commentTache;
-  final Value<int> idTache;
+  final Value<int?> IDOT;
+  final Value<String> CODETACHE;
+  final Value<String> LIBELLETACHE;
+  final Value<String> STATUTTACHE;
+  final Value<String> COMMENTTACHE;
+  final Value<int> IDTACHE;
   const TachesCompanion({
-    this.idOt = const Value.absent(),
-    this.codeTache = const Value.absent(),
-    this.libelleTache = const Value.absent(),
-    this.statutTache = const Value.absent(),
-    this.commentTache = const Value.absent(),
-    this.idTache = const Value.absent(),
+    this.IDOT = const Value.absent(),
+    this.CODETACHE = const Value.absent(),
+    this.LIBELLETACHE = const Value.absent(),
+    this.STATUTTACHE = const Value.absent(),
+    this.COMMENTTACHE = const Value.absent(),
+    this.IDTACHE = const Value.absent(),
   });
   TachesCompanion.insert({
-    this.idOt = const Value.absent(),
-    required String codeTache,
-    required String libelleTache,
-    required String statutTache,
-    required String commentTache,
-    required int idTache,
-  })  : codeTache = Value(codeTache),
-        libelleTache = Value(libelleTache),
-        statutTache = Value(statutTache),
-        commentTache = Value(commentTache),
-        idTache = Value(idTache);
+    this.IDOT = const Value.absent(),
+    required String CODETACHE,
+    required String LIBELLETACHE,
+    required String STATUTTACHE,
+    required String COMMENTTACHE,
+    required int IDTACHE,
+  })  : CODETACHE = Value(CODETACHE),
+        LIBELLETACHE = Value(LIBELLETACHE),
+        STATUTTACHE = Value(STATUTTACHE),
+        COMMENTTACHE = Value(COMMENTTACHE),
+        IDTACHE = Value(IDTACHE);
   static Insertable<Tache> custom({
-    Expression<int?>? idOt,
-    Expression<String>? codeTache,
-    Expression<String>? libelleTache,
-    Expression<String>? statutTache,
-    Expression<String>? commentTache,
-    Expression<int>? idTache,
+    Expression<int?>? IDOT,
+    Expression<String>? CODETACHE,
+    Expression<String>? LIBELLETACHE,
+    Expression<String>? STATUTTACHE,
+    Expression<String>? COMMENTTACHE,
+    Expression<int>? IDTACHE,
   }) {
     return RawValuesInsertable({
-      if (idOt != null) 'id_ot': idOt,
-      if (codeTache != null) 'code_tache': codeTache,
-      if (libelleTache != null) 'libelle_tache': libelleTache,
-      if (statutTache != null) 'statut_tache': statutTache,
-      if (commentTache != null) 'comment_tache': commentTache,
-      if (idTache != null) 'id_tache': idTache,
+      if (IDOT != null) 'idot': IDOT,
+      if (CODETACHE != null) 'codetache': CODETACHE,
+      if (LIBELLETACHE != null) 'libelletache': LIBELLETACHE,
+      if (STATUTTACHE != null) 'statuttache': STATUTTACHE,
+      if (COMMENTTACHE != null) 'commenttache': COMMENTTACHE,
+      if (IDTACHE != null) 'idtache': IDTACHE,
     });
   }
 
   TachesCompanion copyWith(
-      {Value<int?>? idOt,
-      Value<String>? codeTache,
-      Value<String>? libelleTache,
-      Value<String>? statutTache,
-      Value<String>? commentTache,
-      Value<int>? idTache}) {
+      {Value<int?>? IDOT,
+      Value<String>? CODETACHE,
+      Value<String>? LIBELLETACHE,
+      Value<String>? STATUTTACHE,
+      Value<String>? COMMENTTACHE,
+      Value<int>? IDTACHE}) {
     return TachesCompanion(
-      idOt: idOt ?? this.idOt,
-      codeTache: codeTache ?? this.codeTache,
-      libelleTache: libelleTache ?? this.libelleTache,
-      statutTache: statutTache ?? this.statutTache,
-      commentTache: commentTache ?? this.commentTache,
-      idTache: idTache ?? this.idTache,
+      IDOT: IDOT ?? this.IDOT,
+      CODETACHE: CODETACHE ?? this.CODETACHE,
+      LIBELLETACHE: LIBELLETACHE ?? this.LIBELLETACHE,
+      STATUTTACHE: STATUTTACHE ?? this.STATUTTACHE,
+      COMMENTTACHE: COMMENTTACHE ?? this.COMMENTTACHE,
+      IDTACHE: IDTACHE ?? this.IDTACHE,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (idOt.present) {
-      map['id_ot'] = Variable<int?>(idOt.value);
+    if (IDOT.present) {
+      map['idot'] = Variable<int?>(IDOT.value);
     }
-    if (codeTache.present) {
-      map['code_tache'] = Variable<String>(codeTache.value);
+    if (CODETACHE.present) {
+      map['codetache'] = Variable<String>(CODETACHE.value);
     }
-    if (libelleTache.present) {
-      map['libelle_tache'] = Variable<String>(libelleTache.value);
+    if (LIBELLETACHE.present) {
+      map['libelletache'] = Variable<String>(LIBELLETACHE.value);
     }
-    if (statutTache.present) {
-      map['statut_tache'] = Variable<String>(statutTache.value);
+    if (STATUTTACHE.present) {
+      map['statuttache'] = Variable<String>(STATUTTACHE.value);
     }
-    if (commentTache.present) {
-      map['comment_tache'] = Variable<String>(commentTache.value);
+    if (COMMENTTACHE.present) {
+      map['commenttache'] = Variable<String>(COMMENTTACHE.value);
     }
-    if (idTache.present) {
-      map['id_tache'] = Variable<int>(idTache.value);
+    if (IDTACHE.present) {
+      map['idtache'] = Variable<int>(IDTACHE.value);
     }
     return map;
   }
@@ -3116,12 +3144,12 @@ class TachesCompanion extends UpdateCompanion<Tache> {
   @override
   String toString() {
     return (StringBuffer('TachesCompanion(')
-          ..write('idOt: $idOt, ')
-          ..write('codeTache: $codeTache, ')
-          ..write('libelleTache: $libelleTache, ')
-          ..write('statutTache: $statutTache, ')
-          ..write('commentTache: $commentTache, ')
-          ..write('idTache: $idTache')
+          ..write('IDOT: $IDOT, ')
+          ..write('CODETACHE: $CODETACHE, ')
+          ..write('LIBELLETACHE: $LIBELLETACHE, ')
+          ..write('STATUTTACHE: $STATUTTACHE, ')
+          ..write('COMMENTTACHE: $COMMENTTACHE, ')
+          ..write('IDTACHE: $IDTACHE')
           ..write(')'))
         .toString();
   }
@@ -3131,56 +3159,50 @@ class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
   final GeneratedDatabase _db;
   final String? _alias;
   $TachesTable(this._db, [this._alias]);
-  final VerificationMeta _idOtMeta = const VerificationMeta('idOt');
-  @override
-  late final GeneratedColumn<int?> idOt = GeneratedColumn<int?>(
-      'id_ot', aliasedName, true,
-      type: const IntType(),
+  final VerificationMeta _IDOTMeta = const VerificationMeta('IDOT');
+  late final GeneratedColumn<int?> IDOT = GeneratedColumn<int?>(
+      'idot', aliasedName, true,
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
-      $customConstraints: 'NULL REFERENCES Ot(idOt)');
-  final VerificationMeta _codeTacheMeta = const VerificationMeta('codeTache');
-  @override
-  late final GeneratedColumn<String?> codeTache = GeneratedColumn<String?>(
-      'code_tache', aliasedName, false,
+      $customConstraints: 'NULL REFERENCES Ot(IDOT)');
+  final VerificationMeta _CODETACHEMeta = const VerificationMeta('CODETACHE');
+  late final GeneratedColumn<String?> CODETACHE = GeneratedColumn<String?>(
+      'codetache', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 24),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _libelleTacheMeta =
-      const VerificationMeta('libelleTache');
-  @override
-  late final GeneratedColumn<String?> libelleTache = GeneratedColumn<String?>(
-      'libelle_tache', aliasedName, false,
+  final VerificationMeta _LIBELLETACHEMeta =
+      const VerificationMeta('LIBELLETACHE');
+  late final GeneratedColumn<String?> LIBELLETACHE = GeneratedColumn<String?>(
+      'libelletache', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _statutTacheMeta =
-      const VerificationMeta('statutTache');
-  @override
-  late final GeneratedColumn<String?> statutTache = GeneratedColumn<String?>(
-      'statut_tache', aliasedName, false,
+  final VerificationMeta _STATUTTACHEMeta =
+      const VerificationMeta('STATUTTACHE');
+  late final GeneratedColumn<String?> STATUTTACHE = GeneratedColumn<String?>(
+      'statuttache', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 1),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _commentTacheMeta =
-      const VerificationMeta('commentTache');
-  @override
-  late final GeneratedColumn<String?> commentTache = GeneratedColumn<String?>(
-      'comment_tache', aliasedName, false,
+  final VerificationMeta _COMMENTTACHEMeta =
+      const VerificationMeta('COMMENTTACHE');
+  late final GeneratedColumn<String?> COMMENTTACHE = GeneratedColumn<String?>(
+      'commenttache', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
           minTextLength: 1, maxTextLength: 2018),
-      type: const StringType(),
+      typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _idTacheMeta = const VerificationMeta('idTache');
-  @override
-  late final GeneratedColumn<int?> idTache = GeneratedColumn<int?>(
-      'id_tache', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
+  final VerificationMeta _IDTACHEMeta = const VerificationMeta('IDTACHE');
+  late final GeneratedColumn<int?> IDTACHE = GeneratedColumn<int?>(
+      'idtache', aliasedName, false,
+      typeName: 'INTEGER', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [idOt, codeTache, libelleTache, statutTache, commentTache, idTache];
+      [IDOT, CODETACHE, LIBELLETACHE, STATUTTACHE, COMMENTTACHE, IDTACHE];
   @override
   String get aliasedName => _alias ?? 'taches';
   @override
@@ -3190,51 +3212,51 @@ class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id_ot')) {
+    if (data.containsKey('idot')) {
       context.handle(
-          _idOtMeta, idOt.isAcceptableOrUnknown(data['id_ot']!, _idOtMeta));
+          _IDOTMeta, IDOT.isAcceptableOrUnknown(data['idot']!, _IDOTMeta));
     }
-    if (data.containsKey('code_tache')) {
-      context.handle(_codeTacheMeta,
-          codeTache.isAcceptableOrUnknown(data['code_tache']!, _codeTacheMeta));
+    if (data.containsKey('codetache')) {
+      context.handle(_CODETACHEMeta,
+          CODETACHE.isAcceptableOrUnknown(data['codetache']!, _CODETACHEMeta));
     } else if (isInserting) {
-      context.missing(_codeTacheMeta);
+      context.missing(_CODETACHEMeta);
     }
-    if (data.containsKey('libelle_tache')) {
+    if (data.containsKey('libelletache')) {
       context.handle(
-          _libelleTacheMeta,
-          libelleTache.isAcceptableOrUnknown(
-              data['libelle_tache']!, _libelleTacheMeta));
+          _LIBELLETACHEMeta,
+          LIBELLETACHE.isAcceptableOrUnknown(
+              data['libelletache']!, _LIBELLETACHEMeta));
     } else if (isInserting) {
-      context.missing(_libelleTacheMeta);
+      context.missing(_LIBELLETACHEMeta);
     }
-    if (data.containsKey('statut_tache')) {
+    if (data.containsKey('statuttache')) {
       context.handle(
-          _statutTacheMeta,
-          statutTache.isAcceptableOrUnknown(
-              data['statut_tache']!, _statutTacheMeta));
+          _STATUTTACHEMeta,
+          STATUTTACHE.isAcceptableOrUnknown(
+              data['statuttache']!, _STATUTTACHEMeta));
     } else if (isInserting) {
-      context.missing(_statutTacheMeta);
+      context.missing(_STATUTTACHEMeta);
     }
-    if (data.containsKey('comment_tache')) {
+    if (data.containsKey('commenttache')) {
       context.handle(
-          _commentTacheMeta,
-          commentTache.isAcceptableOrUnknown(
-              data['comment_tache']!, _commentTacheMeta));
+          _COMMENTTACHEMeta,
+          COMMENTTACHE.isAcceptableOrUnknown(
+              data['commenttache']!, _COMMENTTACHEMeta));
     } else if (isInserting) {
-      context.missing(_commentTacheMeta);
+      context.missing(_COMMENTTACHEMeta);
     }
-    if (data.containsKey('id_tache')) {
-      context.handle(_idTacheMeta,
-          idTache.isAcceptableOrUnknown(data['id_tache']!, _idTacheMeta));
+    if (data.containsKey('idtache')) {
+      context.handle(_IDTACHEMeta,
+          IDTACHE.isAcceptableOrUnknown(data['idtache']!, _IDTACHEMeta));
     } else if (isInserting) {
-      context.missing(_idTacheMeta);
+      context.missing(_IDTACHEMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {codeTache};
+  Set<GeneratedColumn> get $primaryKey => {CODETACHE, IDTACHE};
   @override
   Tache map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Tache.fromData(data,

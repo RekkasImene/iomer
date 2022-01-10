@@ -4,15 +4,15 @@ part 'generate/equipement.g.dart';
 
 
 class Equipements extends Table {
-  IntColumn get idEquipement => integer().autoIncrement()();
-  IntColumn get idSite => integer()
+  IntColumn get IDEQUIPEMENT => integer().autoIncrement()();
+  IntColumn get IDSITE => integer()
       .nullable()
-      .customConstraint('NULL REFERENCES Sites(idSite)')();
-  TextColumn get codeEquipement => text().withLength(min: 1, max: 12)();
-  TextColumn get libelleEquipement => text().withLength(min: 1, max: 48)();
+      .customConstraint('NULL REFERENCES Sites(IDSITE)')();
+  TextColumn get CODEEQUIPEMENT => text().withLength(min: 1, max: 12)();
+  TextColumn get LIBELLEEQUIPEMENT => text().withLength(min: 1, max: 48)();
 
   @override
-  Set<Column> get primaryKey => {idEquipement};
+  Set<Column> get primaryKey => {IDEQUIPEMENT};
 }
 
 @DriftAccessor(tables:[Equipements])

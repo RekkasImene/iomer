@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iomer/ui/select_machine_screen.dart';
 
 class FirstScreen extends StatefulWidget{
   const FirstScreen({Key? key}):super(key: key);
@@ -9,7 +10,7 @@ class FirstScreen extends StatefulWidget{
 
 class _FirstScreenState extends State<FirstScreen> {
   //TODO a remplacer avec données (les memes que pour l'ecran cloture)
-  List<String> _texts = [
+  final List<String> _texts = [
     "Jean Michelle",
     "Jean Pierre",
     "Pierre Jean",
@@ -70,8 +71,12 @@ class _FirstScreenState extends State<FirstScreen> {
             const SizedBox(height: 20),
             ElevatedButton(
               //pour griser
-              onPressed: null,
-              //onPressed:(),
+              onPressed:() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SelectMachine()),);
+              },
               child: const Text('Valider'),
               style: ElevatedButton.styleFrom(
                   primary: Colors.green,

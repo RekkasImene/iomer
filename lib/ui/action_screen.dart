@@ -114,25 +114,13 @@ class _ActionScreenState extends State<ActionScreen> {
             const SizedBox(
               height: 80,
             ),
-            /*Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(70.0)),
-                color: Colors.green[400],
-              ),
-              height: 80,
-              child: const Align(
-                child: Text(
-                  "Clôturer OT",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-              ),
-            )*/
+
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                //pour griser
-                onPressed: () {},
-                //onPressed:(),
+                onPressed: () {
+
+                },
                 child: const Text(
                   'Clôturer OT',
                   style: TextStyle(fontSize: 25),

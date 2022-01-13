@@ -10,15 +10,8 @@ class SelectMachine extends StatefulWidget {
 }
 
 class _SelectMachine extends State<SelectMachine> {
-  String selectedValue = "Preventive";
-  List<DropdownMenuItem<String>> get dropdownItems{
-  List<DropdownMenuItem<String>> menuItems = [
-    const DropdownMenuItem(child: Text("Preventive"),value: "Preventive"),
-    const DropdownMenuItem(child: Text("Corrective"),value: "Corrective"),
-    
-  ];
-  return menuItems;
-}
+  int _value = 1;
+ 
 
   final List<String> _list = [
     "Révision des 1000%",
@@ -48,13 +41,16 @@ class _SelectMachine extends State<SelectMachine> {
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextField(
                 decoration: InputDecoration(
+                  
                     border: UnderlineInputBorder(), labelText: 'Code machine'),
               ),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextField(
+                
                 decoration: InputDecoration(
+                 
                     border: UnderlineInputBorder(), labelText: 'Nom machine'),
               ),
             ),
@@ -104,32 +100,54 @@ class _SelectMachine extends State<SelectMachine> {
         builder: (BuildContext context) =>   BackdropFilter(
     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), 
     child :AlertDialog(
-        content: StatefulBuilder(
-builder: (BuildContext context, StateSetter setState) {
-return Column(children: const [
-  Text('Nouvelle Maintenance'),
-
-],
-
- 
-);
-}),
+      
       
   
     
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
      
+          title: const Text('Nouvelle Maintenance'),
           
           actions: <Widget>[
-         
-            TextButton(
+            Column(children: [
+              Row(
+                mainAxisAlignment:MainAxisAlignment.center,
+                children: [ DropdownButton(
+              value : _value,
+              items: const [
+              DropdownMenuItem(
+                child: Text("Preventive"),
+                value:1,
+              ),
+              DropdownMenuItem(
+                child: Text("Corrective"),
+                value: 2,
+              )
+            ],
+            onChanged: (value){
+              _value = value as int;
+            },
+
+
+              ),
+              ],
+              ),
+             
+
+           Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: [TextButton(
               onPressed: () => Navigator.pop(context, 'Cancel'),
               child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () => Navigator.pop(context, 'OK'),
+             
               child: const Text('OK'),
-            ),
+            ),],)
+            
+            ],)
+            
           ],
         ),
 
@@ -151,7 +169,7 @@ return Column(children: const [
                       child: const Text('Scan machine'),
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.green),
+                            MaterialStateProperty.all(Colors.orange.shade300),
                         textStyle: MaterialStateProperty.all(
                             const TextStyle(fontSize: 15)),
                       ),

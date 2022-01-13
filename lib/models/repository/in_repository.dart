@@ -7,7 +7,6 @@ import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/services.dart';
-
 @Environment(Env.prod)
 @injectable
 class InRepository {
@@ -15,7 +14,7 @@ class InRepository {
   InRepository(this.database);
   late Future<List<Site>> futureSite;
 
-  void updateSite() {
+  void updateSite(){
     futureSite = fetchSite();
     futureSite.then((value) {
       value.forEach((e) {
@@ -23,13 +22,14 @@ class InRepository {
           CODESITE: e.CODESITE,
           NOMSITE: e.NOMSITE,
           ADRESSESITE: e.ADRESSESITE,
-          IDORIGINAL: Value(e.IDSITE),
+          IDSITEORIGINAL: Value(e.IDSITE),
         ));
       });
     }).catchError((error) {
       log(error);
     });
   }
+
 
 
 

@@ -7,13 +7,15 @@ class Articles extends Table {
   TextColumn get CODEARTICLE => text().withLength(min: 1, max: 16)();
   TextColumn get LIBELLEARTICLE => text().withLength(min: 1, max: 48)();
   IntColumn get QTEARTICLE => integer()();
-  IntColumn get IDARTICLEWS => integer()();
+  IntColumn get IDARTICLEORIGINAL =>integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {IDARTICLE, CODEARTICLE};
 }
 
-@DriftAccessor(tables:[Articles])
+@DriftAccessor(
+  tables:[Articles]
+)
 class ArticleDao extends DatabaseAccessor<IomerDatabase> with _$ArticleDaoMixin{
   final IomerDatabase db;
   ArticleDao(this.db):super (db);

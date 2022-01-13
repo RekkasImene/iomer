@@ -7,7 +7,7 @@ class Articles extends Table {
   TextColumn get CODEARTICLE => text().withLength(min: 1, max: 16)();
   TextColumn get LIBELLEARTICLE => text().withLength(min: 1, max: 48)();
   IntColumn get QTEARTICLE => integer()();
-  IntColumn get IDARTICLEWS => integer()();
+  IntColumn get IDARTICLEORIGINAL =>integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {IDARTICLE, CODEARTICLE};

@@ -22,7 +22,7 @@ class InRepository {
           CODESITE: e.CODESITE,
           NOMSITE: e.NOMSITE,
           ADRESSESITE: e.ADRESSESITE,
-          IDORIGINAL: Value(e.IDSITE),
+          IDSITEORIGINAL: Value(e.IDSITE),
         ));
       });
     }).catchError((error) {

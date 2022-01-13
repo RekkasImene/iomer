@@ -113,3 +113,19 @@ Future<List<Tache>> fetchOTTaches(int idOT) async {
     throw Exception('Failed to load OT Taches');
   }
 }
+
+/* Get Config */
+Future<List<ConfigData>> fetchConfig(int idSite, String codePocket) async {
+  final response = await http
+      .get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
+
+  if (response.statusCode == 200) {
+    List<ConfigData> config;
+    config=(json.decode(response.body) as List)
+        .map((configJson) => ConfigData.fromJson(configJson))
+        .toList();
+    return config;
+  } else {
+    throw Exception('Failed to load OTs');
+  }
+}

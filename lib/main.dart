@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'package:drift/native.dart';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/ui/accueil_screen.dart';
-import 'package:iomer/ui/action_screen.dart';
-import 'package:iomer/ui/report_screen.dart';
+import 'package:iomer/models/bdd/site.dart';
+import 'package:iomer/models/repository/in_repository.dart';
 import 'package:iomer/webService/categories.dart';
 import 'package:iomer/webService/equipements.dart';
 import 'package:iomer/webService/matricules.dart';
@@ -12,9 +11,11 @@ import 'package:iomer/webService/origines.dart';
 import 'package:iomer/webService/ot_taches.dart';
 import 'package:iomer/webService/ots.dart';
 import 'package:iomer/webService/services.dart';
-import 'package:iomer/webService/sites.dart';
+
+import 'config/injection.dart';
 
 void main() {
+  configureInjection(Env.prod);
   runApp(const MyApp());
 }
 
@@ -26,46 +27,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Future<Sites> futureSite;
-  late Future<Origines> futureOrigines;
-  late Future<Matricules> futureMatricules;
-  late Future<Equipements> futureEquipements;
-  late Future<Categories> futureCategories;
-  late Future<OTs> futureOTs;
-  late Future<OTTaches> futureOTTaches;
+  late Future<List<Site>> futureSite;
   @override
   void initState() {
     super.initState();
-    int idSite = 2;
-    int idOrigine = 21;
-    int idOT = 203;
-    futureSite = fetchSite();
-    futureOrigines = fetchOrigines(idSite);
-    futureMatricules = fetchMatricules(idOrigine);
-    futureEquipements = fetchEquipements(idSite);
-    futureCategories = fetchCategories(idSite);
-    futureOTs = fetchOTs(idSite, idOrigine);
-    futureOTTaches = fetchOTTaches(idOT);
-
-    IomerDatabase database;
-    database = IomerDatabase();
-    final site = Site(
-      nomSite: 'azerty',
-      codeSite: 'zero',
-      adresseSite: 'klklkl',
-      idSite: 1,
-    );
-
-    database.insertSite(site);
+    InRepository repository = getIt.get<InRepository>();
+    repository.updateSite();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'IOmere',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.green),
-      home: const ReportScreen(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Fetch Data Example'),
+        ),
+      ),
     );
   }
 }

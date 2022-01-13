@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart' as http;
 
-var url = 'https://dangerous-eagle-94.loca.lt';
+var url = 'https://hard-stingray-66.loca.lt';
 
 /* Get Sites */
 Future<List<Site>> fetchSite() async {

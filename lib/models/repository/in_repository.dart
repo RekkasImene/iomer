@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/services.dart';
+
 @Environment(Env.prod)
 @injectable
 class InRepository {

@@ -70,23 +70,20 @@ class _FirstScreenState extends State<FirstScreen> {
                   )),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                //pour griser
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SelectMachine()),
-                  );
-                },
-                child: const Text('Valider'),
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 20)),
-              ),
+            ElevatedButton(
+              //pour griser
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SelectMachine()),
+                );
+              },
+              child: const Text('Valider'),
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.green,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
           ],
         ),

@@ -17,10 +17,10 @@ class _SelectMachine extends State<SelectMachine> {
     "Parallélisme roues",
     "Révision des 1000%",
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Maintenance'),
       ),
@@ -40,7 +40,7 @@ class _SelectMachine extends State<SelectMachine> {
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextField(
                 decoration: InputDecoration(
-                    border: UnderlineInputBorder(), labelText: 'Code machine'),
+                    border: UnderlineInputBorder(), labelText: 'Nom machine'),
               ),
             ),
             const Padding(
@@ -100,18 +100,20 @@ class _SelectMachine extends State<SelectMachine> {
                         )),
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Scan machine'),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.green),
-                        textStyle: MaterialStateProperty.all(
-                            const TextStyle(fontSize: 15)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: const Text('Scan machine'),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.green),
+                          textStyle: MaterialStateProperty.all(
+                              const TextStyle(fontSize: 15)),
+                        ),
                       ),
-                    ),
+                    ],
                   )
                 ],
               ),

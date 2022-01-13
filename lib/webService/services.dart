@@ -126,6 +126,6 @@ Future<List<ConfigData>> fetchConfig(int idSite, String codePocket) async {
         .toList();
     return config;
   } else {
-    throw Exception('Failed to load OTs');
+    throw Exception('Failed to load Config');
   }
 }

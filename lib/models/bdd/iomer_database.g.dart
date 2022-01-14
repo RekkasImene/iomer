@@ -214,36 +214,41 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
   final String? _alias;
   $ArticlesTable(this._db, [this._alias]);
   final VerificationMeta _IDARTICLEMeta = const VerificationMeta('IDARTICLE');
+  @override
   late final GeneratedColumn<int?> IDARTICLE = GeneratedColumn<int?>(
       'idarticle', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: true,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _CODEARTICLEMeta =
       const VerificationMeta('CODEARTICLE');
+  @override
   late final GeneratedColumn<String?> CODEARTICLE = GeneratedColumn<String?>(
       'codearticle', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 16),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _LIBELLEARTICLEMeta =
       const VerificationMeta('LIBELLEARTICLE');
+  @override
   late final GeneratedColumn<String?> LIBELLEARTICLE = GeneratedColumn<String?>(
       'libellearticle', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _QTEARTICLEMeta = const VerificationMeta('QTEARTICLE');
+  @override
   late final GeneratedColumn<int?> QTEARTICLE = GeneratedColumn<int?>(
       'qtearticle', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: const IntType(), requiredDuringInsert: true);
   final VerificationMeta _IDARTICLEORIGINALMeta =
       const VerificationMeta('IDARTICLEORIGINAL');
+  @override
   late final GeneratedColumn<int?> IDARTICLEORIGINAL = GeneratedColumn<int?>(
       'idarticleoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: const IntType(), requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
       [IDARTICLE, CODEARTICLE, LIBELLEARTICLE, QTEARTICLE, IDARTICLEORIGINAL];
@@ -519,38 +524,43 @@ class $CategoriesTable extends Categories
   $CategoriesTable(this._db, [this._alias]);
   final VerificationMeta _IDCATEGORIEMeta =
       const VerificationMeta('IDCATEGORIE');
+  @override
   late final GeneratedColumn<int?> IDCATEGORIE = GeneratedColumn<int?>(
       'idcategorie', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
+  @override
   late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
       'idsite', aliasedName, true,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Sites(IDSITE)');
   final VerificationMeta _CODECATEGORIEMeta =
       const VerificationMeta('CODECATEGORIE');
+  @override
   late final GeneratedColumn<String?> CODECATEGORIE = GeneratedColumn<String?>(
       'codecategorie', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 12),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _LIBELLECATEGORIEMeta =
       const VerificationMeta('LIBELLECATEGORIE');
+  @override
   late final GeneratedColumn<String?> LIBELLECATEGORIE =
       GeneratedColumn<String?>('libellecategorie', aliasedName, false,
           additionalChecks: GeneratedColumn.checkTextLength(
               minTextLength: 1, maxTextLength: 48),
-          typeName: 'TEXT',
+          type: const StringType(),
           requiredDuringInsert: true);
   final VerificationMeta _IDCATORIGINALMeta =
       const VerificationMeta('IDCATORIGINAL');
+  @override
   late final GeneratedColumn<int?> IDCATORIGINAL = GeneratedColumn<int?>(
       'idcatoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: const IntType(), requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
       [IDCATEGORIE, IDSITE, CODECATEGORIE, LIBELLECATEGORIE, IDCATORIGINAL];
@@ -797,30 +807,34 @@ class $DocumentsTable extends Documents
   $DocumentsTable(this._db, [this._alias]);
   final VerificationMeta _IDATTACHEMENTMeta =
       const VerificationMeta('IDATTACHEMENT');
+  @override
   late final GeneratedColumn<int?> IDATTACHEMENT = GeneratedColumn<int?>(
       'idattachement', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _IDOTMeta = const VerificationMeta('IDOT');
+  @override
   late final GeneratedColumn<int?> IDOT = GeneratedColumn<int?>(
       'idot', aliasedName, true,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Ot(IDOT)');
   final VerificationMeta _ATTACHEMENTMeta =
       const VerificationMeta('ATTACHEMENT');
+  @override
   late final GeneratedColumn<String?> ATTACHEMENT = GeneratedColumn<String?>(
       'attachement', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _IDATTACHORIGINALMeta =
       const VerificationMeta('IDATTACHORIGINAL');
+  @override
   late final GeneratedColumn<int?> IDATTACHORIGINAL = GeneratedColumn<int?>(
       'idattachoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: const IntType(), requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
       [IDATTACHEMENT, IDOT, ATTACHEMENT, IDATTACHORIGINAL];
@@ -1086,38 +1100,43 @@ class $EquipementsTable extends Equipements
   $EquipementsTable(this._db, [this._alias]);
   final VerificationMeta _IDEQUIPEMENTMeta =
       const VerificationMeta('IDEQUIPEMENT');
+  @override
   late final GeneratedColumn<int?> IDEQUIPEMENT = GeneratedColumn<int?>(
       'idequipement', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
+  @override
   late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
       'idsite', aliasedName, true,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Sites(IDSITE)');
   final VerificationMeta _CODEEQUIPEMENTMeta =
       const VerificationMeta('CODEEQUIPEMENT');
+  @override
   late final GeneratedColumn<String?> CODEEQUIPEMENT = GeneratedColumn<String?>(
       'codeequipement', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 12),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _LIBELLEEQUIPEMENTMeta =
       const VerificationMeta('LIBELLEEQUIPEMENT');
+  @override
   late final GeneratedColumn<String?> LIBELLEEQUIPEMENT =
       GeneratedColumn<String?>('libelleequipement', aliasedName, false,
           additionalChecks: GeneratedColumn.checkTextLength(
               minTextLength: 1, maxTextLength: 48),
-          typeName: 'TEXT',
+          type: const StringType(),
           requiredDuringInsert: true);
   final VerificationMeta _IDEQUIPEMENTORIGINALMeta =
       const VerificationMeta('IDEQUIPEMENTORIGINAL');
+  @override
   late final GeneratedColumn<int?> IDEQUIPEMENTORIGINAL = GeneratedColumn<int?>(
       'idequipementoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: const IntType(), requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         IDEQUIPEMENT,
@@ -1442,53 +1461,60 @@ class $MatriculesTable extends Matricules
   $MatriculesTable(this._db, [this._alias]);
   final VerificationMeta _IDMATRICULEMeta =
       const VerificationMeta('IDMATRICULE');
+  @override
   late final GeneratedColumn<int?> IDMATRICULE = GeneratedColumn<int?>(
       'idmatricule', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _IDORIGINEMeta = const VerificationMeta('IDORIGINE');
+  @override
   late final GeneratedColumn<int?> IDORIGINE = GeneratedColumn<int?>(
       'idorigine', aliasedName, true,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Origines(IDORIGINE)');
   final VerificationMeta _CODEMATRICULEMeta =
       const VerificationMeta('CODEMATRICULE');
+  @override
   late final GeneratedColumn<String?> CODEMATRICULE = GeneratedColumn<String?>(
       'codematricule', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 12),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _NOMMATRICULEMeta =
       const VerificationMeta('NOMMATRICULE');
+  @override
   late final GeneratedColumn<String?> NOMMATRICULE = GeneratedColumn<String?>(
       'nommatricule', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _PRENOMMATRICULEMeta =
       const VerificationMeta('PRENOMMATRICULE');
+  @override
   late final GeneratedColumn<String?> PRENOMMATRICULE =
       GeneratedColumn<String?>('prenommatricule', aliasedName, false,
           additionalChecks: GeneratedColumn.checkTextLength(
               minTextLength: 1, maxTextLength: 48),
-          typeName: 'TEXT',
+          type: const StringType(),
           requiredDuringInsert: true);
   final VerificationMeta _CHECKEDMeta = const VerificationMeta('CHECKED');
+  @override
   late final GeneratedColumn<bool?> CHECKED = GeneratedColumn<bool?>(
       'checked', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const BoolType(),
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (checked IN (0, 1))',
       defaultValue: const Constant(false));
   final VerificationMeta _IDMATORIGINALMeta =
       const VerificationMeta('IDMATORIGINAL');
+  @override
   late final GeneratedColumn<int?> IDMATORIGINAL = GeneratedColumn<int?>(
       'idmatoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: const IntType(), requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         IDMATRICULE,
@@ -1777,38 +1803,43 @@ class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
   final String? _alias;
   $OriginesTable(this._db, [this._alias]);
   final VerificationMeta _IDORIGINEMeta = const VerificationMeta('IDORIGINE');
+  @override
   late final GeneratedColumn<int?> IDORIGINE = GeneratedColumn<int?>(
       'idorigine', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
+  @override
   late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
       'idsite', aliasedName, true,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Sites(IDSITE)');
   final VerificationMeta _CODEORIGINEMeta =
       const VerificationMeta('CODEORIGINE');
+  @override
   late final GeneratedColumn<String?> CODEORIGINE = GeneratedColumn<String?>(
       'codeorigine', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 12),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _LIBELLEORIGINEMeta =
       const VerificationMeta('LIBELLEORIGINE');
+  @override
   late final GeneratedColumn<String?> LIBELLEORIGINE = GeneratedColumn<String?>(
       'libelleorigine', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _IDORIGINEORIGINALMeta =
       const VerificationMeta('IDORIGINEORIGINAL');
+  @override
   late final GeneratedColumn<int?> IDORIGINEORIGINAL = GeneratedColumn<int?>(
       'idorigineoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: const IntType(), requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
       [IDORIGINE, IDSITE, CODEORIGINE, LIBELLEORIGINE, IDORIGINEORIGINAL];
@@ -2337,88 +2368,103 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
   final String? _alias;
   $OtTable(this._db, [this._alias]);
   final VerificationMeta _IDOTMeta = const VerificationMeta('IDOT');
+  @override
   late final GeneratedColumn<int?> IDOT = GeneratedColumn<int?>(
       'idot', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _IDORIGINEMeta = const VerificationMeta('IDORIGINE');
+  @override
   late final GeneratedColumn<int?> IDORIGINE = GeneratedColumn<int?>(
       'idorigine', aliasedName, true,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Origines(IDORIGINE)');
   final VerificationMeta _IDCATEGORIEMeta =
       const VerificationMeta('IDCATEGORIE');
+  @override
   late final GeneratedColumn<int?> IDCATEGORIE = GeneratedColumn<int?>(
       'idcategorie', aliasedName, true,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Categories(IDCATEGORIE)');
   final VerificationMeta _IDEQUIPEMENTMeta =
       const VerificationMeta('IDEQUIPEMENT');
+  @override
   late final GeneratedColumn<int?> IDEQUIPEMENT = GeneratedColumn<int?>(
       'idequipement', aliasedName, true,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Equipements(IDEQUIPEMENT)');
   final VerificationMeta _CODEOTMeta = const VerificationMeta('CODEOT');
+  @override
   late final GeneratedColumn<String?> CODEOT = GeneratedColumn<String?>(
       'codeot', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 0, maxTextLength: 24),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _LIBELLEOTMeta = const VerificationMeta('LIBELLEOT');
+  @override
   late final GeneratedColumn<String?> LIBELLEOT = GeneratedColumn<String?>(
       'libelleot', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 0, maxTextLength: 48),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _COMENTOTMeta = const VerificationMeta('COMENTOT');
+  @override
   late final GeneratedColumn<String?> COMENTOT = GeneratedColumn<String?>(
       'comentot', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
           minTextLength: 0, maxTextLength: 2048),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _TEMPSOTMeta = const VerificationMeta('TEMPSOT');
+  @override
   late final GeneratedColumn<double?> TEMPSOT = GeneratedColumn<double?>(
       'tempsot', aliasedName, false,
-      typeName: 'REAL', requiredDuringInsert: true);
+      type: const RealType(), requiredDuringInsert: true);
   final VerificationMeta _STATUTOTMeta = const VerificationMeta('STATUTOT');
+  @override
   late final GeneratedColumn<String?> STATUTOT = GeneratedColumn<String?>(
       'statutot', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 1),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _DTOPENOTMeta = const VerificationMeta('DTOPENOT');
+  @override
   late final GeneratedColumn<DateTime?> DTOPENOT = GeneratedColumn<DateTime?>(
       'dtopenot', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: const IntType(), requiredDuringInsert: true);
   final VerificationMeta _DTEXECOTMeta = const VerificationMeta('DTEXECOT');
+  @override
   late final GeneratedColumn<DateTime?> DTEXECOT = GeneratedColumn<DateTime?>(
       'dtexecot', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: const IntType(), requiredDuringInsert: true);
   final VerificationMeta _DTWAITOTMeta = const VerificationMeta('DTWAITOT');
+  @override
   late final GeneratedColumn<DateTime?> DTWAITOT = GeneratedColumn<DateTime?>(
       'dtwaitot', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: const IntType(), requiredDuringInsert: true);
   final VerificationMeta _DTCANCOTMeta = const VerificationMeta('DTCANCOT');
+  @override
   late final GeneratedColumn<DateTime?> DTCANCOT = GeneratedColumn<DateTime?>(
       'dtcancot', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: const IntType(), requiredDuringInsert: true);
   final VerificationMeta _DTCLOSOTMeta = const VerificationMeta('DTCLOSOT');
+  @override
   late final GeneratedColumn<DateTime?> DTCLOSOT = GeneratedColumn<DateTime?>(
       'dtclosot', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: const IntType(), requiredDuringInsert: true);
   final VerificationMeta _IDOTORIGINALMeta =
       const VerificationMeta('IDOTORIGINAL');
+  @override
   late final GeneratedColumn<int?> IDOTORIGINAL = GeneratedColumn<int?>(
       'idotoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: const IntType(), requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         IDOT,
@@ -2808,47 +2854,54 @@ class $ReservationsTable extends Reservations
   final String? _alias;
   $ReservationsTable(this._db, [this._alias]);
   final VerificationMeta _IDPIECEMeta = const VerificationMeta('IDPIECE');
+  @override
   late final GeneratedColumn<int?> IDPIECE = GeneratedColumn<int?>(
       'idpiece', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _IDOTMeta = const VerificationMeta('IDOT');
+  @override
   late final GeneratedColumn<int?> IDOT = GeneratedColumn<int?>(
       'idot', aliasedName, true,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Ot(IDOT)');
   final VerificationMeta _CODEARTICLEMeta =
       const VerificationMeta('CODEARTICLE');
+  @override
   late final GeneratedColumn<String?> CODEARTICLE = GeneratedColumn<String?>(
       'codearticle', aliasedName, true,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 24),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Articles(IDARTICLE)');
   final VerificationMeta _LIBELLEARTICLEMeta =
       const VerificationMeta('LIBELLEARTICLE');
+  @override
   late final GeneratedColumn<String?> LIBELLEARTICLE = GeneratedColumn<String?>(
       'libellearticle', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _QTEARTICLEMeta = const VerificationMeta('QTEARTICLE');
+  @override
   late final GeneratedColumn<int?> QTEARTICLE = GeneratedColumn<int?>(
       'qtearticle', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: const IntType(), requiredDuringInsert: true);
   final VerificationMeta _IDARTICLEMeta = const VerificationMeta('IDARTICLE');
+  @override
   late final GeneratedColumn<int?> IDARTICLE = GeneratedColumn<int?>(
       'idarticle', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      type: const IntType(), requiredDuringInsert: true);
   final VerificationMeta _IDPIECEORIGINALMeta =
       const VerificationMeta('IDPIECEORIGINAL');
+  @override
   late final GeneratedColumn<int?> IDPIECEORIGINAL = GeneratedColumn<int?>(
       'idpieceoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: const IntType(), requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         IDPIECE,
@@ -2932,13 +2985,11 @@ class Site extends DataClass implements Insertable<Site> {
   final String CODESITE;
   final String NOMSITE;
   final String ADRESSESITE;
-  final int? IDSITEORIGINAL;
   Site(
       {required this.IDSITE,
       required this.CODESITE,
       required this.NOMSITE,
-      required this.ADRESSESITE,
-      this.IDSITEORIGINAL});
+      required this.ADRESSESITE});
   factory Site.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Site(
@@ -2950,8 +3001,6 @@ class Site extends DataClass implements Insertable<Site> {
           .mapFromDatabaseResponse(data['${effectivePrefix}nomsite'])!,
       ADRESSESITE: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}adressesite'])!,
-      IDSITEORIGINAL: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}idsiteoriginal']),
     );
   }
   @override
@@ -2961,9 +3010,6 @@ class Site extends DataClass implements Insertable<Site> {
     map['codesite'] = Variable<String>(CODESITE);
     map['nomsite'] = Variable<String>(NOMSITE);
     map['adressesite'] = Variable<String>(ADRESSESITE);
-    if (!nullToAbsent || IDSITEORIGINAL != null) {
-      map['idsiteoriginal'] = Variable<int?>(IDSITEORIGINAL);
-    }
     return map;
   }
 
@@ -2973,9 +3019,6 @@ class Site extends DataClass implements Insertable<Site> {
       CODESITE: Value(CODESITE),
       NOMSITE: Value(NOMSITE),
       ADRESSESITE: Value(ADRESSESITE),
-      IDSITEORIGINAL: IDSITEORIGINAL == null && nullToAbsent
-          ? const Value.absent()
-          : Value(IDSITEORIGINAL),
     );
   }
 
@@ -2987,7 +3030,6 @@ class Site extends DataClass implements Insertable<Site> {
       CODESITE: serializer.fromJson<String>(json['CODESITE']),
       NOMSITE: serializer.fromJson<String>(json['NOMSITE']),
       ADRESSESITE: serializer.fromJson<String>(json['ADRESSESITE']),
-      IDSITEORIGINAL: serializer.fromJson<int?>(json['IDSITEORIGINAL']),
     );
   }
   @override
@@ -2998,7 +3040,6 @@ class Site extends DataClass implements Insertable<Site> {
       'CODESITE': serializer.toJson<String>(CODESITE),
       'NOMSITE': serializer.toJson<String>(NOMSITE),
       'ADRESSESITE': serializer.toJson<String>(ADRESSESITE),
-      'IDSITEORIGINAL': serializer.toJson<int?>(IDSITEORIGINAL),
     };
   }
 
@@ -3006,14 +3047,12 @@ class Site extends DataClass implements Insertable<Site> {
           {int? IDSITE,
           String? CODESITE,
           String? NOMSITE,
-          String? ADRESSESITE,
-          int? IDSITEORIGINAL}) =>
+          String? ADRESSESITE}) =>
       Site(
         IDSITE: IDSITE ?? this.IDSITE,
         CODESITE: CODESITE ?? this.CODESITE,
         NOMSITE: NOMSITE ?? this.NOMSITE,
         ADRESSESITE: ADRESSESITE ?? this.ADRESSESITE,
-        IDSITEORIGINAL: IDSITEORIGINAL ?? this.IDSITEORIGINAL,
       );
   @override
   String toString() {
@@ -3021,15 +3060,13 @@ class Site extends DataClass implements Insertable<Site> {
           ..write('IDSITE: $IDSITE, ')
           ..write('CODESITE: $CODESITE, ')
           ..write('NOMSITE: $NOMSITE, ')
-          ..write('ADRESSESITE: $ADRESSESITE, ')
-          ..write('IDSITEORIGINAL: $IDSITEORIGINAL')
+          ..write('ADRESSESITE: $ADRESSESITE')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(IDSITE, CODESITE, NOMSITE, ADRESSESITE, IDSITEORIGINAL);
+  int get hashCode => Object.hash(IDSITE, CODESITE, NOMSITE, ADRESSESITE);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3037,8 +3074,7 @@ class Site extends DataClass implements Insertable<Site> {
           other.IDSITE == this.IDSITE &&
           other.CODESITE == this.CODESITE &&
           other.NOMSITE == this.NOMSITE &&
-          other.ADRESSESITE == this.ADRESSESITE &&
-          other.IDSITEORIGINAL == this.IDSITEORIGINAL);
+          other.ADRESSESITE == this.ADRESSESITE);
 }
 
 class SitesCompanion extends UpdateCompanion<Site> {
@@ -3046,20 +3082,17 @@ class SitesCompanion extends UpdateCompanion<Site> {
   final Value<String> CODESITE;
   final Value<String> NOMSITE;
   final Value<String> ADRESSESITE;
-  final Value<int?> IDSITEORIGINAL;
   const SitesCompanion({
     this.IDSITE = const Value.absent(),
     this.CODESITE = const Value.absent(),
     this.NOMSITE = const Value.absent(),
     this.ADRESSESITE = const Value.absent(),
-    this.IDSITEORIGINAL = const Value.absent(),
   });
   SitesCompanion.insert({
     this.IDSITE = const Value.absent(),
     required String CODESITE,
     required String NOMSITE,
     required String ADRESSESITE,
-    this.IDSITEORIGINAL = const Value.absent(),
   })  : CODESITE = Value(CODESITE),
         NOMSITE = Value(NOMSITE),
         ADRESSESITE = Value(ADRESSESITE);
@@ -3068,14 +3101,12 @@ class SitesCompanion extends UpdateCompanion<Site> {
     Expression<String>? CODESITE,
     Expression<String>? NOMSITE,
     Expression<String>? ADRESSESITE,
-    Expression<int?>? IDSITEORIGINAL,
   }) {
     return RawValuesInsertable({
       if (IDSITE != null) 'idsite': IDSITE,
       if (CODESITE != null) 'codesite': CODESITE,
       if (NOMSITE != null) 'nomsite': NOMSITE,
       if (ADRESSESITE != null) 'adressesite': ADRESSESITE,
-      if (IDSITEORIGINAL != null) 'idsiteoriginal': IDSITEORIGINAL,
     });
   }
 
@@ -3083,14 +3114,12 @@ class SitesCompanion extends UpdateCompanion<Site> {
       {Value<int>? IDSITE,
       Value<String>? CODESITE,
       Value<String>? NOMSITE,
-      Value<String>? ADRESSESITE,
-      Value<int?>? IDSITEORIGINAL}) {
+      Value<String>? ADRESSESITE}) {
     return SitesCompanion(
       IDSITE: IDSITE ?? this.IDSITE,
       CODESITE: CODESITE ?? this.CODESITE,
       NOMSITE: NOMSITE ?? this.NOMSITE,
       ADRESSESITE: ADRESSESITE ?? this.ADRESSESITE,
-      IDSITEORIGINAL: IDSITEORIGINAL ?? this.IDSITEORIGINAL,
     );
   }
 
@@ -3109,9 +3138,6 @@ class SitesCompanion extends UpdateCompanion<Site> {
     if (ADRESSESITE.present) {
       map['adressesite'] = Variable<String>(ADRESSESITE.value);
     }
-    if (IDSITEORIGINAL.present) {
-      map['idsiteoriginal'] = Variable<int?>(IDSITEORIGINAL.value);
-    }
     return map;
   }
 
@@ -3121,8 +3147,7 @@ class SitesCompanion extends UpdateCompanion<Site> {
           ..write('IDSITE: $IDSITE, ')
           ..write('CODESITE: $CODESITE, ')
           ..write('NOMSITE: $NOMSITE, ')
-          ..write('ADRESSESITE: $ADRESSESITE, ')
-          ..write('IDSITEORIGINAL: $IDSITEORIGINAL')
+          ..write('ADRESSESITE: $ADRESSESITE')
           ..write(')'))
         .toString();
   }
@@ -3133,41 +3158,40 @@ class $SitesTable extends Sites with TableInfo<$SitesTable, Site> {
   final String? _alias;
   $SitesTable(this._db, [this._alias]);
   final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
+  @override
   late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
       'idsite', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _CODESITEMeta = const VerificationMeta('CODESITE');
+  @override
   late final GeneratedColumn<String?> CODESITE = GeneratedColumn<String?>(
       'codesite', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _NOMSITEMeta = const VerificationMeta('NOMSITE');
+  @override
   late final GeneratedColumn<String?> NOMSITE = GeneratedColumn<String?>(
       'nomsite', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _ADRESSESITEMeta =
       const VerificationMeta('ADRESSESITE');
+  @override
   late final GeneratedColumn<String?> ADRESSESITE = GeneratedColumn<String?>(
       'adressesite', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
-  final VerificationMeta _IDSITEORIGINALMeta =
-      const VerificationMeta('IDSITEORIGINAL');
-  late final GeneratedColumn<int?> IDSITEORIGINAL = GeneratedColumn<int?>(
-      'idsiteoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [IDSITE, CODESITE, NOMSITE, ADRESSESITE, IDSITEORIGINAL];
+      [IDSITE, CODESITE, NOMSITE, ADRESSESITE];
   @override
   String get aliasedName => _alias ?? 'sites';
   @override
@@ -3200,12 +3224,6 @@ class $SitesTable extends Sites with TableInfo<$SitesTable, Site> {
               data['adressesite']!, _ADRESSESITEMeta));
     } else if (isInserting) {
       context.missing(_ADRESSESITEMeta);
-    }
-    if (data.containsKey('idsiteoriginal')) {
-      context.handle(
-          _IDSITEORIGINALMeta,
-          IDSITEORIGINAL.isAcceptableOrUnknown(
-              data['idsiteoriginal']!, _IDSITEORIGINALMeta));
     }
     return context;
   }
@@ -3480,53 +3498,60 @@ class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
   final String? _alias;
   $TachesTable(this._db, [this._alias]);
   final VerificationMeta _IDTACHEMeta = const VerificationMeta('IDTACHE');
+  @override
   late final GeneratedColumn<int?> IDTACHE = GeneratedColumn<int?>(
       'idtache', aliasedName, false,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: true,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _IDOTMeta = const VerificationMeta('IDOT');
+  @override
   late final GeneratedColumn<int?> IDOT = GeneratedColumn<int?>(
       'idot', aliasedName, true,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Ot(IDOT)');
   final VerificationMeta _CODETACHEMeta = const VerificationMeta('CODETACHE');
+  @override
   late final GeneratedColumn<String?> CODETACHE = GeneratedColumn<String?>(
       'codetache', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 24),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _LIBELLETACHEMeta =
       const VerificationMeta('LIBELLETACHE');
+  @override
   late final GeneratedColumn<String?> LIBELLETACHE = GeneratedColumn<String?>(
       'libelletache', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _STATUTTACHEMeta =
       const VerificationMeta('STATUTTACHE');
+  @override
   late final GeneratedColumn<String?> STATUTTACHE = GeneratedColumn<String?>(
       'statuttache', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 1),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _COMMENTTACHEMeta =
       const VerificationMeta('COMMENTTACHE');
+  @override
   late final GeneratedColumn<String?> COMMENTTACHE = GeneratedColumn<String?>(
       'commenttache', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
           minTextLength: 1, maxTextLength: 2018),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _IDTACHEORIGINALMeta =
       const VerificationMeta('IDTACHEORIGINAL');
+  @override
   late final GeneratedColumn<int?> IDTACHEORIGINAL = GeneratedColumn<int?>(
       'idtacheoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
+      type: const IntType(), requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         IDTACHE,
@@ -3793,29 +3818,33 @@ class $ConfigTable extends Config with TableInfo<$ConfigTable, ConfigData> {
   final String? _alias;
   $ConfigTable(this._db, [this._alias]);
   final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
+  @override
   late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
       'idsite', aliasedName, true,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Sites(IDSITE)');
   final VerificationMeta _CODEPOCKETMeta = const VerificationMeta('CODEPOCKET');
+  @override
   late final GeneratedColumn<String?> CODEPOCKET = GeneratedColumn<String?>(
       'codepocket', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 16),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _NOMPOCKETMeta = const VerificationMeta('NOMPOCKET');
+  @override
   late final GeneratedColumn<String?> NOMPOCKET = GeneratedColumn<String?>(
       'nompocket', aliasedName, false,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _IDORIGINEMeta = const VerificationMeta('IDORIGINE');
+  @override
   late final GeneratedColumn<int?> IDORIGINE = GeneratedColumn<int?>(
       'idorigine', aliasedName, true,
-      typeName: 'INTEGER',
+      type: const IntType(),
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Origines(IDORIGINE)');
   @override

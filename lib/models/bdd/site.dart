@@ -7,7 +7,6 @@ class Sites extends Table {
   TextColumn get CODESITE => text().withLength(min: 1, max: 50)();
   TextColumn get NOMSITE => text().withLength(min: 1, max: 50)();
   TextColumn get ADRESSESITE => text().withLength(min: 1, max: 50)();
-  IntColumn get IDSITEORIGINAL =>integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {IDSITE};

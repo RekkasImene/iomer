@@ -23,7 +23,6 @@ class InRepository {
           CODESITE: e.CODESITE,
           NOMSITE: e.NOMSITE,
           ADRESSESITE: e.ADRESSESITE,
-          IDSITEORIGINAL: Value(e.IDSITE),
         ));
       });
     }).catchError((error) {
@@ -31,8 +30,7 @@ class InRepository {
     });
   }
 
-
-
-
-
+  Future<List<Site>> getAllSite() {
+    return database.siteDao.getAllSites();
+  }
 }

@@ -12,21 +12,15 @@ class CitiesInitial extends CitiesState {
   List<Object> get props => [];
 }
 
-class GetCitiesLoading extends CitiesState {
-  const GetCitiesLoading();
-
-  @override
-  List<Object> get props => [];
+class CitiesLoading extends CitiesState {
+  const CitiesLoading();
 }
 
-class GetCitiesSuccess extends CitiesState {
-  final List<String> cities;
-
-  const GetCitiesSuccess(this.cities);
-
-  @override
-  List<Object> get props => [cities];
+class CitiesLoaded extends CitiesState {
+  final List listsite;
+  const CitiesLoaded(this.listsite);
 }
+
 
 class GetCitiesFailure extends CitiesState {
   final String error;
@@ -35,4 +29,9 @@ class GetCitiesFailure extends CitiesState {
 
   @override
   List<Object> get props => [error];
+}
+
+class CitiesError extends CitiesState {
+  final String message;
+  const CitiesError(this.message);
 }

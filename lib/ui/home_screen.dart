@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/blocs/cities/cities_bloc.dart';
+import 'package:iomer/models/repository/in_repository.dart';
 import 'package:iomer/ui/first_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,9 +14,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late CitiesBloc _citiesBloc;
 
+
   @override
   void initState() {
-    _citiesBloc = CitiesBloc()..add(const GetCities());
     super.initState();
   }
 
@@ -55,19 +56,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 // ),
                 child: BlocProvider(
                   create: (context) => _citiesBloc,
+                  child : BlocListener(
+                    listener: (context,state) {
+
+                    },
                   child: BlocBuilder<CitiesBloc, CitiesState>(
                     builder: (context, state) {
-                      if (state is GetCitiesSuccess) {
-                        return ListView.builder(
-                          itemCount: state.cities.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(state.cities[index]),
-                            );
-                          },
-                        );
-                      } else if (state is GetCitiesFailure) {
-                        return Text(state.error);
+                      if(state is CitiesInitial) {
+                        print("Etat inital");
+                      }
+                      else if (state is CitiesLoading) {
+                        print("Etat loading...");
+                      }
+                      else if (state is CitiesLoaded) {
+                        print("Etat loaded...");
+                      }
+                      else {
+                        print("Error...");
                       }
                       return const Center(
                         child: SizedBox(
@@ -77,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   ),
+                 ),
                 ),
               ),
             ),

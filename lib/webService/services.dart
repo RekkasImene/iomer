@@ -1,17 +1,20 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart' as http;
 
-var url = 'https://hard-stingray-66.loca.lt';
+var url = 'https://iomer.loca.lt';
 
 /* Get Sites */
 Future<List<Site>> fetchSite() async {
   final response = await http.get(Uri.parse('$url/GetSites'));
   if (response.statusCode == 200) {
+    log("111111111111"+response.body);
     List<Site> sites;
     sites=(json.decode(response.body) as List)
         .map((siteJson) => Site.fromJson(siteJson))
         .toList();
+    log("2222222222"+sites.toString());
     return sites;
         } else {
     throw Exception('Failed to load site');
@@ -67,15 +70,17 @@ Future<List<Equipement>> fetchEquipements(int id) async {
 }
 
 /* Get Categories */
-Future<List<Categorie>> fetchCategories(int id) async {
+Future<List<Categorie>> fetchCategories(int ?id) async {
   final response = await http
       .get(Uri.parse('$url/GetCategories/$id'));
 
   if (response.statusCode == 200) {
+    log("3333333"+response.body.toString());
     List<Categorie> categories;
     categories=(json.decode(response.body) as List)
         .map((categorieJson) => Categorie.fromJson(categorieJson))
         .toList();
+    log("444444444"+categories.toString());
     return categories;
   } else {
     throw Exception('Failed to load Categories');

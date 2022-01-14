@@ -8,14 +8,20 @@ import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/services.dart';
 
+import 'out_repository.dart';
+
 @Environment(Env.prod)
 @injectable
 class InRepository {
   final IomerDatabase database;
-  InRepository(this.database);
-  late Future<List<Site>> futureSite;
 
-  void updateSite(){
+  InRepository(this.database);
+
+  late Future<List<Site>> futureSite;
+  late Future<List<Categorie>> futureCategorie;
+  late Future<List<Origine>> futureOrigine;
+
+  void updateSite() {
     futureSite = fetchSite();
     futureSite.then((value) {
       value.forEach((e) {
@@ -31,8 +37,32 @@ class InRepository {
     });
   }
 
+  void updateCategories(int id_site) {
+    futureCategorie = fetchCategories(id_site);
+    futureCategorie.then((value) {
+      value.forEach((categorie) {
+        log("idCategorie:" + categorie.IDCATEGORIE.toString());
+        database.categorieDao.insertCategorie(CategoriesCompanion.insert(
+            CODECATEGORIE: categorie.CODECATEGORIE,
+            LIBELLECATEGORIE: categorie.LIBELLECATEGORIE,
+            IDSITE: Value(categorie.IDSITE),
+            IDCATORIGINAL: Value(categorie.IDCATEGORIE)));
+      });
+    });
+  }
 
-
-
-
+  //bryan est passé par la
+  void updateOrigines(int id_site) {
+    futureOrigine = fetchOrigines(id_site);
+    futureOrigine.then((value) {
+      value.forEach((origine) {
+        log("idOrigine:" + origine.IDORIGINE.toString());
+        database.origineDao.insertOrigine(OriginesCompanion.insert(
+            CODEORIGINE: origine.CODEORIGINE,
+            LIBELLEORIGINE: origine.LIBELLEORIGINE,
+            IDSITE: Value(origine.IDSITE),
+            IDORIGINEORIGINAL: Value(origine.IDORIGINE)));
+      });
+    });
+  }
 }

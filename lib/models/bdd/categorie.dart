@@ -21,4 +21,8 @@ class Categories extends Table {
 class CategorieDao extends DatabaseAccessor<IomerDatabase> with _$CategorieDaoMixin{
   final IomerDatabase db;
   CategorieDao(this.db):super (db);
+
+  Future insertCategorie(CategoriesCompanion categorie) => into(categories).insert(categorie);
+  Future<List<Categorie>> getAllCategories() => select(categories).get();
+
 }

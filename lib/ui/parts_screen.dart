@@ -90,7 +90,7 @@ class _PartsScreenState extends State<PartsScreen> {
             const Align(
               alignment: Alignment.topLeft,
               child: Text(
-                "Liste des taches a effectuer :",
+                "Confirmer les pièces a changer :",
                 style: TextStyle(fontSize: 20),
               ),
             ),

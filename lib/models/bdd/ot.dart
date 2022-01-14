@@ -3,7 +3,7 @@ import 'iomer_database.dart';
 part 'generate/ot.g.dart';
 
 class Ot extends Table{
-  IntColumn get IDOT=>integer().autoIncrement()();
+  IntColumn get IDOT=>integer()();
   IntColumn get IDORIGINE => integer()
       .nullable()
       .customConstraint('NULL REFERENCES Origines(IDORIGINE)')();

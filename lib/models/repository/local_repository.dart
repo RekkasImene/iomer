@@ -1,13 +1,16 @@
-//bdd vers webservice
+//Vue vers bdd et bdd  vers vue
+
 
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 
+
 @Environment(Env.prod)
 @injectable
-class OutRepository {
+class LocalRepository {
+
   final IomerDatabase database;
-  OutRepository(this.database);
+  LocalRepository(this.database);
 
 }

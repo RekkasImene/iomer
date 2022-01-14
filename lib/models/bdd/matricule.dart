@@ -3,7 +3,7 @@ import 'iomer_database.dart';
 part 'generate/matricule.g.dart';
 
 class Matricules extends Table {
-  IntColumn get IDMATRICULE => integer().autoIncrement()();
+  IntColumn get IDMATRICULE => integer()();
   IntColumn get IDORIGINE => integer()
       .nullable()
       .customConstraint('NULL REFERENCES Origines(IDORIGINE)')();

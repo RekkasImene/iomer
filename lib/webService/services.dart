@@ -1,103 +1,131 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'package:iomer/webService/ot_taches.dart';
-import 'package:iomer/webService/ots.dart';
-import 'package:iomer/webService/sites.dart';
+import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart' as http;
-import 'categories.dart';
-import 'equipements.dart';
-import 'matricules.dart';
-import 'origines.dart';
 
-var url = 'https://red-donkey-69.loca.lt';
+var url = 'https://hard-stingray-66.loca.lt';
 
 /* Get Sites */
-Future<Sites> fetchSite() async {
-  final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetSites'));
-
+Future<List<Site>> fetchSite() async {
+  final response = await http.get(Uri.parse('$url/GetSites'));
   if (response.statusCode == 200) {
-    log(response.body.toString());
-    return Sites.fromJson(jsonDecode(response.body));
-  } else {
+    List<Site> sites;
+    sites=(json.decode(response.body) as List)
+        .map((siteJson) => Site.fromJson(siteJson))
+        .toList();
+    return sites;
+        } else {
     throw Exception('Failed to load site');
   }
 }
 
 /* Get Origines */
-Future<Origines> fetchOrigines(int id) async {
+Future<List<Origine>> fetchOrigines(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetOrigines/$id'));
+      .get(Uri.parse('$url/GetOrigines/$id'));
 
   if (response.statusCode == 200) {
-    log(response.body.toString());
-    return Origines.fromJson(jsonDecode(response.body));
+    List<Origine> origines;
+    origines=(json.decode(response.body) as List)
+        .map((origineJson) => Origine.fromJson(origineJson))
+        .toList();
+    return origines;
   } else {
     throw Exception('Failed to load Origines');
   }
 }
 
 /* Get Matricules */
-Future<Matricules> fetchMatricules(int id) async {
+Future<List<Matricule>> fetchMatricules(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetMatricules/$id'));
+      .get(Uri.parse('$url/GetMatricules/$id'));
 
   if (response.statusCode == 200) {
-    log(response.body.toString());
-    return Matricules.fromJson(jsonDecode(response.body));
+    List<Matricule> matricules;
+    matricules=(json.decode(response.body) as List)
+        .map((matriculeJson) => Matricule.fromJson(matriculeJson))
+        .toList();
+    return matricules;
   } else {
     throw Exception('Failed to load Matricules');
   }
 }
 
 /* Get Equipements */
-Future<Equipements> fetchEquipements(int id) async {
+Future<List<Equipement>> fetchEquipements(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetEquipements/$id'));
+      .get(Uri.parse('$url/GetEquipements/$id'));
 
   if (response.statusCode == 200) {
-    log(response.body.toString());
-    return Equipements.fromJson(jsonDecode(response.body));
+    List<Equipement> equipements;
+    equipements=(json.decode(response.body) as List)
+        .map((equipementJson) => Equipement.fromJson(equipementJson))
+        .toList();
+    return equipements;
   } else {
     throw Exception('Failed to load Equipements');
   }
 }
 
 /* Get Categories */
-Future<Categories> fetchCategories(int id) async {
+Future<List<Categorie>> fetchCategories(int id) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetCategories/$id'));
+      .get(Uri.parse('$url/GetCategories/$id'));
 
   if (response.statusCode == 200) {
-    log(response.body.toString());
-    return Categories.fromJson(jsonDecode(response.body));
+    List<Categorie> categories;
+    categories=(json.decode(response.body) as List)
+        .map((categorieJson) => Categorie.fromJson(categorieJson))
+        .toList();
+    return categories;
   } else {
     throw Exception('Failed to load Categories');
   }
 }
 
 /* Get OTs */
-Future<OTs> fetchOTs(int idSite, int idOrigine) async {
+Future<List<OtData>> fetchOTs(int idSite, int idOrigine) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GetOts/$idSite/$idOrigine'));
+      .get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
 
   if (response.statusCode == 200) {
-    log(response.body.toString());
-    return OTs.fromJson(jsonDecode(response.body));
+    List<OtData> ots;
+    ots=(json.decode(response.body) as List)
+        .map((otJson) => OtData.fromJson(otJson))
+        .toList();
+    return ots;
   } else {
     throw Exception('Failed to load OTs');
   }
 }
 
 /* Get OT Taches */
-Future<OTTaches> fetchOTTaches(int idOT) async {
+Future<List<Tache>> fetchOTTaches(int idOT) async {
   final response = await http
-      .get(Uri.parse('$url/datasnap/rest/TServerMethodsIOmere/GETOT_TACHES/$idOT'));
+      .get(Uri.parse('$url/GETOT_TACHES/$idOT'));
 
   if (response.statusCode == 200) {
-    log(response.body.toString());
-    return OTTaches.fromJson(jsonDecode(response.body));
+    List<Tache> taches;
+    taches=(json.decode(response.body) as List)
+        .map((tacheJson) => Tache.fromJson(tacheJson))
+        .toList();
+    return taches;
   } else {
     throw Exception('Failed to load OT Taches');
+  }
+}
+
+/* Get Config */
+Future<List<ConfigData>> fetchConfig(int idSite, String codePocket) async {
+  final response = await http
+      .get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
+
+  if (response.statusCode == 200) {
+    List<ConfigData> config;
+    config=(json.decode(response.body) as List)
+        .map((configJson) => ConfigData.fromJson(configJson))
+        .toList();
+    return config;
+  } else {
+    throw Exception('Failed to load Config');
   }
 }

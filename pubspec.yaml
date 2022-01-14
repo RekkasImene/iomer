@@ -29,7 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get_it: ^5.0.3
+  get_it:
+  injectable:
   drift: ^1.0.1
   sqlite3_flutter_libs: ^0.5.0
   path_provider: ^2.0.0
@@ -47,7 +48,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   drift_dev: ^1.0.2
-  build_runner: ^2.1.5
+  build_runner:
+  injectable_generator:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

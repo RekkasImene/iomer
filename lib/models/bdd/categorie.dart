@@ -4,13 +4,12 @@ part 'generate/categorie.g.dart';
 
 
 class Categories extends Table {
-  IntColumn get IDCATEGORIE => integer().autoIncrement()();
+  IntColumn get IDCATEGORIE => integer()();
   IntColumn get IDSITE => integer()
       .nullable()
       .customConstraint('NULL REFERENCES Sites(IDSITE)')();
   TextColumn get CODECATEGORIE => text().withLength(min: 1, max: 12)();
   TextColumn get LIBELLECATEGORIE => text().withLength(min: 1, max: 48)();
-  IntColumn get IDCATORIGINAL =>integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {IDCATEGORIE};

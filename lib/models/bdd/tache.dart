@@ -3,14 +3,13 @@ import 'iomer_database.dart';
 part 'generate/tache.g.dart';
 
 class Taches extends Table {
-  IntColumn get IDTACHE => integer().autoIncrement()();
+  IntColumn get IDTACHE => integer()();
   IntColumn get IDOT =>
       integer().nullable().customConstraint('NULL REFERENCES Ot(IDOT)')();
   TextColumn get CODETACHE => text().withLength(min: 1, max: 24)();
   TextColumn get LIBELLETACHE => text().withLength(min: 1, max: 48)();
   TextColumn get STATUTTACHE => text().withLength(min: 1, max: 1)();
   TextColumn get COMMENTTACHE => text().withLength(min: 1, max: 2018)();
-  IntColumn get IDTACHEORIGINAL =>integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {CODETACHE,IDTACHE};

@@ -23,4 +23,5 @@ class Config extends Table {
 class ConfigDao extends DatabaseAccessor<IomerDatabase> with _$ConfigDaoMixin{
   final IomerDatabase db;
   ConfigDao(this.db):super (db);
+
 }

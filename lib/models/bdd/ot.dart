@@ -3,7 +3,7 @@ import 'iomer_database.dart';
 part 'generate/ot.g.dart';
 
 class Ot extends Table{
-  IntColumn get IDOT=>integer().autoIncrement()();
+  IntColumn get IDOT=>integer()();
   IntColumn get IDORIGINE => integer()
       .nullable()
       .customConstraint('NULL REFERENCES Origines(IDORIGINE)')();
@@ -24,7 +24,6 @@ class Ot extends Table{
   DateTimeColumn get DTWAITOT=>dateTime()();
   DateTimeColumn get DTCANCOT=>dateTime()();
   DateTimeColumn get DTCLOSOT=>dateTime()();
-  IntColumn get IDOTORIGINAL =>integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {IDOT};

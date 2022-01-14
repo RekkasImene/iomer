@@ -4,6 +4,7 @@ import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/models/repository/in_repository.dart';
 import 'config/injection.dart';
 
+
 void main() {
   configureInjection(Env.prod);
   runApp(const MyApp());
@@ -23,6 +24,12 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     InRepository repository = getIt.get<InRepository>();
     repository.updateSite();
+    repository.updateOrigines(1);
+    repository.updateMatricules(11);
+    repository.updateOTs(1,  11);
+    
+
+
   }
 
   @override

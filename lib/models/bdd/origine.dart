@@ -9,7 +9,7 @@ class Origines extends Table {
       .customConstraint('NULL REFERENCES Sites(IDSITE)')();
   TextColumn get CODEORIGINE => text().withLength(min: 1, max: 12)();
   TextColumn get LIBELLEORIGINE => text().withLength(min: 1, max: 48)();
-  IntColumn get IDORIGINEORIGINAL =>integer().nullable()();
+  
 
   @override
   Set<Column> get primaryKey => {IDORIGINE};
@@ -21,4 +21,7 @@ class Origines extends Table {
 class OrigineDao extends DatabaseAccessor<IomerDatabase> with _$OrigineDaoMixin{
   final IomerDatabase db;
   OrigineDao(this.db):super (db);
+
+  Future insertOrigine(Origine origine) => into(origines).insert(origine);
+  Future<List<Origine>> getAllOrigine() => select(origines).get();
 }

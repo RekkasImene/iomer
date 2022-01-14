@@ -3,17 +3,18 @@ import 'iomer_database.dart';
 part 'generate/matricule.g.dart';
 
 class Matricules extends Table {
-  IntColumn get idMatricule => integer().autoIncrement()();
-  IntColumn get idOrigine => integer()
+  IntColumn get IDMATRICULE => integer().autoIncrement()();
+  IntColumn get IDORIGINE => integer()
       .nullable()
-      .customConstraint('NULL REFERENCES Origines(idOrigin)')();
-  TextColumn get codeMatricule => text().withLength(min: 1, max: 12)();
-  TextColumn get nomMatricule => text().withLength(min: 1, max: 48)();
-  TextColumn get prenomMatricule => text().withLength(min: 1, max: 48)();
-  BoolColumn get checked => boolean().withDefault(const Constant(false))();
+      .customConstraint('NULL REFERENCES Origines(IDORIGINE)')();
+  TextColumn get CODEMATRICULE => text().withLength(min: 1, max: 12)();
+  TextColumn get NOMMATRICULE => text().withLength(min: 1, max: 48)();
+  TextColumn get PRENOMMATRICULE => text().withLength(min: 1, max: 48)();
+  BoolColumn get CHECKED => boolean().withDefault(const Constant(false))();
+  IntColumn get IDMATORIGINAL =>integer().nullable()();
 
   @override
-  Set<Column> get primaryKey => {idMatricule};
+  Set<Column> get primaryKey => {IDMATRICULE};
 }
 
 @DriftAccessor(

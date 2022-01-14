@@ -3,15 +3,16 @@ import 'iomer_database.dart';
 part 'generate/origine.g.dart';
 
 class Origines extends Table {
-  IntColumn get idOrigin => integer().autoIncrement()();
-  IntColumn get idSite => integer()
+  IntColumn get IDORIGINE => integer().autoIncrement()();
+  IntColumn get IDSITE => integer()
       .nullable()
-      .customConstraint('NULL REFERENCES Sites(idSite)')();
-  TextColumn get codeOrigin => text().withLength(min: 1, max: 12)();
-  TextColumn get libelleOrigin => text().withLength(min: 1, max: 48)();
+      .customConstraint('NULL REFERENCES Sites(IDSITE)')();
+  TextColumn get CODEORIGINE => text().withLength(min: 1, max: 12)();
+  TextColumn get LIBELLEORIGINE => text().withLength(min: 1, max: 48)();
+  IntColumn get IDORIGINEORIGINAL =>integer().nullable()();
 
   @override
-  Set<Column> get primaryKey => {idOrigin};
+  Set<Column> get primaryKey => {IDORIGINE};
 }
 
 @DriftAccessor(

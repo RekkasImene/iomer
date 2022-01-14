@@ -24,6 +24,7 @@ class Ot extends Table{
   DateTimeColumn get DTWAITOT=>dateTime()();
   DateTimeColumn get DTCANCOT=>dateTime()();
   DateTimeColumn get DTCLOSOT=>dateTime()();
+  IntColumn get IDOTORIGINAL =>integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {IDOT};

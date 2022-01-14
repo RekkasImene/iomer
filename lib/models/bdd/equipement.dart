@@ -9,6 +9,7 @@ class Equipements extends Table {
       .customConstraint('NULL REFERENCES Sites(IDSITE)')();
   TextColumn get CODEEQUIPEMENT => text().withLength(min: 1, max: 12)();
   TextColumn get LIBELLEEQUIPEMENT => text().withLength(min: 1, max: 48)();
+  IntColumn get IDEQUIPEMENTORIGINAL =>integer().nullable()();
 
 
   @override

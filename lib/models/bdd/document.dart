@@ -8,6 +8,7 @@ class Documents extends Table {
   IntColumn get IDOT =>
       integer().nullable().customConstraint('NULL REFERENCES Ot(IDOT)')();
   TextColumn get ATTACHEMENT => text().withLength(min: 1, max: 48)();
+  IntColumn get IDATTACHORIGINAL =>integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {IDATTACHEMENT};

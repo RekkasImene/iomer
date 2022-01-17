@@ -23,7 +23,7 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
       //   "Chalons"
       // ];
       if (event is GetCities) {
-        emit(const GetCitiesLoading());
+        //emit(const GetCitiesLoading());
         // TODO: get cities from backend.
         // final result = await .....; récupéré les villes
         // if (_cities.isNotEmpty) {

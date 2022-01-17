@@ -14,10 +14,10 @@ class SitesLoading extends SitesState {}
 
 class SitesLoaded extends SitesState {
   final List<Site> sites;
-  SitesLoaded(this.sites);
+  const SitesLoaded(this.sites);
 }
 
 class SitesError extends SitesState {
   final String message;
-  SitesError(this.message);
+  const SitesError(this.message);
 }

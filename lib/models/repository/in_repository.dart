@@ -16,14 +16,14 @@ abstract class InRepositoryAbs {
 }
 
 class InRepository extends InRepositoryAbs {
-  late SiteDao _siteDao;
+  late IomerDatabase database;
   late Future<List<Site>> futureSite;
 
   void updateSite() {
     futureSite = fetchSite();
     futureSite.then((value) {
       value.forEach((e) {
-        _siteDao.insertSite(SitesCompanion.insert(
+          database.siteDao.insertSite(SitesCompanion.insert(
           CODESITE: e.CODESITE,
           NOMSITE: e.NOMSITE,
           ADRESSESITE: e.ADRESSESITE,
@@ -37,6 +37,6 @@ class InRepository extends InRepositoryAbs {
 
   @override
   Future<List<Site>> getAllSite() {
-    return _siteDao.getAllSites();
+    return database.siteDao.getAllSites();
   }
 }

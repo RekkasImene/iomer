@@ -11,12 +11,11 @@ class Sites extends Table {
   @override
   Set<Column> get primaryKey => {IDSITE};
 }
-@DriftAccessor(
-    tables:[Sites]
-)
-class SiteDao extends DatabaseAccessor<IomerDatabase> with _$SiteDaoMixin{
+
+@DriftAccessor(tables: [Sites])
+class SiteDao extends DatabaseAccessor<IomerDatabase> with _$SiteDaoMixin {
   final IomerDatabase db;
-  SiteDao(this.db):super (db);
+  SiteDao(this.db) : super(db);
 
   Future insertSite(SitesCompanion site) => into(sites).insert(site);
   Future<List<Site>> getAllSites() => select(sites).get();

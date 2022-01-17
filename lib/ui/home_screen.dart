@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/blocs/cities/cities_bloc.dart';
+import 'package:iomer/blocs/bloc/sites_bloc.dart';
+import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomer/models/repository/in_repository.dart';
 import 'package:iomer/ui/first_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,11 +13,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late CitiesBloc _citiesBloc;
+  late SitesBloc _sitesBloc;
 
   @override
   void initState() {
-    _citiesBloc = CitiesBloc()..add(const GetCities());
+    _sitesBloc = SitesBloc(InRepository())..add(FetchSites());
     super.initState();
   }
 
@@ -54,20 +56,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 //   ),
                 // ),
                 child: BlocProvider(
-                  create: (context) => _citiesBloc,
-                  child: BlocBuilder<CitiesBloc, CitiesState>(
+                  create: (context) => _sitesBloc,
+                  child: BlocBuilder<SitesBloc, SitesState>(
                     builder: (context, state) {
-                      if (state is GetCitiesSuccess) {
+                      if (state is SitesLoaded) {
                         return ListView.builder(
-                          itemCount: state.cities.length,
+                          itemCount: state.sites.length,
                           itemBuilder: (context, index) {
                             return ListTile(
-                              title: Text(state.cities[index]),
+                              title: Text(state.sites[index].NOMSITE),
                             );
                           },
                         );
-                      } else if (state is GetCitiesFailure) {
-                        return Text(state.error);
+                      } else if (state is SitesError) {
+                        return Text(state.message);
                       }
                       return const Center(
                         child: SizedBox(

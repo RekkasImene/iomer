@@ -9,5 +9,4 @@ import 'package:iomer/models/bdd/iomer_database.dart';
 class OutRepository {
   final IomerDatabase database;
   OutRepository(this.database);
-
 }

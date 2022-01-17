@@ -20,16 +20,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late Future<List<Site>> futureSite;
+  late InRepository repository;
   @override
   void initState() {
     super.initState();
-    InRepository repository = getIt.get<InRepository>();
-    repository.updateMatricules(11);
-    sleep(const Duration(seconds: 1));
-    repository.updateOTs(1,  11);
-    
-
-
+    repository = getIt.get<InRepository>();
   }
 
   @override
@@ -42,6 +37,10 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Fetch Data Example'),
+        ),
+        body: ElevatedButton(onPressed: () {
+          repository.updateOTs(1, 11);
+        }, child: null,
         ),
       ),
     );

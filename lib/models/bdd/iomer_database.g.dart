@@ -1753,11 +1753,11 @@ class OtData extends DataClass implements Insertable<OtData> {
   final String COMMENTOT;
   final double TEMPSOT;
   final String STATUTOT;
-  final DateTime DTOPENOT;
-  final DateTime DTEXECOT;
-  final DateTime DTWAITOT;
-  final DateTime DTCANCOT;
-  final DateTime DTCLOSOT;
+  final DateTime? DTOPENOT;
+  final DateTime? DTEXECOT;
+  final DateTime? DTWAITOT;
+  final DateTime? DTCANCOT;
+  final DateTime? DTCLOSOT;
   OtData(
       {required this.IDOT,
       this.IDORIGINE,
@@ -1768,11 +1768,11 @@ class OtData extends DataClass implements Insertable<OtData> {
       required this.COMMENTOT,
       required this.TEMPSOT,
       required this.STATUTOT,
-      required this.DTOPENOT,
-      required this.DTEXECOT,
-      required this.DTWAITOT,
-      required this.DTCANCOT,
-      required this.DTCLOSOT});
+      this.DTOPENOT,
+      this.DTEXECOT,
+      this.DTWAITOT,
+      this.DTCANCOT,
+      this.DTCLOSOT});
   factory OtData.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return OtData(
@@ -1795,15 +1795,15 @@ class OtData extends DataClass implements Insertable<OtData> {
       STATUTOT: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}statutot'])!,
       DTOPENOT: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}dtopenot'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}dtopenot']),
       DTEXECOT: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}dtexecot'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}dtexecot']),
       DTWAITOT: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}dtwaitot'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}dtwaitot']),
       DTCANCOT: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}dtcancot'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}dtcancot']),
       DTCLOSOT: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}dtclosot'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}dtclosot']),
     );
   }
   @override
@@ -1824,11 +1824,21 @@ class OtData extends DataClass implements Insertable<OtData> {
     map['commentot'] = Variable<String>(COMMENTOT);
     map['tempsot'] = Variable<double>(TEMPSOT);
     map['statutot'] = Variable<String>(STATUTOT);
-    map['dtopenot'] = Variable<DateTime>(DTOPENOT);
-    map['dtexecot'] = Variable<DateTime>(DTEXECOT);
-    map['dtwaitot'] = Variable<DateTime>(DTWAITOT);
-    map['dtcancot'] = Variable<DateTime>(DTCANCOT);
-    map['dtclosot'] = Variable<DateTime>(DTCLOSOT);
+    if (!nullToAbsent || DTOPENOT != null) {
+      map['dtopenot'] = Variable<DateTime?>(DTOPENOT);
+    }
+    if (!nullToAbsent || DTEXECOT != null) {
+      map['dtexecot'] = Variable<DateTime?>(DTEXECOT);
+    }
+    if (!nullToAbsent || DTWAITOT != null) {
+      map['dtwaitot'] = Variable<DateTime?>(DTWAITOT);
+    }
+    if (!nullToAbsent || DTCANCOT != null) {
+      map['dtcancot'] = Variable<DateTime?>(DTCANCOT);
+    }
+    if (!nullToAbsent || DTCLOSOT != null) {
+      map['dtclosot'] = Variable<DateTime?>(DTCLOSOT);
+    }
     return map;
   }
 
@@ -1849,11 +1859,21 @@ class OtData extends DataClass implements Insertable<OtData> {
       COMMENTOT: Value(COMMENTOT),
       TEMPSOT: Value(TEMPSOT),
       STATUTOT: Value(STATUTOT),
-      DTOPENOT: Value(DTOPENOT),
-      DTEXECOT: Value(DTEXECOT),
-      DTWAITOT: Value(DTWAITOT),
-      DTCANCOT: Value(DTCANCOT),
-      DTCLOSOT: Value(DTCLOSOT),
+      DTOPENOT: DTOPENOT == null && nullToAbsent
+          ? const Value.absent()
+          : Value(DTOPENOT),
+      DTEXECOT: DTEXECOT == null && nullToAbsent
+          ? const Value.absent()
+          : Value(DTEXECOT),
+      DTWAITOT: DTWAITOT == null && nullToAbsent
+          ? const Value.absent()
+          : Value(DTWAITOT),
+      DTCANCOT: DTCANCOT == null && nullToAbsent
+          ? const Value.absent()
+          : Value(DTCANCOT),
+      DTCLOSOT: DTCLOSOT == null && nullToAbsent
+          ? const Value.absent()
+          : Value(DTCLOSOT),
     );
   }
 
@@ -1870,11 +1890,11 @@ class OtData extends DataClass implements Insertable<OtData> {
       COMMENTOT: serializer.fromJson<String>(json['COMMENTOT']),
       TEMPSOT: serializer.fromJson<double>(json['TEMPSOT']),
       STATUTOT: serializer.fromJson<String>(json['STATUTOT']),
-      DTOPENOT: serializer.fromJson<DateTime>(json['DTOPENOT']),
-      DTEXECOT: serializer.fromJson<DateTime>(json['DTEXECOT']),
-      DTWAITOT: serializer.fromJson<DateTime>(json['DTWAITOT']),
-      DTCANCOT: serializer.fromJson<DateTime>(json['DTCANCOT']),
-      DTCLOSOT: serializer.fromJson<DateTime>(json['DTCLOSOT']),
+      DTOPENOT: serializer.fromJson<DateTime?>(json['DTOPENOT']),
+      DTEXECOT: serializer.fromJson<DateTime?>(json['DTEXECOT']),
+      DTWAITOT: serializer.fromJson<DateTime?>(json['DTWAITOT']),
+      DTCANCOT: serializer.fromJson<DateTime?>(json['DTCANCOT']),
+      DTCLOSOT: serializer.fromJson<DateTime?>(json['DTCLOSOT']),
     );
   }
   @override
@@ -1890,11 +1910,11 @@ class OtData extends DataClass implements Insertable<OtData> {
       'COMMENTOT': serializer.toJson<String>(COMMENTOT),
       'TEMPSOT': serializer.toJson<double>(TEMPSOT),
       'STATUTOT': serializer.toJson<String>(STATUTOT),
-      'DTOPENOT': serializer.toJson<DateTime>(DTOPENOT),
-      'DTEXECOT': serializer.toJson<DateTime>(DTEXECOT),
-      'DTWAITOT': serializer.toJson<DateTime>(DTWAITOT),
-      'DTCANCOT': serializer.toJson<DateTime>(DTCANCOT),
-      'DTCLOSOT': serializer.toJson<DateTime>(DTCLOSOT),
+      'DTOPENOT': serializer.toJson<DateTime?>(DTOPENOT),
+      'DTEXECOT': serializer.toJson<DateTime?>(DTEXECOT),
+      'DTWAITOT': serializer.toJson<DateTime?>(DTWAITOT),
+      'DTCANCOT': serializer.toJson<DateTime?>(DTCANCOT),
+      'DTCLOSOT': serializer.toJson<DateTime?>(DTCLOSOT),
     };
   }
 
@@ -1996,11 +2016,11 @@ class OtCompanion extends UpdateCompanion<OtData> {
   final Value<String> COMMENTOT;
   final Value<double> TEMPSOT;
   final Value<String> STATUTOT;
-  final Value<DateTime> DTOPENOT;
-  final Value<DateTime> DTEXECOT;
-  final Value<DateTime> DTWAITOT;
-  final Value<DateTime> DTCANCOT;
-  final Value<DateTime> DTCLOSOT;
+  final Value<DateTime?> DTOPENOT;
+  final Value<DateTime?> DTEXECOT;
+  final Value<DateTime?> DTWAITOT;
+  final Value<DateTime?> DTCANCOT;
+  final Value<DateTime?> DTCLOSOT;
   const OtCompanion({
     this.IDOT = const Value.absent(),
     this.IDORIGINE = const Value.absent(),
@@ -2027,21 +2047,16 @@ class OtCompanion extends UpdateCompanion<OtData> {
     required String COMMENTOT,
     required double TEMPSOT,
     required String STATUTOT,
-    required DateTime DTOPENOT,
-    required DateTime DTEXECOT,
-    required DateTime DTWAITOT,
-    required DateTime DTCANCOT,
-    required DateTime DTCLOSOT,
+    this.DTOPENOT = const Value.absent(),
+    this.DTEXECOT = const Value.absent(),
+    this.DTWAITOT = const Value.absent(),
+    this.DTCANCOT = const Value.absent(),
+    this.DTCLOSOT = const Value.absent(),
   })  : CODEOT = Value(CODEOT),
         LIBELLEOT = Value(LIBELLEOT),
         COMMENTOT = Value(COMMENTOT),
         TEMPSOT = Value(TEMPSOT),
-        STATUTOT = Value(STATUTOT),
-        DTOPENOT = Value(DTOPENOT),
-        DTEXECOT = Value(DTEXECOT),
-        DTWAITOT = Value(DTWAITOT),
-        DTCANCOT = Value(DTCANCOT),
-        DTCLOSOT = Value(DTCLOSOT);
+        STATUTOT = Value(STATUTOT);
   static Insertable<OtData> custom({
     Expression<int>? IDOT,
     Expression<int?>? IDORIGINE,
@@ -2052,11 +2067,11 @@ class OtCompanion extends UpdateCompanion<OtData> {
     Expression<String>? COMMENTOT,
     Expression<double>? TEMPSOT,
     Expression<String>? STATUTOT,
-    Expression<DateTime>? DTOPENOT,
-    Expression<DateTime>? DTEXECOT,
-    Expression<DateTime>? DTWAITOT,
-    Expression<DateTime>? DTCANCOT,
-    Expression<DateTime>? DTCLOSOT,
+    Expression<DateTime?>? DTOPENOT,
+    Expression<DateTime?>? DTEXECOT,
+    Expression<DateTime?>? DTWAITOT,
+    Expression<DateTime?>? DTCANCOT,
+    Expression<DateTime?>? DTCLOSOT,
   }) {
     return RawValuesInsertable({
       if (IDOT != null) 'idot': IDOT,
@@ -2086,11 +2101,11 @@ class OtCompanion extends UpdateCompanion<OtData> {
       Value<String>? COMMENTOT,
       Value<double>? TEMPSOT,
       Value<String>? STATUTOT,
-      Value<DateTime>? DTOPENOT,
-      Value<DateTime>? DTEXECOT,
-      Value<DateTime>? DTWAITOT,
-      Value<DateTime>? DTCANCOT,
-      Value<DateTime>? DTCLOSOT}) {
+      Value<DateTime?>? DTOPENOT,
+      Value<DateTime?>? DTEXECOT,
+      Value<DateTime?>? DTWAITOT,
+      Value<DateTime?>? DTCANCOT,
+      Value<DateTime?>? DTCLOSOT}) {
     return OtCompanion(
       IDOT: IDOT ?? this.IDOT,
       IDORIGINE: IDORIGINE ?? this.IDORIGINE,
@@ -2140,19 +2155,19 @@ class OtCompanion extends UpdateCompanion<OtData> {
       map['statutot'] = Variable<String>(STATUTOT.value);
     }
     if (DTOPENOT.present) {
-      map['dtopenot'] = Variable<DateTime>(DTOPENOT.value);
+      map['dtopenot'] = Variable<DateTime?>(DTOPENOT.value);
     }
     if (DTEXECOT.present) {
-      map['dtexecot'] = Variable<DateTime>(DTEXECOT.value);
+      map['dtexecot'] = Variable<DateTime?>(DTEXECOT.value);
     }
     if (DTWAITOT.present) {
-      map['dtwaitot'] = Variable<DateTime>(DTWAITOT.value);
+      map['dtwaitot'] = Variable<DateTime?>(DTWAITOT.value);
     }
     if (DTCANCOT.present) {
-      map['dtcancot'] = Variable<DateTime>(DTCANCOT.value);
+      map['dtcancot'] = Variable<DateTime?>(DTCANCOT.value);
     }
     if (DTCLOSOT.present) {
-      map['dtclosot'] = Variable<DateTime>(DTCLOSOT.value);
+      map['dtclosot'] = Variable<DateTime?>(DTCLOSOT.value);
     }
     return map;
   }
@@ -2241,24 +2256,24 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
       requiredDuringInsert: true);
   final VerificationMeta _DTOPENOTMeta = const VerificationMeta('DTOPENOT');
   late final GeneratedColumn<DateTime?> DTOPENOT = GeneratedColumn<DateTime?>(
-      'dtopenot', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      'dtopenot', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false);
   final VerificationMeta _DTEXECOTMeta = const VerificationMeta('DTEXECOT');
   late final GeneratedColumn<DateTime?> DTEXECOT = GeneratedColumn<DateTime?>(
-      'dtexecot', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      'dtexecot', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false);
   final VerificationMeta _DTWAITOTMeta = const VerificationMeta('DTWAITOT');
   late final GeneratedColumn<DateTime?> DTWAITOT = GeneratedColumn<DateTime?>(
-      'dtwaitot', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      'dtwaitot', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false);
   final VerificationMeta _DTCANCOTMeta = const VerificationMeta('DTCANCOT');
   late final GeneratedColumn<DateTime?> DTCANCOT = GeneratedColumn<DateTime?>(
-      'dtcancot', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      'dtcancot', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false);
   final VerificationMeta _DTCLOSOTMeta = const VerificationMeta('DTCLOSOT');
   late final GeneratedColumn<DateTime?> DTCLOSOT = GeneratedColumn<DateTime?>(
-      'dtclosot', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      'dtclosot', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         IDOT,
@@ -2338,32 +2353,22 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
     if (data.containsKey('dtopenot')) {
       context.handle(_DTOPENOTMeta,
           DTOPENOT.isAcceptableOrUnknown(data['dtopenot']!, _DTOPENOTMeta));
-    } else if (isInserting) {
-      context.missing(_DTOPENOTMeta);
     }
     if (data.containsKey('dtexecot')) {
       context.handle(_DTEXECOTMeta,
           DTEXECOT.isAcceptableOrUnknown(data['dtexecot']!, _DTEXECOTMeta));
-    } else if (isInserting) {
-      context.missing(_DTEXECOTMeta);
     }
     if (data.containsKey('dtwaitot')) {
       context.handle(_DTWAITOTMeta,
           DTWAITOT.isAcceptableOrUnknown(data['dtwaitot']!, _DTWAITOTMeta));
-    } else if (isInserting) {
-      context.missing(_DTWAITOTMeta);
     }
     if (data.containsKey('dtcancot')) {
       context.handle(_DTCANCOTMeta,
           DTCANCOT.isAcceptableOrUnknown(data['dtcancot']!, _DTCANCOTMeta));
-    } else if (isInserting) {
-      context.missing(_DTCANCOTMeta);
     }
     if (data.containsKey('dtclosot')) {
       context.handle(_DTCLOSOTMeta,
           DTCLOSOT.isAcceptableOrUnknown(data['dtclosot']!, _DTCLOSOTMeta));
-    } else if (isInserting) {
-      context.missing(_DTCLOSOTMeta);
     }
     return context;
   }

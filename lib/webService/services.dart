@@ -8,14 +8,14 @@ var url = 'https://iomer.loca.lt/';
 /* Get Sites */
 Future<List<Site>> fetchSite() async {
   final response = await http.get(Uri.parse('$url/GetSites'));
-  
+
   if (response.statusCode == 200) {
    log("sites recuperé : ${response.body}");
     List<Site> sites;
     sites=(json.decode(response.body) as List)
         .map((siteJson) => Site.fromJson(siteJson))
         .toList();
-   
+
     return sites;
         } else {
     throw Exception('Failed to load site');
@@ -30,10 +30,10 @@ Future<List<Origine>> fetchOrigines(int id) async {
   if (response.statusCode == 200) {
     log("origine recuperé : ${response.body}");
     List<Origine> origines;
+    log(response.body);
     origines=(json.decode(response.body) as List)
         .map((origineJson) => Origine.fromJson(origineJson))
         .toList();
-   
     return origines;
   } else {
     throw Exception('Failed to load Origines');
@@ -51,7 +51,7 @@ Future<List<Matricule>> fetchMatricules(int id) async {
     matricules=(json.decode(response.body) as List)
         .map((matriculeJson) => Matricule.fromJson(matriculeJson))
         .toList();
-     
+
     return matricules;
   } else {
     throw Exception('Failed to load Matricules');
@@ -69,7 +69,7 @@ Future<List<Equipement>> fetchEquipements(int id) async {
     equipements=(json.decode(response.body) as List)
         .map((equipementJson) => Equipement.fromJson(equipementJson))
         .toList();
-      
+
     return equipements;
   } else {
     throw Exception('Failed to load Equipements');
@@ -87,7 +87,7 @@ Future<List<Categorie>> fetchCategories(int id) async {
     categories=(json.decode(response.body) as List)
         .map((categorieJson) => Categorie.fromJson(categorieJson))
         .toList();
-      
+
     return categories;
   } else {
     throw Exception('Failed to load Categories');
@@ -105,7 +105,7 @@ Future<List<OtData>> fetchOTs(int idSite, int idOrigine) async {
     ots=(json.decode(response.body) as List)
         .map((otJson) => OtData.fromJson(otJson))
         .toList();
-    
+
     return ots;
   } else {
     throw Exception('Failed to load OTs');
@@ -123,7 +123,7 @@ Future<List<Tache>> fetchOTTaches(int idOT) async {
     taches=(json.decode(response.body) as List)
         .map((tacheJson) => Tache.fromJson(tacheJson))
         .toList();
-     
+
     return taches;
   } else {
     throw Exception('Failed to load OT Taches');
@@ -137,12 +137,12 @@ Future<List<ConfigData>> fetchConfig(int idSite, String codePocket) async {
 
   if (response.statusCode == 200) {
     log("config recuperé : ${response.body}");
-    
+
     List<ConfigData> config;
     config=(json.decode(response.body) as List)
         .map((configJson) => ConfigData.fromJson(configJson))
         .toList();
-    
+
     return config;
   } else {
     throw Exception('Failed to load Config');
@@ -156,17 +156,17 @@ Future<List<Article>> fetchArticle( String codeArticle) async {
 
   if (response.statusCode ==200){
     log("article recuperé : ${response.body}");
-    
+
     List<Article> article;
     article=(json.decode(response.body) as List)
         .map((articleJson) => Article.fromJson(articleJson))
         .toList();
-    
+
     return article;
   } else {
     throw Exception('Failed to load Config');
   }
-  
+
   }
 
   /* get Reservation (GETOT_ARTICLE)*/
@@ -177,12 +177,12 @@ Future<List<Reservation>>fetchReservations(int idOt) async{
 
   if (response.statusCode ==200){
     log("reservation recuperé : ${response.body}");
-    
+
     List<Reservation> reservation;
     reservation=(json.decode(response.body) as List)
         .map((reservationJson) => Reservation.fromJson(reservationJson))
         .toList();
-    
+
     return reservation;
   } else {
     throw Exception('Failed to load Config');

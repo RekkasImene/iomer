@@ -187,7 +187,8 @@ Future<List<Reservation>>fetchReservations(int idOt) async{
   } else {
     throw Exception('Failed to load Config');
   }
-  
+  /*
+*/
 }
 
 

@@ -25,8 +25,16 @@ class _MyAppState extends State<MyApp> {
     InRepository repository = getIt.get<InRepository>();
     //repository.updateSite();
     //repository.updateCategories(1);
-    postOt(101,"teston Encore une nouvelle fois avec espace ",12,"1");
-    print("finnnnnnnnnnnnnnnnnnnnn");
+    postOt(101,"teston Encore une nouvelle fois avec espace ",12,"1");//VALIDE
+    postOtTache(103,"1","ttt");//VALIDE
+    postOtArticle(100020,61);//VALIDE mais les chiffres a virgule non
+    postMatricule(111,1);//VALIDE
+    postAttachment(101,"debug_attachement");//Incertain
+    createOtArticle(101,3,9);//VALIDE
+    createOt(101,11,11,"debug2 create ot 2");//VALIDE
+
+
+    print("fin");
     //http://localhost:8080/datasnap/rest/TServerMethodsIOmere/SetOt/101/testont%20ot%20encore/12/1
   }
 

@@ -4,7 +4,7 @@ part 'generate/categorie.g.dart';
 
 
 class Categories extends Table {
-  IntColumn get IDCATEGORIE => integer().autoIncrement()();
+  IntColumn get IDCATEGORIE => integer()();
   IntColumn get IDSITE => integer()
       .nullable()
       .customConstraint('NULL REFERENCES Sites(IDSITE)')();

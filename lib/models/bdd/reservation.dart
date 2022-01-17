@@ -3,7 +3,7 @@ import 'iomer_database.dart';
 part 'generate/reservation.g.dart';
 
 class Reservations extends Table {
-  IntColumn get IDPIECE => integer().autoIncrement()();
+  IntColumn get IDPIECE => integer()();
   IntColumn get IDOT =>
       integer().nullable().customConstraint('NULL REFERENCES Ot(IDOT)')();
   TextColumn get CODEARTICLE => text()

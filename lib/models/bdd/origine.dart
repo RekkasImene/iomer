@@ -22,6 +22,6 @@ class OrigineDao extends DatabaseAccessor<IomerDatabase> with _$OrigineDaoMixin{
   final IomerDatabase db;
   OrigineDao(this.db):super (db);
 
-  Future insertOrigine(Origine origine) => into(origines).insert(origine);
+  Future insertOrigine(Origine origine) => into(origines).insertOnConflictUpdate(origine);
   Future<List<Origine>> getAllOrigine() => select(origines).get();
 }

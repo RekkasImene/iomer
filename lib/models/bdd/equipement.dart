@@ -22,4 +22,7 @@ class Equipements extends Table {
 class EquipementDao extends DatabaseAccessor<IomerDatabase> with _$EquipementDaoMixin{
   final IomerDatabase db;
   EquipementDao(this.db):super (db);
+
+   Future insertEquipement(Equipement equipement) => into(equipements).insertOnConflictUpdate(equipement);
+  Future<List<Equipement>> getAllEquipements() => select(equipements).get();
 }

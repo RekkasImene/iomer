@@ -21,4 +21,7 @@ class Taches extends Table {
 class TacheDao extends DatabaseAccessor<IomerDatabase> with _$TacheDaoMixin{
   final IomerDatabase db;
   TacheDao(this.db):super (db);
+
+   Future insertTache(Tache tache) => into(taches).insertOnConflictUpdate(tache);
+  Future<List<Tache>> getAllTaches() => select(taches).get();
 }

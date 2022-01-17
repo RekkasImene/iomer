@@ -24,7 +24,7 @@ class MatriculeDao extends DatabaseAccessor<IomerDatabase> with _$MatriculeDaoMi
   final IomerDatabase db;
   MatriculeDao(this.db):super (db);
 
-  Future insertMatricule(Matricule  matricule) => into(matricules).insert(matricule);
+  Future insertMatricule(Matricule  matricule) => into(matricules).insertOnConflictUpdate(matricule);
   Future<List<Matricule>> getAllMatricules() => select(matricules).get();
 
 

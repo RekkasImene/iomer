@@ -16,12 +16,15 @@ class InRepository {
   late Future<List<Origine>> futureOrigines;
   late Future<List<Matricule>> futureMatricules;
   late Future<List<OtData>> futureOTs;
+  late Future<List<Categorie>> futureCategories;
+  late Future<List<Reservation>> futureReservations;
 
   void updateSite(){
     futureSite = fetchSite();
     futureSite.then((value) {
       value.forEach((e) {
         database.siteDao.insertSite(e);
+       
       });
     }).catchError((error) {
       log(error);
@@ -35,6 +38,7 @@ class InRepository {
     futureOrigines.then((value){
       value.forEach((e){
         database.origineDao.insertOrigine(e);
+          
       });
     }).catchError((error){
       log(error);
@@ -47,6 +51,7 @@ class InRepository {
     futureMatricules.then((value){
       value.forEach((e){
         database.matriculeDao.insertMatricule(e);
+       
       });
     } ).catchError((error){
       log(error);
@@ -65,4 +70,30 @@ class InRepository {
       log(error);
     });
   }
+
+  void updateCategories(int idSite){
+    futureCategories = fetchCategories(idSite);
+    futureCategories.then((value){
+      value.forEach((e){
+       database.categorieDao.insertCategorie(e);
+      });
+    }).catchError((error){
+      log(error);
+    });
+
+  }
+
+  void updateReservation(int idOt){
+    futureReservations = fetchReservations(idOt);
+    futureReservations.then((value){
+      value.forEach((e){
+       database.reservationDao.insertReservation(e);
+      });
+    }).catchError((error){
+      log(error);
+    });
+
+  }
+  
+
 }

@@ -25,11 +25,20 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     InRepository repository = getIt.get<InRepository>();
 
-    repository.updateSite();
+   /*repository.updateSite();
     sleep(const Duration(seconds: 1));
     repository.updateMatricules(12);
+    sleep(const Duration(seconds: 1));*/
+   // repository.updateOTs(1,12);
+    //sleep(const Duration(seconds: 1));
+ //   repository.updateOrigines(2);
+  //  sleep(const Duration(seconds: 1));
+    repository.updateTaches(101);
     sleep(const Duration(seconds: 1));
-    //repository.updateOTs(1,12);
+    
+
+
+
     
     
 

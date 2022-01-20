@@ -12,16 +12,19 @@ import 'package:iomer/webService/services.dart';
 class InRepository {
   final IomerDatabase database;
   InRepository(this.database);
-  late Future<List<Site>> futureSite;
+  late Future<List<Site>> futureSites;
   late Future<List<Origine>> futureOrigines;
   late Future<List<Matricule>> futureMatricules;
   late Future<List<OtData>> futureOTs;
   late Future<List<Categorie>> futureCategories;
   late Future<List<Reservation>> futureReservations;
+  late Future<List<Article>> futureArticles;
+  late Future<List<Equipement>> futureEquipements;
+  late Future<List<Tache>> futureTaches;
 
   void updateSite(){
-    futureSite = fetchSite();
-    futureSite.then((value) {
+    futureSites = fetchSites();
+    futureSites.then((value) {
       value.forEach((e) {
         database.siteDao.insertSite(e);
        
@@ -89,12 +92,58 @@ class InRepository {
     futureReservations.then((value){
       value.forEach((e){
        database.reservationDao.insertReservation(e);
+       log ("table reservation insérée");
       });
     }).catchError((error){
       log(error);
     });
 
   }
+    void updateArticles(String codeArticle){
+    futureArticles = fetchArticles(codeArticle);
+    futureArticles.then((value){
+      value.forEach((e){
+       database.articleDao.insertArticle(e);
+       log ("table articles insérée");
+      });
+    }).catchError((error){
+      log(error);
+    });
+
+  }
+
+  void updateEquipements(int idSite){
+    futureEquipements = fetchEquipements(idSite);
+    futureEquipements.then((value){
+      value.forEach((e){
+       database.equipementDao.insertEquipement(e);
+       log ("table équipement insérée");
+      });
+    }).catchError((error){
+      log(error);
+    });
+
+  }
+
+   void updateTaches(int idOT){
+    futureTaches = fetchOTTaches(idOT);
+    futureTaches.then((value){
+      value.forEach((e){
+       database.tacheDao.insertTache(e);
+       log ("table tache insérée");
+      });
+    }).catchError((error){
+      log(error);
+    });
+
+  }
+  
+
+  
+
+  
+
+  
   
 
 }

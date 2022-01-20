@@ -14,15 +14,18 @@ class Reservations extends Table {
 
   IntColumn get QTEARTICLE => integer()();
   IntColumn get IDARTICLE => integer()();
+  IntColumn get IDPIECEORIGINAL => integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {IDPIECE};
 }
 
-@DriftAccessor(
-    tables:[Reservations]
-)
-class ReservationDao extends DatabaseAccessor<IomerDatabase> with _$ReservationDaoMixin{
+@DriftAccessor(tables: [Reservations])
+class ReservationDao extends DatabaseAccessor<IomerDatabase>
+    with _$ReservationDaoMixin {
   final IomerDatabase db;
-  ReservationDao(this.db):super (db);
+  ReservationDao(this.db) : super(db);
+  Future insertReservation(Reservation reservation) =>
+      into(reservations).insertOnConflictUpdate(reservation);
+  Future<List<Reservation>> getAllReservations() => select(reservations).get();
 }

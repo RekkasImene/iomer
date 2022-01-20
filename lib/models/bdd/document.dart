@@ -19,4 +19,6 @@ class Documents extends Table {
 class DocumentDao extends DatabaseAccessor<IomerDatabase> with _$DocumentDaoMixin{
   final IomerDatabase db;
   DocumentDao(this.db):super (db);
+   Future insertDocument(Document document) => into(documents).insertOnConflictUpdate(document);
+  Future<List<Document>> getAllDocuments() => select(documents).get();
 }

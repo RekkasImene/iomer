@@ -35,29 +35,39 @@ class _HomeScreenState extends State<HomeScreen> {
             const Align(
               alignment: Alignment.topLeft,
               child: Text(
-                "Site :",
+                "Selectionner le site et le Service",
                 style: TextStyle(fontSize: 20),
               ),
             ),
             const SizedBox(height: 20),
 
             /*expanded permet de remplir la place*/
-            Expanded(
-              child: Container(
-                decoration:
-                    BoxDecoration(border: Border.all(color: Colors.black)),
-                child: BlocProvider(
+            Row(
+              children: [
+                const Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "Site :",
+                    style: TextStyle(fontSize: 20),
+
+                  ),
+                ),
+
+                BlocProvider(
                   create: (context) => _sitesBloc,
                   child: BlocBuilder<SitesBloc, SitesState>(
                     builder: (context, state) {
                       if (state is SitesLoaded) {
-                        return ListView.builder(
-                          itemCount: state.sites.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(state.sites[index].NOMSITE),
+                        return DropdownButton(
+                          value: state.sites[0],
+                          items: state.sites.map((valueItem) {
+                            return DropdownMenuItem(
+                              value: valueItem, child: Text(valueItem.NOMSITE),
                             );
-                          },
+                          }).toList(), onChanged: (newValue) {
+                            setState(() {
+                            });
+                        },
                         );
                       } else if (state is SitesError) {
                         return Text(state.message);
@@ -71,11 +81,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
-              ),
+              ],
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              //pour griser
               onPressed: () {
                 Navigator.push(
                   context,
@@ -85,8 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Text('Valider'),
               style: ElevatedButton.styleFrom(
                   primary: Colors.green,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 50, vertical: 20)),
             ),
           ],
         ),

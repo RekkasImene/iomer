@@ -24,11 +24,14 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     InRepository repository = getIt.get<InRepository>();
-    repository.updateMatricules(11);
-    sleep(const Duration(seconds: 1));
-    repository.updateOTs(1,  11);
-    
 
+    repository.updateSite();
+    sleep(const Duration(seconds: 1));
+    repository.updateMatricules(12);
+    sleep(const Duration(seconds: 1));
+    //repository.updateOTs(1,12);
+    
+    
 
   }
 

@@ -15,7 +15,7 @@ Future<List<Site>> fetchSite() async {
     sites=(json.decode(response.body) as List)
         .map((siteJson) => Site.fromJson(siteJson))
         .toList();
-   
+    log(" Liste de site : "+ sites.toString());
     return sites;
         } else {
     throw Exception('Failed to load site');
@@ -51,7 +51,7 @@ Future<List<Matricule>> fetchMatricules(int id) async {
     matricules=(json.decode(response.body) as List)
         .map((matriculeJson) => Matricule.fromJson(matriculeJson))
         .toList();
-     
+     log(" Liste de matricule : "+ matricules.toString());
     return matricules;
   } else {
     throw Exception('Failed to load Matricules');
@@ -187,8 +187,7 @@ Future<List<Reservation>>fetchReservations(int idOt) async{
   } else {
     throw Exception('Failed to load Config');
   }
-  /*
-*/
+ 
 }
 
 

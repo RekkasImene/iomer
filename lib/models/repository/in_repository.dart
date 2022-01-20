@@ -51,6 +51,7 @@ class InRepository {
     futureMatricules.then((value){
       value.forEach((e){
         database.matriculeDao.insertMatricule(e);
+        log("table matricule insérée");
        
       });
     } ).catchError((error){
@@ -64,7 +65,7 @@ class InRepository {
     futureOTs.then((value){
       value.forEach((e){
        database.otDao.insertOt(e);
-
+       log("table ot insérée");
       });
     }).catchError((error){
       log(error);

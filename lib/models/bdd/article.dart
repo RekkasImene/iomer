@@ -18,6 +18,8 @@ class Articles extends Table {
 class ArticleDao extends DatabaseAccessor<IomerDatabase> with _$ArticleDaoMixin{
   final IomerDatabase db;
   ArticleDao(this.db):super (db);
+   Future insertArticle(Article article) => into(articles).insertOnConflictUpdate(article);
+  Future<List<Article>> getAllArticles() => select(articles).get();
 
 
 }

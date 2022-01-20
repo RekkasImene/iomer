@@ -11,6 +11,7 @@ class Matricules extends Table {
   TextColumn get NOMMATRICULE => text().withLength(min: 1, max: 48)();
   TextColumn get PRENOMMATRICULE => text().withLength(min: 1, max: 48)();
   BoolColumn get CHECKED => boolean().nullable().withDefault(const Constant(false))();
+ 
 
   @override
   Set<Column> get primaryKey => {IDMATRICULE};
@@ -22,4 +23,9 @@ class Matricules extends Table {
 class MatriculeDao extends DatabaseAccessor<IomerDatabase> with _$MatriculeDaoMixin{
   final IomerDatabase db;
   MatriculeDao(this.db):super (db);
+
+  Future insertMatricule(Matricule  matricule) => into(matricules).insertOnConflictUpdate(matricule);
+  Future<List<Matricule>> getAllMatricules() => select(matricules).get();
+
+
 }

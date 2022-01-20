@@ -24,4 +24,8 @@ class ConfigDao extends DatabaseAccessor<IomerDatabase> with _$ConfigDaoMixin{
   final IomerDatabase db;
   ConfigDao(this.db):super (db);
 
+
+   Future insertConfig(ConfigData configData) => into(config).insertOnConflictUpdate(configData);
+  Future<List<ConfigData>> getAllConfigs() => select(config).get();
+
 }

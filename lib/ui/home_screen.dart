@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     _sitesBloc = getIt.get<SitesBloc>();
-    _sitesBloc..add(FetchEventSites());
+    _sitesBloc.add(FetchEventSites());
     super.initState();
   }
 

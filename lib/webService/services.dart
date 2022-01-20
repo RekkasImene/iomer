@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart' as http;
 
-var url = 'https://iomere.loca.lt/';
+var url = 'https://iomere.loca.lt';
 
 /* Get Sites */
 Future<List<Site>> fetchSites() async {
@@ -27,7 +27,6 @@ Future<List<Origine>> fetchOrigines(int id) async {
   final response = await http.get(Uri.parse('$url/GetOrigines/$id'));
 
   if (response.statusCode == 200) {
-    log("origine recuperé : ${response.body}");
     List<Origine> origines;
     origines = (json.decode(response.body) as List)
         .map((origineJson) => Origine.fromJson(origineJson))
@@ -44,12 +43,12 @@ Future<List<Matricule>> fetchMatricules(int id) async {
   final response = await http.get(Uri.parse('$url/GetMatricules/$id'));
 
   if (response.statusCode == 200) {
-    log("matricules recuperé : ${response.body}");
+    //log("matricules recuperé : ${response.body}");
     List<Matricule> matricules;
     matricules = (json.decode(response.body) as List)
         .map((matriculeJson) => Matricule.fromJson(matriculeJson))
         .toList();
-     log(" Liste de matricule : "+ matricules.toString());
+     //log(" Liste de matricule : "+ matricules.toString());
     return matricules;
   } else {
     throw Exception('Failed to load Matricules');

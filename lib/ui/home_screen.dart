@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iomer/ui/first_screen.dart';
 
+/// The home screen display "Site" and "Service" which are two
+/// parameters fetch from a WebService
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -9,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //TODO a remplacer avec données
+  //TODO replaced those with real data
   String dropdown_value_site = '';
   String dropdown_value_services = '';
   var site_items = ['', 'Paris', 'Rouen', 'Chalon'];
@@ -86,8 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                //pour griser
                 onPressed: () {
+                  //TODO this navigation will transfer two parameters
                   Navigator.push(
                     context,
                     MaterialPageRoute(

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iomer/ui/select_machine.dart';
 
+/// The first screen display all the workers assigned to the previously set
+/// "site" and "pocket"
+/// the user should select all workers assigned to the OT
+
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
 
@@ -9,7 +13,7 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  //TODO a remplacer avec données (les memes que pour l'ecran cloture)
+  //TODO replaced those with real data (same as cloture screen)
   final List<String> _texts = [
     "Jean Michelle",
     "Jean Pierre",
@@ -51,7 +55,6 @@ class _FirstScreenState extends State<FirstScreen> {
               child: Container(
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black)),
-                  //padding: const EdgeInsets.all(16.0) ,
                   child: ListView.builder(
                     itemCount: _texts.length,
                     itemBuilder: (context, index) {
@@ -71,7 +74,6 @@ class _FirstScreenState extends State<FirstScreen> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              //pour griser
               onPressed: () {
                 Navigator.push(
                   context,

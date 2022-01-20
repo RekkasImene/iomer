@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iomer/webService/services.dart';
 
+///this screen
+
+//TODO rename this class to select_machine_screen after every branch are merged together
 class SelectMachine extends StatefulWidget {
   const SelectMachine({Key? key}) : super(key: key);
 
@@ -42,7 +45,7 @@ class _SelectMachine extends State<SelectMachine> {
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextField(
                 decoration: InputDecoration(
-                    border: UnderlineInputBorder(), labelText: 'Nom machine'),
+                    border: UnderlineInputBorder(), labelText: 'Code machine'),
               ),
             ),
             const Padding(
@@ -53,15 +56,9 @@ class _SelectMachine extends State<SelectMachine> {
               ),
             ),
 
-            // const SizedBox(height: 20),
-
-            /*expanded permet de remplir la place*/
             Expanded(
-              //padding: const EdgeInsets.all(16.0) ,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                                                                                                                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
-
                 children: [
                   const Padding(
                     padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),

@@ -19,6 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late Future<List<Site>> futureSite;
+
   @override
   void initState() {
     super.initState();
@@ -44,7 +45,6 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
         primarySwatch: Colors.green,
       ),
       home: const HomeScreen(),

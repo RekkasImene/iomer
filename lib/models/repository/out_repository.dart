@@ -8,6 +8,6 @@ import 'package:iomer/models/bdd/iomer_database.dart';
 @injectable
 class OutRepository {
   final IomerDatabase database;
-  OutRepository(this.database);
 
+  OutRepository(this.database);
 }

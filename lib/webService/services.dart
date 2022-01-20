@@ -149,7 +149,6 @@ Future<void> postOtTache(
 }
 
 Future<void> postOtArticle(int idPiece, double qteArticle) async {
-
   String newQteArticle = qteArticle.toString();
   newQteArticle = newQteArticle.replaceAll('.', ',');
 
@@ -162,32 +161,28 @@ Future<void> postMatricule(int idMatricule, int checked) async {
   print('$url/SETMATRICULE/$idMatricule/$checked');
 
   final response =
-  await http.get(Uri.parse('$url/SETMATRICULE/$idMatricule/$checked'));
+      await http.get(Uri.parse('$url/SETMATRICULE/$idMatricule/$checked'));
 }
 
 Future<void> postAttachment(int idOt, String attachment) async {
   print('$url/SETATTACHMENT/$idOt/$attachment');
 
   final response =
-  await http.get(Uri.parse('$url/SETATTACHMENT/$idOt/$attachment'));
+      await http.get(Uri.parse('$url/SETATTACHMENT/$idOt/$attachment'));
 }
 
-Future<void> createOtArticle(int idOt,int idArticle,double qteArticle) async {
+Future<void> createOtArticle(int idOt, int idArticle, double qteArticle) async {
   String newQteArticle = qteArticle.toString();
   newQteArticle = newQteArticle.replaceAll('.', ',');
   print('$url/CREATEOT_ARTICLE/$idOt/$idArticle/$newQteArticle');
 
-  final response =
-  await http.get(Uri.parse('$url/CREATEOT_ARTICLE/$idOt/$idArticle/$newQteArticle'));
+  final response = await http
+      .get(Uri.parse('$url/CREATEOT_ARTICLE/$idOt/$idArticle/$newQteArticle'));
 }
 
-Future<void> createOt(int idEquipement,int idOrigine, int idCategorie, String libelleOt) async {
+Future<void> createOt(
+    int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
   print('$url/CREATEOT/$idEquipement/$idOrigine/$idCategorie/$libelleOt');
-  final response =
-  await http.get(Uri.parse('$url/CREATEOT/$idEquipement/$idOrigine/$idCategorie/$libelleOt'));
+  final response = await http.get(Uri.parse(
+      '$url/CREATEOT/$idEquipement/$idOrigine/$idCategorie/$libelleOt'));
 }
-
-
-
-
-

@@ -18,6 +18,7 @@ class _SelectMachine extends State<SelectMachine> {
     "Parallélisme roues",
     "Révision des 1000%",
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

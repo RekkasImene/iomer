@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/models/repository/in_repository.dart';
+import 'package:iomer/ui/home_screen.dart';
 import 'config/injection.dart';
 
 void main() {
@@ -17,26 +15,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Future<List<Site>> futureSite;
+
   @override
   void initState() {
     super.initState();
-    InRepository repository = getIt.get<InRepository>();
-    repository.updateSite();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'IomereApp',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Fetch Data Example'),
-        ),
-      ),
+      home: const HomeScreen(),
     );
   }
 }

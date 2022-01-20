@@ -9,7 +9,6 @@ class Origines extends Table {
       .customConstraint('NULL REFERENCES Sites(IDSITE)')();
   TextColumn get CODEORIGINE => text().withLength(min: 1, max: 12)();
   TextColumn get LIBELLEORIGINE => text().withLength(min: 1, max: 48)();
-  IntColumn get IDORIGINEORIGINAL =>integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {IDORIGINE};

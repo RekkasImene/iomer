@@ -38,6 +38,7 @@ LazyDatabase _openConnection() {
     daos: [ArticleDao,CategorieDao,EquipementDao,MatriculeDao,OrigineDao,OtDao,
       ReservationDao,SiteDao,TacheDao,ConfigDao]
 )
+
 @Environment(Env.prod)
 @injectable
 class IomerDatabase extends _$IomerDatabase {

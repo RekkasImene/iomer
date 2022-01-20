@@ -8,4 +8,4 @@ abstract class SitesEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchSites extends SitesEvent {}
+class FetchEventSites extends SitesEvent {}

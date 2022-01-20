@@ -17,8 +17,10 @@ abstract class InRepositoryAbs {
 class InRepository extends InRepositoryAbs {
 
   late Future<List<Site>> futureSite;
+  final IomerDatabase database;
+  InRepository(this.database);
 
-  /*void updateSite() {
+  void updateSite() {
     futureSite = fetchSite();
     futureSite.then((value) {
       value.forEach((e) {
@@ -32,7 +34,7 @@ class InRepository extends InRepositoryAbs {
     }).catchError((error) {
       log(error);
     });
-  }*/
+  }
 
   @override
   Future<List<Site>> getAllSite() {

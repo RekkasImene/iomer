@@ -3,6 +3,7 @@
 import 'dart:developer';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
+import 'package:iomer/models/bdd/config.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/services.dart';
 
@@ -19,6 +20,7 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Site>> futureSite;
   final IomerDatabase database;
   InRepository(this.database);
+
   late Future<List<Site>> futureSites;
   late Future<List<Origine>> futureOrigines;
   late Future<List<Matricule>> futureMatricules;
@@ -29,12 +31,13 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Equipement>> futureEquipements;
   late Future<List<Tache>> futureTaches;
 
+
   void updateSite(){
     futureSites = fetchSites();
     futureSites.then((value) {
       value.forEach((e) {
         database.siteDao.insertSite(e);
-       
+        log("table sites insérée");
       });
     }).catchError((error) {
       log(error);
@@ -48,7 +51,7 @@ class InRepository extends InRepositoryAbs {
     futureOrigines.then((value){
       value.forEach((e){
         database.origineDao.insertOrigine(e);
-          
+        log("table origine insérée");
       });
     }).catchError((error){
       log(error);
@@ -132,6 +135,7 @@ class InRepository extends InRepositoryAbs {
 
   }
 
+
    void updateTaches(int idOT){
     futureTaches = fetchOTTaches(idOT);
     futureTaches.then((value){
@@ -142,21 +146,10 @@ class InRepository extends InRepositoryAbs {
     }).catchError((error){
       log(error);
     });
-
   }
 
   @override
   Future<List<Site>> getAllSite() {
     return fetchSites();
-    
   }
-  
-
-  
-
-  
-
-  
-  
-
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/sites_bloc.dart';
 import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/repository/in_repository.dart';
+import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/ui/first_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,11 +14,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late SitesBloc _sitesBloc;
+  late Site? chooseSiteValue;
 
   @override
   void initState() {
     _sitesBloc = getIt.get<SitesBloc>();
     _sitesBloc.add(FetchEventSites());
+    chooseSiteValue = null;
     super.initState();
   }
 
@@ -46,28 +48,26 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 const Align(
                   alignment: Alignment.topLeft,
-                  child: Text(
-                    "Site :",
-                    style: TextStyle(fontSize: 20),
-
-                  ),
                 ),
-
-                BlocProvider(
+                 BlocProvider(
                   create: (context) => _sitesBloc,
                   child: BlocBuilder<SitesBloc, SitesState>(
                     builder: (context, state) {
                       if (state is SitesLoaded) {
-                        return DropdownButton(
-                          value: state.sites[0],
-                          items: state.sites.map((valueItem) {
-                            return DropdownMenuItem(
+                        return DropdownButton<Site> (
+                          value: chooseSiteValue,
+                          items: state.sites.map((Site valueItem) {
+                            return DropdownMenuItem<Site> (
                               value: valueItem, child: Text(valueItem.NOMSITE),
                             );
-                          }).toList(), onChanged: (newValue) {
+                          }).toList(),
+                          onChanged: (Site? newvalue) {
                             setState(() {
+                              print(newvalue.toString());
+                              chooseSiteValue = newvalue!;
+                              print(chooseSiteValue.toString());
                             });
-                        },
+                          },
                         );
                       } else if (state is SitesError) {
                         return Text(state.message);

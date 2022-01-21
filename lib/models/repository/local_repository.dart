@@ -1,7 +1,5 @@
 //Vue vers bdd et bdd  vers vue
 
-import 'dart:developer';
-
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
@@ -13,7 +11,39 @@ class LocalRepository {
 
   LocalRepository(this.database);
   Future<List<Matricule>> getAllMatricule() {
-    log(database.matriculeDao.getAllMatricules().toString());
     return database.matriculeDao.getAllMatricules();
   }
+
+  Future<List<OtData>> getAllOt() {
+    return database.otDao.getAllOts();
+  }
+
+  Future<List<Article>> getAllArticle() {
+    return database.articleDao.getAllArticles();
+  }
+
+  Future<List<Categorie>> getAllCategory() {
+    return database.categorieDao.getAllCategories();
+  }
+
+  Future<List<Equipement>> getAllEquipement() {
+    return database.equipementDao.getAllEquipements();
+  }
+
+  Future<List<Origine>> getAllOrigine() {
+    return database.origineDao.getAllOrigine();
+  }
+
+  Future<List<Tache>> getAllTache() {
+    return database.tacheDao.getAllTaches();
+  }
+
+  Future<List<Site>> getAllSite(){
+    return database.siteDao.getAllSites();
+  }
+
+  Future<List<Reservation>> getAllReservation() {
+    return database.reservationDao.getAllReservations();
+  }
+
 }

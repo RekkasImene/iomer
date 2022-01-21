@@ -142,9 +142,9 @@ class InRepository extends InRepositoryAbs {
     return fetchSites();
   }
 
-  Future<List<Matricule>> getAllWorkers() {
-    Future<List<Matricule>> matricule = fetchMatricules(14);
-    print(matricule);
-    return matricule;
-  }
+  // Future<List<Matricule>> getAllMatricule() {
+  //   Future<List<Matricule>> matricule = fetchMatricules(14);
+  //   print(matricule);
+  //   return matricule;
+  // }
 }

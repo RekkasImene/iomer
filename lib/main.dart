@@ -22,6 +22,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
     //InRepository repository = getIt.get<InRepository>();
 
     /*repository.updateSite();
@@ -34,6 +35,11 @@ class _MyAppState extends State<MyApp> {
     //  sleep(const Duration(seconds: 1));
     //repository.updateTaches(203);
     //sleep(const Duration(seconds: 1));
+=======
+    InRepository repository = getIt.get<InRepository>();
+    repository.updateSite();
+    repository.updateMatricules(14);
+>>>>>>> tina_branch
   }
 
   @override

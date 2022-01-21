@@ -1,9 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:iomer/webService/services.dart';
 
-///this screen
-
-//TODO rename this class to select_machine_screen after every branch are merged together
 class SelectMachine extends StatefulWidget {
   const SelectMachine({Key? key}) : super(key: key);
 
@@ -12,8 +10,7 @@ class SelectMachine extends StatefulWidget {
 }
 
 class _SelectMachine extends State<SelectMachine> {
-  var isSelected = false;
-  var mycolor = Colors.white;
+  late int? _value;
 
   final List<String> _list = [
     "Révision des 1000%",
@@ -21,6 +18,12 @@ class _SelectMachine extends State<SelectMachine> {
     "Parallélisme roues",
     "Révision des 1000%",
   ];
+
+  @override
+  void initState() {
+    _value = null;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +59,15 @@ class _SelectMachine extends State<SelectMachine> {
               ),
             ),
 
+            // const SizedBox(height: 20),
+
+            /*expanded permet de remplir la place*/
             Expanded(
+              //padding: const EdgeInsets.all(16.0) ,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                //                                                                                                                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
                   const Padding(
                     padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
@@ -90,7 +99,83 @@ class _SelectMachine extends State<SelectMachine> {
                                   alignment: Alignment.bottomRight,
                                   child: IconButton(
                                     icon: const Icon(Icons.add),
-                                    onPressed: () {},
+                                    onPressed: () => showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          BackdropFilter(
+                                        filter: ImageFilter.blur(
+                                            sigmaX: 10, sigmaY: 10),
+                                        child: AlertDialog(
+                                          content: StatefulBuilder(
+                                            builder: (BuildContext context,
+                                                StateSetter setState) {
+                                              return Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      DropdownButton(
+                                                        value: _value,
+                                                        items: const [
+                                                          DropdownMenuItem(
+                                                            child: Text(
+                                                                "Preventive"),
+                                                            value: 1,
+                                                          ),
+                                                          DropdownMenuItem(
+                                                            child: Text(
+                                                                "Corrective"),
+                                                            value: 2,
+                                                          )
+                                                        ],
+                                                        //onChanged: (value)=> _value=value as int?,
+
+                                                        onChanged:
+                                                            (int? value) {
+                                                          setState(() {
+                                                            _value = value!;
+                                                            print(_value);
+                                                          });
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context,
+                                                                'Cancel'),
+                                                        child: const Text(
+                                                            'Cancel'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context, 'OK'),
+                                                        child: const Text('OK'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0)),
+                                          title: const Text(
+                                              'Nouvelle Maintenance'),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -99,20 +184,18 @@ class _SelectMachine extends State<SelectMachine> {
                         )),
                   ),
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('Scan machine'),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.green),
-                          textStyle: MaterialStateProperty.all(
-                              const TextStyle(fontSize: 15)),
-                        ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Scan machine'),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.orange.shade300),
+                        textStyle: MaterialStateProperty.all(
+                            const TextStyle(fontSize: 15)),
                       ),
-                    ],
+                    ),
                   )
                 ],
               ),

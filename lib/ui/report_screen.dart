@@ -32,7 +32,7 @@ class _ReportScreenState extends State<ReportScreen> {
             Container(
               decoration: const BoxDecoration(
                 color: Colors.green,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               child: SizedBox(
                 height: 100,

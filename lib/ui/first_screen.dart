@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iomer/ui/select_machine.dart';
 
-/// The first screen display all the workers assigned to the previously set
-/// "site" and "pocket"
-/// the user should select all workers assigned to the OT
-
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
 
@@ -13,7 +9,8 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  //TODO replaced those with real data (same as cloture screen)
+  //TODO a remplacer avec données (les memes que pour l'ecran cloture)
+
   final List<String> _texts = [
     "Jean Michelle",
     "Jean Pierre",
@@ -23,6 +20,7 @@ class _FirstScreenState extends State<FirstScreen> {
     "Paul",
     "Jack"
   ];
+
   late List<bool> _isChecked;
 
   @override
@@ -35,7 +33,7 @@ class _FirstScreenState extends State<FirstScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Iomer'),
+        title: const Text('Iomere'),
       ),
       body: Container(
         padding: const EdgeInsets.all(20.0),
@@ -73,19 +71,23 @@ class _FirstScreenState extends State<FirstScreen> {
                   )),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SelectMachine()),
-                );
-              },
-              child: const Text('Valider'),
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                //pour griser
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SelectMachine()),
+                  );
+                },
+                child: const Text('Valider',style: TextStyle(fontSize: 20)),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20)),
+              ),
             ),
           ],
         ),

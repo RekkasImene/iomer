@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/workers/workers_bloc.dart';
+import 'package:iomer/bloc/matricule/matricule_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/ui/select_machine.dart';
 
@@ -12,7 +12,7 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  late WorkersBloc _workersBloc;
+  late MatriculeBloc _matriculeBloc;
   //TODO a remplacer avec données (les memes que pour l'ecran cloture)
   // final List<String> _texts = [
   //   "Jean Michelle",
@@ -23,14 +23,13 @@ class _FirstScreenState extends State<FirstScreen> {
   //   "Paul",
   //   "Jack"
   // ];
-  late List<bool> _isChecked;
+  List<bool> _isChecked = false as List<bool>;
 
   @override
   void initState() {
-    _workersBloc = getIt.get<WorkersBloc>();
-    _workersBloc..add(FetchWorkerEvenet());
+    _matriculeBloc = getIt.get<MatriculeBloc>();
+    _matriculeBloc..add(FetchMatriculeEvenet());
     super.initState();
-    //_isChecked = List<bool>.filled(_texts.length, false);
   }
 
   @override
@@ -59,16 +58,16 @@ class _FirstScreenState extends State<FirstScreen> {
                       BoxDecoration(border: Border.all(color: Colors.black)),
                   //padding: const EdgeInsets.all(16.0) ,
                   child: BlocProvider(
-                    create: (context) => _workersBloc,
-                    child: BlocBuilder<WorkersBloc, WorkersState>(
+                    create: (context) => _matriculeBloc,
+                    child: BlocBuilder<MatriculeBloc, MatriculeState>(
                       builder: (context, state) {
-                        if (state is WorkerLoaded) {
+                        if (state is MatriculeLoaded) {
                           return ListView.builder(
                             itemCount: state.matricule.length,
                             itemBuilder: (context, index) {
-                              _isChecked = List<bool>.filled(
+                              /*_isChecked = List<bool>.filled(
                                   state.matricule[index].NOMMATRICULE.length,
-                                  true);
+                                  false);*/
                               return CheckboxListTile(
                                 title:
                                     Text(state.matricule[index].NOMMATRICULE),
@@ -77,13 +76,14 @@ class _FirstScreenState extends State<FirstScreen> {
                                   setState(
                                     () {
                                       _isChecked[index] = val!;
+                                      print(_isChecked);
                                     },
                                   );
                                 },
                               );
                             },
                           );
-                        } else if (state is WorkerError) {
+                        } else if (state is MatriculeError) {
                           return Text(state.message);
                         }
                         return const Center(

@@ -5,23 +5,23 @@ import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/models/repository/in_repository.dart';
 
-part 'workers_event.dart';
-part 'workers_state.dart';
+part 'matricule_event.dart';
+part 'matricule_state.dart';
 
 @Environment(Env.prod)
 @injectable
-class WorkersBloc extends Bloc<WorkersEvent, WorkersState> {
+class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
   final InRepository _repository;
 
-  WorkersBloc(this._repository) : super(WorkersInitial()) {
-    on<WorkersEvent>((event, emit) async {
-      if (event is WorkersEvent) {
-        emit(WorkerLoading());
+  MatriculeBloc(this._repository) : super(MatriculeInitial()) {
+    on<MatriculeEvent>((event, emit) async {
+      if (event is MatriculeEvent) {
+        emit(MatriculeLoading());
         final matricule = await _repository.getAllWorkers();
         if (matricule != null) {
-          emit(WorkerLoaded(matricule));
+          emit(MatriculeLoaded(matricule));
         } else {
-          emit(const WorkerError('Error'));
+          emit(MatriculeError('Error'));
         }
       }
     });

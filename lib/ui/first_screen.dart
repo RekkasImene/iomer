@@ -25,8 +25,8 @@ class _FirstScreenState extends State<FirstScreen> {
   //   "Paul",
   //   "Jack"
   // ];
-  late List<bool> _isChecked = [false, false];
-  late bool ischecked;
+
+  late bool? ischecked;
   @override
   void initState() {
     _matriculeBloc = getIt.get<MatriculeBloc>();
@@ -67,24 +67,19 @@ class _FirstScreenState extends State<FirstScreen> {
                           return ListView.builder(
                             itemCount: state.matricule.length,
                             itemBuilder: (context, index) {
-                              ischecked = false;
-                              log("isckeck111 : " +
-                                  state.matricule[index].CHECKED.toString());
+                              ischecked = state.matricule[index].CHECKED;
                               log("ischecked = " + ischecked.toString());
-                              /*_isChecked = List<bool>.filled(
-                                  state.matricule[index].NOMMATRICULE.length,
-                                  false);*/
 
                               return CheckboxListTile(
                                 title:
                                     Text(state.matricule[index].NOMMATRICULE),
                                 //  value: _isChecked[index],
                                 value: ischecked,
-                                onChanged: (val) {
+                                onChanged: (value) {
                                   setState(
                                     () {
-                                      ischecked = val!;
-                                      print(_isChecked);
+                                      ischecked = value!;
+                                      log(ischecked.toString());
                                     },
                                   );
                                 },

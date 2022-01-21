@@ -1,17 +1,20 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart' as http;
 
 var url = 'https://iomere.loca.lt/';
 
 /* Get Sites */
-Future<List<Site>> fetchSite() async {
+Future<List<Site>> fetchSites() async {
   final response = await http.get(Uri.parse('$url/GetSites'));
   if (response.statusCode == 200) {
+    print(response.body.toString());
     List<Site> sites;
     sites = (json.decode(response.body) as List)
         .map((siteJson) => Site.fromJson(siteJson))
         .toList();
+    print(sites.toString());
     return sites;
   } else {
     throw Exception('Failed to load site');
@@ -109,7 +112,7 @@ Future<List<Tache>> fetchOTTaches(int idOT) async {
 }
 
 /* Get Config */
-Future<List<ConfigData>> fetchConfig(int idSite, String codePocket) async {
+Future<List<ConfigData>> fetchConfigs(int idSite, String codePocket) async {
   final response =
       await http.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
 
@@ -119,6 +122,36 @@ Future<List<ConfigData>> fetchConfig(int idSite, String codePocket) async {
         .map((configJson) => ConfigData.fromJson(configJson))
         .toList();
     return config;
+  } else {
+    throw Exception('Failed to load Config');
+  }
+}
+
+/*/ Get Article */
+Future<List<Article>> fetchArticles(String codeArticle) async {
+  final response = await http.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
+
+  if (response.statusCode == 200) {
+    List<Article> articles;
+    articles = (json.decode(response.body) as List)
+        .map((articleJson) => Article.fromJson(articleJson))
+        .toList();
+    return articles;
+  } else {
+    throw Exception('Failed to load Config');
+  }
+}
+
+/* get Reservation (GETOT_ARTICLE)*/
+
+Future<List<Reservation>> fetchReservations(int idOt) async {
+  final response = await http.get(Uri.parse('$url/GETOT_ARTICLES/$idOt'));
+  if (response.statusCode == 200) {
+    List<Reservation> reservations;
+    reservations = (json.decode(response.body) as List)
+        .map((reservationJson) => Reservation.fromJson(reservationJson))
+        .toList();
+    return reservations;
   } else {
     throw Exception('Failed to load Config');
   }

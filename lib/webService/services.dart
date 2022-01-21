@@ -166,9 +166,6 @@ Future<List<Reservation>>fetchReservations(int idOt) async{
 
 }
 
-
-
-
 Future<void> postOt(
     int idOt, String commentOt, double tempsOt, String statutOt) async {
   String newtempsOt = tempsOt.toString();

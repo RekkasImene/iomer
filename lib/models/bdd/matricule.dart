@@ -10,8 +10,7 @@ class Matricules extends Table {
   TextColumn get CODEMATRICULE => text().withLength(min: 1, max: 12)();
   TextColumn get NOMMATRICULE => text().withLength(min: 1, max: 48)();
   TextColumn get PRENOMMATRICULE => text().withLength(min: 1, max: 48)();
-  BoolColumn get CHECKED => boolean().withDefault(const Constant(false))();
-  IntColumn get IDMATORIGINAL =>integer().nullable()();
+  BoolColumn get CHECKED => boolean().nullable().withDefault(const Constant(false))();
 
   @override
   Set<Column> get primaryKey => {IDMATRICULE};

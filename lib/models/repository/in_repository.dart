@@ -1,11 +1,11 @@
 //webservice vers bdd
 
 import 'dart:developer';
+
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/services.dart';
-
 
 abstract class InRepositoryAbs {
   Future<List<Site>> getAllSite();
@@ -15,14 +15,15 @@ abstract class InRepositoryAbs {
 @singleton
 @injectable
 class InRepository extends InRepositoryAbs {
-
   late Future<List<Site>> futureSite;
+  final IomerDatabase database;
+  InRepository(this.database);
 
-  /*void updateSite() {
+  void updateSite() {
     futureSite = fetchSite();
     futureSite.then((value) {
       value.forEach((e) {
-          database.siteDao.insertSite(SitesCompanion.insert(
+        database.siteDao.insertSite(SitesCompanion.insert(
           CODESITE: e.CODESITE,
           NOMSITE: e.NOMSITE,
           ADRESSESITE: e.ADRESSESITE,
@@ -32,10 +33,16 @@ class InRepository extends InRepositoryAbs {
     }).catchError((error) {
       log(error);
     });
-  }*/
+  }
 
   @override
   Future<List<Site>> getAllSite() {
     return fetchSite();
+  }
+
+  Future<List<Matricule>> getAllWorkers() {
+    Future<List<Matricule>> matricule = fetchMatricules(14);
+    print(matricule);
+    return matricule;
   }
 }

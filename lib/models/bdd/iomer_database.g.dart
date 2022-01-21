@@ -274,13 +274,11 @@ class Categorie extends DataClass implements Insertable<Categorie> {
   final int? IDSITE;
   final String CODECATEGORIE;
   final String LIBELLECATEGORIE;
-  final int? IDCATORIGINAL;
   Categorie(
       {required this.IDCATEGORIE,
       this.IDSITE,
       required this.CODECATEGORIE,
-      required this.LIBELLECATEGORIE,
-      this.IDCATORIGINAL});
+      required this.LIBELLECATEGORIE});
   factory Categorie.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Categorie(
@@ -292,8 +290,6 @@ class Categorie extends DataClass implements Insertable<Categorie> {
           .mapFromDatabaseResponse(data['${effectivePrefix}codecategorie'])!,
       LIBELLECATEGORIE: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}libellecategorie'])!,
-      IDCATORIGINAL: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}idcatoriginal']),
     );
   }
   @override
@@ -305,9 +301,6 @@ class Categorie extends DataClass implements Insertable<Categorie> {
     }
     map['codecategorie'] = Variable<String>(CODECATEGORIE);
     map['libellecategorie'] = Variable<String>(LIBELLECATEGORIE);
-    if (!nullToAbsent || IDCATORIGINAL != null) {
-      map['idcatoriginal'] = Variable<int?>(IDCATORIGINAL);
-    }
     return map;
   }
 
@@ -318,9 +311,6 @@ class Categorie extends DataClass implements Insertable<Categorie> {
           IDSITE == null && nullToAbsent ? const Value.absent() : Value(IDSITE),
       CODECATEGORIE: Value(CODECATEGORIE),
       LIBELLECATEGORIE: Value(LIBELLECATEGORIE),
-      IDCATORIGINAL: IDCATORIGINAL == null && nullToAbsent
-          ? const Value.absent()
-          : Value(IDCATORIGINAL),
     );
   }
 
@@ -332,7 +322,6 @@ class Categorie extends DataClass implements Insertable<Categorie> {
       IDSITE: serializer.fromJson<int?>(json['IDSITE']),
       CODECATEGORIE: serializer.fromJson<String>(json['CODECATEGORIE']),
       LIBELLECATEGORIE: serializer.fromJson<String>(json['LIBELLECATEGORIE']),
-      IDCATORIGINAL: serializer.fromJson<int?>(json['IDCATORIGINAL']),
     );
   }
   @override
@@ -343,7 +332,6 @@ class Categorie extends DataClass implements Insertable<Categorie> {
       'IDSITE': serializer.toJson<int?>(IDSITE),
       'CODECATEGORIE': serializer.toJson<String>(CODECATEGORIE),
       'LIBELLECATEGORIE': serializer.toJson<String>(LIBELLECATEGORIE),
-      'IDCATORIGINAL': serializer.toJson<int?>(IDCATORIGINAL),
     };
   }
 
@@ -351,14 +339,12 @@ class Categorie extends DataClass implements Insertable<Categorie> {
           {int? IDCATEGORIE,
           int? IDSITE,
           String? CODECATEGORIE,
-          String? LIBELLECATEGORIE,
-          int? IDCATORIGINAL}) =>
+          String? LIBELLECATEGORIE}) =>
       Categorie(
         IDCATEGORIE: IDCATEGORIE ?? this.IDCATEGORIE,
         IDSITE: IDSITE ?? this.IDSITE,
         CODECATEGORIE: CODECATEGORIE ?? this.CODECATEGORIE,
         LIBELLECATEGORIE: LIBELLECATEGORIE ?? this.LIBELLECATEGORIE,
-        IDCATORIGINAL: IDCATORIGINAL ?? this.IDCATORIGINAL,
       );
   @override
   String toString() {
@@ -366,15 +352,14 @@ class Categorie extends DataClass implements Insertable<Categorie> {
           ..write('IDCATEGORIE: $IDCATEGORIE, ')
           ..write('IDSITE: $IDSITE, ')
           ..write('CODECATEGORIE: $CODECATEGORIE, ')
-          ..write('LIBELLECATEGORIE: $LIBELLECATEGORIE, ')
-          ..write('IDCATORIGINAL: $IDCATORIGINAL')
+          ..write('LIBELLECATEGORIE: $LIBELLECATEGORIE')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      IDCATEGORIE, IDSITE, CODECATEGORIE, LIBELLECATEGORIE, IDCATORIGINAL);
+  int get hashCode =>
+      Object.hash(IDCATEGORIE, IDSITE, CODECATEGORIE, LIBELLECATEGORIE);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -382,8 +367,7 @@ class Categorie extends DataClass implements Insertable<Categorie> {
           other.IDCATEGORIE == this.IDCATEGORIE &&
           other.IDSITE == this.IDSITE &&
           other.CODECATEGORIE == this.CODECATEGORIE &&
-          other.LIBELLECATEGORIE == this.LIBELLECATEGORIE &&
-          other.IDCATORIGINAL == this.IDCATORIGINAL);
+          other.LIBELLECATEGORIE == this.LIBELLECATEGORIE);
 }
 
 class CategoriesCompanion extends UpdateCompanion<Categorie> {
@@ -391,20 +375,17 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
   final Value<int?> IDSITE;
   final Value<String> CODECATEGORIE;
   final Value<String> LIBELLECATEGORIE;
-  final Value<int?> IDCATORIGINAL;
   const CategoriesCompanion({
     this.IDCATEGORIE = const Value.absent(),
     this.IDSITE = const Value.absent(),
     this.CODECATEGORIE = const Value.absent(),
     this.LIBELLECATEGORIE = const Value.absent(),
-    this.IDCATORIGINAL = const Value.absent(),
   });
   CategoriesCompanion.insert({
     this.IDCATEGORIE = const Value.absent(),
     this.IDSITE = const Value.absent(),
     required String CODECATEGORIE,
     required String LIBELLECATEGORIE,
-    this.IDCATORIGINAL = const Value.absent(),
   })  : CODECATEGORIE = Value(CODECATEGORIE),
         LIBELLECATEGORIE = Value(LIBELLECATEGORIE);
   static Insertable<Categorie> custom({
@@ -412,14 +393,12 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
     Expression<int?>? IDSITE,
     Expression<String>? CODECATEGORIE,
     Expression<String>? LIBELLECATEGORIE,
-    Expression<int?>? IDCATORIGINAL,
   }) {
     return RawValuesInsertable({
       if (IDCATEGORIE != null) 'idcategorie': IDCATEGORIE,
       if (IDSITE != null) 'idsite': IDSITE,
       if (CODECATEGORIE != null) 'codecategorie': CODECATEGORIE,
       if (LIBELLECATEGORIE != null) 'libellecategorie': LIBELLECATEGORIE,
-      if (IDCATORIGINAL != null) 'idcatoriginal': IDCATORIGINAL,
     });
   }
 
@@ -427,14 +406,12 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
       {Value<int>? IDCATEGORIE,
       Value<int?>? IDSITE,
       Value<String>? CODECATEGORIE,
-      Value<String>? LIBELLECATEGORIE,
-      Value<int?>? IDCATORIGINAL}) {
+      Value<String>? LIBELLECATEGORIE}) {
     return CategoriesCompanion(
       IDCATEGORIE: IDCATEGORIE ?? this.IDCATEGORIE,
       IDSITE: IDSITE ?? this.IDSITE,
       CODECATEGORIE: CODECATEGORIE ?? this.CODECATEGORIE,
       LIBELLECATEGORIE: LIBELLECATEGORIE ?? this.LIBELLECATEGORIE,
-      IDCATORIGINAL: IDCATORIGINAL ?? this.IDCATORIGINAL,
     );
   }
 
@@ -453,9 +430,6 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
     if (LIBELLECATEGORIE.present) {
       map['libellecategorie'] = Variable<String>(LIBELLECATEGORIE.value);
     }
-    if (IDCATORIGINAL.present) {
-      map['idcatoriginal'] = Variable<int?>(IDCATORIGINAL.value);
-    }
     return map;
   }
 
@@ -465,8 +439,7 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
           ..write('IDCATEGORIE: $IDCATEGORIE, ')
           ..write('IDSITE: $IDSITE, ')
           ..write('CODECATEGORIE: $CODECATEGORIE, ')
-          ..write('LIBELLECATEGORIE: $LIBELLECATEGORIE, ')
-          ..write('IDCATORIGINAL: $IDCATORIGINAL')
+          ..write('LIBELLECATEGORIE: $LIBELLECATEGORIE')
           ..write(')'))
         .toString();
   }
@@ -504,14 +477,9 @@ class $CategoriesTable extends Categories
               minTextLength: 1, maxTextLength: 48),
           typeName: 'TEXT',
           requiredDuringInsert: true);
-  final VerificationMeta _IDCATORIGINALMeta =
-      const VerificationMeta('IDCATORIGINAL');
-  late final GeneratedColumn<int?> IDCATORIGINAL = GeneratedColumn<int?>(
-      'idcatoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [IDCATEGORIE, IDSITE, CODECATEGORIE, LIBELLECATEGORIE, IDCATORIGINAL];
+      [IDCATEGORIE, IDSITE, CODECATEGORIE, LIBELLECATEGORIE];
   @override
   String get aliasedName => _alias ?? 'categories';
   @override
@@ -547,12 +515,6 @@ class $CategoriesTable extends Categories
     } else if (isInserting) {
       context.missing(_LIBELLECATEGORIEMeta);
     }
-    if (data.containsKey('idcatoriginal')) {
-      context.handle(
-          _IDCATORIGINALMeta,
-          IDCATORIGINAL.isAcceptableOrUnknown(
-              data['idcatoriginal']!, _IDCATORIGINALMeta));
-    }
     return context;
   }
 
@@ -574,12 +536,7 @@ class Document extends DataClass implements Insertable<Document> {
   final int IDATTACHEMENT;
   final int? IDOT;
   final String ATTACHEMENT;
-  final int? IDATTACHORIGINAL;
-  Document(
-      {required this.IDATTACHEMENT,
-      this.IDOT,
-      required this.ATTACHEMENT,
-      this.IDATTACHORIGINAL});
+  Document({required this.IDATTACHEMENT, this.IDOT, required this.ATTACHEMENT});
   factory Document.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Document(
@@ -589,8 +546,6 @@ class Document extends DataClass implements Insertable<Document> {
           .mapFromDatabaseResponse(data['${effectivePrefix}idot']),
       ATTACHEMENT: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}attachement'])!,
-      IDATTACHORIGINAL: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}idattachoriginal']),
     );
   }
   @override
@@ -601,9 +556,6 @@ class Document extends DataClass implements Insertable<Document> {
       map['idot'] = Variable<int?>(IDOT);
     }
     map['attachement'] = Variable<String>(ATTACHEMENT);
-    if (!nullToAbsent || IDATTACHORIGINAL != null) {
-      map['idattachoriginal'] = Variable<int?>(IDATTACHORIGINAL);
-    }
     return map;
   }
 
@@ -612,9 +564,6 @@ class Document extends DataClass implements Insertable<Document> {
       IDATTACHEMENT: Value(IDATTACHEMENT),
       IDOT: IDOT == null && nullToAbsent ? const Value.absent() : Value(IDOT),
       ATTACHEMENT: Value(ATTACHEMENT),
-      IDATTACHORIGINAL: IDATTACHORIGINAL == null && nullToAbsent
-          ? const Value.absent()
-          : Value(IDATTACHORIGINAL),
     );
   }
 
@@ -625,7 +574,6 @@ class Document extends DataClass implements Insertable<Document> {
       IDATTACHEMENT: serializer.fromJson<int>(json['IDATTACHEMENT']),
       IDOT: serializer.fromJson<int?>(json['IDOT']),
       ATTACHEMENT: serializer.fromJson<String>(json['ATTACHEMENT']),
-      IDATTACHORIGINAL: serializer.fromJson<int?>(json['IDATTACHORIGINAL']),
     );
   }
   @override
@@ -635,86 +583,70 @@ class Document extends DataClass implements Insertable<Document> {
       'IDATTACHEMENT': serializer.toJson<int>(IDATTACHEMENT),
       'IDOT': serializer.toJson<int?>(IDOT),
       'ATTACHEMENT': serializer.toJson<String>(ATTACHEMENT),
-      'IDATTACHORIGINAL': serializer.toJson<int?>(IDATTACHORIGINAL),
     };
   }
 
-  Document copyWith(
-          {int? IDATTACHEMENT,
-          int? IDOT,
-          String? ATTACHEMENT,
-          int? IDATTACHORIGINAL}) =>
+  Document copyWith({int? IDATTACHEMENT, int? IDOT, String? ATTACHEMENT}) =>
       Document(
         IDATTACHEMENT: IDATTACHEMENT ?? this.IDATTACHEMENT,
         IDOT: IDOT ?? this.IDOT,
         ATTACHEMENT: ATTACHEMENT ?? this.ATTACHEMENT,
-        IDATTACHORIGINAL: IDATTACHORIGINAL ?? this.IDATTACHORIGINAL,
       );
   @override
   String toString() {
     return (StringBuffer('Document(')
           ..write('IDATTACHEMENT: $IDATTACHEMENT, ')
           ..write('IDOT: $IDOT, ')
-          ..write('ATTACHEMENT: $ATTACHEMENT, ')
-          ..write('IDATTACHORIGINAL: $IDATTACHORIGINAL')
+          ..write('ATTACHEMENT: $ATTACHEMENT')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(IDATTACHEMENT, IDOT, ATTACHEMENT, IDATTACHORIGINAL);
+  int get hashCode => Object.hash(IDATTACHEMENT, IDOT, ATTACHEMENT);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Document &&
           other.IDATTACHEMENT == this.IDATTACHEMENT &&
           other.IDOT == this.IDOT &&
-          other.ATTACHEMENT == this.ATTACHEMENT &&
-          other.IDATTACHORIGINAL == this.IDATTACHORIGINAL);
+          other.ATTACHEMENT == this.ATTACHEMENT);
 }
 
 class DocumentsCompanion extends UpdateCompanion<Document> {
   final Value<int> IDATTACHEMENT;
   final Value<int?> IDOT;
   final Value<String> ATTACHEMENT;
-  final Value<int?> IDATTACHORIGINAL;
   const DocumentsCompanion({
     this.IDATTACHEMENT = const Value.absent(),
     this.IDOT = const Value.absent(),
     this.ATTACHEMENT = const Value.absent(),
-    this.IDATTACHORIGINAL = const Value.absent(),
   });
   DocumentsCompanion.insert({
     this.IDATTACHEMENT = const Value.absent(),
     this.IDOT = const Value.absent(),
     required String ATTACHEMENT,
-    this.IDATTACHORIGINAL = const Value.absent(),
   }) : ATTACHEMENT = Value(ATTACHEMENT);
   static Insertable<Document> custom({
     Expression<int>? IDATTACHEMENT,
     Expression<int?>? IDOT,
     Expression<String>? ATTACHEMENT,
-    Expression<int?>? IDATTACHORIGINAL,
   }) {
     return RawValuesInsertable({
       if (IDATTACHEMENT != null) 'idattachement': IDATTACHEMENT,
       if (IDOT != null) 'idot': IDOT,
       if (ATTACHEMENT != null) 'attachement': ATTACHEMENT,
-      if (IDATTACHORIGINAL != null) 'idattachoriginal': IDATTACHORIGINAL,
     });
   }
 
   DocumentsCompanion copyWith(
       {Value<int>? IDATTACHEMENT,
       Value<int?>? IDOT,
-      Value<String>? ATTACHEMENT,
-      Value<int?>? IDATTACHORIGINAL}) {
+      Value<String>? ATTACHEMENT}) {
     return DocumentsCompanion(
       IDATTACHEMENT: IDATTACHEMENT ?? this.IDATTACHEMENT,
       IDOT: IDOT ?? this.IDOT,
       ATTACHEMENT: ATTACHEMENT ?? this.ATTACHEMENT,
-      IDATTACHORIGINAL: IDATTACHORIGINAL ?? this.IDATTACHORIGINAL,
     );
   }
 
@@ -730,9 +662,6 @@ class DocumentsCompanion extends UpdateCompanion<Document> {
     if (ATTACHEMENT.present) {
       map['attachement'] = Variable<String>(ATTACHEMENT.value);
     }
-    if (IDATTACHORIGINAL.present) {
-      map['idattachoriginal'] = Variable<int?>(IDATTACHORIGINAL.value);
-    }
     return map;
   }
 
@@ -741,8 +670,7 @@ class DocumentsCompanion extends UpdateCompanion<Document> {
     return (StringBuffer('DocumentsCompanion(')
           ..write('IDATTACHEMENT: $IDATTACHEMENT, ')
           ..write('IDOT: $IDOT, ')
-          ..write('ATTACHEMENT: $ATTACHEMENT, ')
-          ..write('IDATTACHORIGINAL: $IDATTACHORIGINAL')
+          ..write('ATTACHEMENT: $ATTACHEMENT')
           ..write(')'))
         .toString();
   }
@@ -774,14 +702,8 @@ class $DocumentsTable extends Documents
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
       typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _IDATTACHORIGINALMeta =
-      const VerificationMeta('IDATTACHORIGINAL');
-  late final GeneratedColumn<int?> IDATTACHORIGINAL = GeneratedColumn<int?>(
-      'idattachoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
   @override
-  List<GeneratedColumn> get $columns =>
-      [IDATTACHEMENT, IDOT, ATTACHEMENT, IDATTACHORIGINAL];
+  List<GeneratedColumn> get $columns => [IDATTACHEMENT, IDOT, ATTACHEMENT];
   @override
   String get aliasedName => _alias ?? 'documents';
   @override
@@ -809,12 +731,6 @@ class $DocumentsTable extends Documents
     } else if (isInserting) {
       context.missing(_ATTACHEMENTMeta);
     }
-    if (data.containsKey('idattachoriginal')) {
-      context.handle(
-          _IDATTACHORIGINALMeta,
-          IDATTACHORIGINAL.isAcceptableOrUnknown(
-              data['idattachoriginal']!, _IDATTACHORIGINALMeta));
-    }
     return context;
   }
 
@@ -837,13 +753,11 @@ class Equipement extends DataClass implements Insertable<Equipement> {
   final int? IDSITE;
   final String CODEEQUIPEMENT;
   final String LIBELLEEQUIPEMENT;
-  final int? IDEQUIPEMENTORIGINAL;
   Equipement(
       {required this.IDEQUIPEMENT,
       this.IDSITE,
       required this.CODEEQUIPEMENT,
-      required this.LIBELLEEQUIPEMENT,
-      this.IDEQUIPEMENTORIGINAL});
+      required this.LIBELLEEQUIPEMENT});
   factory Equipement.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Equipement(
@@ -855,8 +769,6 @@ class Equipement extends DataClass implements Insertable<Equipement> {
           .mapFromDatabaseResponse(data['${effectivePrefix}codeequipement'])!,
       LIBELLEEQUIPEMENT: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}libelleequipement'])!,
-      IDEQUIPEMENTORIGINAL: const IntType().mapFromDatabaseResponse(
-          data['${effectivePrefix}idequipementoriginal']),
     );
   }
   @override
@@ -868,9 +780,6 @@ class Equipement extends DataClass implements Insertable<Equipement> {
     }
     map['codeequipement'] = Variable<String>(CODEEQUIPEMENT);
     map['libelleequipement'] = Variable<String>(LIBELLEEQUIPEMENT);
-    if (!nullToAbsent || IDEQUIPEMENTORIGINAL != null) {
-      map['idequipementoriginal'] = Variable<int?>(IDEQUIPEMENTORIGINAL);
-    }
     return map;
   }
 
@@ -881,9 +790,6 @@ class Equipement extends DataClass implements Insertable<Equipement> {
           IDSITE == null && nullToAbsent ? const Value.absent() : Value(IDSITE),
       CODEEQUIPEMENT: Value(CODEEQUIPEMENT),
       LIBELLEEQUIPEMENT: Value(LIBELLEEQUIPEMENT),
-      IDEQUIPEMENTORIGINAL: IDEQUIPEMENTORIGINAL == null && nullToAbsent
-          ? const Value.absent()
-          : Value(IDEQUIPEMENTORIGINAL),
     );
   }
 
@@ -895,8 +801,6 @@ class Equipement extends DataClass implements Insertable<Equipement> {
       IDSITE: serializer.fromJson<int?>(json['IDSITE']),
       CODEEQUIPEMENT: serializer.fromJson<String>(json['CODEEQUIPEMENT']),
       LIBELLEEQUIPEMENT: serializer.fromJson<String>(json['LIBELLEEQUIPEMENT']),
-      IDEQUIPEMENTORIGINAL:
-          serializer.fromJson<int?>(json['IDEQUIPEMENTORIGINAL']),
     );
   }
   @override
@@ -907,7 +811,6 @@ class Equipement extends DataClass implements Insertable<Equipement> {
       'IDSITE': serializer.toJson<int?>(IDSITE),
       'CODEEQUIPEMENT': serializer.toJson<String>(CODEEQUIPEMENT),
       'LIBELLEEQUIPEMENT': serializer.toJson<String>(LIBELLEEQUIPEMENT),
-      'IDEQUIPEMENTORIGINAL': serializer.toJson<int?>(IDEQUIPEMENTORIGINAL),
     };
   }
 
@@ -915,14 +818,12 @@ class Equipement extends DataClass implements Insertable<Equipement> {
           {int? IDEQUIPEMENT,
           int? IDSITE,
           String? CODEEQUIPEMENT,
-          String? LIBELLEEQUIPEMENT,
-          int? IDEQUIPEMENTORIGINAL}) =>
+          String? LIBELLEEQUIPEMENT}) =>
       Equipement(
         IDEQUIPEMENT: IDEQUIPEMENT ?? this.IDEQUIPEMENT,
         IDSITE: IDSITE ?? this.IDSITE,
         CODEEQUIPEMENT: CODEEQUIPEMENT ?? this.CODEEQUIPEMENT,
         LIBELLEEQUIPEMENT: LIBELLEEQUIPEMENT ?? this.LIBELLEEQUIPEMENT,
-        IDEQUIPEMENTORIGINAL: IDEQUIPEMENTORIGINAL ?? this.IDEQUIPEMENTORIGINAL,
       );
   @override
   String toString() {
@@ -930,15 +831,14 @@ class Equipement extends DataClass implements Insertable<Equipement> {
           ..write('IDEQUIPEMENT: $IDEQUIPEMENT, ')
           ..write('IDSITE: $IDSITE, ')
           ..write('CODEEQUIPEMENT: $CODEEQUIPEMENT, ')
-          ..write('LIBELLEEQUIPEMENT: $LIBELLEEQUIPEMENT, ')
-          ..write('IDEQUIPEMENTORIGINAL: $IDEQUIPEMENTORIGINAL')
+          ..write('LIBELLEEQUIPEMENT: $LIBELLEEQUIPEMENT')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(IDEQUIPEMENT, IDSITE, CODEEQUIPEMENT,
-      LIBELLEEQUIPEMENT, IDEQUIPEMENTORIGINAL);
+  int get hashCode =>
+      Object.hash(IDEQUIPEMENT, IDSITE, CODEEQUIPEMENT, LIBELLEEQUIPEMENT);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -946,8 +846,7 @@ class Equipement extends DataClass implements Insertable<Equipement> {
           other.IDEQUIPEMENT == this.IDEQUIPEMENT &&
           other.IDSITE == this.IDSITE &&
           other.CODEEQUIPEMENT == this.CODEEQUIPEMENT &&
-          other.LIBELLEEQUIPEMENT == this.LIBELLEEQUIPEMENT &&
-          other.IDEQUIPEMENTORIGINAL == this.IDEQUIPEMENTORIGINAL);
+          other.LIBELLEEQUIPEMENT == this.LIBELLEEQUIPEMENT);
 }
 
 class EquipementsCompanion extends UpdateCompanion<Equipement> {
@@ -955,20 +854,17 @@ class EquipementsCompanion extends UpdateCompanion<Equipement> {
   final Value<int?> IDSITE;
   final Value<String> CODEEQUIPEMENT;
   final Value<String> LIBELLEEQUIPEMENT;
-  final Value<int?> IDEQUIPEMENTORIGINAL;
   const EquipementsCompanion({
     this.IDEQUIPEMENT = const Value.absent(),
     this.IDSITE = const Value.absent(),
     this.CODEEQUIPEMENT = const Value.absent(),
     this.LIBELLEEQUIPEMENT = const Value.absent(),
-    this.IDEQUIPEMENTORIGINAL = const Value.absent(),
   });
   EquipementsCompanion.insert({
     this.IDEQUIPEMENT = const Value.absent(),
     this.IDSITE = const Value.absent(),
     required String CODEEQUIPEMENT,
     required String LIBELLEEQUIPEMENT,
-    this.IDEQUIPEMENTORIGINAL = const Value.absent(),
   })  : CODEEQUIPEMENT = Value(CODEEQUIPEMENT),
         LIBELLEEQUIPEMENT = Value(LIBELLEEQUIPEMENT);
   static Insertable<Equipement> custom({
@@ -976,15 +872,12 @@ class EquipementsCompanion extends UpdateCompanion<Equipement> {
     Expression<int?>? IDSITE,
     Expression<String>? CODEEQUIPEMENT,
     Expression<String>? LIBELLEEQUIPEMENT,
-    Expression<int?>? IDEQUIPEMENTORIGINAL,
   }) {
     return RawValuesInsertable({
       if (IDEQUIPEMENT != null) 'idequipement': IDEQUIPEMENT,
       if (IDSITE != null) 'idsite': IDSITE,
       if (CODEEQUIPEMENT != null) 'codeequipement': CODEEQUIPEMENT,
       if (LIBELLEEQUIPEMENT != null) 'libelleequipement': LIBELLEEQUIPEMENT,
-      if (IDEQUIPEMENTORIGINAL != null)
-        'idequipementoriginal': IDEQUIPEMENTORIGINAL,
     });
   }
 
@@ -992,14 +885,12 @@ class EquipementsCompanion extends UpdateCompanion<Equipement> {
       {Value<int>? IDEQUIPEMENT,
       Value<int?>? IDSITE,
       Value<String>? CODEEQUIPEMENT,
-      Value<String>? LIBELLEEQUIPEMENT,
-      Value<int?>? IDEQUIPEMENTORIGINAL}) {
+      Value<String>? LIBELLEEQUIPEMENT}) {
     return EquipementsCompanion(
       IDEQUIPEMENT: IDEQUIPEMENT ?? this.IDEQUIPEMENT,
       IDSITE: IDSITE ?? this.IDSITE,
       CODEEQUIPEMENT: CODEEQUIPEMENT ?? this.CODEEQUIPEMENT,
       LIBELLEEQUIPEMENT: LIBELLEEQUIPEMENT ?? this.LIBELLEEQUIPEMENT,
-      IDEQUIPEMENTORIGINAL: IDEQUIPEMENTORIGINAL ?? this.IDEQUIPEMENTORIGINAL,
     );
   }
 
@@ -1018,9 +909,6 @@ class EquipementsCompanion extends UpdateCompanion<Equipement> {
     if (LIBELLEEQUIPEMENT.present) {
       map['libelleequipement'] = Variable<String>(LIBELLEEQUIPEMENT.value);
     }
-    if (IDEQUIPEMENTORIGINAL.present) {
-      map['idequipementoriginal'] = Variable<int?>(IDEQUIPEMENTORIGINAL.value);
-    }
     return map;
   }
 
@@ -1030,8 +918,7 @@ class EquipementsCompanion extends UpdateCompanion<Equipement> {
           ..write('IDEQUIPEMENT: $IDEQUIPEMENT, ')
           ..write('IDSITE: $IDSITE, ')
           ..write('CODEEQUIPEMENT: $CODEEQUIPEMENT, ')
-          ..write('LIBELLEEQUIPEMENT: $LIBELLEEQUIPEMENT, ')
-          ..write('IDEQUIPEMENTORIGINAL: $IDEQUIPEMENTORIGINAL')
+          ..write('LIBELLEEQUIPEMENT: $LIBELLEEQUIPEMENT')
           ..write(')'))
         .toString();
   }
@@ -1069,19 +956,9 @@ class $EquipementsTable extends Equipements
               minTextLength: 1, maxTextLength: 48),
           typeName: 'TEXT',
           requiredDuringInsert: true);
-  final VerificationMeta _IDEQUIPEMENTORIGINALMeta =
-      const VerificationMeta('IDEQUIPEMENTORIGINAL');
-  late final GeneratedColumn<int?> IDEQUIPEMENTORIGINAL = GeneratedColumn<int?>(
-      'idequipementoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
   @override
-  List<GeneratedColumn> get $columns => [
-        IDEQUIPEMENT,
-        IDSITE,
-        CODEEQUIPEMENT,
-        LIBELLEEQUIPEMENT,
-        IDEQUIPEMENTORIGINAL
-      ];
+  List<GeneratedColumn> get $columns =>
+      [IDEQUIPEMENT, IDSITE, CODEEQUIPEMENT, LIBELLEEQUIPEMENT];
   @override
   String get aliasedName => _alias ?? 'equipements';
   @override
@@ -1117,12 +994,6 @@ class $EquipementsTable extends Equipements
     } else if (isInserting) {
       context.missing(_LIBELLEEQUIPEMENTMeta);
     }
-    if (data.containsKey('idequipementoriginal')) {
-      context.handle(
-          _IDEQUIPEMENTORIGINALMeta,
-          IDEQUIPEMENTORIGINAL.isAcceptableOrUnknown(
-              data['idequipementoriginal']!, _IDEQUIPEMENTORIGINALMeta));
-    }
     return context;
   }
 
@@ -1146,16 +1017,14 @@ class Matricule extends DataClass implements Insertable<Matricule> {
   final String CODEMATRICULE;
   final String NOMMATRICULE;
   final String PRENOMMATRICULE;
-  final bool CHECKED;
-  final int? IDMATORIGINAL;
+  final bool? CHECKED;
   Matricule(
       {required this.IDMATRICULE,
       this.IDORIGINE,
       required this.CODEMATRICULE,
       required this.NOMMATRICULE,
       required this.PRENOMMATRICULE,
-      required this.CHECKED,
-      this.IDMATORIGINAL});
+      this.CHECKED});
   factory Matricule.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Matricule(
@@ -1170,9 +1039,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
       PRENOMMATRICULE: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}prenommatricule'])!,
       CHECKED: const BoolType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}checked'])!,
-      IDMATORIGINAL: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}idmatoriginal']),
+          .mapFromDatabaseResponse(data['${effectivePrefix}checked']),
     );
   }
   @override
@@ -1185,9 +1052,8 @@ class Matricule extends DataClass implements Insertable<Matricule> {
     map['codematricule'] = Variable<String>(CODEMATRICULE);
     map['nommatricule'] = Variable<String>(NOMMATRICULE);
     map['prenommatricule'] = Variable<String>(PRENOMMATRICULE);
-    map['checked'] = Variable<bool>(CHECKED);
-    if (!nullToAbsent || IDMATORIGINAL != null) {
-      map['idmatoriginal'] = Variable<int?>(IDMATORIGINAL);
+    if (!nullToAbsent || CHECKED != null) {
+      map['checked'] = Variable<bool?>(CHECKED);
     }
     return map;
   }
@@ -1201,10 +1067,9 @@ class Matricule extends DataClass implements Insertable<Matricule> {
       CODEMATRICULE: Value(CODEMATRICULE),
       NOMMATRICULE: Value(NOMMATRICULE),
       PRENOMMATRICULE: Value(PRENOMMATRICULE),
-      CHECKED: Value(CHECKED),
-      IDMATORIGINAL: IDMATORIGINAL == null && nullToAbsent
+      CHECKED: CHECKED == null && nullToAbsent
           ? const Value.absent()
-          : Value(IDMATORIGINAL),
+          : Value(CHECKED),
     );
   }
 
@@ -1217,8 +1082,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
       CODEMATRICULE: serializer.fromJson<String>(json['CODEMATRICULE']),
       NOMMATRICULE: serializer.fromJson<String>(json['NOMMATRICULE']),
       PRENOMMATRICULE: serializer.fromJson<String>(json['PRENOMMATRICULE']),
-      CHECKED: serializer.fromJson<bool>(json['CHECKED']),
-      IDMATORIGINAL: serializer.fromJson<int?>(json['IDMATORIGINAL']),
+      CHECKED: serializer.fromJson<bool?>(json['CHECKED']),
     );
   }
   @override
@@ -1230,8 +1094,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
       'CODEMATRICULE': serializer.toJson<String>(CODEMATRICULE),
       'NOMMATRICULE': serializer.toJson<String>(NOMMATRICULE),
       'PRENOMMATRICULE': serializer.toJson<String>(PRENOMMATRICULE),
-      'CHECKED': serializer.toJson<bool>(CHECKED),
-      'IDMATORIGINAL': serializer.toJson<int?>(IDMATORIGINAL),
+      'CHECKED': serializer.toJson<bool?>(CHECKED),
     };
   }
 
@@ -1241,8 +1104,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
           String? CODEMATRICULE,
           String? NOMMATRICULE,
           String? PRENOMMATRICULE,
-          bool? CHECKED,
-          int? IDMATORIGINAL}) =>
+          bool? CHECKED}) =>
       Matricule(
         IDMATRICULE: IDMATRICULE ?? this.IDMATRICULE,
         IDORIGINE: IDORIGINE ?? this.IDORIGINE,
@@ -1250,7 +1112,6 @@ class Matricule extends DataClass implements Insertable<Matricule> {
         NOMMATRICULE: NOMMATRICULE ?? this.NOMMATRICULE,
         PRENOMMATRICULE: PRENOMMATRICULE ?? this.PRENOMMATRICULE,
         CHECKED: CHECKED ?? this.CHECKED,
-        IDMATORIGINAL: IDMATORIGINAL ?? this.IDMATORIGINAL,
       );
   @override
   String toString() {
@@ -1260,15 +1121,14 @@ class Matricule extends DataClass implements Insertable<Matricule> {
           ..write('CODEMATRICULE: $CODEMATRICULE, ')
           ..write('NOMMATRICULE: $NOMMATRICULE, ')
           ..write('PRENOMMATRICULE: $PRENOMMATRICULE, ')
-          ..write('CHECKED: $CHECKED, ')
-          ..write('IDMATORIGINAL: $IDMATORIGINAL')
+          ..write('CHECKED: $CHECKED')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(IDMATRICULE, IDORIGINE, CODEMATRICULE,
-      NOMMATRICULE, PRENOMMATRICULE, CHECKED, IDMATORIGINAL);
+      NOMMATRICULE, PRENOMMATRICULE, CHECKED);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1278,8 +1138,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
           other.CODEMATRICULE == this.CODEMATRICULE &&
           other.NOMMATRICULE == this.NOMMATRICULE &&
           other.PRENOMMATRICULE == this.PRENOMMATRICULE &&
-          other.CHECKED == this.CHECKED &&
-          other.IDMATORIGINAL == this.IDMATORIGINAL);
+          other.CHECKED == this.CHECKED);
 }
 
 class MatriculesCompanion extends UpdateCompanion<Matricule> {
@@ -1288,8 +1147,7 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
   final Value<String> CODEMATRICULE;
   final Value<String> NOMMATRICULE;
   final Value<String> PRENOMMATRICULE;
-  final Value<bool> CHECKED;
-  final Value<int?> IDMATORIGINAL;
+  final Value<bool?> CHECKED;
   const MatriculesCompanion({
     this.IDMATRICULE = const Value.absent(),
     this.IDORIGINE = const Value.absent(),
@@ -1297,7 +1155,6 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
     this.NOMMATRICULE = const Value.absent(),
     this.PRENOMMATRICULE = const Value.absent(),
     this.CHECKED = const Value.absent(),
-    this.IDMATORIGINAL = const Value.absent(),
   });
   MatriculesCompanion.insert({
     this.IDMATRICULE = const Value.absent(),
@@ -1306,7 +1163,6 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
     required String NOMMATRICULE,
     required String PRENOMMATRICULE,
     this.CHECKED = const Value.absent(),
-    this.IDMATORIGINAL = const Value.absent(),
   })  : CODEMATRICULE = Value(CODEMATRICULE),
         NOMMATRICULE = Value(NOMMATRICULE),
         PRENOMMATRICULE = Value(PRENOMMATRICULE);
@@ -1316,8 +1172,7 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
     Expression<String>? CODEMATRICULE,
     Expression<String>? NOMMATRICULE,
     Expression<String>? PRENOMMATRICULE,
-    Expression<bool>? CHECKED,
-    Expression<int?>? IDMATORIGINAL,
+    Expression<bool?>? CHECKED,
   }) {
     return RawValuesInsertable({
       if (IDMATRICULE != null) 'idmatricule': IDMATRICULE,
@@ -1326,7 +1181,6 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
       if (NOMMATRICULE != null) 'nommatricule': NOMMATRICULE,
       if (PRENOMMATRICULE != null) 'prenommatricule': PRENOMMATRICULE,
       if (CHECKED != null) 'checked': CHECKED,
-      if (IDMATORIGINAL != null) 'idmatoriginal': IDMATORIGINAL,
     });
   }
 
@@ -1336,8 +1190,7 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
       Value<String>? CODEMATRICULE,
       Value<String>? NOMMATRICULE,
       Value<String>? PRENOMMATRICULE,
-      Value<bool>? CHECKED,
-      Value<int?>? IDMATORIGINAL}) {
+      Value<bool?>? CHECKED}) {
     return MatriculesCompanion(
       IDMATRICULE: IDMATRICULE ?? this.IDMATRICULE,
       IDORIGINE: IDORIGINE ?? this.IDORIGINE,
@@ -1345,7 +1198,6 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
       NOMMATRICULE: NOMMATRICULE ?? this.NOMMATRICULE,
       PRENOMMATRICULE: PRENOMMATRICULE ?? this.PRENOMMATRICULE,
       CHECKED: CHECKED ?? this.CHECKED,
-      IDMATORIGINAL: IDMATORIGINAL ?? this.IDMATORIGINAL,
     );
   }
 
@@ -1368,10 +1220,7 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
       map['prenommatricule'] = Variable<String>(PRENOMMATRICULE.value);
     }
     if (CHECKED.present) {
-      map['checked'] = Variable<bool>(CHECKED.value);
-    }
-    if (IDMATORIGINAL.present) {
-      map['idmatoriginal'] = Variable<int?>(IDMATORIGINAL.value);
+      map['checked'] = Variable<bool?>(CHECKED.value);
     }
     return map;
   }
@@ -1384,8 +1233,7 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
           ..write('CODEMATRICULE: $CODEMATRICULE, ')
           ..write('NOMMATRICULE: $NOMMATRICULE, ')
           ..write('PRENOMMATRICULE: $PRENOMMATRICULE, ')
-          ..write('CHECKED: $CHECKED, ')
-          ..write('IDMATORIGINAL: $IDMATORIGINAL')
+          ..write('CHECKED: $CHECKED')
           ..write(')'))
         .toString();
   }
@@ -1433,16 +1281,11 @@ class $MatriculesTable extends Matricules
           requiredDuringInsert: true);
   final VerificationMeta _CHECKEDMeta = const VerificationMeta('CHECKED');
   late final GeneratedColumn<bool?> CHECKED = GeneratedColumn<bool?>(
-      'checked', aliasedName, false,
+      'checked', aliasedName, true,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (checked IN (0, 1))',
       defaultValue: const Constant(false));
-  final VerificationMeta _IDMATORIGINALMeta =
-      const VerificationMeta('IDMATORIGINAL');
-  late final GeneratedColumn<int?> IDMATORIGINAL = GeneratedColumn<int?>(
-      'idmatoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         IDMATRICULE,
@@ -1450,8 +1293,7 @@ class $MatriculesTable extends Matricules
         CODEMATRICULE,
         NOMMATRICULE,
         PRENOMMATRICULE,
-        CHECKED,
-        IDMATORIGINAL
+        CHECKED
       ];
   @override
   String get aliasedName => _alias ?? 'matricules';
@@ -1500,12 +1342,6 @@ class $MatriculesTable extends Matricules
       context.handle(_CHECKEDMeta,
           CHECKED.isAcceptableOrUnknown(data['checked']!, _CHECKEDMeta));
     }
-    if (data.containsKey('idmatoriginal')) {
-      context.handle(
-          _IDMATORIGINALMeta,
-          IDMATORIGINAL.isAcceptableOrUnknown(
-              data['idmatoriginal']!, _IDMATORIGINALMeta));
-    }
     return context;
   }
 
@@ -1528,13 +1364,11 @@ class Origine extends DataClass implements Insertable<Origine> {
   final int? IDSITE;
   final String CODEORIGINE;
   final String LIBELLEORIGINE;
-  final int? IDORIGINEORIGINAL;
   Origine(
       {required this.IDORIGINE,
       this.IDSITE,
       required this.CODEORIGINE,
-      required this.LIBELLEORIGINE,
-      this.IDORIGINEORIGINAL});
+      required this.LIBELLEORIGINE});
   factory Origine.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Origine(
@@ -1546,8 +1380,6 @@ class Origine extends DataClass implements Insertable<Origine> {
           .mapFromDatabaseResponse(data['${effectivePrefix}codeorigine'])!,
       LIBELLEORIGINE: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}libelleorigine'])!,
-      IDORIGINEORIGINAL: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}idorigineoriginal']),
     );
   }
   @override
@@ -1559,9 +1391,6 @@ class Origine extends DataClass implements Insertable<Origine> {
     }
     map['codeorigine'] = Variable<String>(CODEORIGINE);
     map['libelleorigine'] = Variable<String>(LIBELLEORIGINE);
-    if (!nullToAbsent || IDORIGINEORIGINAL != null) {
-      map['idorigineoriginal'] = Variable<int?>(IDORIGINEORIGINAL);
-    }
     return map;
   }
 
@@ -1572,9 +1401,6 @@ class Origine extends DataClass implements Insertable<Origine> {
           IDSITE == null && nullToAbsent ? const Value.absent() : Value(IDSITE),
       CODEORIGINE: Value(CODEORIGINE),
       LIBELLEORIGINE: Value(LIBELLEORIGINE),
-      IDORIGINEORIGINAL: IDORIGINEORIGINAL == null && nullToAbsent
-          ? const Value.absent()
-          : Value(IDORIGINEORIGINAL),
     );
   }
 
@@ -1586,7 +1412,6 @@ class Origine extends DataClass implements Insertable<Origine> {
       IDSITE: serializer.fromJson<int?>(json['IDSITE']),
       CODEORIGINE: serializer.fromJson<String>(json['CODEORIGINE']),
       LIBELLEORIGINE: serializer.fromJson<String>(json['LIBELLEORIGINE']),
-      IDORIGINEORIGINAL: serializer.fromJson<int?>(json['IDORIGINEORIGINAL']),
     );
   }
   @override
@@ -1597,7 +1422,6 @@ class Origine extends DataClass implements Insertable<Origine> {
       'IDSITE': serializer.toJson<int?>(IDSITE),
       'CODEORIGINE': serializer.toJson<String>(CODEORIGINE),
       'LIBELLEORIGINE': serializer.toJson<String>(LIBELLEORIGINE),
-      'IDORIGINEORIGINAL': serializer.toJson<int?>(IDORIGINEORIGINAL),
     };
   }
 
@@ -1605,14 +1429,12 @@ class Origine extends DataClass implements Insertable<Origine> {
           {int? IDORIGINE,
           int? IDSITE,
           String? CODEORIGINE,
-          String? LIBELLEORIGINE,
-          int? IDORIGINEORIGINAL}) =>
+          String? LIBELLEORIGINE}) =>
       Origine(
         IDORIGINE: IDORIGINE ?? this.IDORIGINE,
         IDSITE: IDSITE ?? this.IDSITE,
         CODEORIGINE: CODEORIGINE ?? this.CODEORIGINE,
         LIBELLEORIGINE: LIBELLEORIGINE ?? this.LIBELLEORIGINE,
-        IDORIGINEORIGINAL: IDORIGINEORIGINAL ?? this.IDORIGINEORIGINAL,
       );
   @override
   String toString() {
@@ -1620,15 +1442,14 @@ class Origine extends DataClass implements Insertable<Origine> {
           ..write('IDORIGINE: $IDORIGINE, ')
           ..write('IDSITE: $IDSITE, ')
           ..write('CODEORIGINE: $CODEORIGINE, ')
-          ..write('LIBELLEORIGINE: $LIBELLEORIGINE, ')
-          ..write('IDORIGINEORIGINAL: $IDORIGINEORIGINAL')
+          ..write('LIBELLEORIGINE: $LIBELLEORIGINE')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      IDORIGINE, IDSITE, CODEORIGINE, LIBELLEORIGINE, IDORIGINEORIGINAL);
+  int get hashCode =>
+      Object.hash(IDORIGINE, IDSITE, CODEORIGINE, LIBELLEORIGINE);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1636,8 +1457,7 @@ class Origine extends DataClass implements Insertable<Origine> {
           other.IDORIGINE == this.IDORIGINE &&
           other.IDSITE == this.IDSITE &&
           other.CODEORIGINE == this.CODEORIGINE &&
-          other.LIBELLEORIGINE == this.LIBELLEORIGINE &&
-          other.IDORIGINEORIGINAL == this.IDORIGINEORIGINAL);
+          other.LIBELLEORIGINE == this.LIBELLEORIGINE);
 }
 
 class OriginesCompanion extends UpdateCompanion<Origine> {
@@ -1645,20 +1465,17 @@ class OriginesCompanion extends UpdateCompanion<Origine> {
   final Value<int?> IDSITE;
   final Value<String> CODEORIGINE;
   final Value<String> LIBELLEORIGINE;
-  final Value<int?> IDORIGINEORIGINAL;
   const OriginesCompanion({
     this.IDORIGINE = const Value.absent(),
     this.IDSITE = const Value.absent(),
     this.CODEORIGINE = const Value.absent(),
     this.LIBELLEORIGINE = const Value.absent(),
-    this.IDORIGINEORIGINAL = const Value.absent(),
   });
   OriginesCompanion.insert({
     this.IDORIGINE = const Value.absent(),
     this.IDSITE = const Value.absent(),
     required String CODEORIGINE,
     required String LIBELLEORIGINE,
-    this.IDORIGINEORIGINAL = const Value.absent(),
   })  : CODEORIGINE = Value(CODEORIGINE),
         LIBELLEORIGINE = Value(LIBELLEORIGINE);
   static Insertable<Origine> custom({
@@ -1666,14 +1483,12 @@ class OriginesCompanion extends UpdateCompanion<Origine> {
     Expression<int?>? IDSITE,
     Expression<String>? CODEORIGINE,
     Expression<String>? LIBELLEORIGINE,
-    Expression<int?>? IDORIGINEORIGINAL,
   }) {
     return RawValuesInsertable({
       if (IDORIGINE != null) 'idorigine': IDORIGINE,
       if (IDSITE != null) 'idsite': IDSITE,
       if (CODEORIGINE != null) 'codeorigine': CODEORIGINE,
       if (LIBELLEORIGINE != null) 'libelleorigine': LIBELLEORIGINE,
-      if (IDORIGINEORIGINAL != null) 'idorigineoriginal': IDORIGINEORIGINAL,
     });
   }
 
@@ -1681,14 +1496,12 @@ class OriginesCompanion extends UpdateCompanion<Origine> {
       {Value<int>? IDORIGINE,
       Value<int?>? IDSITE,
       Value<String>? CODEORIGINE,
-      Value<String>? LIBELLEORIGINE,
-      Value<int?>? IDORIGINEORIGINAL}) {
+      Value<String>? LIBELLEORIGINE}) {
     return OriginesCompanion(
       IDORIGINE: IDORIGINE ?? this.IDORIGINE,
       IDSITE: IDSITE ?? this.IDSITE,
       CODEORIGINE: CODEORIGINE ?? this.CODEORIGINE,
       LIBELLEORIGINE: LIBELLEORIGINE ?? this.LIBELLEORIGINE,
-      IDORIGINEORIGINAL: IDORIGINEORIGINAL ?? this.IDORIGINEORIGINAL,
     );
   }
 
@@ -1707,9 +1520,6 @@ class OriginesCompanion extends UpdateCompanion<Origine> {
     if (LIBELLEORIGINE.present) {
       map['libelleorigine'] = Variable<String>(LIBELLEORIGINE.value);
     }
-    if (IDORIGINEORIGINAL.present) {
-      map['idorigineoriginal'] = Variable<int?>(IDORIGINEORIGINAL.value);
-    }
     return map;
   }
 
@@ -1719,8 +1529,7 @@ class OriginesCompanion extends UpdateCompanion<Origine> {
           ..write('IDORIGINE: $IDORIGINE, ')
           ..write('IDSITE: $IDSITE, ')
           ..write('CODEORIGINE: $CODEORIGINE, ')
-          ..write('LIBELLEORIGINE: $LIBELLEORIGINE, ')
-          ..write('IDORIGINEORIGINAL: $IDORIGINEORIGINAL')
+          ..write('LIBELLEORIGINE: $LIBELLEORIGINE')
           ..write(')'))
         .toString();
   }
@@ -1756,14 +1565,9 @@ class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 48),
       typeName: 'TEXT',
       requiredDuringInsert: true);
-  final VerificationMeta _IDORIGINEORIGINALMeta =
-      const VerificationMeta('IDORIGINEORIGINAL');
-  late final GeneratedColumn<int?> IDORIGINEORIGINAL = GeneratedColumn<int?>(
-      'idorigineoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns =>
-      [IDORIGINE, IDSITE, CODEORIGINE, LIBELLEORIGINE, IDORIGINEORIGINAL];
+      [IDORIGINE, IDSITE, CODEORIGINE, LIBELLEORIGINE];
   @override
   String get aliasedName => _alias ?? 'origines';
   @override
@@ -1797,12 +1601,6 @@ class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
     } else if (isInserting) {
       context.missing(_LIBELLEORIGINEMeta);
     }
-    if (data.containsKey('idorigineoriginal')) {
-      context.handle(
-          _IDORIGINEORIGINALMeta,
-          IDORIGINEORIGINAL.isAcceptableOrUnknown(
-              data['idorigineoriginal']!, _IDORIGINEORIGINALMeta));
-    }
     return context;
   }
 
@@ -1835,7 +1633,6 @@ class OtData extends DataClass implements Insertable<OtData> {
   final DateTime DTWAITOT;
   final DateTime DTCANCOT;
   final DateTime DTCLOSOT;
-  final int? IDOTORIGINAL;
   OtData(
       {required this.IDOT,
       this.IDORIGINE,
@@ -1850,8 +1647,7 @@ class OtData extends DataClass implements Insertable<OtData> {
       required this.DTEXECOT,
       required this.DTWAITOT,
       required this.DTCANCOT,
-      required this.DTCLOSOT,
-      this.IDOTORIGINAL});
+      required this.DTCLOSOT});
   factory OtData.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return OtData(
@@ -1883,8 +1679,6 @@ class OtData extends DataClass implements Insertable<OtData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}dtcancot'])!,
       DTCLOSOT: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}dtclosot'])!,
-      IDOTORIGINAL: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}idotoriginal']),
     );
   }
   @override
@@ -1910,9 +1704,6 @@ class OtData extends DataClass implements Insertable<OtData> {
     map['dtwaitot'] = Variable<DateTime>(DTWAITOT);
     map['dtcancot'] = Variable<DateTime>(DTCANCOT);
     map['dtclosot'] = Variable<DateTime>(DTCLOSOT);
-    if (!nullToAbsent || IDOTORIGINAL != null) {
-      map['idotoriginal'] = Variable<int?>(IDOTORIGINAL);
-    }
     return map;
   }
 
@@ -1938,9 +1729,6 @@ class OtData extends DataClass implements Insertable<OtData> {
       DTWAITOT: Value(DTWAITOT),
       DTCANCOT: Value(DTCANCOT),
       DTCLOSOT: Value(DTCLOSOT),
-      IDOTORIGINAL: IDOTORIGINAL == null && nullToAbsent
-          ? const Value.absent()
-          : Value(IDOTORIGINAL),
     );
   }
 
@@ -1962,7 +1750,6 @@ class OtData extends DataClass implements Insertable<OtData> {
       DTWAITOT: serializer.fromJson<DateTime>(json['DTWAITOT']),
       DTCANCOT: serializer.fromJson<DateTime>(json['DTCANCOT']),
       DTCLOSOT: serializer.fromJson<DateTime>(json['DTCLOSOT']),
-      IDOTORIGINAL: serializer.fromJson<int?>(json['IDOTORIGINAL']),
     );
   }
   @override
@@ -1983,7 +1770,6 @@ class OtData extends DataClass implements Insertable<OtData> {
       'DTWAITOT': serializer.toJson<DateTime>(DTWAITOT),
       'DTCANCOT': serializer.toJson<DateTime>(DTCANCOT),
       'DTCLOSOT': serializer.toJson<DateTime>(DTCLOSOT),
-      'IDOTORIGINAL': serializer.toJson<int?>(IDOTORIGINAL),
     };
   }
 
@@ -2001,8 +1787,7 @@ class OtData extends DataClass implements Insertable<OtData> {
           DateTime? DTEXECOT,
           DateTime? DTWAITOT,
           DateTime? DTCANCOT,
-          DateTime? DTCLOSOT,
-          int? IDOTORIGINAL}) =>
+          DateTime? DTCLOSOT}) =>
       OtData(
         IDOT: IDOT ?? this.IDOT,
         IDORIGINE: IDORIGINE ?? this.IDORIGINE,
@@ -2018,7 +1803,6 @@ class OtData extends DataClass implements Insertable<OtData> {
         DTWAITOT: DTWAITOT ?? this.DTWAITOT,
         DTCANCOT: DTCANCOT ?? this.DTCANCOT,
         DTCLOSOT: DTCLOSOT ?? this.DTCLOSOT,
-        IDOTORIGINAL: IDOTORIGINAL ?? this.IDOTORIGINAL,
       );
   @override
   String toString() {
@@ -2036,8 +1820,7 @@ class OtData extends DataClass implements Insertable<OtData> {
           ..write('DTEXECOT: $DTEXECOT, ')
           ..write('DTWAITOT: $DTWAITOT, ')
           ..write('DTCANCOT: $DTCANCOT, ')
-          ..write('DTCLOSOT: $DTCLOSOT, ')
-          ..write('IDOTORIGINAL: $IDOTORIGINAL')
+          ..write('DTCLOSOT: $DTCLOSOT')
           ..write(')'))
         .toString();
   }
@@ -2057,8 +1840,7 @@ class OtData extends DataClass implements Insertable<OtData> {
       DTEXECOT,
       DTWAITOT,
       DTCANCOT,
-      DTCLOSOT,
-      IDOTORIGINAL);
+      DTCLOSOT);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2076,8 +1858,7 @@ class OtData extends DataClass implements Insertable<OtData> {
           other.DTEXECOT == this.DTEXECOT &&
           other.DTWAITOT == this.DTWAITOT &&
           other.DTCANCOT == this.DTCANCOT &&
-          other.DTCLOSOT == this.DTCLOSOT &&
-          other.IDOTORIGINAL == this.IDOTORIGINAL);
+          other.DTCLOSOT == this.DTCLOSOT);
 }
 
 class OtCompanion extends UpdateCompanion<OtData> {
@@ -2095,7 +1876,6 @@ class OtCompanion extends UpdateCompanion<OtData> {
   final Value<DateTime> DTWAITOT;
   final Value<DateTime> DTCANCOT;
   final Value<DateTime> DTCLOSOT;
-  final Value<int?> IDOTORIGINAL;
   const OtCompanion({
     this.IDOT = const Value.absent(),
     this.IDORIGINE = const Value.absent(),
@@ -2111,7 +1891,6 @@ class OtCompanion extends UpdateCompanion<OtData> {
     this.DTWAITOT = const Value.absent(),
     this.DTCANCOT = const Value.absent(),
     this.DTCLOSOT = const Value.absent(),
-    this.IDOTORIGINAL = const Value.absent(),
   });
   OtCompanion.insert({
     this.IDOT = const Value.absent(),
@@ -2128,7 +1907,6 @@ class OtCompanion extends UpdateCompanion<OtData> {
     required DateTime DTWAITOT,
     required DateTime DTCANCOT,
     required DateTime DTCLOSOT,
-    this.IDOTORIGINAL = const Value.absent(),
   })  : CODEOT = Value(CODEOT),
         LIBELLEOT = Value(LIBELLEOT),
         COMENTOT = Value(COMENTOT),
@@ -2154,7 +1932,6 @@ class OtCompanion extends UpdateCompanion<OtData> {
     Expression<DateTime>? DTWAITOT,
     Expression<DateTime>? DTCANCOT,
     Expression<DateTime>? DTCLOSOT,
-    Expression<int?>? IDOTORIGINAL,
   }) {
     return RawValuesInsertable({
       if (IDOT != null) 'idot': IDOT,
@@ -2171,7 +1948,6 @@ class OtCompanion extends UpdateCompanion<OtData> {
       if (DTWAITOT != null) 'dtwaitot': DTWAITOT,
       if (DTCANCOT != null) 'dtcancot': DTCANCOT,
       if (DTCLOSOT != null) 'dtclosot': DTCLOSOT,
-      if (IDOTORIGINAL != null) 'idotoriginal': IDOTORIGINAL,
     });
   }
 
@@ -2189,8 +1965,7 @@ class OtCompanion extends UpdateCompanion<OtData> {
       Value<DateTime>? DTEXECOT,
       Value<DateTime>? DTWAITOT,
       Value<DateTime>? DTCANCOT,
-      Value<DateTime>? DTCLOSOT,
-      Value<int?>? IDOTORIGINAL}) {
+      Value<DateTime>? DTCLOSOT}) {
     return OtCompanion(
       IDOT: IDOT ?? this.IDOT,
       IDORIGINE: IDORIGINE ?? this.IDORIGINE,
@@ -2206,7 +1981,6 @@ class OtCompanion extends UpdateCompanion<OtData> {
       DTWAITOT: DTWAITOT ?? this.DTWAITOT,
       DTCANCOT: DTCANCOT ?? this.DTCANCOT,
       DTCLOSOT: DTCLOSOT ?? this.DTCLOSOT,
-      IDOTORIGINAL: IDOTORIGINAL ?? this.IDOTORIGINAL,
     );
   }
 
@@ -2255,9 +2029,6 @@ class OtCompanion extends UpdateCompanion<OtData> {
     if (DTCLOSOT.present) {
       map['dtclosot'] = Variable<DateTime>(DTCLOSOT.value);
     }
-    if (IDOTORIGINAL.present) {
-      map['idotoriginal'] = Variable<int?>(IDOTORIGINAL.value);
-    }
     return map;
   }
 
@@ -2277,8 +2048,7 @@ class OtCompanion extends UpdateCompanion<OtData> {
           ..write('DTEXECOT: $DTEXECOT, ')
           ..write('DTWAITOT: $DTWAITOT, ')
           ..write('DTCANCOT: $DTCANCOT, ')
-          ..write('DTCLOSOT: $DTCLOSOT, ')
-          ..write('IDOTORIGINAL: $IDOTORIGINAL')
+          ..write('DTCLOSOT: $DTCLOSOT')
           ..write(')'))
         .toString();
   }
@@ -2364,11 +2134,6 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
   late final GeneratedColumn<DateTime?> DTCLOSOT = GeneratedColumn<DateTime?>(
       'dtclosot', aliasedName, false,
       typeName: 'INTEGER', requiredDuringInsert: true);
-  final VerificationMeta _IDOTORIGINALMeta =
-      const VerificationMeta('IDOTORIGINAL');
-  late final GeneratedColumn<int?> IDOTORIGINAL = GeneratedColumn<int?>(
-      'idotoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         IDOT,
@@ -2384,8 +2149,7 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
         DTEXECOT,
         DTWAITOT,
         DTCANCOT,
-        DTCLOSOT,
-        IDOTORIGINAL
+        DTCLOSOT
       ];
   @override
   String get aliasedName => _alias ?? 'ot';
@@ -2476,12 +2240,6 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
     } else if (isInserting) {
       context.missing(_DTCLOSOTMeta);
     }
-    if (data.containsKey('idotoriginal')) {
-      context.handle(
-          _IDOTORIGINALMeta,
-          IDOTORIGINAL.isAcceptableOrUnknown(
-              data['idotoriginal']!, _IDOTORIGINALMeta));
-    }
     return context;
   }
 
@@ -2506,15 +2264,13 @@ class Reservation extends DataClass implements Insertable<Reservation> {
   final String LIBELLEARTICLE;
   final int QTEARTICLE;
   final int IDARTICLE;
-  final int? IDPIECEORIGINAL;
   Reservation(
       {required this.IDPIECE,
       this.IDOT,
       this.CODEARTICLE,
       required this.LIBELLEARTICLE,
       required this.QTEARTICLE,
-      required this.IDARTICLE,
-      this.IDPIECEORIGINAL});
+      required this.IDARTICLE});
   factory Reservation.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Reservation(
@@ -2530,8 +2286,6 @@ class Reservation extends DataClass implements Insertable<Reservation> {
           .mapFromDatabaseResponse(data['${effectivePrefix}qtearticle'])!,
       IDARTICLE: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}idarticle'])!,
-      IDPIECEORIGINAL: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}idpieceoriginal']),
     );
   }
   @override
@@ -2547,9 +2301,6 @@ class Reservation extends DataClass implements Insertable<Reservation> {
     map['libellearticle'] = Variable<String>(LIBELLEARTICLE);
     map['qtearticle'] = Variable<int>(QTEARTICLE);
     map['idarticle'] = Variable<int>(IDARTICLE);
-    if (!nullToAbsent || IDPIECEORIGINAL != null) {
-      map['idpieceoriginal'] = Variable<int?>(IDPIECEORIGINAL);
-    }
     return map;
   }
 
@@ -2563,9 +2314,6 @@ class Reservation extends DataClass implements Insertable<Reservation> {
       LIBELLEARTICLE: Value(LIBELLEARTICLE),
       QTEARTICLE: Value(QTEARTICLE),
       IDARTICLE: Value(IDARTICLE),
-      IDPIECEORIGINAL: IDPIECEORIGINAL == null && nullToAbsent
-          ? const Value.absent()
-          : Value(IDPIECEORIGINAL),
     );
   }
 
@@ -2579,7 +2327,6 @@ class Reservation extends DataClass implements Insertable<Reservation> {
       LIBELLEARTICLE: serializer.fromJson<String>(json['LIBELLEARTICLE']),
       QTEARTICLE: serializer.fromJson<int>(json['QTEARTICLE']),
       IDARTICLE: serializer.fromJson<int>(json['IDARTICLE']),
-      IDPIECEORIGINAL: serializer.fromJson<int?>(json['IDPIECEORIGINAL']),
     );
   }
   @override
@@ -2592,7 +2339,6 @@ class Reservation extends DataClass implements Insertable<Reservation> {
       'LIBELLEARTICLE': serializer.toJson<String>(LIBELLEARTICLE),
       'QTEARTICLE': serializer.toJson<int>(QTEARTICLE),
       'IDARTICLE': serializer.toJson<int>(IDARTICLE),
-      'IDPIECEORIGINAL': serializer.toJson<int?>(IDPIECEORIGINAL),
     };
   }
 
@@ -2602,8 +2348,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
           String? CODEARTICLE,
           String? LIBELLEARTICLE,
           int? QTEARTICLE,
-          int? IDARTICLE,
-          int? IDPIECEORIGINAL}) =>
+          int? IDARTICLE}) =>
       Reservation(
         IDPIECE: IDPIECE ?? this.IDPIECE,
         IDOT: IDOT ?? this.IDOT,
@@ -2611,7 +2356,6 @@ class Reservation extends DataClass implements Insertable<Reservation> {
         LIBELLEARTICLE: LIBELLEARTICLE ?? this.LIBELLEARTICLE,
         QTEARTICLE: QTEARTICLE ?? this.QTEARTICLE,
         IDARTICLE: IDARTICLE ?? this.IDARTICLE,
-        IDPIECEORIGINAL: IDPIECEORIGINAL ?? this.IDPIECEORIGINAL,
       );
   @override
   String toString() {
@@ -2621,15 +2365,14 @@ class Reservation extends DataClass implements Insertable<Reservation> {
           ..write('CODEARTICLE: $CODEARTICLE, ')
           ..write('LIBELLEARTICLE: $LIBELLEARTICLE, ')
           ..write('QTEARTICLE: $QTEARTICLE, ')
-          ..write('IDARTICLE: $IDARTICLE, ')
-          ..write('IDPIECEORIGINAL: $IDPIECEORIGINAL')
+          ..write('IDARTICLE: $IDARTICLE')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(IDPIECE, IDOT, CODEARTICLE, LIBELLEARTICLE,
-      QTEARTICLE, IDARTICLE, IDPIECEORIGINAL);
+  int get hashCode => Object.hash(
+      IDPIECE, IDOT, CODEARTICLE, LIBELLEARTICLE, QTEARTICLE, IDARTICLE);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2639,8 +2382,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
           other.CODEARTICLE == this.CODEARTICLE &&
           other.LIBELLEARTICLE == this.LIBELLEARTICLE &&
           other.QTEARTICLE == this.QTEARTICLE &&
-          other.IDARTICLE == this.IDARTICLE &&
-          other.IDPIECEORIGINAL == this.IDPIECEORIGINAL);
+          other.IDARTICLE == this.IDARTICLE);
 }
 
 class ReservationsCompanion extends UpdateCompanion<Reservation> {
@@ -2650,7 +2392,6 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
   final Value<String> LIBELLEARTICLE;
   final Value<int> QTEARTICLE;
   final Value<int> IDARTICLE;
-  final Value<int?> IDPIECEORIGINAL;
   const ReservationsCompanion({
     this.IDPIECE = const Value.absent(),
     this.IDOT = const Value.absent(),
@@ -2658,7 +2399,6 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
     this.LIBELLEARTICLE = const Value.absent(),
     this.QTEARTICLE = const Value.absent(),
     this.IDARTICLE = const Value.absent(),
-    this.IDPIECEORIGINAL = const Value.absent(),
   });
   ReservationsCompanion.insert({
     this.IDPIECE = const Value.absent(),
@@ -2667,7 +2407,6 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
     required String LIBELLEARTICLE,
     required int QTEARTICLE,
     required int IDARTICLE,
-    this.IDPIECEORIGINAL = const Value.absent(),
   })  : LIBELLEARTICLE = Value(LIBELLEARTICLE),
         QTEARTICLE = Value(QTEARTICLE),
         IDARTICLE = Value(IDARTICLE);
@@ -2678,7 +2417,6 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
     Expression<String>? LIBELLEARTICLE,
     Expression<int>? QTEARTICLE,
     Expression<int>? IDARTICLE,
-    Expression<int?>? IDPIECEORIGINAL,
   }) {
     return RawValuesInsertable({
       if (IDPIECE != null) 'idpiece': IDPIECE,
@@ -2687,7 +2425,6 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
       if (LIBELLEARTICLE != null) 'libellearticle': LIBELLEARTICLE,
       if (QTEARTICLE != null) 'qtearticle': QTEARTICLE,
       if (IDARTICLE != null) 'idarticle': IDARTICLE,
-      if (IDPIECEORIGINAL != null) 'idpieceoriginal': IDPIECEORIGINAL,
     });
   }
 
@@ -2697,8 +2434,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
       Value<String?>? CODEARTICLE,
       Value<String>? LIBELLEARTICLE,
       Value<int>? QTEARTICLE,
-      Value<int>? IDARTICLE,
-      Value<int?>? IDPIECEORIGINAL}) {
+      Value<int>? IDARTICLE}) {
     return ReservationsCompanion(
       IDPIECE: IDPIECE ?? this.IDPIECE,
       IDOT: IDOT ?? this.IDOT,
@@ -2706,7 +2442,6 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
       LIBELLEARTICLE: LIBELLEARTICLE ?? this.LIBELLEARTICLE,
       QTEARTICLE: QTEARTICLE ?? this.QTEARTICLE,
       IDARTICLE: IDARTICLE ?? this.IDARTICLE,
-      IDPIECEORIGINAL: IDPIECEORIGINAL ?? this.IDPIECEORIGINAL,
     );
   }
 
@@ -2731,9 +2466,6 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
     if (IDARTICLE.present) {
       map['idarticle'] = Variable<int>(IDARTICLE.value);
     }
-    if (IDPIECEORIGINAL.present) {
-      map['idpieceoriginal'] = Variable<int?>(IDPIECEORIGINAL.value);
-    }
     return map;
   }
 
@@ -2745,8 +2477,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
           ..write('CODEARTICLE: $CODEARTICLE, ')
           ..write('LIBELLEARTICLE: $LIBELLEARTICLE, ')
           ..write('QTEARTICLE: $QTEARTICLE, ')
-          ..write('IDARTICLE: $IDARTICLE, ')
-          ..write('IDPIECEORIGINAL: $IDPIECEORIGINAL')
+          ..write('IDARTICLE: $IDARTICLE')
           ..write(')'))
         .toString();
   }
@@ -2792,21 +2523,9 @@ class $ReservationsTable extends Reservations
   late final GeneratedColumn<int?> IDARTICLE = GeneratedColumn<int?>(
       'idarticle', aliasedName, false,
       typeName: 'INTEGER', requiredDuringInsert: true);
-  final VerificationMeta _IDPIECEORIGINALMeta =
-      const VerificationMeta('IDPIECEORIGINAL');
-  late final GeneratedColumn<int?> IDPIECEORIGINAL = GeneratedColumn<int?>(
-      'idpieceoriginal', aliasedName, true,
-      typeName: 'INTEGER', requiredDuringInsert: false);
   @override
-  List<GeneratedColumn> get $columns => [
-        IDPIECE,
-        IDOT,
-        CODEARTICLE,
-        LIBELLEARTICLE,
-        QTEARTICLE,
-        IDARTICLE,
-        IDPIECEORIGINAL
-      ];
+  List<GeneratedColumn> get $columns =>
+      [IDPIECE, IDOT, CODEARTICLE, LIBELLEARTICLE, QTEARTICLE, IDARTICLE];
   @override
   String get aliasedName => _alias ?? 'reservations';
   @override
@@ -2851,12 +2570,6 @@ class $ReservationsTable extends Reservations
           IDARTICLE.isAcceptableOrUnknown(data['idarticle']!, _IDARTICLEMeta));
     } else if (isInserting) {
       context.missing(_IDARTICLEMeta);
-    }
-    if (data.containsKey('idpieceoriginal')) {
-      context.handle(
-          _IDPIECEORIGINALMeta,
-          IDPIECEORIGINAL.isAcceptableOrUnknown(
-              data['idpieceoriginal']!, _IDPIECEORIGINALMeta));
     }
     return context;
   }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/sites_bloc.dart';
-import 'package:iomer/models/repository/in_repository.dart';
+import 'package:iomer/bloc/site/sites_bloc.dart';
+
+import 'package:iomer/config/injection.dart';
 import 'package:iomer/ui/first_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -16,7 +16,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    _sitesBloc = SitesBloc(InRepository())..add(FetchSites());
+    _sitesBloc = getIt.get<SitesBloc>();
+    _sitesBloc..add(FetchEventSites());
     super.initState();
   }
 
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Iomer'),
+        title: const Text('Iomere'),
       ),
       body: Container(
         padding: const EdgeInsets.all(20.0),
@@ -44,16 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Container(
                 decoration:
                     BoxDecoration(border: Border.all(color: Colors.black)),
-                //padding: const EdgeInsets.all(16.0) ,
-                //   child: ListView.builder(
-                //     itemCount: _texts.length,
-                //     itemBuilder: (context, index) {
-                //       return ListTile(
-                //         title: Text(_texts[index]),
-                //       );
-                //       },
-                //   ),
-                // ),
                 child: BlocProvider(
                   create: (context) => _sitesBloc,
                   child: BlocBuilder<SitesBloc, SitesState>(
@@ -89,7 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   context,
                   MaterialPageRoute(builder: (context) => const FirstScreen()),
                 );
-                // _citiesBloc.add(const GetCities());
               },
               child: const Text('Valider'),
               style: ElevatedButton.styleFrom(

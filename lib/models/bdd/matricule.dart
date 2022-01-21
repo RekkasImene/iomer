@@ -10,16 +10,16 @@ class Matricules extends Table {
   TextColumn get CODEMATRICULE => text().withLength(min: 1, max: 12)();
   TextColumn get NOMMATRICULE => text().withLength(min: 1, max: 48)();
   TextColumn get PRENOMMATRICULE => text().withLength(min: 1, max: 48)();
-  BoolColumn get CHECKED => boolean().nullable().withDefault(const Constant(false))();
+  BoolColumn get CHECKED =>
+      boolean().nullable().withDefault(const Constant(false))();
 
   @override
   Set<Column> get primaryKey => {IDMATRICULE};
 }
 
-@DriftAccessor(
-    tables:[Matricules]
-)
-class MatriculeDao extends DatabaseAccessor<IomerDatabase> with _$MatriculeDaoMixin{
+@DriftAccessor(tables: [Matricules])
+class MatriculeDao extends DatabaseAccessor<IomerDatabase>
+    with _$MatriculeDaoMixin {
   final IomerDatabase db;
-  MatriculeDao(this.db):super (db);
+  MatriculeDao(this.db) : super(db);
 }

@@ -17,7 +17,8 @@ class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
     on<MatriculeEvent>((event, emit) async {
       if (event is MatriculeEvent) {
         emit(MatriculeLoading());
-        final matricule = await _repository.getAllWorkers();
+        final matricule = await _repository.getAllMatricule();
+        print(matricule.length);
         if (matricule != null) {
           emit(MatriculeLoaded(matricule));
         } else {

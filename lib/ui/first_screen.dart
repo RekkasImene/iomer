@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/matricule/matricule_bloc.dart';
@@ -23,8 +25,8 @@ class _FirstScreenState extends State<FirstScreen> {
   //   "Paul",
   //   "Jack"
   // ];
-  List<bool> _isChecked = false as List<bool>;
-
+  late List<bool> _isChecked = [false, false];
+  late bool ischecked;
   @override
   void initState() {
     _matriculeBloc = getIt.get<MatriculeBloc>();
@@ -65,17 +67,23 @@ class _FirstScreenState extends State<FirstScreen> {
                           return ListView.builder(
                             itemCount: state.matricule.length,
                             itemBuilder: (context, index) {
+                              ischecked = false;
+                              log("isckeck111 : " +
+                                  state.matricule[index].CHECKED.toString());
+                              log("ischecked = " + ischecked.toString());
                               /*_isChecked = List<bool>.filled(
                                   state.matricule[index].NOMMATRICULE.length,
                                   false);*/
+
                               return CheckboxListTile(
                                 title:
                                     Text(state.matricule[index].NOMMATRICULE),
-                                value: _isChecked[index],
+                                //  value: _isChecked[index],
+                                value: ischecked,
                                 onChanged: (val) {
                                   setState(
                                     () {
-                                      _isChecked[index] = val!;
+                                      ischecked = val!;
                                       print(_isChecked);
                                     },
                                   );

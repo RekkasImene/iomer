@@ -1285,7 +1285,7 @@ class $MatriculesTable extends Matricules
       typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultConstraints: 'CHECK (checked IN (0, 1))',
-      defaultValue: const Constant(false));
+      defaultValue: const Constant(true));
   @override
   List<GeneratedColumn> get $columns => [
         IDMATRICULE,

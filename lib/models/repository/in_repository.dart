@@ -40,7 +40,7 @@ class InRepository extends InRepositoryAbs {
     return fetchSite();
   }
 
-  Future<List<Matricule>> getAllWorkers() {
+  Future<List<Matricule>> getAllMatricule() {
     Future<List<Matricule>> matricule = fetchMatricules(14);
     print(matricule);
     return matricule;

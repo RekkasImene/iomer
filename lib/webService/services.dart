@@ -156,3 +156,63 @@ Future<List<Reservation>> fetchReservations(int idOt) async {
     throw Exception('Failed to load Config');
   }
 }
+<<<<<<< HEAD
+=======
+
+Future<void> postOt(
+    int idOt, String commentOt, double tempsOt, String statutOt) async {
+  String newtempsOt = tempsOt.toString();
+  newtempsOt = newtempsOt.replaceAll('.', ',');
+  print('$url/SetOt/$idOt/$commentOt/$newtempsOt/$statutOt');
+
+  final response = await http
+      .get(Uri.parse('$url/SetOt/$idOt/$commentOt/$tempsOt/$statutOt'));
+}
+
+Future<void> postOtTache(
+    int idTache, String statutTache, String commentTache) async {
+  print('$url/SETOT_TACHE/$idTache/$statutTache/$commentTache');
+
+  final response = await http
+      .get(Uri.parse('$url/SETOT_TACHE/$idTache/$statutTache/$commentTache'));
+}
+
+Future<void> postOtArticle(int idPiece, double qteArticle) async {
+  String newQteArticle = qteArticle.toString();
+  newQteArticle = newQteArticle.replaceAll('.', ',');
+
+  print('$url/SETOT_ARTICLE/$idPiece/$newQteArticle');
+  final response =
+      await http.get(Uri.parse('$url/SETOT_ARTICLE/$idPiece/$newQteArticle'));
+}
+
+Future<void> postMatricule(int idMatricule, int checked) async {
+  print('$url/SETMATRICULE/$idMatricule/$checked');
+
+  final response =
+      await http.get(Uri.parse('$url/SETMATRICULE/$idMatricule/$checked'));
+}
+
+Future<void> postAttachment(int idOt, String attachment) async {
+  print('$url/SETATTACHMENT/$idOt/$attachment');
+
+  final response =
+      await http.get(Uri.parse('$url/SETATTACHMENT/$idOt/$attachment'));
+}
+
+Future<void> createOtArticle(int idOt, int idArticle, double qteArticle) async {
+  String newQteArticle = qteArticle.toString();
+  newQteArticle = newQteArticle.replaceAll('.', ',');
+  print('$url/CREATEOT_ARTICLE/$idOt/$idArticle/$newQteArticle');
+
+  final response = await http
+      .get(Uri.parse('$url/CREATEOT_ARTICLE/$idOt/$idArticle/$newQteArticle'));
+}
+
+Future<void> createOt(
+    int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
+  print('$url/CREATEOT/$idEquipement/$idOrigine/$idCategorie/$libelleOt');
+  final response = await http.get(Uri.parse(
+      '$url/CREATEOT/$idEquipement/$idOrigine/$idCategorie/$libelleOt'));
+}
+>>>>>>> 1b12525ee0773d2312780455cb32b2a60222487f

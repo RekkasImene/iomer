@@ -17,6 +17,6 @@ class SiteDao extends DatabaseAccessor<IomerDatabase> with _$SiteDaoMixin {
   final IomerDatabase db;
   SiteDao(this.db) : super(db);
 
-  Future insertSite(SitesCompanion site) => into(sites).insert(site);
+  Future insertSite(Site site) => into(sites).insertOnConflictUpdate(site);
   Future<List<Site>> getAllSites() => select(sites).get();
 }

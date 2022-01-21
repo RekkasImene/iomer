@@ -7,8 +7,8 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../bloc/site/sites_bloc.dart' as _i7;
-import '../bloc/matricule/matricule_bloc.dart' as _i8;
+import '../bloc/matricule/matricule_bloc.dart' as _i7;
+import '../bloc/site/sites_bloc.dart' as _i8;
 import '../models/bdd/iomer_database.dart' as _i3;
 import '../models/repository/in_repository.dart' as _i6;
 import '../models/repository/local_repository.dart' as _i4;
@@ -31,10 +31,10 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       registerFor: {_prod});
   gh.singleton<_i6.InRepository>(_i6.InRepository(get<_i3.IomerDatabase>()),
       registerFor: {_prod});
-  gh.factory<_i7.SitesBloc>(() => _i7.SitesBloc(get<_i6.InRepository>()),
+  gh.factory<_i7.MatriculeBloc>(
+      () => _i7.MatriculeBloc(get<_i6.InRepository>()),
       registerFor: {_prod});
-  gh.factory<_i8.MatriculeBloc>(
-      () => _i8.MatriculeBloc(get<_i6.InRepository>()),
+  gh.factory<_i8.SitesBloc>(() => _i8.SitesBloc(get<_i6.InRepository>()),
       registerFor: {_prod});
   return get;
 }

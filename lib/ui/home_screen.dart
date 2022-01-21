@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/site/sites_bloc.dart';
-
 import 'package:iomer/config/injection.dart';
+import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/ui/first_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,11 +13,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late SitesBloc _sitesBloc;
+  late Site? chooseSiteValue;
 
   @override
   void initState() {
     _sitesBloc = getIt.get<SitesBloc>();
-    _sitesBloc..add(FetchEventSites());
+    _sitesBloc.add(FetchEventSites());
+    chooseSiteValue = null;
     super.initState();
   }
 
@@ -34,28 +36,37 @@ class _HomeScreenState extends State<HomeScreen> {
             const Align(
               alignment: Alignment.topLeft,
               child: Text(
-                "Site :",
+                "Selectionner le site et le Service",
                 style: TextStyle(fontSize: 20),
               ),
             ),
             const SizedBox(height: 20),
 
             /*expanded permet de remplir la place*/
-            Expanded(
-              child: Container(
-                decoration:
-                    BoxDecoration(border: Border.all(color: Colors.black)),
-                child: BlocProvider(
+            Row(
+              children: [
+                const Align(
+                  alignment: Alignment.topLeft,
+                ),
+                BlocProvider(
                   create: (context) => _sitesBloc,
                   child: BlocBuilder<SitesBloc, SitesState>(
                     builder: (context, state) {
                       if (state is SitesLoaded) {
-                        return ListView.builder(
-                          itemCount: state.sites.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(state.sites[index].NOMSITE),
+                        return DropdownButton<Site>(
+                          value: chooseSiteValue,
+                          items: state.sites.map((Site valueItem) {
+                            return DropdownMenuItem<Site>(
+                              value: valueItem,
+                              child: Text(valueItem.NOMSITE),
                             );
+                          }).toList(),
+                          onChanged: (Site? newvalue) {
+                            setState(() {
+                              print(newvalue.toString());
+                              chooseSiteValue = newvalue!;
+                              print(chooseSiteValue.toString());
+                            });
                           },
                         );
                       } else if (state is SitesError) {
@@ -70,11 +81,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
-              ),
+              ],
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              //pour griser
               onPressed: () {
                 Navigator.push(
                   context,

@@ -23,7 +23,7 @@ class _FirstScreenState extends State<FirstScreen> {
   //   "Paul",
   //   "Jack"
   // ];
-  List<bool> _isChecked = false as List<bool>;
+  final List<bool> _isChecked = false as List<bool>;
 
   @override
   void initState() {

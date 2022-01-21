@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/sites_bloc.dart';
+import 'package:iomer/bloc/site/sites_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/models/repository/in_repository.dart';
 import 'package:iomer/ui/first_screen.dart';
 
 class HomeScreen extends StatefulWidget {

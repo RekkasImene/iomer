@@ -10,6 +10,7 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   //TODO a remplacer avec données (les memes que pour l'ecran cloture)
+
   final List<String> _texts = [
     "Jean Michelle",
     "Jean Pierre",
@@ -19,6 +20,7 @@ class _FirstScreenState extends State<FirstScreen> {
     "Paul",
     "Jack"
   ];
+
   late List<bool> _isChecked;
 
   @override
@@ -51,7 +53,6 @@ class _FirstScreenState extends State<FirstScreen> {
               child: Container(
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black)),
-                  //padding: const EdgeInsets.all(16.0) ,
                   child: ListView.builder(
                     itemCount: _texts.length,
                     itemBuilder: (context, index) {

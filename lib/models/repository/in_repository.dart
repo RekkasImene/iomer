@@ -3,7 +3,6 @@
 import 'dart:developer';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/config.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/services.dart';
 
@@ -43,7 +42,6 @@ class InRepository extends InRepositoryAbs {
       log(error);
     });
   }
-
 
   void updateOrigines(int idSite){
     futureOrigines=fetchOrigines(idSite);

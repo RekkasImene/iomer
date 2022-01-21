@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iomer/bloc/matricule/matricule_bloc.dart';
+import 'package:iomer/config/injection.dart';
 import 'package:iomer/ui/select_machine.dart';
 
 class FirstScreen extends StatefulWidget {
@@ -9,22 +12,24 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+  late MatriculeBloc _matriculeBloc;
   //TODO a remplacer avec données (les memes que pour l'ecran cloture)
-  final List<String> _texts = [
-    "Jean Michelle",
-    "Jean Pierre",
-    "Pierre Jean",
-    "Jean Marie Cecile",
-    "Pierre",
-    "Paul",
-    "Jack"
-  ];
-  late List<bool> _isChecked;
+  // final List<String> _texts = [
+  //   "Jean Michelle",
+  //   "Jean Pierre",
+  //   "Pierre Jean",
+  //   "Jean Marie Cecile",
+  //   "Pierre",
+  //   "Paul",
+  //   "Jack"
+  // ];
+  List<bool> _isChecked = false as List<bool>;
 
   @override
   void initState() {
+    _matriculeBloc = getIt.get<MatriculeBloc>();
+    _matriculeBloc..add(FetchMatriculeEvenet());
     super.initState();
-    _isChecked = List<bool>.filled(_texts.length, false);
   }
 
   @override
@@ -52,21 +57,43 @@ class _FirstScreenState extends State<FirstScreen> {
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black)),
                   //padding: const EdgeInsets.all(16.0) ,
-                  child: ListView.builder(
-                    itemCount: _texts.length,
-                    itemBuilder: (context, index) {
-                      return CheckboxListTile(
-                        title: Text(_texts[index]),
-                        value: _isChecked[index],
-                        onChanged: (val) {
-                          setState(
-                            () {
-                              _isChecked[index] = val!;
+                  child: BlocProvider(
+                    create: (context) => _matriculeBloc,
+                    child: BlocBuilder<MatriculeBloc, MatriculeState>(
+                      builder: (context, state) {
+                        if (state is MatriculeLoaded) {
+                          return ListView.builder(
+                            itemCount: state.matricule.length,
+                            itemBuilder: (context, index) {
+                              /*_isChecked = List<bool>.filled(
+                                  state.matricule[index].NOMMATRICULE.length,
+                                  false);*/
+                              return CheckboxListTile(
+                                title:
+                                    Text(state.matricule[index].NOMMATRICULE),
+                                value: _isChecked[index],
+                                onChanged: (val) {
+                                  setState(
+                                    () {
+                                      _isChecked[index] = val!;
+                                      print(_isChecked);
+                                    },
+                                  );
+                                },
+                              );
                             },
                           );
-                        },
-                      );
-                    },
+                        } else if (state is MatriculeError) {
+                          return Text(state.message);
+                        }
+                        return const Center(
+                          child: SizedBox(
+                              width: 32,
+                              height: 32,
+                              child: CircularProgressIndicator()),
+                        );
+                      },
+                    ),
                   )),
             ),
             const SizedBox(height: 20),

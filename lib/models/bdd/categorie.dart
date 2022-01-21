@@ -10,7 +10,6 @@ class Categories extends Table {
       .customConstraint('NULL REFERENCES Sites(IDSITE)')();
   TextColumn get CODECATEGORIE => text().withLength(min: 1, max: 12)();
   TextColumn get LIBELLECATEGORIE => text().withLength(min: 1, max: 48)();
-  IntColumn get IDCATORIGINAL =>integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {IDCATEGORIE};

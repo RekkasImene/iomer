@@ -114,13 +114,10 @@ class _ActionScreenState extends State<ActionScreen> {
             const SizedBox(
               height: 80,
             ),
-
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-
-                },
+                onPressed: () {},
                 child: const Text(
                   'Clôturer OT',
                   style: TextStyle(fontSize: 25),

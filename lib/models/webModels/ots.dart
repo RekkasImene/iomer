@@ -9,7 +9,6 @@ class OTs {
   final String tempsOT;
   final String statusOT;
 
-
   OTs({
     required this.idOrigine,
     required this.idEquipement,
@@ -32,8 +31,7 @@ class OTs {
       codeOT: json['CODEOT'],
       libelleOT: json['LIBELLEOT'],
       tempsOT: json['TEMPSOT'],
-      statusOT:json['STATUSOT'] ,
-
+      statusOT: json['STATUSOT'],
     );
   }
 }

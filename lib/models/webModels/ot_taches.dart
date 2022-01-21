@@ -6,7 +6,6 @@ class OTTaches {
   final String commentTache;
   final String statusTache;
 
-
   OTTaches({
     required this.idTache,
     required this.idOT,
@@ -18,13 +17,12 @@ class OTTaches {
 
   factory OTTaches.fromJson(Map<String, dynamic> json) {
     return OTTaches(
-      idOT: json ['IDOT'],
+      idOT: json['IDOT'],
       idTache: json['IDTACHE'],
       commentTache: json['COMMENTTACHE'],
       codeTache: json['CODETACHE'],
       libelleTache: json['LIBELLETACHE'],
-      statusTache:json['STATUSTACHE'] ,
-
+      statusTache: json['STATUSTACHE'],
     );
   }
 }

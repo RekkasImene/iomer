@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/models/repository/in_repository.dart';
@@ -24,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     InRepository repository = getIt.get<InRepository>();
-    sleep(const Duration(seconds: 1));
+    repository.updateSite();
   }
 
   @override

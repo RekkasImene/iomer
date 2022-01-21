@@ -21,7 +21,7 @@ class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
         if (matricule != null) {
           emit(MatriculeLoaded(matricule));
         } else {
-          emit(MatriculeError('Error'));
+          emit(const MatriculeError('Error'));
         }
       }
     });

@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    InRepository repository = getIt.get<InRepository>();
+    //InRepository repository = getIt.get<InRepository>();
 
     /*repository.updateSite();
     sleep(const Duration(seconds: 1));
@@ -33,8 +33,8 @@ class _MyAppState extends State<MyApp> {
     //sleep(const Duration(seconds: 1));
     //   repository.updateOrigines(2);
     //  sleep(const Duration(seconds: 1));
-    repository.updateTaches(203);
-    sleep(const Duration(seconds: 1));
+    //repository.updateTaches(203);
+    //sleep(const Duration(seconds: 1));
   }
 
   @override

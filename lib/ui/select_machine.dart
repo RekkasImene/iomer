@@ -12,18 +12,18 @@ class SelectMachine extends StatefulWidget {
 class _SelectMachine extends State<SelectMachine> {
   late int? _value;
 
-  @override
-  void initState() {
-    _value = null;
-    super.initState();
-  }
-
   final List<String> _list = [
     "Révision des 1000%",
     "Action corrective",
     "Parallélisme roues",
     "Révision des 1000%",
   ];
+
+  @override
+  void initState() {
+    _value = null;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,61 +106,73 @@ class _SelectMachine extends State<SelectMachine> {
                                         filter: ImageFilter.blur(
                                             sigmaX: 10, sigmaY: 10),
                                         child: AlertDialog(
+                                          content: StatefulBuilder(
+                                            builder: (BuildContext context,
+                                                StateSetter setState) {
+                                              return Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      DropdownButton(
+                                                        value: _value,
+                                                        items: const [
+                                                          DropdownMenuItem(
+                                                            child: Text(
+                                                                "Preventive"),
+                                                            value: 1,
+                                                          ),
+                                                          DropdownMenuItem(
+                                                            child: Text(
+                                                                "Corrective"),
+                                                            value: 2,
+                                                          )
+                                                        ],
+                                                        //onChanged: (value)=> _value=value as int?,
+
+                                                        onChanged:
+                                                            (int? value) {
+                                                          setState(() {
+                                                            _value = value!;
+                                                            print(_value);
+                                                          });
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context,
+                                                                'Cancel'),
+                                                        child: const Text(
+                                                            'Cancel'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context, 'OK'),
+                                                        child: const Text('OK'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ),
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(15.0)),
                                           title: const Text(
                                               'Nouvelle Maintenance'),
-                                          actions: <Widget>[
-                                            Column(
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    DropdownButton(
-                                                      value: _value,
-                                                      items: const [
-                                                        DropdownMenuItem(
-                                                          value : 1,
-                                                          child: Text("Preventive"),
-                                                        ),
-                                                        DropdownMenuItem(
-                                                          value: 2,
-                                                          child: Text("Corrective"),
-                                                        )
-                                                      ],
-                                                      onChanged: (int? value) {
-                                                        setState(() {
-                                                          _value = value!;
-                                                        });
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(context,
-                                                              'Cancel'),
-                                                      child:
-                                                          const Text('Cancel'),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              context, 'OK'),
-                                                      child: const Text('OK'),
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                            )
-                                          ],
                                         ),
                                       ),
                                     ),

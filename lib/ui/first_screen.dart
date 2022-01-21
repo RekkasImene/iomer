@@ -33,7 +33,7 @@ class _FirstScreenState extends State<FirstScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Iomer'),
+        title: const Text('Iomere'),
       ),
       body: Container(
         padding: const EdgeInsets.all(20.0),
@@ -71,20 +71,23 @@ class _FirstScreenState extends State<FirstScreen> {
                   )),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              //pour griser
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SelectMachine()),
-                );
-              },
-              child: const Text('Valider'),
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                //pour griser
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SelectMachine()),
+                  );
+                },
+                child: const Text('Valider',style: TextStyle(fontSize: 20)),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20)),
+              ),
             ),
           ],
         ),

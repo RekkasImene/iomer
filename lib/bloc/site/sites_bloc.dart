@@ -21,7 +21,7 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
     on<SitesEvent>((event, emit) async {
       if (event is SitesEvent) {
         emit(SitesLoading());
-        final sites = await _repository.getAllSite();
+        final List<Site> sites = await _repository.getAllSite();
         if (sites != null) {
           emit(SitesLoaded(sites));
         } else {

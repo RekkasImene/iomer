@@ -3234,11 +3234,15 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
   final String CODEPOCKET;
   final String NOMPOCKET;
   final int? IDORIGINE;
+  final String CODEORIGINE;
+  final String LIBELLEORIGINE;
   ConfigData(
       {this.IDSITE,
       required this.CODEPOCKET,
       required this.NOMPOCKET,
-      this.IDORIGINE});
+      this.IDORIGINE,
+      required this.CODEORIGINE,
+      required this.LIBELLEORIGINE});
   factory ConfigData.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return ConfigData(
@@ -3250,6 +3254,10 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}nompocket'])!,
       IDORIGINE: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}idorigine']),
+      CODEORIGINE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codeorigine'])!,
+      LIBELLEORIGINE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}libelleorigine'])!,
     );
   }
   @override
@@ -3263,6 +3271,8 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
     if (!nullToAbsent || IDORIGINE != null) {
       map['idorigine'] = Variable<int?>(IDORIGINE);
     }
+    map['codeorigine'] = Variable<String>(CODEORIGINE);
+    map['libelleorigine'] = Variable<String>(LIBELLEORIGINE);
     return map;
   }
 
@@ -3275,6 +3285,8 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
       IDORIGINE: IDORIGINE == null && nullToAbsent
           ? const Value.absent()
           : Value(IDORIGINE),
+      CODEORIGINE: Value(CODEORIGINE),
+      LIBELLEORIGINE: Value(LIBELLEORIGINE),
     );
   }
 
@@ -3286,6 +3298,8 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
       CODEPOCKET: serializer.fromJson<String>(json['CODEPOCKET']),
       NOMPOCKET: serializer.fromJson<String>(json['NOMPOCKET']),
       IDORIGINE: serializer.fromJson<int?>(json['IDORIGINE']),
+      CODEORIGINE: serializer.fromJson<String>(json['CODEORIGINE']),
+      LIBELLEORIGINE: serializer.fromJson<String>(json['LIBELLEORIGINE']),
     );
   }
   @override
@@ -3296,6 +3310,8 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
       'CODEPOCKET': serializer.toJson<String>(CODEPOCKET),
       'NOMPOCKET': serializer.toJson<String>(NOMPOCKET),
       'IDORIGINE': serializer.toJson<int?>(IDORIGINE),
+      'CODEORIGINE': serializer.toJson<String>(CODEORIGINE),
+      'LIBELLEORIGINE': serializer.toJson<String>(LIBELLEORIGINE),
     };
   }
 
@@ -3303,12 +3319,16 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
           {int? IDSITE,
           String? CODEPOCKET,
           String? NOMPOCKET,
-          int? IDORIGINE}) =>
+          int? IDORIGINE,
+          String? CODEORIGINE,
+          String? LIBELLEORIGINE}) =>
       ConfigData(
         IDSITE: IDSITE ?? this.IDSITE,
         CODEPOCKET: CODEPOCKET ?? this.CODEPOCKET,
         NOMPOCKET: NOMPOCKET ?? this.NOMPOCKET,
         IDORIGINE: IDORIGINE ?? this.IDORIGINE,
+        CODEORIGINE: CODEORIGINE ?? this.CODEORIGINE,
+        LIBELLEORIGINE: LIBELLEORIGINE ?? this.LIBELLEORIGINE,
       );
   @override
   String toString() {
@@ -3316,13 +3336,16 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
           ..write('IDSITE: $IDSITE, ')
           ..write('CODEPOCKET: $CODEPOCKET, ')
           ..write('NOMPOCKET: $NOMPOCKET, ')
-          ..write('IDORIGINE: $IDORIGINE')
+          ..write('IDORIGINE: $IDORIGINE, ')
+          ..write('CODEORIGINE: $CODEORIGINE, ')
+          ..write('LIBELLEORIGINE: $LIBELLEORIGINE')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(IDSITE, CODEPOCKET, NOMPOCKET, IDORIGINE);
+  int get hashCode => Object.hash(
+      IDSITE, CODEPOCKET, NOMPOCKET, IDORIGINE, CODEORIGINE, LIBELLEORIGINE);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3330,7 +3353,9 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
           other.IDSITE == this.IDSITE &&
           other.CODEPOCKET == this.CODEPOCKET &&
           other.NOMPOCKET == this.NOMPOCKET &&
-          other.IDORIGINE == this.IDORIGINE);
+          other.IDORIGINE == this.IDORIGINE &&
+          other.CODEORIGINE == this.CODEORIGINE &&
+          other.LIBELLEORIGINE == this.LIBELLEORIGINE);
 }
 
 class ConfigCompanion extends UpdateCompanion<ConfigData> {
@@ -3338,30 +3363,42 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
   final Value<String> CODEPOCKET;
   final Value<String> NOMPOCKET;
   final Value<int?> IDORIGINE;
+  final Value<String> CODEORIGINE;
+  final Value<String> LIBELLEORIGINE;
   const ConfigCompanion({
     this.IDSITE = const Value.absent(),
     this.CODEPOCKET = const Value.absent(),
     this.NOMPOCKET = const Value.absent(),
     this.IDORIGINE = const Value.absent(),
+    this.CODEORIGINE = const Value.absent(),
+    this.LIBELLEORIGINE = const Value.absent(),
   });
   ConfigCompanion.insert({
     this.IDSITE = const Value.absent(),
     required String CODEPOCKET,
     required String NOMPOCKET,
     this.IDORIGINE = const Value.absent(),
+    required String CODEORIGINE,
+    required String LIBELLEORIGINE,
   })  : CODEPOCKET = Value(CODEPOCKET),
-        NOMPOCKET = Value(NOMPOCKET);
+        NOMPOCKET = Value(NOMPOCKET),
+        CODEORIGINE = Value(CODEORIGINE),
+        LIBELLEORIGINE = Value(LIBELLEORIGINE);
   static Insertable<ConfigData> custom({
     Expression<int?>? IDSITE,
     Expression<String>? CODEPOCKET,
     Expression<String>? NOMPOCKET,
     Expression<int?>? IDORIGINE,
+    Expression<String>? CODEORIGINE,
+    Expression<String>? LIBELLEORIGINE,
   }) {
     return RawValuesInsertable({
       if (IDSITE != null) 'idsite': IDSITE,
       if (CODEPOCKET != null) 'codepocket': CODEPOCKET,
       if (NOMPOCKET != null) 'nompocket': NOMPOCKET,
       if (IDORIGINE != null) 'idorigine': IDORIGINE,
+      if (CODEORIGINE != null) 'codeorigine': CODEORIGINE,
+      if (LIBELLEORIGINE != null) 'libelleorigine': LIBELLEORIGINE,
     });
   }
 
@@ -3369,12 +3406,16 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
       {Value<int?>? IDSITE,
       Value<String>? CODEPOCKET,
       Value<String>? NOMPOCKET,
-      Value<int?>? IDORIGINE}) {
+      Value<int?>? IDORIGINE,
+      Value<String>? CODEORIGINE,
+      Value<String>? LIBELLEORIGINE}) {
     return ConfigCompanion(
       IDSITE: IDSITE ?? this.IDSITE,
       CODEPOCKET: CODEPOCKET ?? this.CODEPOCKET,
       NOMPOCKET: NOMPOCKET ?? this.NOMPOCKET,
       IDORIGINE: IDORIGINE ?? this.IDORIGINE,
+      CODEORIGINE: CODEORIGINE ?? this.CODEORIGINE,
+      LIBELLEORIGINE: LIBELLEORIGINE ?? this.LIBELLEORIGINE,
     );
   }
 
@@ -3393,6 +3434,12 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
     if (IDORIGINE.present) {
       map['idorigine'] = Variable<int?>(IDORIGINE.value);
     }
+    if (CODEORIGINE.present) {
+      map['codeorigine'] = Variable<String>(CODEORIGINE.value);
+    }
+    if (LIBELLEORIGINE.present) {
+      map['libelleorigine'] = Variable<String>(LIBELLEORIGINE.value);
+    }
     return map;
   }
 
@@ -3402,7 +3449,9 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
           ..write('IDSITE: $IDSITE, ')
           ..write('CODEPOCKET: $CODEPOCKET, ')
           ..write('NOMPOCKET: $NOMPOCKET, ')
-          ..write('IDORIGINE: $IDORIGINE')
+          ..write('IDORIGINE: $IDORIGINE, ')
+          ..write('CODEORIGINE: $CODEORIGINE, ')
+          ..write('LIBELLEORIGINE: $LIBELLEORIGINE')
           ..write(')'))
         .toString();
   }
@@ -3438,9 +3487,19 @@ class $ConfigTable extends Config with TableInfo<$ConfigTable, ConfigData> {
       typeName: 'INTEGER',
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Origines(IDORIGINE)');
+  final VerificationMeta _CODEORIGINEMeta =
+      const VerificationMeta('CODEORIGINE');
+  late final GeneratedColumn<String?> CODEORIGINE = GeneratedColumn<String?>(
+      'codeorigine', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
+  final VerificationMeta _LIBELLEORIGINEMeta =
+      const VerificationMeta('LIBELLEORIGINE');
+  late final GeneratedColumn<String?> LIBELLEORIGINE = GeneratedColumn<String?>(
+      'libelleorigine', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [IDSITE, CODEPOCKET, NOMPOCKET, IDORIGINE];
+      [IDSITE, CODEPOCKET, NOMPOCKET, IDORIGINE, CODEORIGINE, LIBELLEORIGINE];
   @override
   String get aliasedName => _alias ?? 'config';
   @override
@@ -3471,6 +3530,22 @@ class $ConfigTable extends Config with TableInfo<$ConfigTable, ConfigData> {
     if (data.containsKey('idorigine')) {
       context.handle(_IDORIGINEMeta,
           IDORIGINE.isAcceptableOrUnknown(data['idorigine']!, _IDORIGINEMeta));
+    }
+    if (data.containsKey('codeorigine')) {
+      context.handle(
+          _CODEORIGINEMeta,
+          CODEORIGINE.isAcceptableOrUnknown(
+              data['codeorigine']!, _CODEORIGINEMeta));
+    } else if (isInserting) {
+      context.missing(_CODEORIGINEMeta);
+    }
+    if (data.containsKey('libelleorigine')) {
+      context.handle(
+          _LIBELLEORIGINEMeta,
+          LIBELLEORIGINE.isAcceptableOrUnknown(
+              data['libelleorigine']!, _LIBELLEORIGINEMeta));
+    } else if (isInserting) {
+      context.missing(_LIBELLEORIGINEMeta);
     }
     return context;
   }

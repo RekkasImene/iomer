@@ -39,8 +39,26 @@ Future<List<Origine>> fetchOrigines(int id) async {
   }
 }
 
+/* GetConfig en utilisant IdSite et CodePocket  */
+Future<ConfigData> fetchConfig ( int idSite, String codePocket) async {
+  final response = await http.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
+  if (response.statusCode == 200) {
+    log("Config recupéré : ${response.body}");
+    ConfigData config = ConfigData.fromJson(json.decode(response.body));
+    log("json decode : "+json.decode(response.body).toString());
+
+    return config;
+
+
+} else{
+  throw Exception('Failed to load Config'); 
+  }
+}
+
+
+
 /* Get Matricules */
-Future<List<Matricule>> fetchMatricules(int id) async {
+Future<List<Matricule>> fetchMatricules(int? id) async {
   final response = await http.get(Uri.parse('$url/GetMatricules/$id'));
 
   if (response.statusCode == 200) {

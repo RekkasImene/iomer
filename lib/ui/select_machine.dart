@@ -10,8 +10,13 @@ class SelectMachine extends StatefulWidget {
 }
 
 class _SelectMachine extends State<SelectMachine> {
-  int _value = 1;
- 
+  late int? _value;
+
+  @override
+  void initState() {
+    _value = null;
+    super.initState();
+  }
 
   final List<String> _list = [
     "Révision des 1000%",
@@ -19,6 +24,7 @@ class _SelectMachine extends State<SelectMachine> {
     "Parallélisme roues",
     "Révision des 1000%",
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,16 +48,13 @@ class _SelectMachine extends State<SelectMachine> {
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextField(
                 decoration: InputDecoration(
-                  
                     border: UnderlineInputBorder(), labelText: 'Code machine'),
               ),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextField(
-                
                 decoration: InputDecoration(
-                 
                     border: UnderlineInputBorder(), labelText: 'Nom machine'),
               ),
             ),
@@ -96,65 +99,71 @@ class _SelectMachine extends State<SelectMachine> {
                                   alignment: Alignment.bottomRight,
                                   child: IconButton(
                                     icon: const Icon(Icons.add),
-                                     onPressed: () => showDialog<String>(
-        context: context,
-        builder: (BuildContext context) =>   BackdropFilter(
-    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), 
-    child :AlertDialog(
-      
-      
-  
-    
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-     
-          title: const Text('Nouvelle Maintenance'),
-          
-          actions: <Widget>[
-            Column(children: [
-              Row(
-                mainAxisAlignment:MainAxisAlignment.center,
-                children: [ DropdownButton(
-              value : _value,
-              items: const [
-              DropdownMenuItem(
-                child: Text("Preventive"),
-                value:1,
-              ),
-              DropdownMenuItem(
-                child: Text("Corrective"),
-                value: 2,
-              )
-            ],
-            onChanged: (value){
-              _value = value as int;
-            },
-
-
-              ),
-              ],
-              ),
-             
-
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: [TextButton(
-              onPressed: () => Navigator.pop(context, 'Cancel'),
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-             
-              child: const Text('OK'),
-            ),],)
-            
-            ],)
-            
-          ],
-        ),
-
-
-        ),
-      ),
+                                    onPressed: () => showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          BackdropFilter(
+                                        filter: ImageFilter.blur(
+                                            sigmaX: 10, sigmaY: 10),
+                                        child: AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0)),
+                                          title: const Text(
+                                              'Nouvelle Maintenance'),
+                                          actions: <Widget>[
+                                            Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    DropdownButton(
+                                                      value: _value,
+                                                      items: const [
+                                                        DropdownMenuItem(
+                                                          value : 1,
+                                                          child: Text("Preventive"),
+                                                        ),
+                                                        DropdownMenuItem(
+                                                          value: 2,
+                                                          child: Text("Corrective"),
+                                                        )
+                                                      ],
+                                                      onChanged: (int? value) {
+                                                        setState(() {
+                                                          _value = value!;
+                                                        });
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(context,
+                                                              'Cancel'),
+                                                      child:
+                                                          const Text('Cancel'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              context, 'OK'),
+                                                      child: const Text('OK'),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],

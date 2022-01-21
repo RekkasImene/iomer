@@ -65,7 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             setState(() {
                               print(newvalue.toString());
                               chooseSiteValue = newvalue!;
-                              print(chooseSiteValue.toString());
                             });
                           },
                         );

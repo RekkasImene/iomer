@@ -7,7 +7,7 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../bloc/sites_bloc.dart' as _i7;
+import '../bloc/site/sites_bloc.dart' as _i7;
 import '../models/bdd/iomer_database.dart' as _i3;
 import '../models/repository/in_repository.dart' as _i6;
 import '../models/repository/local_repository.dart' as _i4;

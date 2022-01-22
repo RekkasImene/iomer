@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'components/body.dart';
+import 'components/body_action.dart';
 
 class ActionScreen extends StatefulWidget {
   const ActionScreen({Key? key}) : super(key: key);

@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/matricule/first_screen.dart';
-import 'package:iomer/ui/new_part/components/body.dart';
-import 'package:iomer/ui/parts/parts_screen.dart';
-import 'package:iomer/ui/utils/info.dart';
-
-import '../action/action_screen.dart';
+import 'package:iomer/ui/new_part/components/body_new_part.dart';
 
 class NewPartScreen extends StatefulWidget {
   const NewPartScreen({Key? key}) : super(key: key);

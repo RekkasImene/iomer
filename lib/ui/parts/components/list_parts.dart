@@ -68,35 +68,19 @@ class _ListPartsState extends State<ListParts> {
                   },
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  SizedBox(
-                    width: 40, // <-- Your width
-                    height: 30,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('-'),
-                      style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(18.0)))),
-                    ),
-                  ),
+                  InkWell(
+                      onTap: () {},
+                      child: const Icon(
+                        Icons.remove,
+                        size: 16,
+                      )),
                   Text(parts[index]['quantite']),
-                  SizedBox(
-                    width: 40, // <-- Your width
-                    height: 30,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('+'),
-                      style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(18.0)))),
-                    ),
-                  ),
+                  InkWell(
+                      onTap: () {},
+                      child: const Icon(
+                        Icons.add,
+                        size: 16,
+                      )),
                 ]),
               ],
             );

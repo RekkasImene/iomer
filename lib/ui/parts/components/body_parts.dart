@@ -21,24 +21,16 @@ class Body extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          const SizedBox(height: 20),
-          Info(),
-          const SizedBox(height: 20),
-          const Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              "Liste des taches a effectuer :",
-              style: TextStyle(fontSize: 20),
-            ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Info(),
           ),
-          const SizedBox(height: 20),
           const Expanded(
             child: ListParts(),
           ),
-          const SizedBox(height: 10),
           Row(
             children: [
-              Expanded(child: SizedBox()),
+              const Expanded(child: SizedBox()),
               Align(
                 child: ElevatedButton(
                   onPressed: () {
@@ -57,7 +49,6 @@ class Body extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(

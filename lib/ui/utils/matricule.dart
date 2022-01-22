@@ -19,7 +19,7 @@ class _MatriculeState extends State<Matricule> {
 
   //TODO a remplacer avec données (les memes que pour l'ecran first_screen)
 
-  List<String> _texts = [
+  final List<String> _texts = [
     "Jean Michelle",
     "Jean Pierre",
     "Pierre Jean",
@@ -49,6 +49,7 @@ class _MatriculeState extends State<Matricule> {
               },
             );
           },
-        ));
+        )
+    );
   }
 }

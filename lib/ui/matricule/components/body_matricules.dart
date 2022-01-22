@@ -19,12 +19,12 @@ class Body extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          const SizedBox(height: 20),
-
           const Expanded(
-            child: Matricule(),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 20.0),
+              child: Matricule(),
+            ),
           ),
-          const SizedBox(height: 20),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(

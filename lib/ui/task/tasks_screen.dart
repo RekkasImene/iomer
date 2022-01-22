@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iomer/ui/utils/info.dart';
 
 class TasksScreen extends StatefulWidget {
   const TasksScreen({Key? key}) : super(key: key);
@@ -49,30 +50,7 @@ class _TasksScreenState extends State<TasksScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            Container(
-              decoration: const BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Column(
-                children: const [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "N° OT: ",
-                      style: TextStyle(color: Colors.white, fontSize: 22),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Maintenance :",
-                      style: TextStyle(color: Colors.white, fontSize: 22),
-                    ),
-                  )
-                ],
-              ),
-            ),
+            Info(),
             const SizedBox(height: 20),
             const Align(
               alignment: Alignment.topLeft,
@@ -108,13 +86,18 @@ class _TasksScreenState extends State<TasksScreen> {
                   )),
             ),
             const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Valider'),
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+            SizedBox(
+              width: double.maxFinite,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Text(
+                  'valider',
+                  style: TextStyle(fontSize: 20),
+                ),
+                style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20)),
+              ),
             ),
           ],
         ),

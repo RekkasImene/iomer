@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/home/components/site.dart';
-
-import '../../matricule/first_screen.dart';
+import 'package:iomer/ui/machine/select_machine.dart';
+import 'package:iomer/ui/utils/matricule.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -16,20 +15,24 @@ class Body extends StatelessWidget {
           const Align(
             alignment: Alignment.topLeft,
             child: Text(
-              "Selectionner le site :",
+              "Sélectionner les intervenants :",
               style: TextStyle(fontSize: 20),
             ),
           ),
           const SizedBox(height: 20),
-          const SiteWidget(),
-          const Expanded(child: SizedBox()),
+
+          const Expanded(
+            child: Matricule(),
+          ),
+          const SizedBox(height: 20),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const FirstScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const SelectMachine()),
                 );
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),

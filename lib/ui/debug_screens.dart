@@ -83,7 +83,7 @@ class DebugScreen extends StatelessWidget {
                 );
               },
               child:
-                  const Text('SelectMachine', style: TextStyle(fontSize: 20)),
+                  const Text('MachineScreen', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
                   primary: Colors.green,
                   padding:

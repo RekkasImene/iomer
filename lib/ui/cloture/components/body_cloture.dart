@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/machine/select_machine.dart';
+import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 import 'package:iomer/ui/utils/matricule.dart';
 
@@ -44,7 +44,7 @@ class Body extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const SelectMachine()),
+                      builder: (context) => const MachineScreen()),
                 );
               },
               child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),

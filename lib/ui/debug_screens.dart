@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iomer/ui/action/action_screen.dart';
 import 'package:iomer/ui/cloture/cloture_screen.dart';
 import 'package:iomer/ui/home/home_screen.dart';
-import 'package:iomer/ui/machine/select_machine.dart';
+import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/new_part/new_part_screen.dart';
 import 'package:iomer/ui/parts/parts_screen.dart';
 import 'package:iomer/ui/report/report_screen.dart';
@@ -79,7 +79,7 @@ class DebugScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const SelectMachine()),
+                      builder: (context) => const MachineScreen()),
                 );
               },
               child:

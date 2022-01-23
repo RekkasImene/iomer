@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/select_machine.dart';
+import 'package:iomer/ui/machine/machine_screen.dart';
 
 class ClotureOtScreen extends StatefulWidget {
   const ClotureOtScreen({Key? key}) : super(key: key);
@@ -110,7 +110,7 @@ class _ClotureOtScreenState extends State<ClotureOtScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SelectMachine()),
+                        builder: (context) => const MachineScreen()),
                   );
                 },
                 child: const Text('Clôturer OT'),

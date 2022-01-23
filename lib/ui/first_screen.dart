@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/select_machine.dart';
+import 'package:iomer/ui/machine/machine_screen.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -79,7 +79,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SelectMachine()),
+                        builder: (context) => const MachineScreen()),
                   );
                 },
                 child: const Text('Valider',style: TextStyle(fontSize: 20)),

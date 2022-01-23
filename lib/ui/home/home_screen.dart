@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/home/components/body.dart';
+import 'package:iomer/ui/home/components/body_home.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -7,15 +7,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Iomere'),
-      ),
-      body: Body()
-    );
+        appBar: AppBar(
+          title: const Text('Iomere'),
+        ),
+        body: const Body());
   }
 }
-
-
-
-
-

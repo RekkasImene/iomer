@@ -11,7 +11,9 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20.0),
+      
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Align(
             alignment: Alignment.topLeft,

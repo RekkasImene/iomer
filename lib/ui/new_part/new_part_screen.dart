@@ -12,6 +12,7 @@ class _NewPartScreenState extends State<NewPartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Maintenance'),
       ),

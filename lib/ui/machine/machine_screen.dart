@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'components/body.dart';
+import 'components/body_machine.dart';
 
 class MachineScreen extends StatelessWidget {
   const MachineScreen({Key? key}) : super(key: key);

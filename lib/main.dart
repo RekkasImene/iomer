@@ -26,29 +26,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Future<List<Site>> futureSite;
   @override
   void initState() {
     super.initState();
-    //InRepository repository = getIt.get<InRepository>();
-
-    /*repository.updateSite();
-    sleep(const Duration(seconds: 1));
-    repository.updateMatricules(12);
-    sleep(const Duration(seconds: 1));*/
-    // repository.updateOTs(1,12);
-    //sleep(const Duration(seconds: 1));
-    //   repository.updateOrigines(2);
-    //  sleep(const Duration(seconds: 1));
-    //repository.updateTaches(203);
-    //sleep(const Duration(seconds: 1));
+    InRepository repository = getIt.get<InRepository>();
+    repository.updateSite();
+    repository.updateMatricules(14);
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'IomereApp',
       debugShowCheckedModeBanner: false,
+      title: 'IomereApp',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),

@@ -10,4 +10,10 @@ class LocalRepository {
   final IomerDatabase database;
 
   LocalRepository(this.database);
+
+  Future<List<OtData>> getOt() {
+    print(database.otDao.getAllOts());
+    return database.otDao.getAllOts();
+  }
+
 }

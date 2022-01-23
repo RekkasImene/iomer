@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/utils/matricule.dart';
@@ -25,22 +24,20 @@ class Body extends StatelessWidget {
               child: Matricule(),
             ),
           ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const MachineScreen()),
-                );
-              },
-              child: const Text('Valider', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
+          ElevatedButton(
+            //pour griser
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const MachineScreen()),
+              );
+            },
+            child: const Text('Valider'),
+            style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+                padding:
+                const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
           ),
         ],
       ),

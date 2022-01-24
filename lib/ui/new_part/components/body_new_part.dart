@@ -38,7 +38,6 @@ class Body extends StatelessWidget {
                 onPressed: () {},
                 child: const Text('Scan Pièce', style: TextStyle(fontSize: 20)),
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 20)),
               ),
@@ -50,7 +49,6 @@ class Body extends StatelessWidget {
               onPressed: () {},
               child: const Text('Voir', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
@@ -69,7 +67,6 @@ class Body extends StatelessWidget {
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),

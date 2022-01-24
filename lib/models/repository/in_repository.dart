@@ -9,6 +9,7 @@ import 'package:iomer/webService/services.dart';
 
 abstract class InRepositoryAbs {
   Future<List<Site>> getAllSite();
+  void InsertSite(Site site);
 }
 
 @Environment(Env.prod)
@@ -28,18 +29,8 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Article>> futureArticles;
   late Future<List<Equipement>> futureEquipements;
   late Future<List<Tache>> futureTaches;
+  late Future<List<ConfigData>> futureConfig;
 
-  void updateSite() {
-    futureSites = fetchSites();
-    futureSites.then((value) {
-      value.forEach((e) {
-        database.siteDao.insertSite(e);
-        log("table sites insérée");
-      });
-    }).catchError((error) {
-      log(error);
-    });
-  }
 
   void updateOrigines(int idSite) {
     futureOrigines = fetchOrigines(idSite);
@@ -141,6 +132,12 @@ class InRepository extends InRepositoryAbs {
   Future<List<Site>> getAllSite() {
     return fetchSites();
   }
+
+  @override
+  void InsertSite(Site site) {
+    database.siteDao.insertSite(site);
+  }
+
 
   // Future<List<Matricule>> getAllMatricule() {
   //   Future<List<Matricule>> matricule = fetchMatricules(14);

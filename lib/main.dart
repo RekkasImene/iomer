@@ -12,6 +12,7 @@ import 'package:iomer/ui/parts/parts_screen.dart';
 import 'package:iomer/ui/report/report_screen.dart';
 import 'package:iomer/ui/task/tasks_screen.dart';
 import 'config/injection.dart';
+import 'models/repository/local_repository.dart';
 
 void main() {
   configureInjection(Env.prod);
@@ -29,9 +30,22 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    InRepository repository = getIt.get<InRepository>();
-    repository.updateSite();
-    repository.updateMatricules(14);
+    InRepository inRepository = getIt.get<InRepository>();
+    LocalRepository localRepository = getIt.get<LocalRepository>();
+
+    /*repository.updateSite();
+    sleep(const Duration(seconds: 1));
+    repository.updateMatricules(12);
+    sleep(const Duration(seconds: 1));*/
+    // repository.updateOTs(1,12);
+    //sleep(const Duration(seconds: 1));
+    //   repository.updateOrigines(2);
+    //  sleep(const Duration(seconds: 1));
+   // repository.updateMatricules(1, "P02");
+  //inRepository.updateOTs(1, 12);
+   //localRepository.addNewOt(115, 10, 13, "reparation");
+
+
   }
 
   @override
@@ -40,7 +54,15 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'IomereApp',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        brightness: Brightness.dark,
+        primaryColor: Colors.blueGrey,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+        //onPrimary: Colors.yellow,
+        primary: Colors.blueGrey,
+    )
+          ),
+
       ),
       home: const DebugScreen(),
     );

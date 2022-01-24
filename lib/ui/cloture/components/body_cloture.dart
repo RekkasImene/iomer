@@ -48,7 +48,6 @@ class Body extends StatelessWidget {
               },
               child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),

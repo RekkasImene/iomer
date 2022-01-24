@@ -1296,9 +1296,9 @@ class $MatriculesTable extends Matricules
         CHECKED
       ];
   @override
-  String get aliasedName => _alias ?? 'matricules';
+  String get aliasedName => _alias ?? 'matricule';
   @override
-  String get actualTableName => 'matricules';
+  String get actualTableName => 'matricule';
   @override
   VerificationContext validateIntegrity(Insertable<Matricule> instance,
       {bool isInserting = false}) {

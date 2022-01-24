@@ -3,7 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/models/repository/in_repository.dart';
-import 'package:iomer/ui/home_screen.dart';
+import 'package:iomer/ui/action/action_screen.dart';
+import 'package:iomer/ui/cloture/cloture_screen.dart';
+import 'package:iomer/ui/debug_screens.dart';
+import 'package:iomer/ui/home/home_screen.dart';
+import 'package:iomer/ui/new_part/new_part_screen.dart';
+import 'package:iomer/ui/parts/parts_screen.dart';
+import 'package:iomer/ui/report/report_screen.dart';
+import 'package:iomer/ui/task/tasks_screen.dart';
 import 'config/injection.dart';
 
 void main() {
@@ -35,7 +42,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const HomeScreen(),
+      home: const DebugScreen(),
     );
   }
 }

@@ -32,7 +32,6 @@ class DebugScreen extends StatelessWidget {
               },
               child: const Text('ActionScreen', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
@@ -50,7 +49,6 @@ class DebugScreen extends StatelessWidget {
               child:
                   const Text('ClotureOtScreen', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
@@ -66,7 +64,6 @@ class DebugScreen extends StatelessWidget {
               },
               child: const Text('HomeScreen', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
@@ -84,7 +81,6 @@ class DebugScreen extends StatelessWidget {
               child:
                   const Text('MachineScreen', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
@@ -101,7 +97,6 @@ class DebugScreen extends StatelessWidget {
               child: const Text('FirstScreen (matricule)',
                   style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
@@ -119,7 +114,6 @@ class DebugScreen extends StatelessWidget {
               child:
                   const Text('NewPartScreen', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
@@ -135,7 +129,6 @@ class DebugScreen extends StatelessWidget {
               },
               child: const Text('PartsScreen', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
@@ -151,7 +144,6 @@ class DebugScreen extends StatelessWidget {
               },
               child: const Text('ReportScreen', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
@@ -167,7 +159,6 @@ class DebugScreen extends StatelessWidget {
               },
               child: const Text('TasksScreen', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),

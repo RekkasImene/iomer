@@ -7,8 +7,8 @@ class Info extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20.0),
-      decoration: const BoxDecoration(
-        color: Colors.green,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.all(Radius.circular(40.0)),
       ),
       child: SizedBox(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iomer/bloc/site/sites_bloc.dart';
 import 'package:iomer/ui/home/components/site.dart';
 import 'package:iomer/ui/matricule/first_screen.dart';
 
@@ -19,8 +20,12 @@ class Body extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.symmetric(vertical: 20.0),
             child: SiteWidget(),
+          ),
+          const TextField(
+            decoration: InputDecoration(
+                border: OutlineInputBorder(), labelText: 'Service :'),
           ),
           const Expanded(child: SizedBox()),
           SizedBox(
@@ -34,7 +39,6 @@ class Body extends StatelessWidget {
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),

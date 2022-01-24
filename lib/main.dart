@@ -29,9 +29,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    InRepository repository = getIt.get<InRepository>();
-    repository.updateSite();
-    repository.updateMatricules(14);
+    //InRepository repository = getIt.get<InRepository>();
+    //repository.updateSite();
+    //repository.updateMatricules(14);
   }
 
   @override
@@ -40,7 +40,15 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'IomereApp',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        brightness: Brightness.dark,
+        primaryColor: Colors.blueGrey,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+        //onPrimary: Colors.yellow,
+        primary: Colors.blueGrey,
+    )
+          ),
+
       ),
       home: const DebugScreen(),
     );

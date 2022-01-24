@@ -38,8 +38,8 @@ class _SiteState extends State<SiteWidget> {
               margin: const EdgeInsets.symmetric(vertical: 6),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.black, width: 4),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.grey, width: 1),
               ),
               child: DropdownButton(
                 value: chooseValue,

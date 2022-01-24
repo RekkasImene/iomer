@@ -11,7 +11,7 @@ import 'package:meta/meta.dart';
 part 'ot_event.dart';
 part 'ot_state.dart';
 
-/*
+
 class OtBloc extends Bloc<OtEvent, OtState> {
   final LocalRepository _repository;
 
@@ -19,15 +19,14 @@ class OtBloc extends Bloc<OtEvent, OtState> {
     on<OtEvent>((event, emit) async {
       if (event is OtEvent) {
         emit(OtLoading());
-        final List<OtData> ots = await _repository.getOt();
+        final List<OtData> ots = await _repository.getAllOt();
         if (ots != null) {
           emit(OtLoaded(ots));
         } else {
           emit(const OtError('Error'));
         }
       }
-
     });
   }
 }
-*/
+

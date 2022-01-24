@@ -14,20 +14,14 @@ class SelectMachine extends StatefulWidget {
 
 class _SelectMachine extends State<SelectMachine> {
   late int? _value;
-  //late OtBloc _otsBloc;
+  late OtBloc _otsBloc;
 
-  final List<String> _list = [
-    "Révision des 1000%",
-    "Action corrective",
-    "Parallélisme roues",
-    "Révision des 1000%",
-  ];
 
   @override
   void initState() {
     _value = null;
-    //_otsBloc = getIt.get<OtBloc>();
-    //_otsBloc.add(FetchEventOt());
+    _otsBloc = getIt.get<OtBloc>();
+    _otsBloc.add(FetchEventOt());
     super.initState();
   }
 

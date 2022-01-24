@@ -148,10 +148,4 @@ class InRepository extends InRepositoryAbs {
     database.siteDao.insertSite(site);
   }
 
-
-  // Future<List<Matricule>> getAllMatricule() {
-  //   Future<List<Matricule>> matricule = fetchMatricules(14);
-  //   print(matricule);
-  //   return matricule;
-  // }
 }

@@ -7,6 +7,8 @@ import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/services.dart';
 
+import 'local_repository.dart';
+
 abstract class InRepositoryAbs {
   Future<List<Site>> getAllSite();
 }
@@ -17,7 +19,8 @@ abstract class InRepositoryAbs {
 class InRepository extends InRepositoryAbs {
   late Future<List<Site>> futureSite;
   final IomerDatabase database;
-  InRepository(this.database);
+  final LocalRepository localRepository;
+  InRepository(this.database,this.localRepository);
 
   late Future<List<Site>> futureSites;
   late Future<List<Origine>> futureOrigines;
@@ -28,6 +31,7 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Article>> futureArticles;
   late Future<List<Equipement>> futureEquipements;
   late Future<List<Tache>> futureTaches;
+  late Future<List<ConfigData>> futureConfigs;
 
   void updateSite() {
     futureSites = fetchSites();
@@ -142,9 +146,40 @@ class InRepository extends InRepositoryAbs {
     return fetchSites();
   }
 
-  // Future<List<Matricule>> getAllMatricule() {
-  //   Future<List<Matricule>> matricule = fetchMatricules(14);
-  //   print(matricule);
-  //   return matricule;
-  // }
+  //Filed database
+  void pushDB(int idSite, String codePocket){
+    //push equipement & categories
+    updateEquipements(idSite);
+    updateCategories(idSite);
+
+    //push matricule & ot
+    futureConfigs=fetchConfigs(idSite, codePocket);
+    futureConfigs.then((value) {
+        updateMatricules(value.first.IDORIGINE!);
+        updateOTs(idSite,value.first.IDORIGINE!);
+    }).catchError((error) {
+      log(error);
+    });
+
+    //push tache & OtArticle(Reservation)
+     localRepository.getAllOt().then((value) {
+       value.forEach((e) {
+            updateTaches(e.IDOT);
+            updateReservation(e.IDOT);
+          });
+        }).catchError((error) {
+        log(error);
+        });
+
+     //push articles
+     localRepository.getAllReservation().then((value) {
+       value.forEach((e) {
+         updateArticles(e.CODEARTICLE!);
+       });
+     }).catchError((error) {
+       log(error);
+     });
+
+  }
+
 }

@@ -10,6 +10,8 @@ class LocalRepository {
   final IomerDatabase database;
 
   LocalRepository(this.database);
+
+  //GetAll Methods from db.sqlite database
   Future<List<Matricule>> getAllMatricule() {
     return database.matriculeDao.getAllMatricules();
   }
@@ -38,12 +40,11 @@ class LocalRepository {
     return database.tacheDao.getAllTaches();
   }
 
-  Future<List<Site>> getAllSite(){
+  Future<List<Site>> getAllSite() {
     return database.siteDao.getAllSites();
   }
 
   Future<List<Reservation>> getAllReservation() {
     return database.reservationDao.getAllReservations();
   }
-
 }

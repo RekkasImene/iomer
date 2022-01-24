@@ -30,8 +30,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     InRepository repository = getIt.get<InRepository>();
-    repository.updateSite();
-    repository.updateMatricules(14);
+    //repository.updateSite();
+    //repository.updateMatricules(14);
   }
 
   @override

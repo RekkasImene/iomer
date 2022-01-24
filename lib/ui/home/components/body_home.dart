@@ -23,26 +23,7 @@ class Body extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 20.0),
             child: SiteWidget(),
           ),
-          const TextField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder(), labelText: 'Service :'),
-          ),
-          const Expanded(child: SizedBox()),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FirstScreen()),
-                );
-              },
-              child: const Text('Valider', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
-          ),
+
         ],
       ),
     );

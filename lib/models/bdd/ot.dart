@@ -19,16 +19,11 @@ class Ot extends Table{
   RealColumn get TEMPSOT => real()();
   TextColumn get STATUTOT=> text().withLength(min:1,max: 1)();
 
-  DateTimeColumn? get DTOPENOT=>dateTime()
-  .nullable()(); //date  (Unix timestamp in seconds)
-  DateTimeColumn? get DTEXECOT=>dateTime()
-  .nullable()();
-  DateTimeColumn? get DTWAITOT=>dateTime()
-  .nullable()();
-  DateTimeColumn? get DTCANCOT=>dateTime()
-  .nullable()();
-  DateTimeColumn? get DTCLOSOT=>dateTime()
-  .nullable()();
+  DateTimeColumn get DTOPENOT=>dateTime().nullable()(); //date  (Unix timestamp in seconds)
+  DateTimeColumn get DTEXECOT=>dateTime().nullable()();
+  DateTimeColumn get DTWAITOT=>dateTime().nullable()();
+  DateTimeColumn get DTCANCOT=>dateTime().nullable()();
+  DateTimeColumn get DTCLOSOT=>dateTime().nullable()();
 
 
   @override

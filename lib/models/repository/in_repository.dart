@@ -1,11 +1,11 @@
 //webservice vers bdd
 
 import 'dart:developer';
+
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/services.dart';
-
 
 abstract class InRepositoryAbs {
   Future<List<Site>> getAllSite();
@@ -15,7 +15,6 @@ abstract class InRepositoryAbs {
 @singleton
 @injectable
 class InRepository extends InRepositoryAbs {
-
   late Future<List<Site>> futureSite;
   final IomerDatabase database;
   InRepository(this.database);
@@ -30,8 +29,7 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Equipement>> futureEquipements;
   late Future<List<Tache>> futureTaches;
 
-
-  void updateSite(){
+  void updateSite() {
     futureSites = fetchSites();
     futureSites.then((value) {
       value.forEach((e) {
@@ -43,105 +41,98 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  void updateOrigines(int idSite){
-    futureOrigines=fetchOrigines(idSite);
+  void updateOrigines(int idSite) {
+    futureOrigines = fetchOrigines(idSite);
 
-    futureOrigines.then((value){
-      value.forEach((e){
+    futureOrigines.then((value) {
+      value.forEach((e) {
         database.origineDao.insertOrigine(e);
         log("table origine insérée");
       });
-    }).catchError((error){
+    }).catchError((error) {
       log(error);
     });
-
   }
 
-  void updateMatricules(int idOrigine){
+  void updateMatricules(int idOrigine) {
     futureMatricules = fetchMatricules(idOrigine);
-    futureMatricules.then((value){
-      value.forEach((e){
+    futureMatricules.then((value) {
+      value.forEach((e) {
         database.matriculeDao.insertMatricule(e);
         log("table matricule insérée");
-       
       });
-    } ).catchError((error){
+    }).catchError((error) {
       log(error);
     });
   }
 
-
-  void updateOTs(int idSite, int idOrigine){
+  void updateOTs(int idSite, int idOrigine) {
     futureOTs = fetchOTs(idSite, idOrigine);
-    futureOTs.then((value){
-      value.forEach((e){
-       database.otDao.insertOt(e);
-       log("table ot insérée");
+    futureOTs.then((value) {
+      value.forEach((e) {
+        database.otDao.insertOt(e);
+        log("table ot insérée");
       });
-    }).catchError((error){
+    }).catchError((error) {
       log(error);
     });
   }
 
-  void updateCategories(int idSite){
+  void updateCategories(int idSite) {
     futureCategories = fetchCategories(idSite);
-    futureCategories.then((value){
-      value.forEach((e){
-       database.categorieDao.insertCategorie(e);
+    futureCategories.then((value) {
+      value.forEach((e) {
+        database.categorieDao.insertCategorie(e);
       });
-    }).catchError((error){
+    }).catchError((error) {
       log(error);
     });
-
   }
 
-  void updateReservation(int idOt){
+  void updateReservation(int idOt) {
     futureReservations = fetchReservations(idOt);
-    futureReservations.then((value){
-      value.forEach((e){
-       database.reservationDao.insertReservation(e);
-       log ("table reservation insérée");
+    futureReservations.then((value) {
+      value.forEach((e) {
+        database.reservationDao.insertReservation(e);
+        log("table reservation insérée");
       });
-    }).catchError((error){
+    }).catchError((error) {
       log(error);
     });
-
   }
-    void updateArticles(String codeArticle){
+
+  void updateArticles(String codeArticle) {
     futureArticles = fetchArticles(codeArticle);
-    futureArticles.then((value){
-      value.forEach((e){
-       database.articleDao.insertArticle(e);
-       log ("table articles insérée");
+    futureArticles.then((value) {
+      value.forEach((e) {
+        database.articleDao.insertArticle(e);
+        log("table articles insérée");
       });
-    }).catchError((error){
+    }).catchError((error) {
       log(error);
     });
-
   }
 
-  void updateEquipements(int idSite){
+  void updateEquipements(int idSite) {
     futureEquipements = fetchEquipements(idSite);
-    futureEquipements.then((value){
-      value.forEach((e){
-       database.equipementDao.insertEquipement(e);
-       log ("table équipement insérée");
+    futureEquipements.then((value) {
+      value.forEach((e) {
+        database.equipementDao.insertEquipement(e);
+        log("table équipement insérée");
       });
-    }).catchError((error){
+    }).catchError((error) {
       log(error);
     });
-
   }
 
-
-   void updateTaches(int idOT){
+  void updateTaches(int idOT) {
     futureTaches = fetchOTTaches(idOT);
-    futureTaches.then((value){
-      value.forEach((e){
-       database.tacheDao.insertTache(e);
-       log ("table tache insérée");
+    futureTaches.then((value) {
+      value.forEach((e) {
+        database.tacheDao.insertTache(e);
+        log("table tache insérée");
       });
-    }).catchError((error){
+    }).catchError((error) {
       log(error);
     });
   }
@@ -150,4 +141,10 @@ class InRepository extends InRepositoryAbs {
   Future<List<Site>> getAllSite() {
     return fetchSites();
   }
+
+  // Future<List<Matricule>> getAllMatricule() {
+  //   Future<List<Matricule>> matricule = fetchMatricules(14);
+  //   print(matricule);
+  //   return matricule;
+  // }
 }

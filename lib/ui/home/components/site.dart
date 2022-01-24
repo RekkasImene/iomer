@@ -96,10 +96,36 @@ class _SiteState extends State<SiteWidget> {
                           horizontal: 50, vertical: 20)),
                 ),
               ),
+              _buildButton(),
             ],
           ),
         )
       ],
     );
+  }
+
+  Widget _buildButton() {
+    return ElevatedButton(
+      child: const Text('Valider', style: TextStyle(fontSize: 20)),
+      style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+      onPressed: calculateWhetherDisabledReturnsBool()
+          ? null
+          : () => [
+                _sitesBloc.add(ValidateEventSites(chooseValue!)),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FirstScreen()),
+                )
+              ],
+    );
+  }
+
+  calculateWhetherDisabledReturnsBool() {
+    if (chooseValue != null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

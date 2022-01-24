@@ -23,7 +23,6 @@ class _SiteState extends State<SiteWidget> {
     _sitesBloc.add(FetchEventSites());
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Column(

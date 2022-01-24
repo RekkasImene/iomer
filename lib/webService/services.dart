@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart' as http;
 
@@ -34,7 +35,7 @@ Future<List<Origine>> fetchOrigines(int id) async {
 }
 
 /* Get Matricules */
-Future<List<Matricule>> fetchMatricules(int id) async {
+Future<List<Matricule>> fetchMatricules(int? id) async {
   final response = await http.get(Uri.parse('$url/GetMatricules/$id'));
 
   if (response.statusCode == 200) {
@@ -87,6 +88,8 @@ Future<List<OtData>> fetchOTs(int idSite, int idOrigine) async {
     ots = (json.decode(response.body) as List)
         .map((otJson) => OtData.fromJson(otJson))
         .toList();
+     
+  log("Liste de Ots : " +ots.toString());
     return ots;
   } else {
     throw Exception('Failed to load OTs');

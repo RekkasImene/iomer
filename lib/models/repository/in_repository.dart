@@ -29,18 +29,8 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Article>> futureArticles;
   late Future<List<Equipement>> futureEquipements;
   late Future<List<Tache>> futureTaches;
+  late Future<List<ConfigData>> futureConfig;
 
-  void updateSite() {
-    futureSites = fetchSites();
-    futureSites.then((value) {
-      value.forEach((e) {
-        database.siteDao.insertSite(e);
-        log("table sites insérée");
-      });
-    }).catchError((error) {
-      log(error);
-    });
-  }
 
   void updateOrigines(int idSite) {
     futureOrigines = fetchOrigines(idSite);

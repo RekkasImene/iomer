@@ -11,6 +11,6 @@ abstract class SitesEvent extends Equatable {
 class FetchEventSites extends SitesEvent {}
 
 class ValidateEventSites extends SitesEvent {
-  Site monsite;
+  final Site monsite;
   ValidateEventSites(this.monsite);
 }

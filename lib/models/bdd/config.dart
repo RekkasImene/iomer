@@ -8,9 +8,10 @@ class Config extends Table {
       .customConstraint('NULL REFERENCES Sites(IDSITE)')();
   TextColumn get CODEPOCKET => text().withLength(min: 1, max: 16)();
   TextColumn get NOMPOCKET => text().withLength(min: 1, max: 48)();
-  IntColumn get IDORIGINE => integer()
-      .nullable()
+  IntColumn get IDORIGINE => integer().nullable()
       .customConstraint('NULL REFERENCES Origines(IDORIGINE)')();
+ TextColumn get CODEORIGINE => text()();
+ TextColumn get LIBELLEORIGINE => text()();
 
 
   @override

@@ -23,10 +23,7 @@ class _SiteState extends State<SiteWidget> {
     _sitesBloc.add(FetchEventSites());
   }
 
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +92,7 @@ class _SiteState extends State<SiteWidget> {
                           builder: (context) => const FirstScreen()),
                     );
                   },
+
                   child: const Text('Valider', style: TextStyle(fontSize: 20)),
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(

@@ -25,7 +25,7 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
       if (event is FetchEventSites) {
         emit(SitesLoading());
         final List<Site> sites = await _repository.getAllSite();
-        if (sites != null) {
+        if (sites.isNotEmpty) {
           emit(SitesLoaded(sites));
         } else {
           emit(const SitesError('Error'));
@@ -35,9 +35,11 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
       if (event is ValidateEventSites) {
         if(event.monsite != null) {
           print("Mon site selectionné est  :"+ event.monsite.NOMSITE);
-          _repository.InsertSite(event.monsite);
+          //_repository.InsertSite(event.monsite);
         }
       }
+
+
     });
   }
 }

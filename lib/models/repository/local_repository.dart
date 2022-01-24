@@ -1,5 +1,4 @@
 //Vue vers bdd et bdd  vers vue
-
 import 'dart:developer';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
@@ -13,6 +12,7 @@ class LocalRepository {
   final IomerDatabase database;
   LocalRepository(this.database);
 
+  //GetAll Methods from db.sqlite database
   Future<List<Matricule>> getAllMatricule() {
     return database.matriculeDao.getAllMatricules();
   }
@@ -40,7 +40,7 @@ class LocalRepository {
     return database.tacheDao.getAllTaches();
   }
 
-  Future<List<Site>> getAllSite(){
+  Future<List<Site>> getAllSite() {
     return database.siteDao.getAllSites();
   }
 

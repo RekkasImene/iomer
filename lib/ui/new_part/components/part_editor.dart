@@ -36,6 +36,7 @@ class PartEditor extends StatelessWidget {
             ),
             Flexible(
               child: TextField(
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Quantité :'),
               ),

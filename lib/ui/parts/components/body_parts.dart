@@ -41,7 +41,6 @@ class Body extends StatelessWidget {
                   },
                   child: const Text('Ajout'),
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 10)),
                 ),
@@ -59,7 +58,6 @@ class Body extends StatelessWidget {
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),

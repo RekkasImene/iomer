@@ -9,7 +9,6 @@ class OTListWidget extends StatefulWidget {
 }
 
 class _OTListState extends State<OTListWidget> {
-
   static const List<String> _list = [
     "Révision des 1000%",
     "Action corrective",
@@ -21,7 +20,6 @@ class _OTListState extends State<OTListWidget> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-
       children: [
         const Padding(
           padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
@@ -30,11 +28,10 @@ class _OTListState extends State<OTListWidget> {
             style: TextStyle(fontSize: 18),
           ),
         ),
-
         Expanded(
           child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black)),
+              decoration:
+                  BoxDecoration(border: Border.all(color: Colors.black)),
               child: Column(
                 children: [
                   Expanded(
@@ -59,20 +56,15 @@ class _OTListState extends State<OTListWidget> {
                 ],
               )),
         ),
-
         const SizedBox(height: 20),
-
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () {},
             child: const Text('Scan machine'),
-            style: ButtonStyle(
-              backgroundColor:
-              MaterialStateProperty.all(Colors.orange.shade300),
-              textStyle: MaterialStateProperty.all(
-                  const TextStyle(fontSize: 15)),
-            ),
+            style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
           ),
         )
       ],

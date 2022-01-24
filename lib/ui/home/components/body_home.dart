@@ -19,10 +19,7 @@ class Body extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: SiteWidget(),
-          ),
+          Expanded(child: SiteWidget()),
 
         ],
       ),

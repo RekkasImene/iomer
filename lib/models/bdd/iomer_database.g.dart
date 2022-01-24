@@ -1625,9 +1625,9 @@ class OtData extends DataClass implements Insertable<OtData> {
   final int? IDEQUIPEMENT;
   final String CODEOT;
   final String LIBELLEOT;
-  final String COMMENTOT;
-  final double TEMPSOT;
-  final String STATUTOT;
+  final String? COMMENTOT;
+  final double? TEMPSOT;
+  final String? STATUTOT;
   final DateTime? DTOPENOT;
   final DateTime? DTEXECOT;
   final DateTime? DTWAITOT;
@@ -1640,9 +1640,9 @@ class OtData extends DataClass implements Insertable<OtData> {
       this.IDEQUIPEMENT,
       required this.CODEOT,
       required this.LIBELLEOT,
-      required this.COMMENTOT,
-      required this.TEMPSOT,
-      required this.STATUTOT,
+      this.COMMENTOT,
+      this.TEMPSOT,
+      this.STATUTOT,
       this.DTOPENOT,
       this.DTEXECOT,
       this.DTWAITOT,
@@ -1664,11 +1664,11 @@ class OtData extends DataClass implements Insertable<OtData> {
       LIBELLEOT: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}libelleot'])!,
       COMMENTOT: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}commentot'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}commentot']),
       TEMPSOT: const RealType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}tempsot'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}tempsot']),
       STATUTOT: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}statutot'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}statutot']),
       DTOPENOT: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}dtopenot']),
       DTEXECOT: const DateTimeType()
@@ -1696,9 +1696,15 @@ class OtData extends DataClass implements Insertable<OtData> {
     }
     map['codeot'] = Variable<String>(CODEOT);
     map['libelleot'] = Variable<String>(LIBELLEOT);
-    map['commentot'] = Variable<String>(COMMENTOT);
-    map['tempsot'] = Variable<double>(TEMPSOT);
-    map['statutot'] = Variable<String>(STATUTOT);
+    if (!nullToAbsent || COMMENTOT != null) {
+      map['commentot'] = Variable<String?>(COMMENTOT);
+    }
+    if (!nullToAbsent || TEMPSOT != null) {
+      map['tempsot'] = Variable<double?>(TEMPSOT);
+    }
+    if (!nullToAbsent || STATUTOT != null) {
+      map['statutot'] = Variable<String?>(STATUTOT);
+    }
     if (!nullToAbsent || DTOPENOT != null) {
       map['dtopenot'] = Variable<DateTime?>(DTOPENOT);
     }
@@ -1731,9 +1737,15 @@ class OtData extends DataClass implements Insertable<OtData> {
           : Value(IDEQUIPEMENT),
       CODEOT: Value(CODEOT),
       LIBELLEOT: Value(LIBELLEOT),
-      COMMENTOT: Value(COMMENTOT),
-      TEMPSOT: Value(TEMPSOT),
-      STATUTOT: Value(STATUTOT),
+      COMMENTOT: COMMENTOT == null && nullToAbsent
+          ? const Value.absent()
+          : Value(COMMENTOT),
+      TEMPSOT: TEMPSOT == null && nullToAbsent
+          ? const Value.absent()
+          : Value(TEMPSOT),
+      STATUTOT: STATUTOT == null && nullToAbsent
+          ? const Value.absent()
+          : Value(STATUTOT),
       DTOPENOT: DTOPENOT == null && nullToAbsent
           ? const Value.absent()
           : Value(DTOPENOT),
@@ -1762,9 +1774,9 @@ class OtData extends DataClass implements Insertable<OtData> {
       IDEQUIPEMENT: serializer.fromJson<int?>(json['IDEQUIPEMENT']),
       CODEOT: serializer.fromJson<String>(json['CODEOT']),
       LIBELLEOT: serializer.fromJson<String>(json['LIBELLEOT']),
-      COMMENTOT: serializer.fromJson<String>(json['COMMENTOT']),
-      TEMPSOT: serializer.fromJson<double>(json['TEMPSOT']),
-      STATUTOT: serializer.fromJson<String>(json['STATUTOT']),
+      COMMENTOT: serializer.fromJson<String?>(json['COMMENTOT']),
+      TEMPSOT: serializer.fromJson<double?>(json['TEMPSOT']),
+      STATUTOT: serializer.fromJson<String?>(json['STATUTOT']),
       DTOPENOT: serializer.fromJson<DateTime?>(json['DTOPENOT']),
       DTEXECOT: serializer.fromJson<DateTime?>(json['DTEXECOT']),
       DTWAITOT: serializer.fromJson<DateTime?>(json['DTWAITOT']),
@@ -1782,9 +1794,9 @@ class OtData extends DataClass implements Insertable<OtData> {
       'IDEQUIPEMENT': serializer.toJson<int?>(IDEQUIPEMENT),
       'CODEOT': serializer.toJson<String>(CODEOT),
       'LIBELLEOT': serializer.toJson<String>(LIBELLEOT),
-      'COMMENTOT': serializer.toJson<String>(COMMENTOT),
-      'TEMPSOT': serializer.toJson<double>(TEMPSOT),
-      'STATUTOT': serializer.toJson<String>(STATUTOT),
+      'COMMENTOT': serializer.toJson<String?>(COMMENTOT),
+      'TEMPSOT': serializer.toJson<double?>(TEMPSOT),
+      'STATUTOT': serializer.toJson<String?>(STATUTOT),
       'DTOPENOT': serializer.toJson<DateTime?>(DTOPENOT),
       'DTEXECOT': serializer.toJson<DateTime?>(DTEXECOT),
       'DTWAITOT': serializer.toJson<DateTime?>(DTWAITOT),
@@ -1888,9 +1900,9 @@ class OtCompanion extends UpdateCompanion<OtData> {
   final Value<int?> IDEQUIPEMENT;
   final Value<String> CODEOT;
   final Value<String> LIBELLEOT;
-  final Value<String> COMMENTOT;
-  final Value<double> TEMPSOT;
-  final Value<String> STATUTOT;
+  final Value<String?> COMMENTOT;
+  final Value<double?> TEMPSOT;
+  final Value<String?> STATUTOT;
   final Value<DateTime?> DTOPENOT;
   final Value<DateTime?> DTEXECOT;
   final Value<DateTime?> DTWAITOT;
@@ -1919,19 +1931,16 @@ class OtCompanion extends UpdateCompanion<OtData> {
     this.IDEQUIPEMENT = const Value.absent(),
     required String CODEOT,
     required String LIBELLEOT,
-    required String COMMENTOT,
-    required double TEMPSOT,
-    required String STATUTOT,
+    this.COMMENTOT = const Value.absent(),
+    this.TEMPSOT = const Value.absent(),
+    this.STATUTOT = const Value.absent(),
     this.DTOPENOT = const Value.absent(),
     this.DTEXECOT = const Value.absent(),
     this.DTWAITOT = const Value.absent(),
     this.DTCANCOT = const Value.absent(),
     this.DTCLOSOT = const Value.absent(),
   })  : CODEOT = Value(CODEOT),
-        LIBELLEOT = Value(LIBELLEOT),
-        COMMENTOT = Value(COMMENTOT),
-        TEMPSOT = Value(TEMPSOT),
-        STATUTOT = Value(STATUTOT);
+        LIBELLEOT = Value(LIBELLEOT);
   static Insertable<OtData> custom({
     Expression<int>? IDOT,
     Expression<int?>? IDORIGINE,
@@ -1939,9 +1948,9 @@ class OtCompanion extends UpdateCompanion<OtData> {
     Expression<int?>? IDEQUIPEMENT,
     Expression<String>? CODEOT,
     Expression<String>? LIBELLEOT,
-    Expression<String>? COMMENTOT,
-    Expression<double>? TEMPSOT,
-    Expression<String>? STATUTOT,
+    Expression<String?>? COMMENTOT,
+    Expression<double?>? TEMPSOT,
+    Expression<String?>? STATUTOT,
     Expression<DateTime?>? DTOPENOT,
     Expression<DateTime?>? DTEXECOT,
     Expression<DateTime?>? DTWAITOT,
@@ -1973,9 +1982,9 @@ class OtCompanion extends UpdateCompanion<OtData> {
       Value<int?>? IDEQUIPEMENT,
       Value<String>? CODEOT,
       Value<String>? LIBELLEOT,
-      Value<String>? COMMENTOT,
-      Value<double>? TEMPSOT,
-      Value<String>? STATUTOT,
+      Value<String?>? COMMENTOT,
+      Value<double?>? TEMPSOT,
+      Value<String?>? STATUTOT,
       Value<DateTime?>? DTOPENOT,
       Value<DateTime?>? DTEXECOT,
       Value<DateTime?>? DTWAITOT,
@@ -2021,13 +2030,13 @@ class OtCompanion extends UpdateCompanion<OtData> {
       map['libelleot'] = Variable<String>(LIBELLEOT.value);
     }
     if (COMMENTOT.present) {
-      map['commentot'] = Variable<String>(COMMENTOT.value);
+      map['commentot'] = Variable<String?>(COMMENTOT.value);
     }
     if (TEMPSOT.present) {
-      map['tempsot'] = Variable<double>(TEMPSOT.value);
+      map['tempsot'] = Variable<double?>(TEMPSOT.value);
     }
     if (STATUTOT.present) {
-      map['statutot'] = Variable<String>(STATUTOT.value);
+      map['statutot'] = Variable<String?>(STATUTOT.value);
     }
     if (DTOPENOT.present) {
       map['dtopenot'] = Variable<DateTime?>(DTOPENOT.value);
@@ -2113,22 +2122,22 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
       requiredDuringInsert: true);
   final VerificationMeta _COMMENTOTMeta = const VerificationMeta('COMMENTOT');
   late final GeneratedColumn<String?> COMMENTOT = GeneratedColumn<String?>(
-      'commentot', aliasedName, false,
+      'commentot', aliasedName, true,
       additionalChecks: GeneratedColumn.checkTextLength(
           minTextLength: 0, maxTextLength: 2048),
       typeName: 'TEXT',
-      requiredDuringInsert: true);
+      requiredDuringInsert: false);
   final VerificationMeta _TEMPSOTMeta = const VerificationMeta('TEMPSOT');
   late final GeneratedColumn<double?> TEMPSOT = GeneratedColumn<double?>(
-      'tempsot', aliasedName, false,
-      typeName: 'REAL', requiredDuringInsert: true);
+      'tempsot', aliasedName, true,
+      typeName: 'REAL', requiredDuringInsert: false);
   final VerificationMeta _STATUTOTMeta = const VerificationMeta('STATUTOT');
   late final GeneratedColumn<String?> STATUTOT = GeneratedColumn<String?>(
-      'statutot', aliasedName, false,
+      'statutot', aliasedName, true,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 1),
       typeName: 'TEXT',
-      requiredDuringInsert: true);
+      requiredDuringInsert: false);
   final VerificationMeta _DTOPENOTMeta = const VerificationMeta('DTOPENOT');
   late final GeneratedColumn<DateTime?> DTOPENOT = GeneratedColumn<DateTime?>(
       'dtopenot', aliasedName, true,
@@ -2210,20 +2219,14 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
     if (data.containsKey('commentot')) {
       context.handle(_COMMENTOTMeta,
           COMMENTOT.isAcceptableOrUnknown(data['commentot']!, _COMMENTOTMeta));
-    } else if (isInserting) {
-      context.missing(_COMMENTOTMeta);
     }
     if (data.containsKey('tempsot')) {
       context.handle(_TEMPSOTMeta,
           TEMPSOT.isAcceptableOrUnknown(data['tempsot']!, _TEMPSOTMeta));
-    } else if (isInserting) {
-      context.missing(_TEMPSOTMeta);
     }
     if (data.containsKey('statutot')) {
       context.handle(_STATUTOTMeta,
           STATUTOT.isAcceptableOrUnknown(data['statutot']!, _STATUTOTMeta));
-    } else if (isInserting) {
-      context.missing(_STATUTOTMeta);
     }
     if (data.containsKey('dtopenot')) {
       context.handle(_DTOPENOTMeta,

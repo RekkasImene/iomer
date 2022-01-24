@@ -9,3 +9,5 @@ abstract class SitesEvent extends Equatable {
 }
 
 class FetchEventSites extends SitesEvent {}
+
+

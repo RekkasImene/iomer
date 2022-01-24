@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/models/repository/in_repository.dart';
+import 'package:iomer/models/repository/local_repository.dart';
 import 'package:iomer/webService/services.dart';
 
 part 'sites_event.dart';
@@ -15,15 +16,25 @@ part 'sites_state.dart';
 @injectable
 class SitesBloc extends Bloc<SitesEvent, SitesState> {
 
-  final InRepository _repository;
+  final InRepository _Inrepository;
 
-  SitesBloc(this._repository) : super(SitesInitial()) {
+  final LocalRepository _localRepository;
+  
+
+
+  SitesBloc(this._Inrepository,this._localRepository) : super(SitesInitial()) {
     on<SitesEvent>((event, emit) async {
       if (event is SitesEvent) {
         emit(SitesLoading());
-        final sites = await _repository.getAllSite();
+        final sites = await _Inrepository.getAllSite();
+
+
+
         if (sites != null) {
           emit(SitesLoaded(sites));
+          
+     
+        
         } else {
           emit(const SitesError('Error'));
         }

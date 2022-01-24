@@ -28,16 +28,7 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Tache>> futureTaches;
   late Future<List<ConfigData>> futureConfig;
 
-  void updateSite() {
-    futureSites = fetchSites();
-    futureSites.then((value) {
-      value.forEach((e) {
-        database.siteDao.insertSite(e);
-      });
-    }).catchError((error) {
-      log(error);
-    });
-  }
+
 
   void updateOrigines(int idSite) {
     futureOrigines = fetchOrigines(idSite);
@@ -51,7 +42,7 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  /* void updateMatricules(int idOrigine){
+   void updateMatricules(int idOrigine){
     futureMatricules = fetchMatricules(idOrigine);
     futureMatricules.then((value){
       value.forEach((e){
@@ -62,24 +53,9 @@ class InRepository extends InRepositoryAbs {
     } ).catchError((error){
       log(error);
     });
-  }*/
-
-  void updateMatricules(int idSite, String codePocket) {
-    futureConfig = fetchConfigs(idSite, codePocket);
-    futureConfig.then((config) {
-      futureMatricules = fetchMatricules(config.first.IDORIGINE);
-      futureMatricules.then((value) {
-        value.forEach((e) {
-          database.matriculeDao.insertMatricule(e);
-          log("table matricule insérée");
-        });
-      }).catchError((error) {
-        log(error);
-      });
-    }).catchError((error) {
-      log(error);
-    });
   }
+
+ 
 
   void updateOTs(int idSite, int idOrigine) {
     futureOTs = fetchOTs(idSite, idOrigine);

@@ -16,6 +16,17 @@ import '../bdd/iomer_database.dart';
 class LocalRepository {
   final IomerDatabase database;
   LocalRepository(this.database);
+  
+  
+  Future<List<Matricule>> getAllMatricule() {
+    log(database.matriculeDao.getAllMatricules().toString());
+    return database.matriculeDao.getAllMatricules();
+  }
+
+  /*Future<List<OtData>> getOt() {
+    print(database.otDao.getAllOts());
+    return database.otDao.getAllOts();
+  }*/
 
   void saveData(Site site, ConfigData config) {
     database.siteDao.insertSite(site);
@@ -27,7 +38,7 @@ class LocalRepository {
     int newIdOT =0;
     Future<List<OtData>> lastdata = database.otDao.sortTable();
     
-    lastdata.then((value) {
+     lastdata.then((value) {
       log("msgg "+value.toString());
    
       newIdOT = value.first.IDOT;

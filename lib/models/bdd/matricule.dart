@@ -16,15 +16,13 @@ class Matricules extends Table {
   Set<Column> get primaryKey => {IDMATRICULE};
 }
 
-@DriftAccessor(
-    tables:[Matricules]
-)
-class MatriculeDao extends DatabaseAccessor<IomerDatabase> with _$MatriculeDaoMixin{
+@DriftAccessor(tables: [Matricules])
+class MatriculeDao extends DatabaseAccessor<IomerDatabase>
+    with _$MatriculeDaoMixin {
   final IomerDatabase db;
-  MatriculeDao(this.db):super (db);
+  MatriculeDao(this.db) : super(db);
 
-  Future insertMatricule(Matricule  matricule) => into(matricules).insertOnConflictUpdate(matricule);
+  Future insertMatricule(Matricule matricule) =>
+      into(matricules).insertOnConflictUpdate(matricule);
   Future<List<Matricule>> getAllMatricules() => select(matricules).get();
-
-
 }

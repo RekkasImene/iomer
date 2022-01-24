@@ -1,6 +1,7 @@
 //webservice vers bdd
 
 import 'dart:developer';
+
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
@@ -8,6 +9,7 @@ import 'package:iomer/webService/services.dart';
 
 abstract class InRepositoryAbs {
   Future<List<Site>> getAllSite();
+  void InsertSite(Site site);
 }
 
 @Environment(Env.prod)
@@ -17,6 +19,7 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Site>> futureSite;
   final IomerDatabase database;
   InRepository(this.database);
+
   late Future<List<Site>> futureSites;
   late Future<List<Origine>> futureOrigines;
   late Future<List<Matricule>> futureMatricules;
@@ -29,33 +32,30 @@ class InRepository extends InRepositoryAbs {
   late Future<List<ConfigData>> futureConfig;
 
 
-
   void updateOrigines(int idSite) {
     futureOrigines = fetchOrigines(idSite);
 
     futureOrigines.then((value) {
       value.forEach((e) {
         database.origineDao.insertOrigine(e);
+        log("table origine insérée");
       });
     }).catchError((error) {
       log(error);
     });
   }
 
-   void updateMatricules(int idOrigine){
+  void updateMatricules(int idOrigine) {
     futureMatricules = fetchMatricules(idOrigine);
-    futureMatricules.then((value){
-      value.forEach((e){
+    futureMatricules.then((value) {
+      value.forEach((e) {
         database.matriculeDao.insertMatricule(e);
         log("table matricule insérée");
-       
       });
-    } ).catchError((error){
+    }).catchError((error) {
       log(error);
     });
   }
-
- 
 
   void updateOTs(int idSite, int idOrigine) {
     futureOTs = fetchOTs(idSite, idOrigine);
@@ -132,4 +132,16 @@ class InRepository extends InRepositoryAbs {
   Future<List<Site>> getAllSite() {
     return fetchSites();
   }
+
+  @override
+  void InsertSite(Site site) {
+    database.siteDao.insertSite(site);
+  }
+
+
+  // Future<List<Matricule>> getAllMatricule() {
+  //   Future<List<Matricule>> matricule = fetchMatricules(14);
+  //   print(matricule);
+  //   return matricule;
+  // }
 }

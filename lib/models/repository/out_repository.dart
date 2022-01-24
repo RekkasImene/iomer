@@ -7,8 +7,13 @@ import 'package:iomer/models/bdd/iomer_database.dart';
 
 
 @Environment(Env.prod)
+@singleton
 @injectable
 class OutRepository {
   final IomerDatabase database;
   OutRepository(this.database);
+
+
+
+
 }

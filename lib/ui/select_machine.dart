@@ -1,6 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:iomer/bloc/ot/ot_bloc.dart';
+import 'package:iomer/bloc/site/sites_bloc.dart';
+import 'package:iomer/config/injection.dart';
 
 class SelectMachine extends StatefulWidget {
   const SelectMachine({Key? key}) : super(key: key);
@@ -10,8 +13,8 @@ class SelectMachine extends StatefulWidget {
 }
 
 class _SelectMachine extends State<SelectMachine> {
-  int _value = 1;
- 
+  late int? _value;
+  //late OtBloc _otsBloc;
 
   final List<String> _list = [
     "Révision des 1000%",
@@ -19,6 +22,15 @@ class _SelectMachine extends State<SelectMachine> {
     "Parallélisme roues",
     "Révision des 1000%",
   ];
+
+  @override
+  void initState() {
+    _value = null;
+    //_otsBloc = getIt.get<OtBloc>();
+    //_otsBloc.add(FetchEventOt());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,16 +54,13 @@ class _SelectMachine extends State<SelectMachine> {
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextField(
                 decoration: InputDecoration(
-                  
                     border: UnderlineInputBorder(), labelText: 'Code machine'),
               ),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextField(
-                
                 decoration: InputDecoration(
-                 
                     border: UnderlineInputBorder(), labelText: 'Nom machine'),
               ),
             ),
@@ -96,65 +105,83 @@ class _SelectMachine extends State<SelectMachine> {
                                   alignment: Alignment.bottomRight,
                                   child: IconButton(
                                     icon: const Icon(Icons.add),
-                                     onPressed: () => showDialog<String>(
-        context: context,
-        builder: (BuildContext context) =>   BackdropFilter(
-    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), 
-    child :AlertDialog(
-      
-      
-  
-    
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-     
-          title: const Text('Nouvelle Maintenance'),
-          
-          actions: <Widget>[
-            Column(children: [
-              Row(
-                mainAxisAlignment:MainAxisAlignment.center,
-                children: [ DropdownButton(
-              value : _value,
-              items: const [
-              DropdownMenuItem(
-                child: Text("Preventive"),
-                value:1,
-              ),
-              DropdownMenuItem(
-                child: Text("Corrective"),
-                value: 2,
-              )
-            ],
-            onChanged: (value){
-              _value = value as int;
-            },
+                                    onPressed: () => showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          BackdropFilter(
+                                        filter: ImageFilter.blur(
+                                            sigmaX: 10, sigmaY: 10),
+                                        child: AlertDialog(
+                                          content: StatefulBuilder(
+                                            builder: (BuildContext context,
+                                                StateSetter setState) {
+                                              return Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      DropdownButton(
+                                                        value: _value,
+                                                        items: const [
+                                                          DropdownMenuItem(
+                                                            child: Text(
+                                                                "Preventive"),
+                                                            value: 1,
+                                                          ),
+                                                          DropdownMenuItem(
+                                                            child: Text(
+                                                                "Corrective"),
+                                                            value: 2,
+                                                          )
+                                                        ],
+                                                        //onChanged: (value)=> _value=value as int?,
 
-
-              ),
-              ],
-              ),
-             
-
-           Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: [TextButton(
-              onPressed: () => Navigator.pop(context, 'Cancel'),
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-             
-              child: const Text('OK'),
-            ),],)
-            
-            ],)
-            
-          ],
-        ),
-
-
-        ),
-      ),
+                                                        onChanged:
+                                                            (int? value) {
+                                                          setState(() {
+                                                            _value = value!;
+                                                            print(_value);
+                                                          });
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context,
+                                                                'Cancel'),
+                                                        child: const Text(
+                                                            'Cancel'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context, 'OK'),
+                                                        child: const Text('OK'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0)),
+                                          title: const Text(
+                                              'Nouvelle Maintenance'),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -185,3 +212,5 @@ class _SelectMachine extends State<SelectMachine> {
     );
   }
 }
+
+

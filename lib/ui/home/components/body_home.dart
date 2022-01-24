@@ -11,18 +11,15 @@ class Body extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
-        children: [
-          const Align(
+        children: const [
+          Align(
             alignment: Alignment.topLeft,
             child: Text(
               "Selectionner le site :",
               style: TextStyle(fontSize: 20),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.0),
-            child: SiteWidget(),
-          ),
+          Expanded(child: SiteWidget()),
 
         ],
       ),

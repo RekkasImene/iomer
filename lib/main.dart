@@ -29,9 +29,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    InRepository repository = getIt.get<InRepository>();
-    repository.updateSite();
-    repository.updateMatricules(14);
+    //InRepository repository = getIt.get<InRepository>();
+    //repository.updateSite();
+    //repository.updateMatricules(14);
   }
 
   @override

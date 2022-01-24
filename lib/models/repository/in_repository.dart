@@ -9,6 +9,7 @@ import 'package:iomer/webService/services.dart';
 
 abstract class InRepositoryAbs {
   Future<List<Site>> getAllSite();
+  void InsertSite(Site site);
 }
 
 @Environment(Env.prod)
@@ -141,6 +142,12 @@ class InRepository extends InRepositoryAbs {
   Future<List<Site>> getAllSite() {
     return fetchSites();
   }
+
+  @override
+  void InsertSite(Site site) {
+    database.siteDao.insertSite(site);
+  }
+
 
   // Future<List<Matricule>> getAllMatricule() {
   //   Future<List<Matricule>> matricule = fetchMatricules(14);

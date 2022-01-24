@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +21,8 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
 
   SitesBloc(this._repository) : super(SitesInitial()) {
     on<SitesEvent>((event, emit) async {
-      if (event is SitesEvent) {
+
+      if (event is FetchEventSites) {
         emit(SitesLoading());
         final List<Site> sites = await _repository.getAllSite();
         if (sites != null) {
@@ -29,6 +32,12 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
         }
       }
 
+      if (event is ValidateEventSites) {
+        if(event.monsite != null) {
+          print("Mon site selectionné est  :"+ event.monsite.NOMSITE);
+          _repository.InsertSite(event.monsite);
+        }
+      }
     });
   }
 }

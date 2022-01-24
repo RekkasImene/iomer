@@ -21,3 +21,8 @@ class SitesError extends SitesState {
   final String message;
   const SitesError(this.message);
 }
+
+class FormFilled extends SitesState {
+  final Site site;
+  const FormFilled(this.site);
+}

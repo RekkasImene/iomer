@@ -12,14 +12,14 @@ class LocalRepository {
   final IomerDatabase database;
 
   LocalRepository(this.database);
-  Future<List<Matricule>> getAllMatricule() {
+    Future<List<Matricule>> getAllMatricule() {
     log(database.matriculeDao.getAllMatricules().toString());
     return database.matriculeDao.getAllMatricules();
   }
 
-  Future<List<OtData>> getOt() {
+  /*Future<List<OtData>> getOt() {
     print(database.otDao.getAllOts());
     return database.otDao.getAllOts();
-  }
+  }*/
 
 }

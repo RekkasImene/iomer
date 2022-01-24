@@ -11,6 +11,7 @@ import 'package:meta/meta.dart';
 part 'ot_event.dart';
 part 'ot_state.dart';
 
+/*
 class OtBloc extends Bloc<OtEvent, OtState> {
   final LocalRepository _repository;
 
@@ -29,4 +30,4 @@ class OtBloc extends Bloc<OtEvent, OtState> {
     });
   }
 }
-
+*/

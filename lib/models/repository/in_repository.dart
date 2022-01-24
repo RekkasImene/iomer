@@ -1,6 +1,7 @@
 //webservice vers bdd
 
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
@@ -58,9 +59,9 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  void updateMatricules(int idOrigine) {
+  Future<void> updateMatricules(int idOrigine) {
     futureMatricules = fetchMatricules(idOrigine);
-    futureMatricules.then((value) {
+    return futureMatricules.then((value) {
       value.forEach((e) {
         database.matriculeDao.insertMatricule(e);
         log("table matricule insérée");
@@ -70,9 +71,9 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  void updateOTs(int idSite, int idOrigine) {
+  Future<void>  updateOTs(int idSite, int idOrigine) {
     futureOTs = fetchOTs(idSite, idOrigine);
-    futureOTs.then((value) {
+    return futureOTs.then((value) {
       value.forEach((e) {
         database.otDao.insertOt(e);
         log("table ot insérée");
@@ -82,9 +83,9 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  void updateCategories(int idSite) {
+  Future<void> updateCategories(int idSite) {
     futureCategories = fetchCategories(idSite);
-    futureCategories.then((value) {
+    return futureCategories.then((value) {
       value.forEach((e) {
         database.categorieDao.insertCategorie(e);
       });
@@ -93,9 +94,9 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  void updateReservation(int idOt) {
+  Future<void>  updateReservation(int idOt) {
     futureReservations = fetchReservations(idOt);
-    futureReservations.then((value) {
+    return futureReservations.then((value) {
       value.forEach((e) {
         database.reservationDao.insertReservation(e);
         log("table reservation insérée");
@@ -105,9 +106,9 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  void updateArticles(String codeArticle) {
+  Future<void>  updateArticles(String codeArticle) {
     futureArticles = fetchArticles(codeArticle);
-    futureArticles.then((value) {
+    return futureArticles.then((value) {
       value.forEach((e) {
         database.articleDao.insertArticle(e);
         log("table articles insérée");
@@ -117,9 +118,9 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  void updateEquipements(int idSite) {
+  Future<void> updateEquipements(int idSite) {
     futureEquipements = fetchEquipements(idSite);
-    futureEquipements.then((value) {
+    return futureEquipements.then((value) {
       value.forEach((e) {
         database.equipementDao.insertEquipement(e);
         log("table équipement insérée");
@@ -129,9 +130,9 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  void updateTaches(int idOT) {
+  Future<void>  updateTaches(int idOT) {
     futureTaches = fetchOTTaches(idOT);
-    futureTaches.then((value) {
+    return futureTaches.then((value) {
       value.forEach((e) {
         database.tacheDao.insertTache(e);
         log("table tache insérée");
@@ -147,39 +148,38 @@ class InRepository extends InRepositoryAbs {
   }
 
   //Filed database
-  void pushDB(int idSite, String codePocket){
+  void pushDB(int idSite, String codePocket) {
     //push equipement & categories
-    updateEquipements(idSite);
-    updateCategories(idSite);
-
-    //push matricule & ot
-    futureConfigs=fetchConfigs(idSite, codePocket);
-    futureConfigs.then((value) {
-        updateMatricules(value.first.IDORIGINE!);
-        updateOTs(idSite,value.first.IDORIGINE!);
-    }).catchError((error) {
-      log(error);
-    });
-
-    //push tache & OtArticle(Reservation)
-     localRepository.getAllOt().then((value) {
-       value.forEach((e) {
-            updateTaches(e.IDOT);
-            updateReservation(e.IDOT);
-          });
-        }).catchError((error) {
-        log(error);
-        });
-
-     //push articles
-     localRepository.getAllReservation().then((value) {
-       value.forEach((e) {
-         updateArticles(e.CODEARTICLE!);
-       });
-     }).catchError((error) {
-       log(error);
-     });
-
+    updateCategories(idSite)
+        .then((value) => updateEquipements(idSite).then((value) {
+              //push matricule & ot
+              futureConfigs = fetchConfigs(idSite, codePocket);
+              futureConfigs.then((value) {
+                int idOrigine = value.first.IDORIGINE!;
+                updateMatricules(idOrigine)
+                    .then((value) => updateOTs(idSite, idOrigine));
+              }).catchError((error) {
+                log(error);
+              });
+            }).then((value) {
+              //push tache & OtArticle(Reservation)
+              localRepository.getAllOt().then((value) {
+                value.forEach((e) {
+                  updateTaches(e.IDOT)
+                      .then((value) => updateReservation(e.IDOT).then((value) {
+                            //push articles
+                            localRepository.getAllReservation().then((value) {
+                              value.forEach((e) {
+                                updateArticles(e.CODEARTICLE!);
+                              });
+                            }).catchError((error) {
+                              log(error);
+                            });
+                          }));
+                });
+              }).catchError((error) {
+                log(error);
+              });
+            }));
   }
-
 }

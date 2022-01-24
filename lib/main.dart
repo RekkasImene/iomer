@@ -32,6 +32,7 @@ class _MyAppState extends State<MyApp> {
     InRepository repository = getIt.get<InRepository>();
     //repository.updateSite();
     //repository.updateMatricules(14);
+    repository.pushDB(1,"P02");
   }
 
   @override

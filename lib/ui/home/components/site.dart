@@ -23,11 +23,6 @@ class _SiteState extends State<SiteWidget> {
     _sitesBloc.add(FetchEventSites());
   }
 
-// chooseValue
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
 
   @override
   Widget build(BuildContext context) {

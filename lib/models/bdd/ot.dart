@@ -59,4 +59,7 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
           ]))
         .get();
   }
+  void methode(){
+
+  }
 }

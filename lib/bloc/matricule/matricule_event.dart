@@ -9,4 +9,7 @@ abstract class MatriculeEvent extends Equatable {
 
 class FetchMatriculeEvenet extends MatriculeEvent {}
 
-class CheckedMatriculeEvenet extends MatriculeEvent {}
+class CheckedMatriculeEvenet extends MatriculeEvent {
+  final Matricule matricule;
+  CheckedMatriculeEvenet(this.matricule);
+}

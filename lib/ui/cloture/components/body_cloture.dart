@@ -24,7 +24,7 @@ class Body extends StatelessWidget {
             child: Info(),
           ),
           const Expanded(
-            child: Matricule(),
+            child: MatriculeWidget(),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 8),

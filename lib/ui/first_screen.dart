@@ -1,4 +1,4 @@
-import 'dart:developer';
+/*import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,7 +53,7 @@ class _FirstScreenState extends State<FirstScreen> {
             ),
             const SizedBox(height: 20),
 
-            /*expanded permet de remplir la place*/
+            expanded permet de remplir la place
             Expanded(
               child: Container(
                   decoration:
@@ -75,14 +75,14 @@ class _FirstScreenState extends State<FirstScreen> {
                                     Text(state.matricule[index].NOMMATRICULE),
                                 //  value: _isChecked[index],
                                 value: ischecked,
-                                onChanged: (value) {
+                                onChanged: (newValue) {
                                   setState(
                                     () {
-                                      ischecked = value!;
+                                      ischecked = newValue!;
 
                                       log(ischecked.toString());
-                                      _matriculeBloc
-                                          .add(CheckedMatriculeEvenet());
+                                       _matriculeBloc.add(
+                                          CheckedMatriculeEvenet(ischecked!));
                                     },
                                   );
                                 },
@@ -123,4 +123,4 @@ class _FirstScreenState extends State<FirstScreen> {
       ),
     );
   }
-}
+}*/

@@ -20,6 +20,7 @@ class LocalRepository {
   Future<List<OtData>> getAllOt() {
     return database.otDao.getAllOts();
   }
+
   Future<List<Article>> getAllArticle() {
     return database.articleDao.getAllArticles();
   }
@@ -40,7 +41,7 @@ class LocalRepository {
     return database.tacheDao.getAllTaches();
   }
 
-  Future<List<Site>> getAllSite(){
+  Future<List<Site>> getAllSite() {
     return database.siteDao.getAllSites();
   }
 
@@ -53,24 +54,26 @@ class LocalRepository {
     database.configDao.insertConfig(config);
   }
 
-  void addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) {
-
-    int newIdOT =0;
+  void addNewOt(
+      int idEquipement, int idOrigine, int idCategorie, String libelleOt) {
+    int newIdOT = 0;
     Future<List<OtData>> lastdata = database.otDao.sortTable();
 
-     lastdata.then((value) {
-
+    lastdata.then((value) {
       newIdOT = value.first.IDOT;
       newIdOT++;
 
-    OtData newOt = OtData(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt,
-    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie);
+      OtData newOt = OtData(
+          IDOT: newIdOT,
+          CODEOT: "null",
+          LIBELLEOT: libelleOt,
+          IDORIGINE: idOrigine,
+          IDEQUIPEMENT: idEquipement,
+          IDCATEGORIE: idCategorie);
 
-    database.otDao.insertOt(newOt);
-
+      database.otDao.insertOt(newOt);
     }).catchError((error) {
       log(error);
     });
-
   }
 }

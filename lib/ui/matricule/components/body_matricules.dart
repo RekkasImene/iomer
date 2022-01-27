@@ -21,7 +21,7 @@ class Body extends StatelessWidget {
           const Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 20.0),
-              child: Matricule(),
+              child: MatriculeWidget(),
             ),
           ),
           SizedBox(
@@ -30,13 +30,14 @@ class Body extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const MachineScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const MachineScreen()),
                 );
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
           ),
         ],

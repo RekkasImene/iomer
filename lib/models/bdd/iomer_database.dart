@@ -1,5 +1,4 @@
 import 'package:drift/native.dart';
-import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/config.dart';
@@ -12,7 +11,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:drift/drift.dart';
 import 'dart:io';
-import 'dart:ffi';
 
 import 'article.dart';
 import 'categorie.dart';
@@ -34,16 +32,25 @@ LazyDatabase _openConnection() {
 }
 
 @DriftDatabase(tables: [Articles,Categories,Documents,Equipements,Matricules,
-  Origines,Ot,Reservations,Sites,Taches,Config],
+  Origines,Ots,Reservations,Sites,Taches,Configs],
     daos: [ArticleDao,CategorieDao,EquipementDao,MatriculeDao,OrigineDao,OtDao,
       ReservationDao,SiteDao,TacheDao,ConfigDao]
 )
 
 @Environment(Env.prod)
+@singleton
 @injectable
 class IomerDatabase extends _$IomerDatabase {
   IomerDatabase() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
+
+  Future<void> deleteEverything() {
+    return transaction(() async {
+      for (final table in allTables) {
+        await delete(table).go();
+      }
+    });
+  }
 }

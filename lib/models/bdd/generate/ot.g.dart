@@ -7,5 +7,5 @@ part of '../ot.dart';
 // **************************************************************************
 
 mixin _$OtDaoMixin on DatabaseAccessor<IomerDatabase> {
-  $OtTable get ot => attachedDatabase.ot;
+  $OtsTable get ots => attachedDatabase.ots;
 }

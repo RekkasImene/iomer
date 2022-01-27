@@ -15,12 +15,22 @@ class SiteWidget extends StatefulWidget {
 class _SiteState extends State<SiteWidget> {
   late SitesBloc _sitesBloc;
   late Site? chooseValue;
+  late String choosedConfig;
+  final myController = TextEditingController();
 
   @override
   void initState() {
     chooseValue = null;
+    choosedConfig = "";
     _sitesBloc = getIt.get<SitesBloc>();
     _sitesBloc.add(FetchEventSites());
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
   }
 
   @override
@@ -72,8 +82,9 @@ class _SiteState extends State<SiteWidget> {
             },
           ),
         ),
-        const TextField(
-          decoration: InputDecoration(
+        TextField(
+          controller: myController,
+          decoration: const InputDecoration(
               border: OutlineInputBorder(), labelText: 'Service :'),
         ),
         Expanded(
@@ -101,7 +112,9 @@ class _SiteState extends State<SiteWidget> {
       onPressed: calculateWhetherDisabledReturnsBool()
           ? null
           : () => [
-                _sitesBloc.add(ValidateEventSites(chooseValue!)),
+                choosedConfig = myController.text,
+                _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig)),
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const FirstScreen()),
@@ -116,5 +129,9 @@ class _SiteState extends State<SiteWidget> {
     } else {
       return true;
     }
+  }
+
+  setConfig() {
+    choosedConfig = myController.text;
   }
 }

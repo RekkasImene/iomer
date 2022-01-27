@@ -61,9 +61,7 @@ class _OTListState extends State<OTListWidget> {
                           child: SizedBox(
                               width: 32, height: 32, child: CircularProgressIndicator()),
                         );
-                        throw ("ptdr");
                       }
-
                       ),
                     ),
                   ),

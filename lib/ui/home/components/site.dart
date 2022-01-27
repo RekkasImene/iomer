@@ -44,8 +44,7 @@ class _SiteState extends State<SiteWidget> {
               if (state is SitesLoaded) {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 6),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.grey, width: 1),
@@ -109,12 +108,9 @@ class _SiteState extends State<SiteWidget> {
       child: const Text('Valider', style: TextStyle(fontSize: 20)),
       style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed: calculateWhetherDisabledReturnsBool()
-          ? null
-          : () => [
+      onPressed: () => [ calculateWhetherDisabledReturnsBool(),
                 choosedConfig = myController.text,
                 _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig)),
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const FirstScreen()),

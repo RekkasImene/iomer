@@ -7,4 +7,4 @@ abstract class MatriculeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchMatriculeEvenet extends MatriculeEvent {}
+class FetchMatriculeEvent extends MatriculeEvent {}

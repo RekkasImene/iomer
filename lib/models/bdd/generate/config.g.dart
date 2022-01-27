@@ -7,5 +7,5 @@ part of '../config.dart';
 // **************************************************************************
 
 mixin _$ConfigDaoMixin on DatabaseAccessor<IomerDatabase> {
-  $ConfigTable get config => attachedDatabase.config;
+  $ConfigsTable get configs => attachedDatabase.configs;
 }

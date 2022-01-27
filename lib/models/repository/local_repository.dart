@@ -17,7 +17,7 @@ class LocalRepository {
     return database.matriculeDao.getAllMatricules();
   }
 
-  Future<List<OtData>> getAllOt() {
+  Future<List<Ot>> getAllOt() {
     return database.otDao.getAllOts();
   }
   Future<List<Article>> getAllArticle() {
@@ -48,7 +48,11 @@ class LocalRepository {
     return database.reservationDao.getAllReservations();
   }
 
-  void saveData(Site site, ConfigData config) {
+  void ModifieOt(Ot ot){
+    database.otDao.modifieOt(ot);
+  }
+
+  void saveData(Site site, Config config) {
     database.siteDao.insertSite(site);
     database.configDao.insertConfig(config);
   }
@@ -56,14 +60,14 @@ class LocalRepository {
   void addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) {
 
     int newIdOT =0;
-    Future<List<OtData>> lastdata = database.otDao.sortTable();
+    Future<List<Ot>> lastdata = database.otDao.sortTable();
 
      lastdata.then((value) {
 
       newIdOT = value.first.IDOT;
       newIdOT++;
 
-      OtData newOt = OtData(
+      Ot newOt = Ot(
           IDOT: newIdOT,
           CODEOT: "null",
           LIBELLEOT: libelleOt,
@@ -78,4 +82,9 @@ class LocalRepository {
     });
 
   }
+
+void addNewDocument( int idOt, int idAttachement, String attachement) {
+
+}
+
 }

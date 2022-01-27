@@ -22,7 +22,7 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       if (event is FetchEventOt) {
         print("Appel FetchEvent ");
         emit(OtLoading());
-        final List<OtData> ots = await _repository.getAllOt();
+        final List<Ot> ots = await _repository.getAllOt();
         if (ots.isNotEmpty) {
           emit(OtLoaded(ots));
         } else {

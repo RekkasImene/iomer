@@ -1625,9 +1625,9 @@ class OtData extends DataClass implements Insertable<OtData> {
   final int? IDEQUIPEMENT;
   final String CODEOT;
   final String LIBELLEOT;
-  final String COMMENTOT;
-  final double TEMPSOT;
-  final String STATUTOT;
+  final String? COMMENTOT;
+  final double? TEMPSOT;
+  final String? STATUTOT;
   final DateTime? DTOPENOT;
   final DateTime? DTEXECOT;
   final DateTime? DTWAITOT;
@@ -1640,9 +1640,9 @@ class OtData extends DataClass implements Insertable<OtData> {
       this.IDEQUIPEMENT,
       required this.CODEOT,
       required this.LIBELLEOT,
-      required this.COMMENTOT,
-      required this.TEMPSOT,
-      required this.STATUTOT,
+      this.COMMENTOT,
+      this.TEMPSOT,
+      this.STATUTOT,
       this.DTOPENOT,
       this.DTEXECOT,
       this.DTWAITOT,
@@ -1664,11 +1664,11 @@ class OtData extends DataClass implements Insertable<OtData> {
       LIBELLEOT: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}libelleot'])!,
       COMMENTOT: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}commentot'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}commentot']),
       TEMPSOT: const RealType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}tempsot'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}tempsot']),
       STATUTOT: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}statutot'])!,
+          .mapFromDatabaseResponse(data['${effectivePrefix}statutot']),
       DTOPENOT: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}dtopenot']),
       DTEXECOT: const DateTimeType()
@@ -1696,9 +1696,15 @@ class OtData extends DataClass implements Insertable<OtData> {
     }
     map['codeot'] = Variable<String>(CODEOT);
     map['libelleot'] = Variable<String>(LIBELLEOT);
-    map['commentot'] = Variable<String>(COMMENTOT);
-    map['tempsot'] = Variable<double>(TEMPSOT);
-    map['statutot'] = Variable<String>(STATUTOT);
+    if (!nullToAbsent || COMMENTOT != null) {
+      map['commentot'] = Variable<String?>(COMMENTOT);
+    }
+    if (!nullToAbsent || TEMPSOT != null) {
+      map['tempsot'] = Variable<double?>(TEMPSOT);
+    }
+    if (!nullToAbsent || STATUTOT != null) {
+      map['statutot'] = Variable<String?>(STATUTOT);
+    }
     if (!nullToAbsent || DTOPENOT != null) {
       map['dtopenot'] = Variable<DateTime?>(DTOPENOT);
     }
@@ -1731,9 +1737,15 @@ class OtData extends DataClass implements Insertable<OtData> {
           : Value(IDEQUIPEMENT),
       CODEOT: Value(CODEOT),
       LIBELLEOT: Value(LIBELLEOT),
-      COMMENTOT: Value(COMMENTOT),
-      TEMPSOT: Value(TEMPSOT),
-      STATUTOT: Value(STATUTOT),
+      COMMENTOT: COMMENTOT == null && nullToAbsent
+          ? const Value.absent()
+          : Value(COMMENTOT),
+      TEMPSOT: TEMPSOT == null && nullToAbsent
+          ? const Value.absent()
+          : Value(TEMPSOT),
+      STATUTOT: STATUTOT == null && nullToAbsent
+          ? const Value.absent()
+          : Value(STATUTOT),
       DTOPENOT: DTOPENOT == null && nullToAbsent
           ? const Value.absent()
           : Value(DTOPENOT),
@@ -1762,9 +1774,9 @@ class OtData extends DataClass implements Insertable<OtData> {
       IDEQUIPEMENT: serializer.fromJson<int?>(json['IDEQUIPEMENT']),
       CODEOT: serializer.fromJson<String>(json['CODEOT']),
       LIBELLEOT: serializer.fromJson<String>(json['LIBELLEOT']),
-      COMMENTOT: serializer.fromJson<String>(json['COMMENTOT']),
-      TEMPSOT: serializer.fromJson<double>(json['TEMPSOT']),
-      STATUTOT: serializer.fromJson<String>(json['STATUTOT']),
+      COMMENTOT: serializer.fromJson<String?>(json['COMMENTOT']),
+      TEMPSOT: serializer.fromJson<double?>(json['TEMPSOT']),
+      STATUTOT: serializer.fromJson<String?>(json['STATUTOT']),
       DTOPENOT: serializer.fromJson<DateTime?>(json['DTOPENOT']),
       DTEXECOT: serializer.fromJson<DateTime?>(json['DTEXECOT']),
       DTWAITOT: serializer.fromJson<DateTime?>(json['DTWAITOT']),
@@ -1782,9 +1794,9 @@ class OtData extends DataClass implements Insertable<OtData> {
       'IDEQUIPEMENT': serializer.toJson<int?>(IDEQUIPEMENT),
       'CODEOT': serializer.toJson<String>(CODEOT),
       'LIBELLEOT': serializer.toJson<String>(LIBELLEOT),
-      'COMMENTOT': serializer.toJson<String>(COMMENTOT),
-      'TEMPSOT': serializer.toJson<double>(TEMPSOT),
-      'STATUTOT': serializer.toJson<String>(STATUTOT),
+      'COMMENTOT': serializer.toJson<String?>(COMMENTOT),
+      'TEMPSOT': serializer.toJson<double?>(TEMPSOT),
+      'STATUTOT': serializer.toJson<String?>(STATUTOT),
       'DTOPENOT': serializer.toJson<DateTime?>(DTOPENOT),
       'DTEXECOT': serializer.toJson<DateTime?>(DTEXECOT),
       'DTWAITOT': serializer.toJson<DateTime?>(DTWAITOT),
@@ -1888,9 +1900,9 @@ class OtCompanion extends UpdateCompanion<OtData> {
   final Value<int?> IDEQUIPEMENT;
   final Value<String> CODEOT;
   final Value<String> LIBELLEOT;
-  final Value<String> COMMENTOT;
-  final Value<double> TEMPSOT;
-  final Value<String> STATUTOT;
+  final Value<String?> COMMENTOT;
+  final Value<double?> TEMPSOT;
+  final Value<String?> STATUTOT;
   final Value<DateTime?> DTOPENOT;
   final Value<DateTime?> DTEXECOT;
   final Value<DateTime?> DTWAITOT;
@@ -1919,19 +1931,16 @@ class OtCompanion extends UpdateCompanion<OtData> {
     this.IDEQUIPEMENT = const Value.absent(),
     required String CODEOT,
     required String LIBELLEOT,
-    required String COMMENTOT,
-    required double TEMPSOT,
-    required String STATUTOT,
+    this.COMMENTOT = const Value.absent(),
+    this.TEMPSOT = const Value.absent(),
+    this.STATUTOT = const Value.absent(),
     this.DTOPENOT = const Value.absent(),
     this.DTEXECOT = const Value.absent(),
     this.DTWAITOT = const Value.absent(),
     this.DTCANCOT = const Value.absent(),
     this.DTCLOSOT = const Value.absent(),
   })  : CODEOT = Value(CODEOT),
-        LIBELLEOT = Value(LIBELLEOT),
-        COMMENTOT = Value(COMMENTOT),
-        TEMPSOT = Value(TEMPSOT),
-        STATUTOT = Value(STATUTOT);
+        LIBELLEOT = Value(LIBELLEOT);
   static Insertable<OtData> custom({
     Expression<int>? IDOT,
     Expression<int?>? IDORIGINE,
@@ -1939,9 +1948,9 @@ class OtCompanion extends UpdateCompanion<OtData> {
     Expression<int?>? IDEQUIPEMENT,
     Expression<String>? CODEOT,
     Expression<String>? LIBELLEOT,
-    Expression<String>? COMMENTOT,
-    Expression<double>? TEMPSOT,
-    Expression<String>? STATUTOT,
+    Expression<String?>? COMMENTOT,
+    Expression<double?>? TEMPSOT,
+    Expression<String?>? STATUTOT,
     Expression<DateTime?>? DTOPENOT,
     Expression<DateTime?>? DTEXECOT,
     Expression<DateTime?>? DTWAITOT,
@@ -1973,9 +1982,9 @@ class OtCompanion extends UpdateCompanion<OtData> {
       Value<int?>? IDEQUIPEMENT,
       Value<String>? CODEOT,
       Value<String>? LIBELLEOT,
-      Value<String>? COMMENTOT,
-      Value<double>? TEMPSOT,
-      Value<String>? STATUTOT,
+      Value<String?>? COMMENTOT,
+      Value<double?>? TEMPSOT,
+      Value<String?>? STATUTOT,
       Value<DateTime?>? DTOPENOT,
       Value<DateTime?>? DTEXECOT,
       Value<DateTime?>? DTWAITOT,
@@ -2021,13 +2030,13 @@ class OtCompanion extends UpdateCompanion<OtData> {
       map['libelleot'] = Variable<String>(LIBELLEOT.value);
     }
     if (COMMENTOT.present) {
-      map['commentot'] = Variable<String>(COMMENTOT.value);
+      map['commentot'] = Variable<String?>(COMMENTOT.value);
     }
     if (TEMPSOT.present) {
-      map['tempsot'] = Variable<double>(TEMPSOT.value);
+      map['tempsot'] = Variable<double?>(TEMPSOT.value);
     }
     if (STATUTOT.present) {
-      map['statutot'] = Variable<String>(STATUTOT.value);
+      map['statutot'] = Variable<String?>(STATUTOT.value);
     }
     if (DTOPENOT.present) {
       map['dtopenot'] = Variable<DateTime?>(DTOPENOT.value);
@@ -2113,22 +2122,22 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
       requiredDuringInsert: true);
   final VerificationMeta _COMMENTOTMeta = const VerificationMeta('COMMENTOT');
   late final GeneratedColumn<String?> COMMENTOT = GeneratedColumn<String?>(
-      'commentot', aliasedName, false,
+      'commentot', aliasedName, true,
       additionalChecks: GeneratedColumn.checkTextLength(
           minTextLength: 0, maxTextLength: 2048),
       typeName: 'TEXT',
-      requiredDuringInsert: true);
+      requiredDuringInsert: false);
   final VerificationMeta _TEMPSOTMeta = const VerificationMeta('TEMPSOT');
   late final GeneratedColumn<double?> TEMPSOT = GeneratedColumn<double?>(
-      'tempsot', aliasedName, false,
-      typeName: 'REAL', requiredDuringInsert: true);
+      'tempsot', aliasedName, true,
+      typeName: 'REAL', requiredDuringInsert: false);
   final VerificationMeta _STATUTOTMeta = const VerificationMeta('STATUTOT');
   late final GeneratedColumn<String?> STATUTOT = GeneratedColumn<String?>(
-      'statutot', aliasedName, false,
+      'statutot', aliasedName, true,
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 1),
       typeName: 'TEXT',
-      requiredDuringInsert: true);
+      requiredDuringInsert: false);
   final VerificationMeta _DTOPENOTMeta = const VerificationMeta('DTOPENOT');
   late final GeneratedColumn<DateTime?> DTOPENOT = GeneratedColumn<DateTime?>(
       'dtopenot', aliasedName, true,
@@ -2210,20 +2219,14 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
     if (data.containsKey('commentot')) {
       context.handle(_COMMENTOTMeta,
           COMMENTOT.isAcceptableOrUnknown(data['commentot']!, _COMMENTOTMeta));
-    } else if (isInserting) {
-      context.missing(_COMMENTOTMeta);
     }
     if (data.containsKey('tempsot')) {
       context.handle(_TEMPSOTMeta,
           TEMPSOT.isAcceptableOrUnknown(data['tempsot']!, _TEMPSOTMeta));
-    } else if (isInserting) {
-      context.missing(_TEMPSOTMeta);
     }
     if (data.containsKey('statutot')) {
       context.handle(_STATUTOTMeta,
           STATUTOT.isAcceptableOrUnknown(data['statutot']!, _STATUTOTMeta));
-    } else if (isInserting) {
-      context.missing(_STATUTOTMeta);
     }
     if (data.containsKey('dtopenot')) {
       context.handle(_DTOPENOTMeta,
@@ -3234,11 +3237,15 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
   final String CODEPOCKET;
   final String NOMPOCKET;
   final int? IDORIGINE;
+  final String CODEORIGINE;
+  final String LIBELLEORIGINE;
   ConfigData(
       {this.IDSITE,
       required this.CODEPOCKET,
       required this.NOMPOCKET,
-      this.IDORIGINE});
+      this.IDORIGINE,
+      required this.CODEORIGINE,
+      required this.LIBELLEORIGINE});
   factory ConfigData.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return ConfigData(
@@ -3250,6 +3257,10 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}nompocket'])!,
       IDORIGINE: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}idorigine']),
+      CODEORIGINE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}codeorigine'])!,
+      LIBELLEORIGINE: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}libelleorigine'])!,
     );
   }
   @override
@@ -3263,6 +3274,8 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
     if (!nullToAbsent || IDORIGINE != null) {
       map['idorigine'] = Variable<int?>(IDORIGINE);
     }
+    map['codeorigine'] = Variable<String>(CODEORIGINE);
+    map['libelleorigine'] = Variable<String>(LIBELLEORIGINE);
     return map;
   }
 
@@ -3275,6 +3288,8 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
       IDORIGINE: IDORIGINE == null && nullToAbsent
           ? const Value.absent()
           : Value(IDORIGINE),
+      CODEORIGINE: Value(CODEORIGINE),
+      LIBELLEORIGINE: Value(LIBELLEORIGINE),
     );
   }
 
@@ -3286,6 +3301,8 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
       CODEPOCKET: serializer.fromJson<String>(json['CODEPOCKET']),
       NOMPOCKET: serializer.fromJson<String>(json['NOMPOCKET']),
       IDORIGINE: serializer.fromJson<int?>(json['IDORIGINE']),
+      CODEORIGINE: serializer.fromJson<String>(json['CODEORIGINE']),
+      LIBELLEORIGINE: serializer.fromJson<String>(json['LIBELLEORIGINE']),
     );
   }
   @override
@@ -3296,6 +3313,8 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
       'CODEPOCKET': serializer.toJson<String>(CODEPOCKET),
       'NOMPOCKET': serializer.toJson<String>(NOMPOCKET),
       'IDORIGINE': serializer.toJson<int?>(IDORIGINE),
+      'CODEORIGINE': serializer.toJson<String>(CODEORIGINE),
+      'LIBELLEORIGINE': serializer.toJson<String>(LIBELLEORIGINE),
     };
   }
 
@@ -3303,12 +3322,16 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
           {int? IDSITE,
           String? CODEPOCKET,
           String? NOMPOCKET,
-          int? IDORIGINE}) =>
+          int? IDORIGINE,
+          String? CODEORIGINE,
+          String? LIBELLEORIGINE}) =>
       ConfigData(
         IDSITE: IDSITE ?? this.IDSITE,
         CODEPOCKET: CODEPOCKET ?? this.CODEPOCKET,
         NOMPOCKET: NOMPOCKET ?? this.NOMPOCKET,
         IDORIGINE: IDORIGINE ?? this.IDORIGINE,
+        CODEORIGINE: CODEORIGINE ?? this.CODEORIGINE,
+        LIBELLEORIGINE: LIBELLEORIGINE ?? this.LIBELLEORIGINE,
       );
   @override
   String toString() {
@@ -3316,13 +3339,16 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
           ..write('IDSITE: $IDSITE, ')
           ..write('CODEPOCKET: $CODEPOCKET, ')
           ..write('NOMPOCKET: $NOMPOCKET, ')
-          ..write('IDORIGINE: $IDORIGINE')
+          ..write('IDORIGINE: $IDORIGINE, ')
+          ..write('CODEORIGINE: $CODEORIGINE, ')
+          ..write('LIBELLEORIGINE: $LIBELLEORIGINE')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(IDSITE, CODEPOCKET, NOMPOCKET, IDORIGINE);
+  int get hashCode => Object.hash(
+      IDSITE, CODEPOCKET, NOMPOCKET, IDORIGINE, CODEORIGINE, LIBELLEORIGINE);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3330,7 +3356,9 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
           other.IDSITE == this.IDSITE &&
           other.CODEPOCKET == this.CODEPOCKET &&
           other.NOMPOCKET == this.NOMPOCKET &&
-          other.IDORIGINE == this.IDORIGINE);
+          other.IDORIGINE == this.IDORIGINE &&
+          other.CODEORIGINE == this.CODEORIGINE &&
+          other.LIBELLEORIGINE == this.LIBELLEORIGINE);
 }
 
 class ConfigCompanion extends UpdateCompanion<ConfigData> {
@@ -3338,30 +3366,42 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
   final Value<String> CODEPOCKET;
   final Value<String> NOMPOCKET;
   final Value<int?> IDORIGINE;
+  final Value<String> CODEORIGINE;
+  final Value<String> LIBELLEORIGINE;
   const ConfigCompanion({
     this.IDSITE = const Value.absent(),
     this.CODEPOCKET = const Value.absent(),
     this.NOMPOCKET = const Value.absent(),
     this.IDORIGINE = const Value.absent(),
+    this.CODEORIGINE = const Value.absent(),
+    this.LIBELLEORIGINE = const Value.absent(),
   });
   ConfigCompanion.insert({
     this.IDSITE = const Value.absent(),
     required String CODEPOCKET,
     required String NOMPOCKET,
     this.IDORIGINE = const Value.absent(),
+    required String CODEORIGINE,
+    required String LIBELLEORIGINE,
   })  : CODEPOCKET = Value(CODEPOCKET),
-        NOMPOCKET = Value(NOMPOCKET);
+        NOMPOCKET = Value(NOMPOCKET),
+        CODEORIGINE = Value(CODEORIGINE),
+        LIBELLEORIGINE = Value(LIBELLEORIGINE);
   static Insertable<ConfigData> custom({
     Expression<int?>? IDSITE,
     Expression<String>? CODEPOCKET,
     Expression<String>? NOMPOCKET,
     Expression<int?>? IDORIGINE,
+    Expression<String>? CODEORIGINE,
+    Expression<String>? LIBELLEORIGINE,
   }) {
     return RawValuesInsertable({
       if (IDSITE != null) 'idsite': IDSITE,
       if (CODEPOCKET != null) 'codepocket': CODEPOCKET,
       if (NOMPOCKET != null) 'nompocket': NOMPOCKET,
       if (IDORIGINE != null) 'idorigine': IDORIGINE,
+      if (CODEORIGINE != null) 'codeorigine': CODEORIGINE,
+      if (LIBELLEORIGINE != null) 'libelleorigine': LIBELLEORIGINE,
     });
   }
 
@@ -3369,12 +3409,16 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
       {Value<int?>? IDSITE,
       Value<String>? CODEPOCKET,
       Value<String>? NOMPOCKET,
-      Value<int?>? IDORIGINE}) {
+      Value<int?>? IDORIGINE,
+      Value<String>? CODEORIGINE,
+      Value<String>? LIBELLEORIGINE}) {
     return ConfigCompanion(
       IDSITE: IDSITE ?? this.IDSITE,
       CODEPOCKET: CODEPOCKET ?? this.CODEPOCKET,
       NOMPOCKET: NOMPOCKET ?? this.NOMPOCKET,
       IDORIGINE: IDORIGINE ?? this.IDORIGINE,
+      CODEORIGINE: CODEORIGINE ?? this.CODEORIGINE,
+      LIBELLEORIGINE: LIBELLEORIGINE ?? this.LIBELLEORIGINE,
     );
   }
 
@@ -3393,6 +3437,12 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
     if (IDORIGINE.present) {
       map['idorigine'] = Variable<int?>(IDORIGINE.value);
     }
+    if (CODEORIGINE.present) {
+      map['codeorigine'] = Variable<String>(CODEORIGINE.value);
+    }
+    if (LIBELLEORIGINE.present) {
+      map['libelleorigine'] = Variable<String>(LIBELLEORIGINE.value);
+    }
     return map;
   }
 
@@ -3402,7 +3452,9 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
           ..write('IDSITE: $IDSITE, ')
           ..write('CODEPOCKET: $CODEPOCKET, ')
           ..write('NOMPOCKET: $NOMPOCKET, ')
-          ..write('IDORIGINE: $IDORIGINE')
+          ..write('IDORIGINE: $IDORIGINE, ')
+          ..write('CODEORIGINE: $CODEORIGINE, ')
+          ..write('LIBELLEORIGINE: $LIBELLEORIGINE')
           ..write(')'))
         .toString();
   }
@@ -3438,9 +3490,19 @@ class $ConfigTable extends Config with TableInfo<$ConfigTable, ConfigData> {
       typeName: 'INTEGER',
       requiredDuringInsert: false,
       $customConstraints: 'NULL REFERENCES Origines(IDORIGINE)');
+  final VerificationMeta _CODEORIGINEMeta =
+      const VerificationMeta('CODEORIGINE');
+  late final GeneratedColumn<String?> CODEORIGINE = GeneratedColumn<String?>(
+      'codeorigine', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
+  final VerificationMeta _LIBELLEORIGINEMeta =
+      const VerificationMeta('LIBELLEORIGINE');
+  late final GeneratedColumn<String?> LIBELLEORIGINE = GeneratedColumn<String?>(
+      'libelleorigine', aliasedName, false,
+      typeName: 'TEXT', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [IDSITE, CODEPOCKET, NOMPOCKET, IDORIGINE];
+      [IDSITE, CODEPOCKET, NOMPOCKET, IDORIGINE, CODEORIGINE, LIBELLEORIGINE];
   @override
   String get aliasedName => _alias ?? 'config';
   @override
@@ -3471,6 +3533,22 @@ class $ConfigTable extends Config with TableInfo<$ConfigTable, ConfigData> {
     if (data.containsKey('idorigine')) {
       context.handle(_IDORIGINEMeta,
           IDORIGINE.isAcceptableOrUnknown(data['idorigine']!, _IDORIGINEMeta));
+    }
+    if (data.containsKey('codeorigine')) {
+      context.handle(
+          _CODEORIGINEMeta,
+          CODEORIGINE.isAcceptableOrUnknown(
+              data['codeorigine']!, _CODEORIGINEMeta));
+    } else if (isInserting) {
+      context.missing(_CODEORIGINEMeta);
+    }
+    if (data.containsKey('libelleorigine')) {
+      context.handle(
+          _LIBELLEORIGINEMeta,
+          LIBELLEORIGINE.isAcceptableOrUnknown(
+              data['libelleorigine']!, _LIBELLEORIGINEMeta));
+    } else if (isInserting) {
+      context.missing(_LIBELLEORIGINEMeta);
     }
     return context;
   }

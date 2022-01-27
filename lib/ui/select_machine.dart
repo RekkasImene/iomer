@@ -1,6 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:iomer/bloc/ot/ot_bloc.dart';
+import 'package:iomer/bloc/site/sites_bloc.dart';
+import 'package:iomer/config/injection.dart';
 
 class SelectMachine extends StatefulWidget {
   const SelectMachine({Key? key}) : super(key: key);
@@ -11,6 +14,7 @@ class SelectMachine extends StatefulWidget {
 
 class _SelectMachine extends State<SelectMachine> {
   late int? _value;
+  //late OtBloc _otsBloc;
 
   final List<String> _list = [
     "Révision des 1000%",
@@ -22,6 +26,8 @@ class _SelectMachine extends State<SelectMachine> {
   @override
   void initState() {
     _value = null;
+    //_otsBloc = getIt.get<OtBloc>();
+    //_otsBloc.add(FetchEventOt());
     super.initState();
   }
 
@@ -206,3 +212,5 @@ class _SelectMachine extends State<SelectMachine> {
     );
   }
 }
+
+

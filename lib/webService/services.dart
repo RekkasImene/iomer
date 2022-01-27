@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart' as http;
 
@@ -34,7 +35,7 @@ Future<List<Origine>> fetchOrigines(int id) async {
 }
 
 /* Get Matricules */
-Future<List<Matricule>> fetchMatricules(int id) async {
+Future<List<Matricule>> fetchMatricules(int? id) async {
   final response = await http.get(Uri.parse('$url/GetMatricules/$id'));
 
   if (response.statusCode == 200) {
@@ -87,6 +88,8 @@ Future<List<OtData>> fetchOTs(int idSite, int idOrigine) async {
     ots = (json.decode(response.body) as List)
         .map((otJson) => OtData.fromJson(otJson))
         .toList();
+     
+  log("Liste de Ots : " +ots.toString());
     return ots;
   } else {
     throw Exception('Failed to load OTs');
@@ -110,15 +113,14 @@ Future<List<Tache>> fetchOTTaches(int idOT) async {
 
 /* Get Config */
 Future<List<ConfigData>> fetchConfigs(int idSite, String codePocket) async {
-  final response =
-      await http.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
+  final response = await http.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
 
   if (response.statusCode == 200) {
-    List<ConfigData> config;
-    config = (json.decode(response.body) as List)
+    List<ConfigData> configs;
+    configs = (json.decode(response.body) as List)
         .map((configJson) => ConfigData.fromJson(configJson))
         .toList();
-    return config;
+    return configs;
   } else {
     throw Exception('Failed to load Config');
   }
@@ -151,4 +153,49 @@ Future<List<Reservation>> fetchReservations(int idOt) async {
   } else {
     throw Exception('Failed to load Config');
   }
+
+}
+
+Future<void> postOt(int idOt, String commentOt, double tempsOt, String statutOt) async {
+  String newTempsOt = tempsOt.toString();
+  newTempsOt = newTempsOt.replaceAll('.', ',');
+
+  final response = await http
+      .get(Uri.parse('$url/SetOt/$idOt/$commentOt/$newTempsOt/$statutOt'));
+}
+
+Future<void> postOtTache(int idTache, String statutTache, String commentTache) async {
+  final response = await http
+      .get(Uri.parse('$url/SETOT_TACHE/$idTache/$statutTache/$commentTache'));
+}
+
+Future<void> postOtArticle(int idPiece, double qteArticle) async {
+  String newQteArticle = qteArticle.toString();
+  newQteArticle = newQteArticle.replaceAll('.', ',');
+
+  final response =
+      await http.get(Uri.parse('$url/SETOT_ARTICLE/$idPiece/$newQteArticle'));
+}
+
+Future<void> postMatricule(int idMatricule, int checked) async {
+  final response =
+      await http.get(Uri.parse('$url/SETMATRICULE/$idMatricule/$checked'));
+}
+
+Future<void> postAttachment(int idOt, String attachment) async {
+  final response =
+      await http.get(Uri.parse('$url/SETATTACHMENT/$idOt/$attachment'));
+}
+
+Future<void> createOtArticle(int idOt, int idArticle, double qteArticle) async {
+  String newQteArticle = qteArticle.toString();
+  newQteArticle = newQteArticle.replaceAll('.', ',');
+
+  final response = await http
+      .get(Uri.parse('$url/CREATEOT_ARTICLE/$idOt/$idArticle/$newQteArticle'));
+}
+
+Future<void> createOt(int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
+  final response = await http.get(Uri.parse(
+      '$url/CREATEOT/$idEquipement/$idOrigine/$idCategorie/$libelleOt'));
 }

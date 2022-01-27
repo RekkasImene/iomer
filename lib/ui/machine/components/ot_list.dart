@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iomer/bloc/ot/ot_bloc.dart';
+import 'package:iomer/config/injection.dart';
 import 'package:iomer/ui/machine/components/ot_button.dart';
 
 class OTListWidget extends StatefulWidget {
@@ -9,12 +12,15 @@ class OTListWidget extends StatefulWidget {
 }
 
 class _OTListState extends State<OTListWidget> {
-  static const List<String> _list = [
-    "Révision des 1000%",
-    "Action corrective",
-    "Parallélisme roues",
-    "Révision des 1000%",
-  ];
+
+  late OtBloc _otbloc;
+
+  @override
+  void initState() {
+    _otbloc = getIt.get<OtBloc>();
+    _otbloc.add(FetchEventOt());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +41,34 @@ class _OTListState extends State<OTListWidget> {
               child: Column(
                 children: [
                   Expanded(
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: _list.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(title: Text(_list[index]));
-                      },
+                    child: BlocProvider(
+                      create: (context) => _otbloc,
+                      child: BlocBuilder<OtBloc, OtState>(
+                      builder: (context, state) {
+                        if(state is OtLoaded) {
+                          return ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: state.ots.length,
+                            itemBuilder: (context, index) {
+                            return ListTile(title: Text(state.ots[index].LIBELLEOT));
+                            },
+                          );
+                        } else if (state is OtError) {
+                          return Text(state.message);
+                        }
+                        return const Center(
+                          child: SizedBox(
+                              width: 32, height: 32, child: CircularProgressIndicator()),
+                        );
+                        throw ("ptdr");
+                      }
+
+                      ),
                     ),
                   ),
+
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: const [
@@ -54,8 +79,16 @@ class _OTListState extends State<OTListWidget> {
                     ],
                   ),
                 ],
-              )),
+              )
+                      ),
         ),
+
+
+
+
+
+
+
         const SizedBox(height: 20),
         SizedBox(
           width: double.infinity,

@@ -1,11 +1,11 @@
 //webservice vers bdd
 
 import 'dart:developer';
-
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/services.dart';
+import 'local_repository.dart';
 
 abstract class InRepositoryAbs {
   Future<List<Site>> getAllSite();
@@ -16,9 +16,9 @@ abstract class InRepositoryAbs {
 @singleton
 @injectable
 class InRepository extends InRepositoryAbs {
-  late Future<List<Site>> futureSite;
   final IomerDatabase database;
-  InRepository(this.database);
+  final LocalRepository localRepository;
+  InRepository(this.database,this.localRepository);
 
   late Future<List<Site>> futureSites;
   late Future<List<Origine>> futureOrigines;
@@ -69,7 +69,7 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  void updateCategories(int idSite) {
+  Future<void> updateCategories(int idSite) {
     futureCategories = fetchCategories(idSite);
     futureCategories.then((value) {
       value.forEach((e) {
@@ -133,17 +133,52 @@ class InRepository extends InRepositoryAbs {
     return fetchSites();
   }
 
+  Future<List<ConfigData>> getConfig(int idsite, String pocket) {
+    return fetchConfigs(idsite, pocket);
+  }
+
   @override
   void InsertSite(Site site) {
     database.siteDao.insertSite(site);
   }
 
+  //Filed database
+  void pushDB(int idSite, String codePocket) {
+    //push equipement & categories
+    updateCategories(idSite)
+        .then((value) => updateEquipements(idSite).then((value) {
+              //push matricule & ot
+              futureConfigs = fetchConfigs(idSite, codePocket);
+              futureConfigs.then((value) {
+                int idOrigine = value.first.IDORIGINE!;
+                updateMatricules(idOrigine)
+                    .then((value) => updateOTs(idSite, idOrigine));
+              }).catchError((error) {
+                log(error);
+              });
+            }).then((value) {
+              //push tache & OtArticle(Reservation)
+              localRepository.getAllOt().then((value) {
+                value.forEach((e) {
+                  updateTaches(e.IDOT)
+                      .then((value) => updateReservation(e.IDOT).then((value) {
+                            //push articles
+                            localRepository.getAllReservation().then((value) {
+                              value.forEach((e) {
+                                updateArticles(e.CODEARTICLE!);
+                              });
+                            }).catchError((error) {
+                              log(error);
+                            });
+                          }));
+                });
+              }).catchError((error) {
+                log(error);
+              });
+            }));
+  }
+
   Future<List<ConfigData>> getConfig(int idsite, String pocket) {
     return fetchConfigs(idsite, pocket);
   }
-  // Future<List<Matricule>> getAllMatricule() {
-  //   Future<List<Matricule>> matricule = fetchMatricules(14);
-  //   print(matricule);
-  //   return matricule;
-  // }
 }

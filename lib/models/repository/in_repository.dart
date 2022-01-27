@@ -141,37 +141,38 @@ class InRepository extends InRepositoryAbs {
 
   //Filed database
   void pushDB(int idSite, String codePocket) {
-    //push equipement & categories
-    updateCategories(idSite)
-        .then((value) => updateEquipements(idSite).then((value) {
-              //push matricule & ot
-              futureConfigs = fetchConfigs(idSite, codePocket);
-              futureConfigs.then((value) {
-                int idOrigine = value.first.IDORIGINE!;
-                updateMatricules(idOrigine)
-                    .then((value) => updateOTs(idSite, idOrigine));
-              }).catchError((error) {
-                log(error);
-              });
-            }).then((value) {
-              //push tache & OtArticle(Reservation)
-              localRepository.getAllOt().then((value) {
-                value.forEach((e) {
-                  updateTaches(e.IDOT)
-                      .then((value) => updateReservation(e.IDOT).then((value) {
-                            //push articles
-                            localRepository.getAllReservation().then((value) {
-                              value.forEach((e) {
-                                updateArticles(e.CODEARTICLE!);
-                              });
-                            }).catchError((error) {
-                              log(error);
+    //push matricule & ot
+    futureConfigs = fetchConfigs(idSite, codePocket);
+    futureConfigs.then((value) {
+      int idOrigine = value.first.IDORIGINE!;
+      updateMatricules(idOrigine)
+          .then((value) => updateOTs(idSite, idOrigine).then((value) {
+                //push equipement & categories
+                updateCategories(idSite)
+                    .then((value) => updateEquipements(idSite).then((value) {
+                          //push tache & OtArticle(Reservation)
+                          localRepository.getAllOt().then((value) {
+                            value.forEach((e) {
+                              updateTaches(e.IDOT).then((value) =>
+                                  updateReservation(e.IDOT).then((value) {
+                                    //push articles
+                                    localRepository
+                                        .getAllReservation()
+                                        .then((value) {
+                                      value.forEach((e) {
+                                        updateArticles(e.CODEARTICLE!);
+                                      });
+                                    }).catchError((error) {
+                                      log(error);
+                                    });
+                                  }));
                             });
-                          }));
-                });
-              }).catchError((error) {
-                log(error);
-              });
-            }));
+                          }).catchError((error) {
+                            log(error);
+                          });
+                        }));
+              }));
+    });
   }
 }
+

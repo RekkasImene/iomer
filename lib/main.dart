@@ -1,4 +1,5 @@
-
+import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/repository/in_repository.dart';
 import 'package:iomer/ui/debug_screens.dart';
@@ -21,10 +22,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    InRepository repository = getIt.get<InRepository>();
-    //repository.updateSite();
-    //repository.updateMatricules(14);
-    repository.pushDB(1,"P02");
+
   }
 
   @override
@@ -35,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: Colors.blueGrey,
-          elevatedButtonTheme: ElevatedButtonThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
         //onPrimary: Colors.yellow,
         primary: Colors.blueGrey,

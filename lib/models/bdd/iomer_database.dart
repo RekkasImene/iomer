@@ -46,4 +46,12 @@ class IomerDatabase extends _$IomerDatabase {
 
   @override
   int get schemaVersion => 1;
+
+  Future<void> deleteEverything() {
+    return transaction(() async {
+      for (final table in allTables) {
+        await delete(table).go();
+      }
+    });
+  }
 }

@@ -1,4 +1,4 @@
-//Vue vers bdd et bdd  vers vue
+//Vue vers bdd et bdd  vers vue, mode hors ligne
 import 'dart:developer';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
@@ -63,8 +63,13 @@ class LocalRepository {
       newIdOT = value.first.IDOT;
       newIdOT++;
 
-    OtData newOt = OtData(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt,
-    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie);
+      OtData newOt = OtData(
+          IDOT: newIdOT,
+          CODEOT: "null",
+          LIBELLEOT: libelleOt,
+          IDORIGINE: idOrigine,
+          IDEQUIPEMENT: idEquipement,
+          IDCATEGORIE: idCategorie);
 
     database.otDao.insertOt(newOt);
 

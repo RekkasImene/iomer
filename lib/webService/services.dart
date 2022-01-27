@@ -120,7 +120,7 @@ Future<List<Tache>> fetchOTTaches(int idOT) async {
 /* Get Config */
 Future<List<Config>> fetchConfigs(int idSite, String codePocket) async {
   final response = await http.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
-
+  log("conffffffff"+response.body.toString());
   if (response.statusCode == 200) {
     log(response.body.toString());
     List<Config> configs;

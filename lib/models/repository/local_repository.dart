@@ -78,4 +78,9 @@ class LocalRepository {
     });
 
   }
+
+void addNewDocument( int idOt, int idAttachement, String attachement) {
+
+}
+
 }

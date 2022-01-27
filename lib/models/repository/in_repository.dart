@@ -20,19 +20,20 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Site>> futureSite;
   final IomerDatabase database;
   final LocalRepository localRepository;
+  late bool flag = false;
 
   InRepository(this.database, this.localRepository);
 
   late Future<List<Site>> futureSites;
   late Future<List<Origine>> futureOrigines;
   late Future<List<Matricule>> futureMatricules;
-  late Future<List<OtData>> futureOTs;
+  late Future<List<Ot>> futureOTs;
   late Future<List<Categorie>> futureCategories;
   late Future<List<Reservation>> futureReservations;
   late Future<List<Article>> futureArticles;
   late Future<List<Equipement>> futureEquipements;
   late Future<List<Tache>> futureTaches;
-  late Future<List<ConfigData>> futureConfigs;
+  late Future<List<Config>> futureConfigs;
 
   void updateOrigines(int idSite) {
     futureOrigines = fetchOrigines(idSite);
@@ -163,6 +164,7 @@ class InRepository extends InRepositoryAbs {
                                       value.forEach((e) {
                                         updateArticles(e.CODEARTICLE!);
                                       });
+                                      flag = true;
                                     }).catchError((error) {
                                       log(error);
                                     });
@@ -171,8 +173,17 @@ class InRepository extends InRepositoryAbs {
                           }).catchError((error) {
                             log(error);
                           });
+
                         }));
               }));
     });
   }
+
+
+  bool getFlag() {
+    return this.flag;
+  }
+
+
+
 }

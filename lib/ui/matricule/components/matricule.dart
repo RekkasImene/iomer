@@ -18,7 +18,7 @@ class _MatriculeState extends State<Matricule> {
   @override
   void initState() {
     _matriculeBloc = getIt.get<MatriculeBloc>();
-    _matriculeBloc.add(FetchMatriculeEvenet());
+    //_matriculeBloc.add(FetchMatriculeEvenet());
     super.initState();
   }
 
@@ -41,11 +41,9 @@ class _MatriculeState extends State<Matricule> {
                     return CheckboxListTile(
                       title:
                       Text(state.matricule[index].NOMMATRICULE),
-                      //  value: _isChecked[index],
                       value: ischecked,
                       onChanged: (value) {
-                        setState(
-                              () {
+                        setState( () {
                             ischecked = value!;
                             log(ischecked.toString());
                           },

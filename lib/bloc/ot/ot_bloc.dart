@@ -18,15 +18,27 @@ class OtBloc extends Bloc<OtEvent, OtState> {
 
   OtBloc(this._repository) : super(OtInitial()) {
     on<OtEvent>((event, emit) async {
+      
       if (event is FetchEventOt) {
+        print("Appel FetchEvent ");
         emit(OtLoading());
-        final List<OtData> ots = await _repository.getAllOt();
+        final List<Ot> ots = await _repository.getAllOt();
         if (ots.isNotEmpty) {
           emit(OtLoaded(ots));
         } else {
           emit(const OtError('Error'));
         }
       }
+
+      if (event is NewEventOt) {
+        String label;
+        print(event.numero);
+        if(event == 1) { label = "Corrective" ; } else { label = "Preventive"; }
+        if (event.numero != null ) { print("ajout repo"); _repository.addNewOt(110, 14, 12, label);}
+        print("Appui FetchEvent.......");
+      }
+      
+      
     });
   }
 }

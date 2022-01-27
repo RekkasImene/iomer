@@ -2,7 +2,7 @@ import 'package:drift/drift.dart';
 import 'iomer_database.dart';
 part 'generate/config.g.dart';
 
-class Config extends Table {
+class Configs extends Table {
   IntColumn get IDSITE => integer()
       .nullable()
       .customConstraint('NULL REFERENCES Sites(IDSITE)')();
@@ -19,14 +19,14 @@ class Config extends Table {
 }
 
 @DriftAccessor(
-    tables:[Config]
+    tables:[Configs]
 )
 class ConfigDao extends DatabaseAccessor<IomerDatabase> with _$ConfigDaoMixin{
   final IomerDatabase db;
   ConfigDao(this.db):super (db);
 
 
-   Future insertConfig(ConfigData configData) => into(config).insertOnConflictUpdate(configData);
-  Future<List<ConfigData>> getAllConfigs() => select(config).get();
+   Future insertConfig(Config configData) => into(configs).insertOnConflictUpdate(configData);
+  Future<List<Config>> getAllConfigs() => select(configs).get();
 
 }

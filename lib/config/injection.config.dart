@@ -22,8 +22,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
     {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   gh.singleton<_i3.IomerDatabase>(_i3.IomerDatabase(), registerFor: {_prod});
-  gh.factory<_i4.LocalRepository>(
-      () => _i4.LocalRepository(get<_i3.IomerDatabase>()),
+  gh.singleton<_i4.LocalRepository>(
+      _i4.LocalRepository(get<_i3.IomerDatabase>()),
       registerFor: {_prod});
   gh.factory<_i5.MatriculeBloc>(
       () => _i5.MatriculeBloc(get<_i4.LocalRepository>()),
@@ -33,7 +33,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i7.InRepository>(
       _i7.InRepository(get<_i3.IomerDatabase>(), get<_i4.LocalRepository>()),
       registerFor: {_prod});
-  gh.factory<_i8.SitesBloc>(() => _i8.SitesBloc(get<_i7.InRepository>()),
+  gh.factory<_i8.SitesBloc>(
+      () => _i8.SitesBloc(get<_i7.InRepository>(), get<_i4.LocalRepository>()),
       registerFor: {_prod});
   return get;
 }

@@ -1,13 +1,8 @@
 //Vue vers bdd et bdd  vers vue, mode hors ligne
-
 import 'dart:developer';
-
-import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/models/bdd/ot.dart';
-
 import '../bdd/iomer_database.dart';
 
 @Environment(Env.prod)
@@ -16,10 +11,9 @@ import '../bdd/iomer_database.dart';
 class LocalRepository {
   final IomerDatabase database;
   LocalRepository(this.database);
-  
-  
+
+  //GetAll Methods from db.sqlite database
   Future<List<Matricule>> getAllMatricule() {
-    log(database.matriculeDao.getAllMatricules().toString());
     return database.matriculeDao.getAllMatricules();
   }
 
@@ -46,7 +40,7 @@ class LocalRepository {
     return database.tacheDao.getAllTaches();
   }
 
-  Future<List<Site>> getAllSite(){
+  Future<List<Site>> getAllSite() {
     return database.siteDao.getAllSites();
   }
 
@@ -64,12 +58,10 @@ class LocalRepository {
     int newIdOT =0;
     Future<List<OtData>> lastdata = database.otDao.sortTable();
 
-    lastdata.then((value) {
-      log("msgg " + value.toString());
+     lastdata.then((value) {
 
       newIdOT = value.first.IDOT;
       newIdOT++;
-      log("idOt incréemente" + newIdOT.toString());
 
       OtData newOt = OtData(
           IDOT: newIdOT,
@@ -79,12 +71,11 @@ class LocalRepository {
           IDEQUIPEMENT: idEquipement,
           IDCATEGORIE: idCategorie);
 
-      log("affiches moi mon new ot" + newOt.toString());
-      database.otDao.insertOt(newOt);
+    database.otDao.insertOt(newOt);
 
-    log("Insert new ot "+newOt.toString());
     }).catchError((error) {
       log(error);
     });
+
   }
 }

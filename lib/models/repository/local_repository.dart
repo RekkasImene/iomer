@@ -1,5 +1,4 @@
-//Vue vers bdd et bdd  vers vue
-
+//Vue vers bdd et bdd  vers vue, mode hors ligne
 import 'dart:developer';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
@@ -12,6 +11,8 @@ import '../bdd/iomer_database.dart';
 class LocalRepository {
   final IomerDatabase database;
   LocalRepository(this.database);
+
+  //GetAll Methods from db.sqlite database
   Future<List<Matricule>> getAllMatricule() {
     return database.matriculeDao.getAllMatricules();
   }
@@ -19,7 +20,6 @@ class LocalRepository {
   Future<List<OtData>> getAllOt() {
     return database.otDao.getAllOts();
   }
-
   Future<List<Article>> getAllArticle() {
     return database.articleDao.getAllArticles();
   }
@@ -40,15 +40,13 @@ class LocalRepository {
     return database.tacheDao.getAllTaches();
   }
 
-  Future<List<Site>> getAllSite(){
+  Future<List<Site>> getAllSite() {
     return database.siteDao.getAllSites();
   }
 
   Future<List<Reservation>> getAllReservation() {
     return database.reservationDao.getAllReservations();
   }
-
-}
 
   void saveData(Site site, ConfigData config) {
     database.siteDao.insertSite(site);
@@ -65,15 +63,19 @@ class LocalRepository {
       newIdOT = value.first.IDOT;
       newIdOT++;
 
-    OtData newOt = OtData(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt,
-    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie);
+      OtData newOt = OtData(
+          IDOT: newIdOT,
+          CODEOT: "null",
+          LIBELLEOT: libelleOt,
+          IDORIGINE: idOrigine,
+          IDEQUIPEMENT: idEquipement,
+          IDCATEGORIE: idCategorie);
 
     database.otDao.insertOt(newOt);
 
     }).catchError((error) {
       log(error);
     });
-
 
   }
 }

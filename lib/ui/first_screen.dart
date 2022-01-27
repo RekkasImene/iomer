@@ -81,6 +81,8 @@ class _FirstScreenState extends State<FirstScreen> {
                                       ischecked = value!;
 
                                       log(ischecked.toString());
+                                      _matriculeBloc
+                                          .add(CheckedMatriculeEvenet());
                                     },
                                   );
                                 },

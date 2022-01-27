@@ -27,6 +27,9 @@ class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
           emit(const MatriculeError('Error'));
         }
       }
+      if (event is CheckedMatriculeEvenet) {
+        //ecrire dans la base de donnée 
+      }
     });
   }
 }

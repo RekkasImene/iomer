@@ -1,13 +1,9 @@
-//Vue vers bdd et bdd  vers vue, mode hors ligne
+//Vue vers bdd et bdd  vers vue
 
 import 'dart:developer';
-
-import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/models/bdd/ot.dart';
-
 import '../bdd/iomer_database.dart';
 
 @Environment(Env.prod)
@@ -16,16 +12,14 @@ import '../bdd/iomer_database.dart';
 class LocalRepository {
   final IomerDatabase database;
   LocalRepository(this.database);
-  
-  
   Future<List<Matricule>> getAllMatricule() {
-    log(database.matriculeDao.getAllMatricules().toString());
     return database.matriculeDao.getAllMatricules();
   }
 
   Future<List<OtData>> getAllOt() {
     return database.otDao.getAllOts();
   }
+
   Future<List<Article>> getAllArticle() {
     return database.articleDao.getAllArticles();
   }
@@ -54,6 +48,8 @@ class LocalRepository {
     return database.reservationDao.getAllReservations();
   }
 
+}
+
   void saveData(Site site, ConfigData config) {
     database.siteDao.insertSite(site);
     database.configDao.insertConfig(config);
@@ -64,27 +60,20 @@ class LocalRepository {
     int newIdOT =0;
     Future<List<OtData>> lastdata = database.otDao.sortTable();
 
-    lastdata.then((value) {
-      log("msgg " + value.toString());
+     lastdata.then((value) {
 
       newIdOT = value.first.IDOT;
       newIdOT++;
-      log("idOt incréemente" + newIdOT.toString());
 
-      OtData newOt = OtData(
-          IDOT: newIdOT,
-          CODEOT: "null",
-          LIBELLEOT: libelleOt,
-          IDORIGINE: idOrigine,
-          IDEQUIPEMENT: idEquipement,
-          IDCATEGORIE: idCategorie);
+    OtData newOt = OtData(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt,
+    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie);
 
-      log("affiches moi mon new ot" + newOt.toString());
-      database.otDao.insertOt(newOt);
+    database.otDao.insertOt(newOt);
 
-    log("Insert new ot "+newOt.toString());
     }).catchError((error) {
       log(error);
     });
+
+
   }
 }

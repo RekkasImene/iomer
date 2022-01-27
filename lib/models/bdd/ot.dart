@@ -37,7 +37,6 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin{
   OtDao(this.db):super (db);
 
   Future insertOt(OtData otData) => into(ot).insertOnConflictUpdate(otData);
-  Future<List<OtData>> getAllOts() => select(ot).get();
   
   Future<List<OtData>> sortTable()  {
    return (select(ot)..orderBy([(t) => OrderingTerm(expression: t.IDOT, mode : OrderingMode.desc)])).get();

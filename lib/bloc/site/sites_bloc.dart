@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
+import 'package:iomer/models/bdd/config.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/models/repository/in_repository.dart';
 import 'package:iomer/models/repository/local_repository.dart';
@@ -41,9 +42,10 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
       }
 
       if (event is ValidateEventSites) {
-        if(event.monsite != null) {
+        if(event.monsite != null || event.macategorie != null) {
           print("Mon site selectionné est  :"+ event.monsite.NOMSITE);
-          //_localRepository.saveData(event.monsite,event.macategorie);
+          final List<ConfigData> config = await _Inrepository.getConfig(event.monsite.IDSITE, event.macategorie);
+
         }
       }
     });

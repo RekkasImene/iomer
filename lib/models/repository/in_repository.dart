@@ -138,7 +138,9 @@ class InRepository extends InRepositoryAbs {
     database.siteDao.insertSite(site);
   }
 
-
+  Future<List<ConfigData>> getConfig(int idsite, String pocket) {
+    return fetchConfigs(idsite, pocket);
+  }
   // Future<List<Matricule>> getAllMatricule() {
   //   Future<List<Matricule>> matricule = fetchMatricules(14);
   //   print(matricule);

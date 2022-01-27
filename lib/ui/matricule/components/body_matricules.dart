@@ -30,7 +30,7 @@ class Body extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const MachineScreen()),
+                  MaterialPageRoute(builder: (context) => MachineScreen(text: "",)),
                 );
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),

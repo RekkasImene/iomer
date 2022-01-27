@@ -21,25 +21,32 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
 
   final InRepository _Inrepository;
 
-  SitesBloc(this._Inrepository) : super(SitesInitial()) {
+  final LocalRepository _localRepository;
+  
+
+
+  SitesBloc(this._Inrepository,this._localRepository) : super(SitesInitial()) {
     on<SitesEvent>((event, emit) async {
+
       if (event is FetchEventSites) {
         emit(SitesLoading());
         final List<Site> sites = await _Inrepository.getAllSite();
-        if (sites.isNotEmpty) {
+        if (sites != null) {
           emit(SitesLoaded(sites));
+          
+     
+        
         } else {
           emit(const SitesError('Error'));
         }
       }
+
       if (event is ValidateEventSites) {
         if(event.monsite != null || event.macategorie != null) {
           print("Mon site selectionné est  :"+ event.monsite.NOMSITE);
-          final List<ConfigData> config = await _Inrepository.getConfig(event.monsite.IDSITE, event.macategorie);
+          print("Ma categorie : "+event.macategorie);
+          _Inrepository.pushDB(event.monsite.IDSITE, event.macategorie);
 
-          _Inrepository.InsertSite(event.monsite);
-        } else {
-          emit(const SitesError('Error'));
         }
       }
     });

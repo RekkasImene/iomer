@@ -43,7 +43,7 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
       if (event is ValidateEventSites) {
         if(event.monsite != null) {
           print("Mon site selectionné est  :"+ event.monsite.NOMSITE);
-          _Inrepository.InsertSite(event.monsite);
+          //_localRepository.saveData(event.monsite,event.macategorie);
         }
       }
     });

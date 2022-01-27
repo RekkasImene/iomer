@@ -22,8 +22,7 @@ const String _prod = 'prod';
 _i1.GetIt $initGetIt(_i1.GetIt get,
     {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
-  gh.factory<_i3.IomerDatabase>(() => _i3.IomerDatabase(),
-      registerFor: {_prod});
+  gh.singleton<_i3.IomerDatabase>(_i3.IomerDatabase(), registerFor: {_prod});
   gh.singleton<_i4.LocalRepository>(
       _i4.LocalRepository(get<_i3.IomerDatabase>()),
       registerFor: {_prod});

@@ -18,7 +18,7 @@ class LocalRepository {
     return database.matriculeDao.getAllMatricules();
   }
 
-  Future<List<OtData>> getAllOt() {
+  Future<List<Ot>> getAllOt() {
     return database.otDao.getAllOts();
   }
   Future<List<Article>> getAllArticle() {
@@ -49,8 +49,11 @@ class LocalRepository {
     return database.reservationDao.getAllReservations();
   }
 
-// vue vers bdd 
- Future saveData(Site site, ConfigData config) async {
+  void ModifieOt(Ot ot){
+    database.otDao.modifieOt(ot);
+  }
+
+  void saveData(Site site, Config config) {
     database.siteDao.insertSite(site);
     database.configDao.insertConfig(config);
   }
@@ -58,7 +61,7 @@ class LocalRepository {
   void addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) {
 
     int newIdOT =0;
-    Future<List<OtData>> lastdata = database.otDao.sortTable();
+    Future<List<Ot>> lastdata = database.otDao.sortTable();
 
      lastdata.then((value) {
 
@@ -68,7 +71,7 @@ class LocalRepository {
      final DateTime now = DateTime.now();
      String beforeTime = DateFormat.Hm().format(now);
 
-    OtData newOt = OtData(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt, 
+    Ot newOt = Ot(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt, 
     IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie, DTOPENOT : DateTime.parse(beforeTime));
     
 
@@ -81,8 +84,8 @@ class LocalRepository {
 
   }
 
- 
+void addNewDocument( int idOt, int idAttachement, String attachement) {
 
-  
+}
 
 }

@@ -32,7 +32,7 @@ LazyDatabase _openConnection() {
 }
 
 @DriftDatabase(tables: [Articles,Categories,Documents,Equipements,Matricules,
-  Origines,Ot,Reservations,Sites,Taches,Config],
+  Origines,Ots,Reservations,Sites,Taches,Configs],
     daos: [ArticleDao,CategorieDao,EquipementDao,MatriculeDao,OrigineDao,OtDao,
       ReservationDao,SiteDao,TacheDao,ConfigDao]
 )
@@ -45,4 +45,12 @@ class IomerDatabase extends _$IomerDatabase {
 
   @override
   int get schemaVersion => 1;
+
+  Future<void> deleteEverything() {
+    return transaction(() async {
+      for (final table in allTables) {
+        await delete(table).go();
+      }
+    });
+  }
 }

@@ -95,7 +95,6 @@ class _SiteState extends State<SiteWidget> {
                 child:
                 _buildButton(),
               ),
-
             ],
           ),
         )
@@ -108,7 +107,8 @@ class _SiteState extends State<SiteWidget> {
       child: const Text('Valider', style: TextStyle(fontSize: 20)),
       style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed: () => [ calculateWhetherDisabledReturnsBool(),
+      onPressed: calculateWhetherDisabledReturnsBool()?null:()=>[
+
                 choosedConfig = myController.text,
                 _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig)),
                 Navigator.push(

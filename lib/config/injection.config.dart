@@ -33,8 +33,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.singleton<_i7.InRepository>(
       _i7.InRepository(get<_i3.IomerDatabase>(), get<_i4.LocalRepository>()),
       registerFor: {_prod});
-  gh.factory<_i8.SitesBloc>(
-      () => _i8.SitesBloc(get<_i7.InRepository>(), get<_i4.LocalRepository>()),
+  gh.factory<_i8.SitesBloc>(() => _i8.SitesBloc(get<_i7.InRepository>()),
       registerFor: {_prod});
   return get;
 }

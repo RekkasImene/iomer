@@ -86,13 +86,13 @@ Future<List<Categorie>> fetchCategories(int id) async {
 }
 
 /* Get OTs */
-Future<List<OtData>> fetchOTs(int idSite, int idOrigine) async {
+Future<List<Ot>> fetchOTs(int idSite, int idOrigine) async {
   final response = await http.get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
   log(response.body.toString());
   if (response.statusCode == 200) {
-    List<OtData> ots;
+    List<Ot> ots;
     ots = (json.decode(response.body) as List)
-        .map((otJson) => OtData.fromJson(otJson))
+        .map((otJson) => Ot.fromJson(otJson))
         .toList();
      
   log("Liste de Ots : " +ots.toString());
@@ -118,14 +118,14 @@ Future<List<Tache>> fetchOTTaches(int idOT) async {
 }
 
 /* Get Config */
-Future<List<ConfigData>> fetchConfigs(int idSite, String codePocket) async {
+Future<List<Config>> fetchConfigs(int idSite, String codePocket) async {
   final response = await http.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
 
   if (response.statusCode == 200) {
     log(response.body.toString());
-    List<ConfigData> configs;
+    List<Config> configs;
     configs = (json.decode(response.body) as List)
-        .map((configJson) => ConfigData.fromJson(configJson))
+        .map((configJson) => Config.fromJson(configJson))
         .toList();
     log(configs.toString());
     return configs;

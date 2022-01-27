@@ -24,13 +24,13 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Site>> futureSites;
   late Future<List<Origine>> futureOrigines;
   late Future<List<Matricule>> futureMatricules;
-  late Future<List<OtData>> futureOTs;
+  late Future<List<Ot>> futureOTs;
   late Future<List<Categorie>> futureCategories;
   late Future<List<Reservation>> futureReservations;
   late Future<List<Article>> futureArticles;
   late Future<List<Equipement>> futureEquipements;
   late Future<List<Tache>> futureTaches;
-  late Future<List<ConfigData>> futureConfigs;
+  late Future<List<Config>> futureConfigs;
 
 
   void updateOrigines(int idSite) {

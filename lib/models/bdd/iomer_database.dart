@@ -32,7 +32,7 @@ LazyDatabase _openConnection() {
 }
 
 @DriftDatabase(tables: [Articles,Categories,Documents,Equipements,Matricules,
-  Origines,Ot,Reservations,Sites,Taches,Config],
+  Origines,Ots,Reservations,Sites,Taches,Configs],
     daos: [ArticleDao,CategorieDao,EquipementDao,MatriculeDao,OrigineDao,OtDao,
       ReservationDao,SiteDao,TacheDao,ConfigDao]
 )

@@ -1618,7 +1618,7 @@ class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
   }
 }
 
-class OtData extends DataClass implements Insertable<OtData> {
+class Ot extends DataClass implements Insertable<Ot> {
   final int IDOT;
   final int? IDORIGINE;
   final int? IDCATEGORIE;
@@ -1633,7 +1633,7 @@ class OtData extends DataClass implements Insertable<OtData> {
   final DateTime? DTWAITOT;
   final DateTime? DTCANCOT;
   final DateTime? DTCLOSOT;
-  OtData(
+  Ot(
       {required this.IDOT,
       this.IDORIGINE,
       this.IDCATEGORIE,
@@ -1648,9 +1648,9 @@ class OtData extends DataClass implements Insertable<OtData> {
       this.DTWAITOT,
       this.DTCANCOT,
       this.DTCLOSOT});
-  factory OtData.fromData(Map<String, dynamic> data, {String? prefix}) {
+  factory Ot.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    return OtData(
+    return Ot(
       IDOT: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}idot'])!,
       IDORIGINE: const IntType()
@@ -1723,8 +1723,8 @@ class OtData extends DataClass implements Insertable<OtData> {
     return map;
   }
 
-  OtCompanion toCompanion(bool nullToAbsent) {
-    return OtCompanion(
+  OtsCompanion toCompanion(bool nullToAbsent) {
+    return OtsCompanion(
       IDOT: Value(IDOT),
       IDORIGINE: IDORIGINE == null && nullToAbsent
           ? const Value.absent()
@@ -1764,10 +1764,10 @@ class OtData extends DataClass implements Insertable<OtData> {
     );
   }
 
-  factory OtData.fromJson(Map<String, dynamic> json,
+  factory Ot.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return OtData(
+    return Ot(
       IDOT: serializer.fromJson<int>(json['IDOT']),
       IDORIGINE: serializer.fromJson<int?>(json['IDORIGINE']),
       IDCATEGORIE: serializer.fromJson<int?>(json['IDCATEGORIE']),
@@ -1805,7 +1805,7 @@ class OtData extends DataClass implements Insertable<OtData> {
     };
   }
 
-  OtData copyWith(
+  Ot copyWith(
           {int? IDOT,
           int? IDORIGINE,
           int? IDCATEGORIE,
@@ -1820,7 +1820,7 @@ class OtData extends DataClass implements Insertable<OtData> {
           DateTime? DTWAITOT,
           DateTime? DTCANCOT,
           DateTime? DTCLOSOT}) =>
-      OtData(
+      Ot(
         IDOT: IDOT ?? this.IDOT,
         IDORIGINE: IDORIGINE ?? this.IDORIGINE,
         IDCATEGORIE: IDCATEGORIE ?? this.IDCATEGORIE,
@@ -1838,7 +1838,7 @@ class OtData extends DataClass implements Insertable<OtData> {
       );
   @override
   String toString() {
-    return (StringBuffer('OtData(')
+    return (StringBuffer('Ot(')
           ..write('IDOT: $IDOT, ')
           ..write('IDORIGINE: $IDORIGINE, ')
           ..write('IDCATEGORIE: $IDCATEGORIE, ')
@@ -1876,7 +1876,7 @@ class OtData extends DataClass implements Insertable<OtData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is OtData &&
+      (other is Ot &&
           other.IDOT == this.IDOT &&
           other.IDORIGINE == this.IDORIGINE &&
           other.IDCATEGORIE == this.IDCATEGORIE &&
@@ -1893,7 +1893,7 @@ class OtData extends DataClass implements Insertable<OtData> {
           other.DTCLOSOT == this.DTCLOSOT);
 }
 
-class OtCompanion extends UpdateCompanion<OtData> {
+class OtsCompanion extends UpdateCompanion<Ot> {
   final Value<int> IDOT;
   final Value<int?> IDORIGINE;
   final Value<int?> IDCATEGORIE;
@@ -1908,7 +1908,7 @@ class OtCompanion extends UpdateCompanion<OtData> {
   final Value<DateTime?> DTWAITOT;
   final Value<DateTime?> DTCANCOT;
   final Value<DateTime?> DTCLOSOT;
-  const OtCompanion({
+  const OtsCompanion({
     this.IDOT = const Value.absent(),
     this.IDORIGINE = const Value.absent(),
     this.IDCATEGORIE = const Value.absent(),
@@ -1924,7 +1924,7 @@ class OtCompanion extends UpdateCompanion<OtData> {
     this.DTCANCOT = const Value.absent(),
     this.DTCLOSOT = const Value.absent(),
   });
-  OtCompanion.insert({
+  OtsCompanion.insert({
     this.IDOT = const Value.absent(),
     this.IDORIGINE = const Value.absent(),
     this.IDCATEGORIE = const Value.absent(),
@@ -1941,7 +1941,7 @@ class OtCompanion extends UpdateCompanion<OtData> {
     this.DTCLOSOT = const Value.absent(),
   })  : CODEOT = Value(CODEOT),
         LIBELLEOT = Value(LIBELLEOT);
-  static Insertable<OtData> custom({
+  static Insertable<Ot> custom({
     Expression<int>? IDOT,
     Expression<int?>? IDORIGINE,
     Expression<int?>? IDCATEGORIE,
@@ -1975,7 +1975,7 @@ class OtCompanion extends UpdateCompanion<OtData> {
     });
   }
 
-  OtCompanion copyWith(
+  OtsCompanion copyWith(
       {Value<int>? IDOT,
       Value<int?>? IDORIGINE,
       Value<int?>? IDCATEGORIE,
@@ -1990,7 +1990,7 @@ class OtCompanion extends UpdateCompanion<OtData> {
       Value<DateTime?>? DTWAITOT,
       Value<DateTime?>? DTCANCOT,
       Value<DateTime?>? DTCLOSOT}) {
-    return OtCompanion(
+    return OtsCompanion(
       IDOT: IDOT ?? this.IDOT,
       IDORIGINE: IDORIGINE ?? this.IDORIGINE,
       IDCATEGORIE: IDCATEGORIE ?? this.IDCATEGORIE,
@@ -2058,7 +2058,7 @@ class OtCompanion extends UpdateCompanion<OtData> {
 
   @override
   String toString() {
-    return (StringBuffer('OtCompanion(')
+    return (StringBuffer('OtsCompanion(')
           ..write('IDOT: $IDOT, ')
           ..write('IDORIGINE: $IDORIGINE, ')
           ..write('IDCATEGORIE: $IDCATEGORIE, ')
@@ -2078,10 +2078,10 @@ class OtCompanion extends UpdateCompanion<OtData> {
   }
 }
 
-class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
+class $OtsTable extends Ots with TableInfo<$OtsTable, Ot> {
   final GeneratedDatabase _db;
   final String? _alias;
-  $OtTable(this._db, [this._alias]);
+  $OtsTable(this._db, [this._alias]);
   final VerificationMeta _IDOTMeta = const VerificationMeta('IDOT');
   late final GeneratedColumn<int?> IDOT = GeneratedColumn<int?>(
       'idot', aliasedName, false,
@@ -2176,11 +2176,11 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
         DTCLOSOT
       ];
   @override
-  String get aliasedName => _alias ?? 'ot';
+  String get aliasedName => _alias ?? 'ots';
   @override
-  String get actualTableName => 'ot';
+  String get actualTableName => 'ots';
   @override
-  VerificationContext validateIntegrity(Insertable<OtData> instance,
+  VerificationContext validateIntegrity(Insertable<Ot> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -2254,14 +2254,14 @@ class $OtTable extends Ot with TableInfo<$OtTable, OtData> {
   @override
   Set<GeneratedColumn> get $primaryKey => {IDOT};
   @override
-  OtData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return OtData.fromData(data,
+  Ot map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return Ot.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
-  $OtTable createAlias(String alias) {
-    return $OtTable(_db, alias);
+  $OtsTable createAlias(String alias) {
+    return $OtsTable(_db, alias);
   }
 }
 
@@ -3232,23 +3232,23 @@ class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
   }
 }
 
-class ConfigData extends DataClass implements Insertable<ConfigData> {
+class Config extends DataClass implements Insertable<Config> {
   final int? IDSITE;
   final String CODEPOCKET;
   final String NOMPOCKET;
   final int? IDORIGINE;
   final String CODEORIGINE;
   final String LIBELLEORIGINE;
-  ConfigData(
+  Config(
       {this.IDSITE,
       required this.CODEPOCKET,
       required this.NOMPOCKET,
       this.IDORIGINE,
       required this.CODEORIGINE,
       required this.LIBELLEORIGINE});
-  factory ConfigData.fromData(Map<String, dynamic> data, {String? prefix}) {
+  factory Config.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    return ConfigData(
+    return Config(
       IDSITE: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}idsite']),
       CODEPOCKET: const StringType()
@@ -3279,8 +3279,8 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
     return map;
   }
 
-  ConfigCompanion toCompanion(bool nullToAbsent) {
-    return ConfigCompanion(
+  ConfigsCompanion toCompanion(bool nullToAbsent) {
+    return ConfigsCompanion(
       IDSITE:
           IDSITE == null && nullToAbsent ? const Value.absent() : Value(IDSITE),
       CODEPOCKET: Value(CODEPOCKET),
@@ -3293,10 +3293,10 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
     );
   }
 
-  factory ConfigData.fromJson(Map<String, dynamic> json,
+  factory Config.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return ConfigData(
+    return Config(
       IDSITE: serializer.fromJson<int?>(json['IDSITE']),
       CODEPOCKET: serializer.fromJson<String>(json['CODEPOCKET']),
       NOMPOCKET: serializer.fromJson<String>(json['NOMPOCKET']),
@@ -3318,14 +3318,14 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
     };
   }
 
-  ConfigData copyWith(
+  Config copyWith(
           {int? IDSITE,
           String? CODEPOCKET,
           String? NOMPOCKET,
           int? IDORIGINE,
           String? CODEORIGINE,
           String? LIBELLEORIGINE}) =>
-      ConfigData(
+      Config(
         IDSITE: IDSITE ?? this.IDSITE,
         CODEPOCKET: CODEPOCKET ?? this.CODEPOCKET,
         NOMPOCKET: NOMPOCKET ?? this.NOMPOCKET,
@@ -3335,7 +3335,7 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
       );
   @override
   String toString() {
-    return (StringBuffer('ConfigData(')
+    return (StringBuffer('Config(')
           ..write('IDSITE: $IDSITE, ')
           ..write('CODEPOCKET: $CODEPOCKET, ')
           ..write('NOMPOCKET: $NOMPOCKET, ')
@@ -3352,7 +3352,7 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is ConfigData &&
+      (other is Config &&
           other.IDSITE == this.IDSITE &&
           other.CODEPOCKET == this.CODEPOCKET &&
           other.NOMPOCKET == this.NOMPOCKET &&
@@ -3361,14 +3361,14 @@ class ConfigData extends DataClass implements Insertable<ConfigData> {
           other.LIBELLEORIGINE == this.LIBELLEORIGINE);
 }
 
-class ConfigCompanion extends UpdateCompanion<ConfigData> {
+class ConfigsCompanion extends UpdateCompanion<Config> {
   final Value<int?> IDSITE;
   final Value<String> CODEPOCKET;
   final Value<String> NOMPOCKET;
   final Value<int?> IDORIGINE;
   final Value<String> CODEORIGINE;
   final Value<String> LIBELLEORIGINE;
-  const ConfigCompanion({
+  const ConfigsCompanion({
     this.IDSITE = const Value.absent(),
     this.CODEPOCKET = const Value.absent(),
     this.NOMPOCKET = const Value.absent(),
@@ -3376,7 +3376,7 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
     this.CODEORIGINE = const Value.absent(),
     this.LIBELLEORIGINE = const Value.absent(),
   });
-  ConfigCompanion.insert({
+  ConfigsCompanion.insert({
     this.IDSITE = const Value.absent(),
     required String CODEPOCKET,
     required String NOMPOCKET,
@@ -3387,7 +3387,7 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
         NOMPOCKET = Value(NOMPOCKET),
         CODEORIGINE = Value(CODEORIGINE),
         LIBELLEORIGINE = Value(LIBELLEORIGINE);
-  static Insertable<ConfigData> custom({
+  static Insertable<Config> custom({
     Expression<int?>? IDSITE,
     Expression<String>? CODEPOCKET,
     Expression<String>? NOMPOCKET,
@@ -3405,14 +3405,14 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
     });
   }
 
-  ConfigCompanion copyWith(
+  ConfigsCompanion copyWith(
       {Value<int?>? IDSITE,
       Value<String>? CODEPOCKET,
       Value<String>? NOMPOCKET,
       Value<int?>? IDORIGINE,
       Value<String>? CODEORIGINE,
       Value<String>? LIBELLEORIGINE}) {
-    return ConfigCompanion(
+    return ConfigsCompanion(
       IDSITE: IDSITE ?? this.IDSITE,
       CODEPOCKET: CODEPOCKET ?? this.CODEPOCKET,
       NOMPOCKET: NOMPOCKET ?? this.NOMPOCKET,
@@ -3448,7 +3448,7 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
 
   @override
   String toString() {
-    return (StringBuffer('ConfigCompanion(')
+    return (StringBuffer('ConfigsCompanion(')
           ..write('IDSITE: $IDSITE, ')
           ..write('CODEPOCKET: $CODEPOCKET, ')
           ..write('NOMPOCKET: $NOMPOCKET, ')
@@ -3460,10 +3460,10 @@ class ConfigCompanion extends UpdateCompanion<ConfigData> {
   }
 }
 
-class $ConfigTable extends Config with TableInfo<$ConfigTable, ConfigData> {
+class $ConfigsTable extends Configs with TableInfo<$ConfigsTable, Config> {
   final GeneratedDatabase _db;
   final String? _alias;
-  $ConfigTable(this._db, [this._alias]);
+  $ConfigsTable(this._db, [this._alias]);
   final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
   late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
       'idsite', aliasedName, true,
@@ -3504,11 +3504,11 @@ class $ConfigTable extends Config with TableInfo<$ConfigTable, ConfigData> {
   List<GeneratedColumn> get $columns =>
       [IDSITE, CODEPOCKET, NOMPOCKET, IDORIGINE, CODEORIGINE, LIBELLEORIGINE];
   @override
-  String get aliasedName => _alias ?? 'config';
+  String get aliasedName => _alias ?? 'configs';
   @override
-  String get actualTableName => 'config';
+  String get actualTableName => 'configs';
   @override
-  VerificationContext validateIntegrity(Insertable<ConfigData> instance,
+  VerificationContext validateIntegrity(Insertable<Config> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -3556,14 +3556,14 @@ class $ConfigTable extends Config with TableInfo<$ConfigTable, ConfigData> {
   @override
   Set<GeneratedColumn> get $primaryKey => {CODEPOCKET};
   @override
-  ConfigData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return ConfigData.fromData(data,
+  Config map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return Config.fromData(data,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
-  $ConfigTable createAlias(String alias) {
-    return $ConfigTable(_db, alias);
+  $ConfigsTable createAlias(String alias) {
+    return $ConfigsTable(_db, alias);
   }
 }
 
@@ -3575,11 +3575,11 @@ abstract class _$IomerDatabase extends GeneratedDatabase {
   late final $EquipementsTable equipements = $EquipementsTable(this);
   late final $MatriculesTable matricules = $MatriculesTable(this);
   late final $OriginesTable origines = $OriginesTable(this);
-  late final $OtTable ot = $OtTable(this);
+  late final $OtsTable ots = $OtsTable(this);
   late final $ReservationsTable reservations = $ReservationsTable(this);
   late final $SitesTable sites = $SitesTable(this);
   late final $TachesTable taches = $TachesTable(this);
-  late final $ConfigTable config = $ConfigTable(this);
+  late final $ConfigsTable configs = $ConfigsTable(this);
   late final ArticleDao articleDao = ArticleDao(this as IomerDatabase);
   late final CategorieDao categorieDao = CategorieDao(this as IomerDatabase);
   late final EquipementDao equipementDao = EquipementDao(this as IomerDatabase);
@@ -3601,10 +3601,10 @@ abstract class _$IomerDatabase extends GeneratedDatabase {
         equipements,
         matricules,
         origines,
-        ot,
+        ots,
         reservations,
         sites,
         taches,
-        config
+        configs
       ];
 }

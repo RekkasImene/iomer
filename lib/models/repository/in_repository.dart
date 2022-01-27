@@ -9,6 +9,7 @@ import 'local_repository.dart';
 
 abstract class InRepositoryAbs {
   Future<List<Site>> getAllSite();
+
   void InsertSite(Site site);
 }
 
@@ -19,7 +20,8 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Site>> futureSite;
   final IomerDatabase database;
   final LocalRepository localRepository;
-  InRepository(this.database,this.localRepository);
+
+  InRepository(this.database, this.localRepository);
 
   late Future<List<Site>> futureSites;
   late Future<List<Origine>> futureOrigines;
@@ -31,7 +33,6 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Equipement>> futureEquipements;
   late Future<List<Tache>> futureTaches;
   late Future<List<ConfigData>> futureConfigs;
-
 
   void updateOrigines(int idSite) {
     futureOrigines = fetchOrigines(idSite);
@@ -58,7 +59,7 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  Future<void>  updateOTs(int idSite, int idOrigine) {
+  Future<void> updateOTs(int idSite, int idOrigine) {
     futureOTs = fetchOTs(idSite, idOrigine);
     return futureOTs.then((value) {
       value.forEach((e) {
@@ -81,7 +82,7 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  Future<void>  updateReservation(int idOt) {
+  Future<void> updateReservation(int idOt) {
     futureReservations = fetchReservations(idOt);
     return futureReservations.then((value) {
       value.forEach((e) {
@@ -93,7 +94,7 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  Future<void>  updateArticles(String codeArticle) {
+  Future<void> updateArticles(String codeArticle) {
     futureArticles = fetchArticles(codeArticle);
     return futureArticles.then((value) {
       value.forEach((e) {
@@ -117,7 +118,7 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  Future<void>  updateTaches(int idOT) {
+  Future<void> updateTaches(int idOT) {
     futureTaches = fetchOTTaches(idOT);
     return futureTaches.then((value) {
       value.forEach((e) {
@@ -175,4 +176,3 @@ class InRepository extends InRepositoryAbs {
     });
   }
 }
-

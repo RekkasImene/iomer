@@ -3,16 +3,16 @@ import 'iomer_database.dart';
 part 'generate/tache.g.dart';
 
 class Taches extends Table {
-  IntColumn get idOt =>
-      integer().nullable().customConstraint('NULL REFERENCES Ot(idOt)')();
-  TextColumn get codeTache => text().withLength(min: 1, max: 24)();
-  TextColumn get libelleTache => text().withLength(min: 1, max: 48)();
-  TextColumn get statutTache => text().withLength(min: 1, max: 1)();
-  TextColumn get commentTache => text().withLength(min: 1, max: 2018)();
-  IntColumn get idTache => integer()();
+  IntColumn get IDTACHE => integer()();
+  IntColumn get IDOT =>
+      integer().nullable().customConstraint('NULL REFERENCES Ot(IDOT)')();
+  TextColumn get CODETACHE => text().withLength(min: 1, max: 24)();
+  TextColumn get LIBELLETACHE => text().withLength(min: 1, max: 48)();
+  IntColumn get STATUTTACHE => integer()();
+  TextColumn get COMMENTTACHE => text().nullable().withLength( max: 2018)();
 
   @override
-  Set<Column> get primaryKey => {codeTache};
+  Set<Column> get primaryKey => {CODETACHE,IDTACHE};
 }
 
 @DriftAccessor(
@@ -21,4 +21,7 @@ class Taches extends Table {
 class TacheDao extends DatabaseAccessor<IomerDatabase> with _$TacheDaoMixin{
   final IomerDatabase db;
   TacheDao(this.db):super (db);
+
+   Future insertTache(Tache tache) => into(taches).insertOnConflictUpdate(tache);
+  Future<List<Tache>> getAllTaches() => select(taches).get();
 }

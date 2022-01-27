@@ -17,7 +17,6 @@ class Equipements {
       idEquipement: json['IDEQUIPEMENT'],
       codeEquipement: json['CODEEQUIPEMENT'],
       libelleEquipement: json['LIBELLEEQUIPEMENT'],
-
     );
   }
 }

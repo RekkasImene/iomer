@@ -1,32 +1,32 @@
+import 'dart:developer';
+
 import 'package:drift/drift.dart';
 import 'iomer_database.dart';
 part 'generate/ot.g.dart';
 
 class Ot extends Table{
-  IntColumn get idOt=>integer().autoIncrement()();
-  IntColumn get idOrigine => integer()
-      .nullable()
-      .customConstraint('NULL REFERENCES Origines(idOrigin)')();
-  IntColumn get idCategorie => integer()
-      .nullable()
-      .customConstraint('NULL REFERENCES Categories(idCategorie)')();
-  IntColumn get idEquipement => integer()
-      .nullable()
-      .customConstraint('NULL REFERENCES Equipements(idEquipement)')();
-  TextColumn get codeOt => text().withLength(min:0,max: 24)();
-  TextColumn get libellOt => text().withLength(min:0,max: 48)();
-  TextColumn get comentOt => text().withLength(min:0,max: 2048)();
-  RealColumn get tempsOt => real()();
-  TextColumn get statutOt=> text().withLength(min:1,max: 1)();
+  IntColumn get IDOT=>integer()();
+  IntColumn get IDORIGINE => integer().nullable()
+      .customConstraint('NULL REFERENCES Origines(IDORIGINE)')();
+  IntColumn get IDCATEGORIE => integer().nullable()
+      .customConstraint('NULL REFERENCES Categories(IDCATEGORIE)')();
+  IntColumn get IDEQUIPEMENT => integer().nullable()
+      .customConstraint('NULL REFERENCES Equipements(IDEQUIPEMENT)')();
+  TextColumn get CODEOT => text().withLength(min:0,max: 24)();
+  TextColumn get LIBELLEOT => text().withLength(min:0,max: 48)();
+  TextColumn get COMMENTOT => text().nullable().withLength(min:0,max: 2048)();
+  RealColumn get TEMPSOT => real().nullable()();
+  TextColumn get STATUTOT=> text().nullable().withLength(min:1,max: 1)();
 
-  DateTimeColumn get dtOpenOt=>dateTime()(); //date  (Unix timestamp in seconds)
-  DateTimeColumn get dtExecOt=>dateTime()();
-  DateTimeColumn get dtWaitOt=>dateTime()();
-  DateTimeColumn get dtCancOt=>dateTime()();
-  DateTimeColumn get dtClosOt=>dateTime()();
+  DateTimeColumn? get DTOPENOT=>dateTime().nullable()(); //date  (Unix timestamp in seconds)
+  DateTimeColumn? get DTEXECOT=>dateTime().nullable()();
+  DateTimeColumn? get DTWAITOT=>dateTime().nullable()();
+  DateTimeColumn? get DTCANCOT=>dateTime().nullable()();
+  DateTimeColumn? get DTCLOSOT=>dateTime().nullable()();
+
 
   @override
-  Set<Column> get primaryKey => {idOt};
+  Set<Column> get primaryKey => {IDOT};
 }
 
 @DriftAccessor(
@@ -35,5 +35,16 @@ class Ot extends Table{
 class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin{
   final IomerDatabase db;
   OtDao(this.db):super (db);
+
+  Future insertOt(OtData otData) => into(ot).insertOnConflictUpdate(otData);
+  
+  Future<List<OtData>> sortTable()  {
+   return (select(ot)..orderBy([(t) => OrderingTerm(expression: t.IDOT, mode : OrderingMode.desc)])).get();
 }
+
+
+  
+  }
+
+  
 

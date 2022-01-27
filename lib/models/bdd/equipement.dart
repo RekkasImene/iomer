@@ -3,15 +3,16 @@ import 'iomer_database.dart';
 part 'generate/equipement.g.dart';
 
 class Equipements extends Table {
-  IntColumn get idEquipement => integer().autoIncrement()();
-  IntColumn get idSite => integer()
+  IntColumn get IDEQUIPEMENT => integer()();
+  IntColumn get IDSITE => integer()
       .nullable()
-      .customConstraint('NULL REFERENCES Sites(idSite)')();
-  TextColumn get codeEquipement => text().withLength(min: 1, max: 12)();
-  TextColumn get libelleEquipement => text().withLength(min: 1, max: 48)();
+      .customConstraint('NULL REFERENCES Sites(IDSITE)')();
+  TextColumn get CODEEQUIPEMENT => text().withLength(min: 1, max: 12)();
+  TextColumn get LIBELLEEQUIPEMENT => text().withLength(min: 1, max: 48)();
+
 
   @override
-  Set<Column> get primaryKey => {idEquipement};
+  Set<Column> get primaryKey => {IDEQUIPEMENT};
 }
 
 @DriftAccessor(
@@ -20,4 +21,7 @@ class Equipements extends Table {
 class EquipementDao extends DatabaseAccessor<IomerDatabase> with _$EquipementDaoMixin{
   final IomerDatabase db;
   EquipementDao(this.db):super (db);
+
+   Future insertEquipement(Equipement equipement) => into(equipements).insertOnConflictUpdate(equipement);
+  Future<List<Equipement>> getAllEquipements() => select(equipements).get();
 }

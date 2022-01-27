@@ -1,24 +1,22 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
-import 'package:drift/native.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/webService/categories.dart';
-import 'package:iomer/webService/equipements.dart';
-import 'package:iomer/webService/matricules.dart';
-import 'package:iomer/webService/origines.dart';
-import 'package:iomer/webService/ot_taches.dart';
-import 'package:iomer/webService/ots.dart';
-import 'package:iomer/webService/services.dart';
-import 'package:iomer/webService/sites.dart';
+import 'package:iomer/models/repository/in_repository.dart';
+import 'package:iomer/ui/action/action_screen.dart';
+import 'package:iomer/ui/cloture/cloture_screen.dart';
+import 'package:iomer/ui/debug_screens.dart';
+import 'package:iomer/ui/home/home_screen.dart';
+import 'package:iomer/ui/new_part/new_part_screen.dart';
+import 'package:iomer/ui/parts/parts_screen.dart';
+import 'package:iomer/ui/report/report_screen.dart';
+import 'package:iomer/ui/task/tasks_screen.dart';
+import 'config/injection.dart';
+import 'models/repository/local_repository.dart';
 
-
-void main() async {
+void main() {
+  configureInjection(Env.prod);
   runApp(const MyApp());
-
-  Site unsite  = await fetchSite();
-  log("Uuuuuuuuuuuuuuuuuuuuuuuuuuu --- "+unsite.toString());
 }
 
 class MyApp extends StatefulWidget {
@@ -29,70 +27,44 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  //late Future<Sites> futureSite;
-  //late Future<Origines> futureOrigines;
-  //late Future<Matricules> futureMatricules;
-  //late Future<Equipements> futureEquipements;
-  //late Future<Categories> futureCategories;
-  //late Future<OTs> futureOTs;
-  //late Future<OTTaches> futureOTTaches;
-
-
   @override
   void initState() {
     super.initState();
+    InRepository inRepository = getIt.get<InRepository>();
+    LocalRepository localRepository = getIt.get<LocalRepository>();
 
-    int idsite =2;
-    int idorigine =21;
-    int idOT=203;
+    /*repository.updateSite();
+    sleep(const Duration(seconds: 1));
+    repository.updateMatricules(12);
+    sleep(const Duration(seconds: 1));*/
+    // repository.updateOTs(1,12);
+    //sleep(const Duration(seconds: 1));
+    //   repository.updateOrigines(2);
+    //  sleep(const Duration(seconds: 1));
+   // repository.updateMatricules(1, "P02");
+  //inRepository.updateOTs(1, 12);
+   //localRepository.addNewOt(115, 10, 13, "reparation");
 
-    //futureOrigines = fetchOrigines(idSite);
-    //futureMatricules=fetchMatricules(idOrigine);
-    //futureEquipements=fetchEquipements(idSite);
-    //futureCategories=fetchCategories(idSite);
-    //futureOTs=fetchOTs(idSite, idOrigine);
-    //futureOTTaches=fetchOTTaches(idOT);
 
-    IomerDatabase database = IomerDatabase();
-
-    final site = Site(
-      NOMSITE: 'azerty', CODESITE: 'zero', ADRESSESITE: 'klklkl', IDSITE: 2
-    );
-
-    //database.insertSite(site);
-    //database.insertSite(site2);
   }
-
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'IomereApp',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Fetch Data Example'),
-        ),
-        body: Center(
-          child: FutureBuilder<Site>(
-
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.data!.NOMSITE);
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-
-              // By default, show a loading spinner.
-              return const CircularProgressIndicator();
-            },
+        brightness: Brightness.dark,
+        primaryColor: Colors.blueGrey,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+        //onPrimary: Colors.yellow,
+        primary: Colors.blueGrey,
+    )
           ),
-        ),
+
       ),
+      home: const DebugScreen(),
     );
   }
 }

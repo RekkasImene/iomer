@@ -48,6 +48,10 @@ class LocalRepository {
     return database.reservationDao.getAllReservations();
   }
 
+  void ModifieOt(Ot ot){
+    database.otDao.modifieOt(ot);
+  }
+
   void saveData(Site site, Config config) {
     database.siteDao.insertSite(site);
     database.configDao.insertConfig(config);

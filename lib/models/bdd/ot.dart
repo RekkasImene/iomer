@@ -61,12 +61,6 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
           ]))
         .get();
   }
-  Future ModifieOt(Ot ot) {
-    // using replace will update all fields from the entry that are not marked as a primary key.
-    // it will also make sure that only the entry with the same primary key will be updated.
-    // Here, this means that the row that has the same id as entry will be updated to reflect
-    // the entry's title, content and category. As its where clause is set automatically, it
-    // cannot be used together with where.
-    return update(ots).replace(ot);
-  }
+  // Updates a Task with a matching primary key
+  Future modifieOt(Ot ot) => update(ots).replace(ot);
 }

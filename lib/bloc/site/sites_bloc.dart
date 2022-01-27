@@ -44,7 +44,8 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
       if (event is ValidateEventSites) {
         if(event.monsite != null || event.macategorie != null) {
           print("Mon site selectionné est  :"+ event.monsite.NOMSITE);
-          final List<ConfigData> config = await _Inrepository.getConfig(event.monsite.IDSITE, event.macategorie);
+          print("Ma categorie : "+event.macategorie);
+          _Inrepository.pushDB(event.monsite.IDSITE, event.macategorie);
 
         }
       }

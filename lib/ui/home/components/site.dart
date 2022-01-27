@@ -112,9 +112,9 @@ class _SiteState extends State<SiteWidget> {
       onPressed: calculateWhetherDisabledReturnsBool()
           ? null
           : () => [
-                _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig)),
                 choosedConfig = myController.text,
-                print(choosedConfig),
+                _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig)),
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const FirstScreen()),

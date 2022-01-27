@@ -22,7 +22,7 @@ Future<List<Site>> fetchSites() async {
 /* Get Origines */
 Future<List<Origine>> fetchOrigines(int id) async {
   final response = await http.get(Uri.parse('$url/GetOrigines/$id'));
-
+  log(response.body.toString());
   if (response.statusCode == 200) {
     List<Origine> origines;
     origines = (json.decode(response.body) as List)
@@ -37,14 +37,16 @@ Future<List<Origine>> fetchOrigines(int id) async {
 /* Get Matricules */
 Future<List<Matricule>> fetchMatricules(int? id) async {
   final response = await http.get(Uri.parse('$url/GetMatricules/$id'));
-
+  log(response.body.toString());
   if (response.statusCode == 200) {
     List<Matricule> matricules;
     matricules = (json.decode(response.body) as List)
         .map((matriculeJson) => Matricule.fromJson(matriculeJson))
         .toList();
+    log(matricules.toString());
     return matricules;
   } else {
+    log('Failed to load Matricules'+response.statusCode.toString());
     throw Exception('Failed to load Matricules');
   }
 }
@@ -52,14 +54,16 @@ Future<List<Matricule>> fetchMatricules(int? id) async {
 /* Get Equipements */
 Future<List<Equipement>> fetchEquipements(int id) async {
   final response = await http.get(Uri.parse('$url/GetEquipements/$id'));
-
+  log(response.body.toString());
   if (response.statusCode == 200) {
     List<Equipement> equipements;
     equipements = (json.decode(response.body) as List)
         .map((equipementJson) => Equipement.fromJson(equipementJson))
         .toList();
+    log(equipements.toString());
     return equipements;
   } else {
+    log('Failed to load Equipements'+response.statusCode.toString());
     throw Exception('Failed to load Equipements');
   }
 }
@@ -67,14 +71,16 @@ Future<List<Equipement>> fetchEquipements(int id) async {
 /* Get Categories */
 Future<List<Categorie>> fetchCategories(int id) async {
   final response = await http.get(Uri.parse('$url/GetCategories/$id'));
-
+  log(response.body.toString());
   if (response.statusCode == 200) {
     List<Categorie> categories;
     categories = (json.decode(response.body) as List)
         .map((categorieJson) => Categorie.fromJson(categorieJson))
         .toList();
+    log(categories.toString());
     return categories;
   } else {
+    log('Failed to load categories'+response.statusCode.toString());
     throw Exception('Failed to load Categories');
   }
 }
@@ -82,7 +88,7 @@ Future<List<Categorie>> fetchCategories(int id) async {
 /* Get OTs */
 Future<List<OtData>> fetchOTs(int idSite, int idOrigine) async {
   final response = await http.get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
-
+  log(response.body.toString());
   if (response.statusCode == 200) {
     List<OtData> ots;
     ots = (json.decode(response.body) as List)
@@ -99,7 +105,7 @@ Future<List<OtData>> fetchOTs(int idSite, int idOrigine) async {
 /* Get OT Taches */
 Future<List<Tache>> fetchOTTaches(int idOT) async {
   final response = await http.get(Uri.parse('$url/GETOT_TACHES/$idOT'));
-
+  log(response.body.toString());
   if (response.statusCode == 200) {
     List<Tache> taches;
     taches = (json.decode(response.body) as List)
@@ -114,21 +120,24 @@ Future<List<Tache>> fetchOTTaches(int idOT) async {
 /* Get Config */
 Future<List<ConfigData>> fetchConfigs(int idSite, String codePocket) async {
   final response = await http.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
-
+  log("conffffffff"+response.body.toString());
   if (response.statusCode == 200) {
+    log(response.body.toString());
     List<ConfigData> configs;
     configs = (json.decode(response.body) as List)
         .map((configJson) => ConfigData.fromJson(configJson))
         .toList();
+    log(configs.toString());
     return configs;
   } else {
+    log('Failed to load Config'+response.statusCode.toString());
     throw Exception('Failed to load Config');
   }
 }
 
 Future<List<Article>> fetchArticles(String codeArticle) async {
   final response = await http.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
-
+  log(response.body.toString());
   if (response.statusCode == 200) {
     List<Article> articles;
     articles = (json.decode(response.body) as List)

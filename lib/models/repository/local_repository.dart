@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/models/bdd/ot.dart';
@@ -23,16 +24,13 @@ class LocalRepository {
     return database.matriculeDao.getAllMatricules();
   }
 
-  /*Future<List<OtData>> getOt() {
-    print(database.otDao.getAllOts());
-    return database.otDao.getAllOts();
-  }*/
 
+// vue vers bdd 
   void saveData(Site site, ConfigData config) {
     database.siteDao.insertSite(site);
     database.configDao.insertConfig(config);
   }
-
+//vue vers bdd
   void addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) {
    
     int newIdOT =0;
@@ -45,9 +43,13 @@ class LocalRepository {
       newIdOT++;
       log("idOt incréemente" +newIdOT.toString());
 
+     final DateTime now = DateTime.now();
+     String beforeTime = DateFormat.Hm().format(now);
+
     OtData newOt = OtData(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt, 
-    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie);
+    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie, DTOPENOT : DateTime.parse(beforeTime));
     
+
     log("affiches moi mon new ot"+newOt.toString());
     database.otDao.insertOt(newOt);
 
@@ -58,4 +60,6 @@ class LocalRepository {
 
   
   }
+
+
 }

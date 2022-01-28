@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:iomer/bloc/ot/ot_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/ui/machine/components/ot_button.dart';
@@ -93,10 +94,14 @@ class _OTListState extends State<OTListWidget> {
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: (
+            ) {
+               
+            },
             child: const Text('Scan machine'),
             style: ElevatedButton.styleFrom(
                 padding:
+
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
           ),
         )

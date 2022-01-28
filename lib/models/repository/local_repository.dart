@@ -49,6 +49,10 @@ class LocalRepository {
     return database.reservationDao.getAllReservations();
   }
 
+  void ModifieMatricule(Matricule matricule) {
+    database.matriculeDao.modifieMatricule(matricule);
+  }
+
   void ModifieOt(Ot ot) {
     database.otDao.modifieOt(ot);
   }
@@ -61,6 +65,7 @@ class LocalRepository {
   void addNewOt(
       int idEquipement, int idOrigine, int idCategorie, String libelleOt) {
     int newIdOT = 0;
+
     Future<List<Ot>> lastdata = database.otDao.sortTable();
 
     lastdata.then((value) {
@@ -74,6 +79,8 @@ class LocalRepository {
           IDORIGINE: idOrigine,
           IDEQUIPEMENT: idEquipement,
           IDCATEGORIE: idCategorie);
+
+      database.otDao.insertOt(newOt);
 
       database.otDao.insertOt(newOt);
     }).catchError((error) {

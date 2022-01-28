@@ -3591,6 +3591,7 @@ abstract class _$IomerDatabase extends GeneratedDatabase {
   late final SiteDao siteDao = SiteDao(this as IomerDatabase);
   late final TacheDao tacheDao = TacheDao(this as IomerDatabase);
   late final ConfigDao configDao = ConfigDao(this as IomerDatabase);
+  late final DocumentDao documentDao = DocumentDao(this as IomerDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override

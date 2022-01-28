@@ -55,7 +55,30 @@ class _MatriculeState extends State<MatriculeWidget> {
                                 .copyWith(CHECKED: newValue)));
 
                             log(newValue.toString());
-                            _matriculeBloc.add(FetchMatriculeEvenet());
+                          },
+                        );
+                      },
+                    );
+                  },
+                );
+              } else if (state is CheckMatriculeUpdated) {
+                return ListView.builder(
+                  itemCount: state.matricules.length,
+                  itemBuilder: (context, index) {
+                    selectedMatricule = state.matricules[index];
+
+                    return CheckboxListTile(
+                      title: Text(state.matricules[index].NOMMATRICULE),
+                      //  value: _isChecked[index],
+                      value: selectedMatricule.CHECKED,
+                      onChanged: (bool? newValue) {
+                        setState(
+                          () {
+                            // ischecked = newValue!;
+
+                            _matriculeBloc.add(CheckedMatriculeEvenet(state
+                                .matricules[index]
+                                .copyWith(CHECKED: newValue)));
                           },
                         );
                       },

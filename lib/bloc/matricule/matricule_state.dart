@@ -20,3 +20,8 @@ class MatriculeError extends MatriculeState {
   final String message;
   const MatriculeError(this.message);
 }
+
+class CheckMatriculeUpdated extends MatriculeState {
+  final List<Matricule> matricules;
+  const CheckMatriculeUpdated(this.matricules);
+}

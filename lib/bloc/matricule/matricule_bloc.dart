@@ -33,10 +33,16 @@ class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
       }
       if (event is CheckedMatriculeEvenet) {
         if (event.matricule != null) {
-          _localRepository.ModifieMatricule(event.matricule);
-        }
+          //ecrire dans la base de donnée
 
-        //ecrire dans la base de donnée
+          _localRepository.ModifieMatricule(event.matricule);
+
+          final matricule2 = await _localRepository.getAllMatricule();
+          log("imene " + matricule2.toString());
+          if (matricule2 != null) {
+            emit(CheckMatriculeUpdated(matricule2));
+          }
+        }
       }
     });
   }

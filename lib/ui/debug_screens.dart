@@ -75,7 +75,10 @@ class DebugScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const MachineScreen()),
+                    builder: (context) => const MachineScreen(
+                      text: "",
+                    ),
+                  ),
                 );
               },
               child:

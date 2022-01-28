@@ -4,14 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/matricule/matricule_bloc.dart';
 import 'package:iomer/config/injection.dart';
 
-class Matricule extends StatefulWidget {
-  const Matricule({Key? key}) : super(key: key);
+class MatriculeWidget extends StatefulWidget {
+  const MatriculeWidget({Key? key}) : super(key: key);
 
   @override
-  State<Matricule> createState() => _MatriculeState();
+  State<MatriculeWidget> createState() => _MatriculeState();
 }
 
-class _MatriculeState extends State<Matricule> {
+class _MatriculeState extends State<MatriculeWidget> {
   late MatriculeBloc _matriculeBloc;
   late bool? ischecked;
 
@@ -33,17 +33,17 @@ class _MatriculeState extends State<Matricule> {
             builder: (context, state) {
               if (state is MatriculeLoaded) {
                 return ListView.builder(
-                  itemCount: state.matricule.length,
+                  itemCount: state.matricules.length,
                   itemBuilder: (context, index) {
-                    ischecked = state.matricule[index].CHECKED;
+                    ischecked = state.matricules[index].CHECKED;
                     log("ischecked = " + ischecked.toString());
 
                     return CheckboxListTile(
-                      title:
-                      Text(state.matricule[index].NOMMATRICULE),
+                      title: Text(state.matricules[index].NOMMATRICULE),
                       value: ischecked,
                       onChanged: (value) {
-                        setState( () {
+                        setState(
+                          () {
                             ischecked = value!;
                             log(ischecked.toString());
                           },
@@ -57,13 +57,10 @@ class _MatriculeState extends State<Matricule> {
               }
               return const Center(
                 child: SizedBox(
-                    width: 32,
-                    height: 32,
-                    child: CircularProgressIndicator()),
+                    width: 32, height: 32, child: CircularProgressIndicator()),
               );
             },
           ),
-        )
-    );
+        ));
   }
 }

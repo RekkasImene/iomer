@@ -43,7 +43,7 @@ class _MatriculeState extends State<MatriculeWidget> {
                       title: Text(state.matricules[index].NOMMATRICULE),
                       //  value: _isChecked[index],
                       value: selectedMatricule.CHECKED,
-                      onChanged: (newValue) {
+                      onChanged: (bool? newValue) {
                         setState(
                           () {
                             // ischecked = newValue!;
@@ -55,6 +55,7 @@ class _MatriculeState extends State<MatriculeWidget> {
                                 .copyWith(CHECKED: newValue)));
 
                             log(newValue.toString());
+                            _matriculeBloc.add(FetchMatriculeEvenet());
                           },
                         );
                       },

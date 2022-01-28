@@ -32,7 +32,9 @@ class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
         }
       }
       if (event is CheckedMatriculeEvenet) {
-        if (event.matricule != null) {}
+        if (event.matricule != null) {
+          _localRepository.ModifieMatricule(event.matricule);
+        }
 
         //ecrire dans la base de donnée
       }

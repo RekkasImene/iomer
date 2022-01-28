@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:iomer/models/repository/local_repository.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
-import 'package:iomer/ui/utils/matricule.dart';
+import 'package:iomer/ui/matricule/components/matricule.dart';
 
 class Body extends StatelessWidget {
 
@@ -49,7 +49,7 @@ class Body extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const MachineScreen()),
+                      builder: (context) => MachineScreen(text: "",)),
                 );
               },
               child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),

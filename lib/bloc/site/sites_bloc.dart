@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
@@ -46,6 +47,9 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
           print("Mon site selectionné est  :"+ event.monsite.NOMSITE);
           print("Ma categorie : "+event.macategorie);
           _Inrepository.pushDB(event.monsite.IDSITE, event.macategorie);
+
+
+          print("Fin chargement bdd.. ");
 
         }
       }

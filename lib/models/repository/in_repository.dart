@@ -20,6 +20,7 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Site>> futureSite;
   final IomerDatabase database;
   final LocalRepository localRepository;
+  late bool flag = false;
 
   InRepository(this.database, this.localRepository);
 
@@ -163,6 +164,7 @@ class InRepository extends InRepositoryAbs {
                                       value.forEach((e) {
                                         updateArticles(e.CODEARTICLE!);
                                       });
+                                      flag = true;
                                     }).catchError((error) {
                                       log(error);
                                     });
@@ -171,8 +173,17 @@ class InRepository extends InRepositoryAbs {
                           }).catchError((error) {
                             log(error);
                           });
+
                         }));
               }));
     });
   }
+
+
+  bool getFlag() {
+    return this.flag;
+  }
+
+
+
 }

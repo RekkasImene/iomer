@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:iomer/bloc/ot/ot_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/ui/machine/components/ot_button.dart';
+import 'package:iomer/ui/scan/scan_screen.dart';
 
 class OTListWidget extends StatefulWidget {
   const OTListWidget({Key? key}) : super(key: key);
@@ -62,9 +63,7 @@ class _OTListState extends State<OTListWidget> {
                           child: SizedBox(
                               width: 32, height: 32, child: CircularProgressIndicator()),
                         );
-                        throw ("ptdr");
                       }
-
                       ),
                     ),
                   ),
@@ -81,7 +80,7 @@ class _OTListState extends State<OTListWidget> {
                   ),
                 ],
               )
-                      ),
+          ),
         ),
 
 
@@ -94,9 +93,12 @@ class _OTListState extends State<OTListWidget> {
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: (
-            ) {
-               
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ScanScreen()),
+              );
             },
             child: const Text('Scan machine'),
             style: ElevatedButton.styleFrom(

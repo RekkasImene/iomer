@@ -14,13 +14,12 @@ class OTListWidget extends StatefulWidget {
 }
 
 class _OTListState extends State<OTListWidget> {
-
-  late OtBloc _otbloc;
+  late OtBloc otBloc;
 
   @override
   void initState() {
-    _otbloc = getIt.get<OtBloc>();
-    _otbloc.add(FetchEventOt());
+    otBloc = getIt.get<OtBloc>();
+    otBloc.add(FetchEventOt());
     super.initState();
   }
 
@@ -37,52 +36,52 @@ class _OTListState extends State<OTListWidget> {
           ),
         ),
         Expanded(
-          child: Container(
-              decoration:
-              BoxDecoration(border: Border.all(color: Colors.black)),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: BlocProvider(
-                      create: (context) => _otbloc,
-                      child: BlocConsumer<OtBloc, OtState>(
-                        listener: (context,state){
-                          print("state as changed");
-                        },
-                      builder: (context, state) {
-
-                        if(state is OtLoaded) {
-                          print("passé par la");
-                          return ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: state.ots.length,
-                            itemBuilder: (context, index) {
-                            return ListTile(title: Text(state.ots[index].LIBELLEOT));
-                            },
-                          );
-                        } else if (state is OtError) {
-                          return Text(state.message);
-                        }
-                        return const Center(
-                          child: SizedBox(
-                              width: 32, height: 32, child: CircularProgressIndicator()),
-                        );
-                      }
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: OTButtonWidget(),
-                      ),
-                    ],
-                  ),
-                ],
-              )),
+            child: BlocProvider<OtBloc>(
+              create: (context) => otBloc,
+              child: BlocConsumer<OtBloc, OtState>(listener: (context, state) {
+                print("state as changed");
+              }, builder: (context, state) {
+              if (state is OtLoaded) {
+                print("passé par la");
+                return Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black)),
+                    child: Column(
+                      children: [
+                        Expanded(
+                            child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: state.ots.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                                title: Text(state.ots[index].LIBELLEOT));
+                          },
+                        )
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: const [
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: OTButtonWidget(),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ));
+              } else if (state is OtError) {
+                return Text(state.message);
+              }
+              return const Center(
+                child: SizedBox(
+                    width: 32,
+                    height: 32,
+                    child: CircularProgressIndicator()),
+              );
+            }
+            ),
+            )
         ),
         const SizedBox(height: 20),
         SizedBox(
@@ -97,7 +96,7 @@ class _OTListState extends State<OTListWidget> {
             child: const Text('Scan machine'),
             style: ElevatedButton.styleFrom(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
           ),
         )
       ],
@@ -110,8 +109,7 @@ class _OTListState extends State<OTListWidget> {
       shrinkWrap: true,
       itemCount: ots.length,
       itemBuilder: (context, index) {
-        return ListTile(
-            title: Text(ots[index].LIBELLEOT));
+        return ListTile(title: Text(ots[index].LIBELLEOT));
       },
     );
   }

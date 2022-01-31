@@ -1,11 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/ot/ot_bloc.dart';
 import 'package:iomer/config/injection.dart';
 
 class OTPopUpWidget extends StatefulWidget {
-  const OTPopUpWidget({Key? key}) : super(key: key);
+  OtBloc otBloc;
+
+  OTPopUpWidget({Key? key, required OtBloc this.otBloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _OTPopupState();
@@ -14,11 +17,9 @@ class OTPopUpWidget extends StatefulWidget {
 
 class _OTPopupState extends State<OTPopUpWidget> {
   late int? _value;
-  late OtBloc _otbloc;
 
   @override
   void initState() {
-    _otbloc = getIt.get<OtBloc>();
     _value = null;
     super.initState();
   }
@@ -63,13 +64,13 @@ class _OTPopupState extends State<OTPopUpWidget> {
                 children: [
                   TextButton(
                       onPressed:  () =>
-                      Navigator.pop(context, 'Cancel'),
+                          Navigator.pop(context, 'Cancel'),
                       child: const Text('Cancel')),
                   TextButton(
                     onPressed: () => [
                       ValidationCreateOT(),
-                        Navigator.pop(
-                            context, 'OK')],
+                      Navigator.pop(
+                          context, 'OK')],
                     child: const Text('OK'),
                   ),
                 ],
@@ -88,8 +89,9 @@ class _OTPopupState extends State<OTPopUpWidget> {
 
 
   ValidationCreateOT() {
-      print("Emmettre etat validation.");
-
-        _otbloc.add(NewEventOt(_value!));
+    print("Emmettre etat validation.");
+    setState(() {
+      widget.otBloc.add(NewEventOt(_value!));
+    });
   }
 }

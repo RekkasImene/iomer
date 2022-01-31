@@ -43,14 +43,7 @@ class Body extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-<<<<<<< HEAD
                       builder: (context) => MachineScreen(text: "",)),
-=======
-                    builder: (context) => const MachineScreen(
-                      text: "",
-                    ),
-                  ),
->>>>>>> tina_branch
                 );
               },
               child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),

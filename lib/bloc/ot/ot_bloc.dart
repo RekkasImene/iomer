@@ -34,7 +34,11 @@ class OtBloc extends Bloc<OtEvent, OtState> {
         String label;
         print(event.numero);
         if(event == 1) { label = "Corrective" ; } else { label = "Preventive"; }
-        if (event.numero != null ) { print("ajout repo"); _repository.addNewOt(110, 14, 12, label);}
+        if (event.numero != null ) {
+          print("ajout repo");
+          _repository.addNewOt(110, 14, 12, label);
+        }
+        add(FetchEventOt());
         print("Appui FetchEvent.......");
       }
       

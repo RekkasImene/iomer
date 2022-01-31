@@ -17,35 +17,35 @@ class LocalRepository {
     return database.matriculeDao.getAllMatricules();
   }
 
-  Future<List<Ot>> getAllOt() {
-    return database.otDao.getAllOts();
+  Future<List<Ot>> getAllOt() async {
+    return await database.otDao.getAllOts();
   }
-  Future<List<Article>> getAllArticle() {
-    return database.articleDao.getAllArticles();
-  }
-
-  Future<List<Categorie>> getAllCategory() {
-    return database.categorieDao.getAllCategories();
+  Future<List<Article>> getAllArticle() async {
+    return await database.articleDao.getAllArticles();
   }
 
-  Future<List<Equipement>> getAllEquipement() {
-    return database.equipementDao.getAllEquipements();
+  Future<List<Categorie>> getAllCategory() async {
+    return await database.categorieDao.getAllCategories();
   }
 
-  Future<List<Origine>> getAllOrigine() {
-    return database.origineDao.getAllOrigine();
+  Future<List<Equipement>> getAllEquipement() async {
+    return await database.equipementDao.getAllEquipements();
   }
 
-  Future<List<Tache>> getAllTache() {
-    return database.tacheDao.getAllTaches();
+  Future<List<Origine>> getAllOrigine() async {
+    return await database.origineDao.getAllOrigine();
   }
 
-  Future<List<Site>> getAllSite() {
+  Future<List<Tache>> getAllTache() async {
+    return await database.tacheDao.getAllTaches();
+  }
+
+  Future<List<Site>> getAllSite() async {
     return database.siteDao.getAllSites();
   }
 
-  Future<List<Reservation>> getAllReservation() {
-    return database.reservationDao.getAllReservations();
+  Future<List<Reservation>> getAllReservation() async{
+    return await database.reservationDao.getAllReservations();
   }
 
   Future<void> ModifieMatricule(Matricule matricule) async {

@@ -89,8 +89,7 @@ class _OTPopupState extends State<OTPopUpWidget> {
 
   ValidationCreateOT() {
       print("Emmettre etat validation.");
-      setState(() {
+
         _otbloc.add(NewEventOt(_value!));
-      });
   }
 }

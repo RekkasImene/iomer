@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/ot/ot_bloc.dart';
 import 'package:iomer/config/injection.dart';
+import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/ui/machine/components/ot_button.dart';
 import 'package:iomer/ui/scan/scan_screen.dart';
 
@@ -38,15 +39,20 @@ class _OTListState extends State<OTListWidget> {
         Expanded(
           child: Container(
               decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black)),
+              BoxDecoration(border: Border.all(color: Colors.black)),
               child: Column(
                 children: [
                   Expanded(
                     child: BlocProvider(
                       create: (context) => _otbloc,
-                      child: BlocBuilder<OtBloc, OtState>(
+                      child: BlocConsumer<OtBloc, OtState>(
+                        listener: (context,state){
+                          print("state as changed");
+                        },
                       builder: (context, state) {
+
                         if(state is OtLoaded) {
+                          print("passé par la");
                           return ListView.builder(
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
@@ -66,8 +72,6 @@ class _OTListState extends State<OTListWidget> {
                       ),
                     ),
                   ),
-
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: const [
@@ -78,16 +82,8 @@ class _OTListState extends State<OTListWidget> {
                     ],
                   ),
                 ],
-              )
-          ),
+              )),
         ),
-
-
-
-
-
-
-
         const SizedBox(height: 20),
         SizedBox(
           width: double.infinity,
@@ -95,17 +91,28 @@ class _OTListState extends State<OTListWidget> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const ScanScreen()),
+                MaterialPageRoute(builder: (context) => const ScanScreen()),
               );
             },
             child: const Text('Scan machine'),
             style: ElevatedButton.styleFrom(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+                const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
           ),
         )
       ],
+    );
+  }
+
+  Widget BuildList(List<Ot> ots) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: ots.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+            title: Text(ots[index].LIBELLEOT));
+      },
     );
   }
 }

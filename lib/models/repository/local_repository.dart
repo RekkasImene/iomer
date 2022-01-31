@@ -20,6 +20,11 @@ class LocalRepository {
   Future<List<Ot>> getAllOt() {
     return database.otDao.getAllOts();
   }
+
+  Stream<List<Ot>> watchAllOt() {
+    return database.otDao.watchAllOts();
+  }
+
   Future<List<Article>> getAllArticle() {
     return database.articleDao.getAllArticles();
   }

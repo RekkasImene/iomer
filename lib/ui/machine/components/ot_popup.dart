@@ -11,7 +11,6 @@ class OTPopUpWidget extends StatefulWidget {
   State<StatefulWidget> createState() => _OTPopupState();
 }
 
-
 class _OTPopupState extends State<OTPopUpWidget> {
   late int? _value;
   late OtBloc _otbloc;
@@ -86,11 +85,8 @@ class _OTPopupState extends State<OTPopUpWidget> {
     );
   }
 
-
   ValidationCreateOT() {
       print("Emmettre etat validation.");
-      setState(() {
-        _otbloc.add(NewEventOt(_value!));
-      });
+      _otbloc.add(NewEventOt(_value!));
   }
 }

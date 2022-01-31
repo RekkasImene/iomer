@@ -69,6 +69,7 @@ class DebugScreen extends StatelessWidget {
                         const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
               ),
             ),
+<<<<<<< HEAD
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -85,6 +86,27 @@ class DebugScreen extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
               ),
+=======
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MachineScreen(
+                      text: "",
+                    ),
+                  ),
+                );
+              },
+              child:
+                  const Text('MachineScreen', style: TextStyle(fontSize: 20)),
+              style: ElevatedButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+>>>>>>> tina_branch
             ),
             SizedBox(
               width: double.infinity,

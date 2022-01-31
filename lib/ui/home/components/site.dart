@@ -18,6 +18,7 @@ class _SiteState extends State<SiteWidget> {
   late String choosedConfig;
   final myController = TextEditingController();
 
+
   @override
   void initState() {
     chooseValue = null;
@@ -32,6 +33,7 @@ class _SiteState extends State<SiteWidget> {
     myController.dispose();
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +97,6 @@ class _SiteState extends State<SiteWidget> {
                 child:
                 _buildButton(),
               ),
-
             ],
           ),
         )
@@ -108,13 +109,9 @@ class _SiteState extends State<SiteWidget> {
       child: const Text('Valider', style: TextStyle(fontSize: 20)),
       style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed: () => [ calculateWhetherDisabledReturnsBool(),
+      onPressed: calculateWhetherDisabledReturnsBool() ? null:()=>[
                 choosedConfig = myController.text,
-                _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig)),
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FirstScreen()),
-                )
+                Navigation()
               ],
     );
   }
@@ -130,4 +127,17 @@ class _SiteState extends State<SiteWidget> {
   setConfig() {
     choosedConfig = myController.text;
   }
+
+  Navigation() {
+    _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig));
+    _sitesBloc.nextnav.stream.listen((event) {
+      print("----------------------------------------------------------- Je suis entrer dans listen... " + event.toString());
+      if (event) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstScreen()));
+      }
+    });
+  }
+
+
+
 }

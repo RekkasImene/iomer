@@ -53,6 +53,7 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
   Future insertOt(Ot otData) => into(ots).insertOnConflictUpdate(otData);
 
   Future<List<Ot>> getAllOts() => select(ots).get();
+  Stream<List<Ot>> watchAllOts() => select(ots).watch();
 
   Future<List<Ot>> sortTable() {
     return (select(ots)

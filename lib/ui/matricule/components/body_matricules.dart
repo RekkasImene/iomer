@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
-import 'package:iomer/ui/matricule/components/matricule.dart';
+import 'package:iomer/ui/utils/matricule.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -21,9 +20,8 @@ class Body extends StatelessWidget {
           ),
           const Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.0),
-              child: Matricule(),
-            ),
+                padding: EdgeInsets.symmetric(vertical: 20.0),
+                child: MatriculeWidget()),
           ),
           SizedBox(
             width: double.infinity,
@@ -31,13 +29,16 @@ class Body extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const MachineScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => MachineScreen(
+                            text: '',
+                          )),
                 );
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
           ),
         ],

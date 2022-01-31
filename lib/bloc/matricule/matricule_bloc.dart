@@ -35,7 +35,7 @@ class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
         if (event.matricule != null) {
           //ecrire dans la base de donnée
 
-          _localRepository.ModifieMatricule(event.matricule);
+          await _localRepository.ModifieMatricule(event.matricule);
 
           final matricule2 = await _localRepository.getAllMatricule();
           log("imene " + matricule2.toString());

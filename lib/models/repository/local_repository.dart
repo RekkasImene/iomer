@@ -49,8 +49,8 @@ class LocalRepository {
     return database.reservationDao.getAllReservations();
   }
 
-  void ModifieMatricule(Matricule matricule) {
-    database.matriculeDao.modifieMatricule(matricule);
+  Future<void> ModifieMatricule(Matricule matricule) async {
+    await database.matriculeDao.modifieMatricule(matricule);
   }
 
   void ModifieOt(Ot ot) {

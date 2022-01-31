@@ -14,35 +14,20 @@ class Body extends StatelessWidget {
         children: const [
           Padding(
             padding: EdgeInsets.all(16.0),
-            child: Text(
-              'Selection de la machine',
-              style: TextStyle(fontSize: 24),
-            ),
+            child: Text('Selection de la machine', style: TextStyle(fontSize: 24)),
           ),
 
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: UnderlineInputBorder(), labelText: 'Code machine'),
-            ),
+            child: TextField(decoration: InputDecoration(border: UnderlineInputBorder(), labelText: 'Code machine')),
           ),
 
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: TextField(
-              decoration: InputDecoration(
-                  border: UnderlineInputBorder(), labelText: 'Nom machine'),
-            ),
+            child: TextField(decoration: InputDecoration(border: UnderlineInputBorder(), labelText: 'Nom machine'))
           ),
 
-// const SizedBox(height: 20),
-
-/*expanded permet de remplir la place*/
-          Expanded(
-//padding: const EdgeInsets.all(16.0) ,
-            child: OTListWidget()
-          ),
+          Expanded(child: OTListWidget())
         ],
       ),
     );

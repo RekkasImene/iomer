@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:iomer/bloc/ot/ot_bloc.dart';
 import 'package:iomer/config/injection.dart';
 
+import 'ot_list.dart';
+
 class OTPopUpWidget extends StatefulWidget {
   const OTPopUpWidget({Key? key}) : super(key: key);
 
@@ -66,11 +68,8 @@ class _OTPopupState extends State<OTPopUpWidget> {
                       Navigator.pop(context, 'Cancel'),
                       child: const Text('Cancel')),
                   TextButton(
-                    onPressed: () => [
-                      ValidationCreateOT(),
-                        Navigator.pop(
-                            context, 'OK')],
-                    child: const Text('OK'),
+                    onPressed: () => ValidationCreateOT(),
+                      child: const Text('OK'),
                   ),
                 ],
               ),
@@ -89,8 +88,7 @@ class _OTPopupState extends State<OTPopUpWidget> {
 
   ValidationCreateOT() {
       print("Emmettre etat validation.");
-      setState(() {
-        _otbloc.add(NewEventOt(_value!));
-      });
+      _otbloc.add(NewEventOt(_value!));
+      Navigator.of(context).pop();
   }
 }

@@ -9,16 +9,9 @@ class OTButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: const Icon(Icons.add),
-      onPressed: () => showDialog<String>(
-        context: context,
+      onPressed: () => showDialog<String>(context: context,
         builder: (BuildContext context) =>
-            BackdropFilter(
-              filter: ImageFilter.blur(
-                  sigmaX: 10, sigmaY: 10),
-              child: const OTPopUpWidget(),
-            ),
-      ),
+            BackdropFilter(filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), child: const OTPopUpWidget())),
     );
   }
-
 }

@@ -14,9 +14,11 @@ class OTListWidget extends StatefulWidget {
 class _OTListState extends State<OTListWidget> {
 
   late OtBloc _otbloc;
+  late ScrollController _controller;
 
   @override
   void initState() {
+    _controller = ScrollController();
     _otbloc = getIt.get<OtBloc>();
     _otbloc.add(FetchEventOt());
     super.initState();
@@ -27,12 +29,8 @@ class _OTListState extends State<OTListWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
-          child: Text(
-            'Listes des ordres de travaux',
-            style: TextStyle(fontSize: 18),
-          ),
+        const Padding( padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+            child: Text('Listes des ordres de travaux', style: TextStyle(fontSize: 18))
         ),
         Expanded(
           child: Container(
@@ -41,31 +39,34 @@ class _OTListState extends State<OTListWidget> {
               child: Column(
                 children: [
                   Expanded(
-                    child: BlocProvider(
-                      create: (context) => _otbloc,
-                      child: BlocBuilder<OtBloc, OtState>(
-                      builder: (context, state) {
-                        if(state is OtLoaded) {
-                          return ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: state.ots.length,
-                            itemBuilder: (context, index) {
-                            return ListTile(title: Text(state.ots[index].LIBELLEOT));
-                            },
-                          );
-                        } else if (state is OtError) {
-                          return Text(state.message);
-                        }
-                        return const Center(
-                          child: SizedBox(
-                              width: 32, height: 32, child: CircularProgressIndicator()),
-                        );
-                      }
-                      ),
-                    ),
+                      child: BlocProvider(
+                          create: (context) => _otbloc,
+                          child: BlocBuilder<OtBloc, OtState>(
+                              builder: (context, state) {
+                            if (state is OtLoaded) {
+                              return ListView.builder(
+                                controller: _controller,
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: state.ots.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                      title: Text(state.ots[index].LIBELLEOT));
+                                },
+                              );
+                            } else if (state is OtError) {
+                              return Text(state.message);
+                            }
+                            return const Center(
+                              child: SizedBox(
+                                  width: 32,
+                                  height: 32,
+                                  child: CircularProgressIndicator()),
+                            );
+                          }
+                          )
+                      )
                   ),
-
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -78,13 +79,8 @@ class _OTListState extends State<OTListWidget> {
                   ),
                 ],
               )
-                      ),
+          ),
         ),
-
-
-
-
-
 
 
         const SizedBox(height: 20),
@@ -93,10 +89,7 @@ class _OTListState extends State<OTListWidget> {
           child: ElevatedButton(
             onPressed: () {},
             child: const Text('Scan machine'),
-            style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-          ),
+            style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)))
         )
       ],
     );

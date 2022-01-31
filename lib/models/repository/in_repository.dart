@@ -178,12 +178,4 @@ class InRepository extends InRepositoryAbs {
               }));
     });
   }
-
-
-  bool getFlag() {
-    return this.flag;
-  }
-
-
-
 }

@@ -1,18 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:images_picker/images_picker.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:scan/scan.dart';
 
-
 class QrScanner extends StatelessWidget {
-
-
   ScanController controller = ScanController();
   String qrcode = 'Unknown';
 
   QrScanner({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +24,14 @@ class QrScanner extends StatelessWidget {
               (context as Element).markNeedsBuild();
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MachineScreen(text: qrcode,)),
+                MaterialPageRoute(
+                    builder: (context) => MachineScreen(
+                          text: qrcode,
+                        )),
               );
             },
           ),
         ),
-
-
         ElevatedButton(
           onPressed: () {
             controller.toggleTorchMode();
@@ -48,9 +44,7 @@ class QrScanner extends StatelessWidget {
             //onPrimary: Colors.red, // <-- Splash color
           ),
         )
-
       ],
-
     );
   }
 }

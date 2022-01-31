@@ -17,7 +17,6 @@ class MachineScreen extends StatelessWidget {
       body: Body(text: text,)
 
     );
-
   }
 
 }

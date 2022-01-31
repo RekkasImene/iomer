@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iomer/models/repository/local_repository.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
-import 'package:iomer/ui/matricule/components/matricule.dart';
+import 'package:iomer/ui/utils/matricule.dart';
 
 class Body extends StatelessWidget {
 
@@ -29,7 +29,7 @@ class Body extends StatelessWidget {
             child: Info(),
           ),
           const Expanded(
-            child: Matricule(),
+            child: MatriculeWidget(),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 8),

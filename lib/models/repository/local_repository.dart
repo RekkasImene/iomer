@@ -21,6 +21,7 @@ class LocalRepository {
   Future<List<Ot>> getAllOt() {
     return database.otDao.getAllOts();
   }
+
   Future<List<Article>> getAllArticle() {
     return database.articleDao.getAllArticles();
   }
@@ -49,25 +50,26 @@ class LocalRepository {
     return database.reservationDao.getAllReservations();
   }
 
-  void modifieOt(Ot ot ){
-      
-    database.otDao.modifieOt(ot.copyWith());
+  Future<void> ModifieMatricule(Matricule matricule) async {
+    await database.matriculeDao.modifieMatricule(matricule);
+  }
 
-
+  void ModifieOt(Ot ot) {
+    database.otDao.modifieOt(ot);
   }
 
   void saveData(Site site, Config config) {
     database.siteDao.insertSite(site);
     database.configDao.insertConfig(config);
   }
-//vue vers bdd
-  void addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) {
 
-    int newIdOT =0;
+  void addNewOt(
+      int idEquipement, int idOrigine, int idCategorie, String libelleOt) {
+    int newIdOT = 0;
+
     Future<List<Ot>> lastdata = database.otDao.sortTable();
 
-     lastdata.then((value) {
-
+    lastdata.then((value) {
       newIdOT = value.first.IDOT;
       newIdOT++;
 
@@ -78,17 +80,13 @@ class LocalRepository {
     IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie, DTOPENOT : DateTime.parse(beforeTime));
     
 
-    log("affiches moi mon new ot"+newOt.toString());
-    database.otDao.insertOt(newOt);
+      database.otDao.insertOt(newOt);
 
+      database.otDao.insertOt(newOt);
     }).catchError((error) {
       log(error);
     });
-
   }
 
-void addNewDocument( int idOt, int idAttachement, String attachement) {
-
-}
-
+  void addNewDocument(int idOt, int idAttachement, String attachement) {}
 }

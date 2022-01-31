@@ -4,10 +4,7 @@ import 'components/body_machine.dart';
 
 class MachineScreen extends StatelessWidget {
   final String text;
-  const MachineScreen({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
+  MachineScreen({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

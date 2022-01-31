@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
-import 'package:iomer/ui/matricule/components/matricule.dart';
+import 'package:iomer/ui/utils/matricule.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);

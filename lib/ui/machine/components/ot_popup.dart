@@ -67,9 +67,10 @@ class _OTPopupState extends State<OTPopUpWidget> {
                       child: const Text('Cancel')),
                   TextButton(
                     onPressed: () => [
-                      ValidationCreateOT(),
-                      Navigator.pop(
-                          context, 'OK')],
+
+                      Navigator.pop(context, 'OK'),
+                      ValidationCreateOT()
+                    ],
                     child: const Text('OK'),
                   ),
                 ],
@@ -89,8 +90,6 @@ class _OTPopupState extends State<OTPopUpWidget> {
 
   ValidationCreateOT() {
     print("Emmettre etat validation.");
-    setState(() {
-      widget.otBloc.add(NewEventOt(_value!));
-    });
+    widget.otBloc.add(NewEventOt(_value!));
   }
 }

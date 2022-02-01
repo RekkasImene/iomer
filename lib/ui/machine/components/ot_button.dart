@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iomer/bloc/ot/ot_bloc.dart';
 import 'package:iomer/ui/machine/components/ot_popup.dart';
 
 class OTButtonWidget extends StatelessWidget {
@@ -7,6 +9,7 @@ class OTButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    OtBloc otblc = BlocProvider.of<OtBloc>(context);
     return IconButton(
       icon: const Icon(Icons.add),
       onPressed: () => showDialog<String>(
@@ -15,7 +18,7 @@ class OTButtonWidget extends StatelessWidget {
             BackdropFilter(
               filter: ImageFilter.blur(
                   sigmaX: 10, sigmaY: 10),
-              child: const OTPopUpWidget(),
+              child: OTPopUpWidget(otBloc: otblc),
             ),
       ),
     );

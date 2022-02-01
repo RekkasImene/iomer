@@ -20,9 +20,10 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Site>> futureSite;
   final IomerDatabase database;
   final LocalRepository localRepository;
+  final Services services;
   late bool flag = false;
 
-  InRepository(this.database, this.localRepository);
+  InRepository(this.database, this.localRepository, this.services);
 
   late Future<List<Site>> futureSites;
   late Future<List<Origine>> futureOrigines;
@@ -36,7 +37,7 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Config>> futureConfigs;
 
   void updateOrigines(int idSite) {
-    futureOrigines = fetchOrigines(idSite);
+    futureOrigines = services.fetchOrigines(idSite);
 
     futureOrigines.then((value) {
       value.forEach((e) {
@@ -49,7 +50,7 @@ class InRepository extends InRepositoryAbs {
   }
 
   Future<void> updateMatricules(int idOrigine) {
-    futureMatricules = fetchMatricules(idOrigine);
+    futureMatricules = services.fetchMatricules(idOrigine);
     return futureMatricules.then((value) {
       value.forEach((e) {
         database.matriculeDao.insertMatricule(e);
@@ -61,7 +62,7 @@ class InRepository extends InRepositoryAbs {
   }
 
   Future<void> updateOTs(int idSite, int idOrigine) {
-    futureOTs = fetchOTs(idSite, idOrigine);
+    futureOTs = services.fetchOTs(idSite, idOrigine);
     return futureOTs.then((value) {
       value.forEach((e) {
         database.otDao.insertOt(e);
@@ -73,7 +74,7 @@ class InRepository extends InRepositoryAbs {
   }
 
   Future<void> updateCategories(int idSite) {
-    futureCategories = fetchCategories(idSite);
+    futureCategories = services.fetchCategories(idSite);
     return futureCategories.then((value) {
       value.forEach((e) {
         database.categorieDao.insertCategorie(e);
@@ -84,7 +85,7 @@ class InRepository extends InRepositoryAbs {
   }
 
   Future<void> updateReservation(int idOt) {
-    futureReservations = fetchReservations(idOt);
+    futureReservations = services.fetchReservations(idOt);
     return futureReservations.then((value) {
       value.forEach((e) {
         database.reservationDao.insertReservation(e);
@@ -96,7 +97,7 @@ class InRepository extends InRepositoryAbs {
   }
 
   Future<void> updateArticles(String codeArticle) {
-    futureArticles = fetchArticles(codeArticle);
+    futureArticles = services.fetchArticles(codeArticle);
     return futureArticles.then((value) {
       value.forEach((e) {
         database.articleDao.insertArticle(e);
@@ -108,7 +109,7 @@ class InRepository extends InRepositoryAbs {
   }
 
   Future<void> updateEquipements(int idSite) {
-    futureEquipements = fetchEquipements(idSite);
+    futureEquipements = services.fetchEquipements(idSite);
     return futureEquipements.then((value) {
       value.forEach((e) {
         database.equipementDao.insertEquipement(e);
@@ -120,7 +121,7 @@ class InRepository extends InRepositoryAbs {
   }
 
   Future<void> updateTaches(int idOT) {
-    futureTaches = fetchOTTaches(idOT);
+    futureTaches = services.fetchOTTaches(idOT);
     return futureTaches.then((value) {
       value.forEach((e) {
         database.tacheDao.insertTache(e);
@@ -133,7 +134,7 @@ class InRepository extends InRepositoryAbs {
 
   @override
   Future<List<Site>> getAllSite() {
-    return fetchSites();
+    return services.fetchSites();
   }
 
   @override
@@ -144,7 +145,7 @@ class InRepository extends InRepositoryAbs {
   //Filed database
   void pushDB(int idSite, String codePocket) {
     //push matricule & ot
-    futureConfigs = fetchConfigs(idSite, codePocket);
+    futureConfigs = services.fetchConfigs(idSite, codePocket);
     futureConfigs.then((value) {
       int idOrigine = value.first.IDORIGINE!;
       updateMatricules(idOrigine)

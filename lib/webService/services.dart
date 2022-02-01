@@ -1,13 +1,24 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:injectable/injectable.dart';
+import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart' as http;
 
+
 var url = 'https://fresh-warthog-73.loca.lt/';
+
+@Environment(Env.prod)
+@singleton
+@injectable
+class Services {
+
+final http.Client client;
+Services({required this.client});
 
 /* Get Sites */
 Future<List<Site>> fetchSites() async {
-  final response = await http.get(Uri.parse('$url/GetSites'));
+  final response = await client.get(Uri.parse('$url/GetSites'));
   if (response.statusCode == 200) {
     List<Site> sites;
     sites = (json.decode(response.body) as List)
@@ -21,7 +32,7 @@ Future<List<Site>> fetchSites() async {
 
 /* Get Origines */
 Future<List<Origine>> fetchOrigines(int id) async {
-  final response = await http.get(Uri.parse('$url/GetOrigines/$id'));
+  final response = await client.get(Uri.parse('$url/GetOrigines/$id'));
   log(response.body.toString());
   if (response.statusCode == 200) {
     List<Origine> origines;
@@ -36,7 +47,7 @@ Future<List<Origine>> fetchOrigines(int id) async {
 
 /* Get Matricules */
 Future<List<Matricule>> fetchMatricules(int? id) async {
-  final response = await http.get(Uri.parse('$url/GetMatricules/$id'));
+  final response = await client.get(Uri.parse('$url/GetMatricules/$id'));
   log(response.body.toString());
   if (response.statusCode == 200) {
     List<Matricule> matricules;
@@ -53,7 +64,7 @@ Future<List<Matricule>> fetchMatricules(int? id) async {
 
 /* Get Equipements */
 Future<List<Equipement>> fetchEquipements(int id) async {
-  final response = await http.get(Uri.parse('$url/GetEquipements/$id'));
+  final response = await client.get(Uri.parse('$url/GetEquipements/$id'));
   log(response.body.toString());
   if (response.statusCode == 200) {
     List<Equipement> equipements;
@@ -70,7 +81,7 @@ Future<List<Equipement>> fetchEquipements(int id) async {
 
 /* Get Categories */
 Future<List<Categorie>> fetchCategories(int id) async {
-  final response = await http.get(Uri.parse('$url/GetCategories/$id'));
+  final response = await client.get(Uri.parse('$url/GetCategories/$id'));
   log(response.body.toString());
   if (response.statusCode == 200) {
     List<Categorie> categories;
@@ -87,7 +98,7 @@ Future<List<Categorie>> fetchCategories(int id) async {
 
 /* Get OTs */
 Future<List<Ot>> fetchOTs(int idSite, int idOrigine) async {
-  final response = await http.get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
+  final response = await client.get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
   log(response.body.toString());
   if (response.statusCode == 200) {
     List<Ot> ots;
@@ -104,7 +115,7 @@ Future<List<Ot>> fetchOTs(int idSite, int idOrigine) async {
 
 /* Get OT Taches */
 Future<List<Tache>> fetchOTTaches(int idOT) async {
-  final response = await http.get(Uri.parse('$url/GETOT_TACHES/$idOT'));
+  final response = await client.get(Uri.parse('$url/GETOT_TACHES/$idOT'));
   log(response.body.toString());
   if (response.statusCode == 200) {
     List<Tache> taches;
@@ -119,7 +130,7 @@ Future<List<Tache>> fetchOTTaches(int idOT) async {
 
 /* Get Config */
 Future<List<Config>> fetchConfigs(int idSite, String codePocket) async {
-  final response = await http.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
+  final response = await client.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
   log("conffffffff"+response.body.toString());
   if (response.statusCode == 200) {
     log(response.body.toString());
@@ -136,7 +147,7 @@ Future<List<Config>> fetchConfigs(int idSite, String codePocket) async {
 }
 
 Future<List<Article>> fetchArticles(String codeArticle) async {
-  final response = await http.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
+  final response = await client.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
   log(response.body.toString());
   if (response.statusCode == 200) {
     List<Article> articles;
@@ -152,7 +163,7 @@ Future<List<Article>> fetchArticles(String codeArticle) async {
 /* get Reservation (GETOT_ARTICLE)*/
 
 Future<List<Reservation>> fetchReservations(int idOt) async {
-  final response = await http.get(Uri.parse('$url/GETOT_ARTICLES/$idOt'));
+  final response = await client.get(Uri.parse('$url/GETOT_ARTICLES/$idOt'));
   if (response.statusCode == 200) {
     List<Reservation> reservations;
     reservations = (json.decode(response.body) as List)
@@ -169,12 +180,12 @@ Future<void> postOt(int idOt, String commentOt, double tempsOt, String statutOt)
   String newTempsOt = tempsOt.toString();
   newTempsOt = newTempsOt.replaceAll('.', ',');
 
-  final response = await http
+  final response = await client
       .get(Uri.parse('$url/SetOt/$idOt/$commentOt/$newTempsOt/$statutOt'));
 }
 
 Future<void> postOtTache(int idTache, String statutTache, String commentTache) async {
-  final response = await http
+  final response = await client
       .get(Uri.parse('$url/SETOT_TACHE/$idTache/$statutTache/$commentTache'));
 }
 
@@ -183,28 +194,29 @@ Future<void> postOtArticle(int idPiece, double qteArticle) async {
   newQteArticle = newQteArticle.replaceAll('.', ',');
 
   final response =
-      await http.get(Uri.parse('$url/SETOT_ARTICLE/$idPiece/$newQteArticle'));
+      await client.get(Uri.parse('$url/SETOT_ARTICLE/$idPiece/$newQteArticle'));
 }
 
 Future<void> postMatricule(int idMatricule, int checked) async {
   final response =
-      await http.get(Uri.parse('$url/SETMATRICULE/$idMatricule/$checked'));
+      await client.get(Uri.parse('$url/SETMATRICULE/$idMatricule/$checked'));
 }
 
 Future<void> postAttachment(int idOt, String attachment) async {
   final response =
-      await http.get(Uri.parse('$url/SETATTACHMENT/$idOt/$attachment'));
+      await client.get(Uri.parse('$url/SETATTACHMENT/$idOt/$attachment'));
 }
 
 Future<void> createOtArticle(int idOt, int idArticle, double qteArticle) async {
   String newQteArticle = qteArticle.toString();
   newQteArticle = newQteArticle.replaceAll('.', ',');
 
-  final response = await http
+  final response = await client
       .get(Uri.parse('$url/CREATEOT_ARTICLE/$idOt/$idArticle/$newQteArticle'));
 }
 
 Future<void> createOt(int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
-  final response = await http.get(Uri.parse(
+  final response = await client.get(Uri.parse(
       '$url/CREATEOT/$idEquipement/$idOrigine/$idCategorie/$libelleOt'));
+}
 }

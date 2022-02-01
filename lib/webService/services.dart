@@ -3,18 +3,18 @@ import 'dart:developer';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
-
-var url = 'https://fresh-warthog-73.loca.lt/';
+var url = 'https://iomere.loca.lt';
 
 @Environment(Env.prod)
 @singleton
 @injectable
 class Services {
 
-final http.Client client;
-Services({required this.client});
+final Client client;
+Services(Client httpClient): 
+client=httpClient;
 
 /* Get Sites */
 Future<List<Site>> fetchSites() async {

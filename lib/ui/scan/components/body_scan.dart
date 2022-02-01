@@ -36,10 +36,10 @@ class QrScanner extends StatelessWidget {
           onPressed: () {
             controller.toggleTorchMode();
           },
-          child: Icon(Icons.flash_on),
+          child: const Icon(Icons.flash_on),
           style: ElevatedButton.styleFrom(
-            shape: CircleBorder(),
-            padding: EdgeInsets.all(20),
+            shape: const CircleBorder(),
+            padding: const EdgeInsets.all(20),
             //primary: Colors.blue, // <-- Button color
             //onPrimary: Colors.red, // <-- Splash color
           ),

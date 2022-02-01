@@ -1,5 +1,6 @@
 //webservice vers bdd
 
+import 'dart:async';
 import 'dart:developer';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
@@ -21,7 +22,8 @@ class InRepository extends InRepositoryAbs {
   final IomerDatabase database;
   final LocalRepository localRepository;
   final Services services;
-  late bool flag = false;
+  
+  StreamController<bool> flag = StreamController<bool>.broadcast();
 
   InRepository(this.database, this.localRepository, this.services);
 
@@ -138,53 +140,41 @@ class InRepository extends InRepositoryAbs {
   }
 
   @override
-  void InsertSite(Site site) {
+  Future<void> InsertSite(Site site) async {
     database.siteDao.insertSite(site);
   }
 
   //Filed database
-  void pushDB(int idSite, String codePocket) {
+  Future<void> pushDB(int idSite, String codePocket) async {
     //push matricule & ot
     futureConfigs = services.fetchConfigs(idSite, codePocket);
     futureConfigs.then((value) {
       int idOrigine = value.first.IDORIGINE!;
-      updateMatricules(idOrigine)
-          .then((value) => updateOTs(idSite, idOrigine).then((value) {
-                //push equipement & categories
-                updateCategories(idSite)
-                    .then((value) => updateEquipements(idSite).then((value) {
-                          //push tache & OtArticle(Reservation)
-                          localRepository.getAllOt().then((value) {
-                            value.forEach((e) {
-                              updateTaches(e.IDOT).then((value) =>
-                                  updateReservation(e.IDOT).then((value) {
-                                    //push articles
-                                    localRepository
-                                        .getAllReservation()
-                                        .then((value) {
-                                      value.forEach((e) {
-                                        updateArticles(e.CODEARTICLE!);
-                                      });
-                                      flag = true;
-                                    }).catchError((error) {
-                                      log(error);
-                                    });
-                                  }));
+      updateMatricules(idOrigine).then((value) =>
+          updateOTs(idSite, idOrigine).then((value) {
+            //push equipement & categories
+            updateCategories(idSite).then((value) =>
+                updateEquipements(idSite).then((value) {
+                  //push tache & OtArticle(Reservation)
+                  flag.add(true);
+                  localRepository.getAllOt().then((value) {
+                    value.forEach((e) {
+                      updateTaches(e.IDOT).then((value) =>
+                          updateReservation(e.IDOT).then((value) {
+                            localRepository.getAllReservation().then((value) {
+                              value.forEach((e) {
+                                updateArticles(e.CODEARTICLE!);
+                              });
+                            }).catchError((error) {
+                              log(error);
                             });
-                          }).catchError((error) {
-                            log(error);
-                          });
-
-                        }));
-              }));
+                          }));
+                    });
+                  }).catchError((error) {
+                    log(error);
+                  });
+                }));
+          }));
     });
   }
-
-
-  bool getFlag() {
-    return this.flag;
-  }
-
-
-
 }

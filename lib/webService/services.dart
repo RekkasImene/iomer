@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart' as http;
 
-var url = 'https://fresh-warthog-73.loca.lt/';
+var url = 'https://iomere.loca.lt/';
 
 /* Get Sites */
 Future<List<Site>> fetchSites() async {

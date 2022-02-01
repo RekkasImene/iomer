@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Info extends StatelessWidget {
-  const Info({Key? key}) : super(key: key);
+class Info extends StatefulWidget {
+  final String OtCode;
+  final String OtLibelle;
+  Info({Key? key,required this.OtCode, required this.OtLibelle}) : super(key: key);
 
+  @override
+  State<Info> createState() => _InfoState();
+}
+
+class _InfoState extends State<Info> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,15 +21,15 @@ class Info extends StatelessWidget {
       child: SizedBox(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Align(
                 child: Text(
-              "№ OT : OT802011",
+                  widget.OtCode,
               style: TextStyle(fontSize: 20, color: Colors.white),
             )),
             Align(
                 child: Text(
-              "Maintenance: Action corrective",
+              widget.OtLibelle,
               style: TextStyle(fontSize: 20, color: Colors.white),
             ))
           ],

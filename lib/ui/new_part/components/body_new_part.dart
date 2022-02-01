@@ -24,8 +24,8 @@ class Body extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: Column(
-              children: const [
-                Info(),
+              children: [
+                Info(OtCode: "widget.OtCode", OtLibelle: "widget.OtLibelle",),
                 PartEditor(),
               ],
             ),

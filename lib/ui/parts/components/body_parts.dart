@@ -20,9 +20,9 @@ class Body extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
-            child: Info(),
+            child: Info(OtCode: "widget.OtCode", OtLibelle: "widget.OtLibelle",),
           ),
           const Expanded(
             child: ListParts(),
@@ -53,7 +53,7 @@ class Body extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ActionScreen()),
+                  MaterialPageRoute(builder: (context) => ActionScreen(OtLibelle: '', OtCode: '',)),
                 );
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/ot/ot_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomer/ui/action/action_screen.dart';
 import 'package:iomer/ui/machine/components/ot_button.dart';
 import 'package:iomer/ui/scan/scan_screen.dart';
 
@@ -14,12 +15,15 @@ class OTListWidget extends StatefulWidget {
 }
 
 class _OTListState extends State<OTListWidget> {
-  late OtBloc otBloc;
-
+  late OtBloc _otBloc;
+  late String choosedOtCode;
+  late String choosedOtLibelle;
   @override
   void initState() {
-    otBloc = getIt.get<OtBloc>();
-    otBloc.add(FetchEventOt());
+    _otBloc = getIt.get<OtBloc>();
+    _otBloc.add(FetchEventOt());
+    choosedOtCode="";
+    choosedOtLibelle="";
     super.initState();
   }
 
@@ -37,7 +41,7 @@ class _OTListState extends State<OTListWidget> {
         ),
         Expanded(
             child: BlocProvider<OtBloc>(
-              create: (context) => otBloc,
+              create: (context) => _otBloc,
               child: BlocConsumer<OtBloc, OtState>(listener: (context, state) {
                 print("state as changed");
               }, builder: (context, state) {
@@ -55,7 +59,17 @@ class _OTListState extends State<OTListWidget> {
                           itemCount: state.ots.length,
                           itemBuilder: (context, index) {
                             return ListTile(
-                                title: Text(state.ots[index].LIBELLEOT));
+                                title: Text(state.ots[index].LIBELLEOT),
+                              onTap: (){
+                                  choosedOtCode=state.ots[index].CODEOT;
+                                  choosedOtLibelle =state.ots[index].LIBELLEOT;
+                                  //print(choosedOtCode);
+                                  //print(choosedOtLibelle);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context)=> ActionScreen(OtCode: choosedOtCode, OtLibelle: choosedOtLibelle,)));
+                              },
+                            );
                           },
                         )
                         ),

@@ -21,7 +21,7 @@ class Body extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 8.0),
-            child: Info(OtCode: "widget.OtCode", OtLibelle: "widget.OtLibelle",),
+            child: Info(),
           ),
           const Expanded(
             child: MatriculeWidget(),

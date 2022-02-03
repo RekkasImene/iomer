@@ -41,6 +41,12 @@ class OtBloc extends Bloc<OtEvent, OtState> {
         add(FetchEventOt());
         print("Appui FetchEvent.......");
       }
+
+      if (event is selectEventOt){
+        final Ot ot = new Ot(IDOT: 1, CODEOT: "1", LIBELLEOT: "");//await _repository.GetOt;
+        emit(OtSelected(ot));
+
+      }
     });
   }
 }

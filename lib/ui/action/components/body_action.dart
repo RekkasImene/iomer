@@ -6,9 +6,8 @@ import 'package:iomer/ui/task/tasks_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 
 class Body extends StatefulWidget {
-  final String OtCode;
-  final String OtLibelle;
-  Body({Key? key,required this.OtCode, required this.OtLibelle}) : super(key: key);
+  final int? OtId;
+  Body({Key? key,required this.OtId}) : super(key: key);
 
   @override
   State<Body> createState() => _BodyState();
@@ -31,8 +30,8 @@ class _BodyState extends State<Body> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
-                child: Info(OtCode: widget.OtCode, OtLibelle: widget.OtLibelle,),
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Info(),
               ),
               Expanded(
                 child: Column(

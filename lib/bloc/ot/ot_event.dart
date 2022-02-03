@@ -15,3 +15,8 @@ class NewEventOt extends OtEvent {
   final int numero;
   NewEventOt(this.numero);
 }
+
+class selectEventOt extends OtEvent{
+  selectEventOt(int Id);
+
+}

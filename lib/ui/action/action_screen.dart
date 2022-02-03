@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'components/body_action.dart';
 
 class ActionScreen extends StatefulWidget {
-  final String OtCode;
-  final String OtLibelle;
-  ActionScreen({Key? key,required this.OtCode,required this.OtLibelle}) : super(key: key);
+  final int OtId;
+  ActionScreen({Key? key,required this.OtId}) : super(key: key);
 
   @override
   _ActionScreenState createState() => _ActionScreenState();
@@ -20,6 +19,6 @@ class _ActionScreenState extends State<ActionScreen> {
         appBar: AppBar(
           title: const Text('IOmere'),
         ),
-        body: Body(OtCode: widget.OtCode, OtLibelle: widget.OtLibelle,));
+        body: Body(OtId: widget.OtId));
   }
 }

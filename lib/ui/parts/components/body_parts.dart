@@ -22,7 +22,7 @@ class Body extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
-            child: Info(OtCode: "widget.OtCode", OtLibelle: "widget.OtLibelle",),
+            child: Info(),
           ),
           const Expanded(
             child: ListParts(),
@@ -51,10 +51,7 @@ class Body extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ActionScreen(OtLibelle: '', OtCode: '',)),
-                );
+                Navigator.pop(context);
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(

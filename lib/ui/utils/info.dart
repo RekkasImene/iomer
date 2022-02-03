@@ -15,7 +15,7 @@ class _InfoState extends State<Info> {
 
   void initState() {
     _otBloc = getIt.get<OtBloc>();
-    _otBloc.add(FetchEventOt()); /////////////////////incertain
+    _otBloc.add(selectEventOt()); /////////////////////incertain
     super.initState();
   }
 
@@ -29,26 +29,22 @@ class _InfoState extends State<Info> {
       ),
       child: BlocProvider<OtBloc>(
         create: (context) => _otBloc,
-        child: BlocConsumer<OtBloc, OtState>(
-          listener: (context, state) {
-            print("info state as changed: ");
-          },
+        child: BlocBuilder<OtBloc, OtState>(
           builder: (context, state) {
+            print(state);
             if (state is OtSelected) {
               return SizedBox(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Align(
                         child: Text(
-                      "tt",
-                      //widget.OtCode,
+                      state.ot.LIBELLEOT,
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     )),
                     Align(
                         child: Text(
-                      "tt",
-                      //widget.OtLibelle,
+                      state.ot.LIBELLEOT,
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ))
                   ],

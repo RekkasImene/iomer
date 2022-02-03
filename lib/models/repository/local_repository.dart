@@ -21,6 +21,10 @@ class LocalRepository {
   Future<List<Ot>> getAllOt() async {
     return await database.otDao.getAllOts();
   }
+
+  Future <Ot> getOt() async{
+    return Ot(IDOT: 1, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
+  }
   Future<List<Article>> getAllArticle() async {
     return await database.articleDao.getAllArticles();
   }

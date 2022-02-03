@@ -16,7 +16,4 @@ class NewEventOt extends OtEvent {
   NewEventOt(this.numero);
 }
 
-class selectEventOt extends OtEvent{
-  selectEventOt(int Id);
-
-}
+class selectEventOt extends OtEvent{}

@@ -43,8 +43,9 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       }
 
       if (event is selectEventOt){
-        final Ot ot = new Ot(IDOT: 1, CODEOT: "1", LIBELLEOT: "");//await _repository.GetOt;
-        emit(OtSelected(ot));
+        print("selectEventOt.......");
+
+        await _repository.getOt();
 
       }
     });

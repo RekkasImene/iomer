@@ -21,7 +21,7 @@ class _OTListState extends State<OTListWidget> {
   @override
   void initState() {
     _otBloc = getIt.get<OtBloc>();
-    //_otBloc.add(selectEventOt());
+    _otBloc.add(FetchEventOt());
     choosedOtId=0;
     super.initState();
   }
@@ -61,7 +61,6 @@ class _OTListState extends State<OTListWidget> {
                                 title: Text(state.ots[index].LIBELLEOT),
                               onTap: (){
                                   choosedOtId=state.ots[index].IDOT;
-                                  _otBloc.add(selectEventOt(choosedOtId));
                                   //print(choosedOtCode);
                                   //print(choosedOtLibelle);
                                   Navigator.push(

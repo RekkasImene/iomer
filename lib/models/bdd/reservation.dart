@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:drift/drift.dart';
 import 'iomer_database.dart';
 part 'generate/reservation.g.dart';
@@ -12,7 +14,7 @@ class Reservations extends Table {
       .customConstraint('NULL REFERENCES Articles(IDARTICLE)')();
   TextColumn get LIBELLEARTICLE => text().withLength(min: 1, max: 48)();
 
-  IntColumn get QTEARTICLE => integer()();
+  RealColumn get QTEARTICLE => real()();
   IntColumn get IDARTICLE => integer()();
   IntColumn get IDPIECEORIGINAL => integer().nullable()();
 

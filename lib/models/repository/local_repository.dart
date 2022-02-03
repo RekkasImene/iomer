@@ -65,17 +65,27 @@ class LocalRepository {
   Future<void> addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
 
     int newIdOT =0;
-    List<Ot> lastdata = await database.otDao.sortTable();
+    Future<List<Ot>> lastdata = database.otDao.sortTable();
 
+    lastdata.then((value) {
+      log("msgg "+value.toString());
 
-     final DateTime now = DateTime.now();
-     String beforeTime = DateFormat.Hm().format(now);
+      newIdOT = value.first.IDOT;
+      newIdOT++;
+      log("idOt incréemente" +newIdOT.toString());
+
+  //final DateTime now = DateTime.now();
+     //String beforeTime = DateFormat.Hm().format(now);
 
     Ot newOt = Ot(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt, 
-    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie, DTOPENOT : DateTime.parse(beforeTime));
-    
+    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie);
+    // DTOPENOT : DateTime.parse(beforeTime));
 
-      await database.otDao.insertOt(newOt);
+      database.otDao.insertOt(newOt);
+       log("Insert new ot "+newOt.toString());
+    }).catchError((error) {
+      log(error);
+    });
 
   }
 

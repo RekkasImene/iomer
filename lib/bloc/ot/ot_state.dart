@@ -12,6 +12,11 @@ class OtInitial extends OtState {}
 
 class OtLoading extends OtState {}
 
+class OtInsertLoading extends OtState {}
+
+class OtInsertLoaded extends OtState {}
+
+
 class OtLoaded extends OtState {
   final List<Ot> ots;
   const OtLoaded(this.ots);

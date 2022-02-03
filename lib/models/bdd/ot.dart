@@ -55,7 +55,7 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
   Future<List<Ot>> getAllOts() => select(ots).get();
   Stream<List<Ot>> watchAllOts() => select(ots).watch();
 
-  Future<List<Ot>> sortTable() {
+  Future<List<Ot>> sortTable() async {
     return (select(ots)
           ..orderBy([
             (t) => OrderingTerm(expression: t.IDOT, mode: OrderingMode.desc)

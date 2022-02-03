@@ -1,9 +1,6 @@
-import 'dart:developer';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/ot/ot_bloc.dart';
-import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 
 class OTPopUpWidget extends StatefulWidget {
@@ -50,16 +47,15 @@ class _OTPopupState extends State<OTPopUpWidget> {
                         child: DropdownButton(
                           value: chooseValueCategorie,
                           isExpanded: true,
-                          items: state.categorie
-                              .map((Categorie valueItem) {
-                                return DropdownMenuItem<Categorie>(
-                                  value: valueItem,
-                                  child: Text(
-                                    valueItem.LIBELLECATEGORIE,
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
-                                );
-                              })
+                          items: state.categorie.map((Categorie valueItem) {
+                            return DropdownMenuItem<Categorie>(
+                              value: valueItem,
+                              child: Text(
+                                valueItem.LIBELLECATEGORIE,
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            );
+                          })
                               .toSet()
                               .toList(),
                           onChanged: (Categorie? newvalue) {
@@ -69,6 +65,9 @@ class _OTPopupState extends State<OTPopUpWidget> {
                           },
                         ),
                       );
+                    } else if (state is OtInsertLoaded) {
+                      print("Rafraichissement de la page");
+                      widget.otBloc.add(FetchEventOt());
                     } else if (state is OtError) {
                       return Text(state.message);
                     }
@@ -84,12 +83,17 @@ class _OTPopupState extends State<OTPopUpWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+
                   TextButton(
-                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      onPressed: () =>
+                      [
+                        Navigator.pop(context, 'Cancel'),
+                        widget.otBloc.add(FetchEventOt())
+                      ],
                       child: const Text('Cancel')),
                   TextButton(
                     onPressed: () =>
-                        [Navigator.pop(context, 'OK'), ValidationCreateOT()],
+                    [Navigator.pop(context, 'OK'), ValidationCreateOT()],
                     child: const Text('OK'),
                   ),
                 ],
@@ -104,8 +108,6 @@ class _OTPopupState extends State<OTPopUpWidget> {
   }
 
   ValidationCreateOT() {
-    print("Emmettre etat validation.");
-
     widget.otBloc.add(NewEventOt(chooseValueCategorie!));
   }
 }

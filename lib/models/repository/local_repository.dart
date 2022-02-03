@@ -1,4 +1,5 @@
 //Vue vers bdd et bdd  vers vue, mode hors ligne
+import 'dart:async';
 import 'dart:developer';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
@@ -13,6 +14,8 @@ class LocalRepository {
   final IomerDatabase database;
 
   LocalRepository(this.database);
+
+  StreamController<bool> flagotliste = StreamController<bool>.broadcast();
 
   //GetAll Methods from db.sqlite database
   Future<List<Matricule>> getAllMatricule() {
@@ -64,24 +67,30 @@ class LocalRepository {
     database.configDao.insertConfig(config);
   }
 
-  Future<void> addNewOt(int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
-    int newIdOT = 0;
-    List<Ot> lastdata = await database.otDao.sortTable();
+  Future<void> addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
+    int newIdOT =0;
+    Future<List<Ot>> lastdata = database.otDao.sortTable();
 
-   /* final DateTime now = DateTime.now();
-    String beforeTime = DateFormat.Hm().format(now);*/
+    lastdata.then((value) async {
+      log("msgg "+value.toString());
 
-    Ot newOt = Ot(
-        IDOT: newIdOT,
-        CODEOT: "null",
-        LIBELLEOT: libelleOt,
-        IDORIGINE: idOrigine,
-        IDEQUIPEMENT: idEquipement,
-        IDCATEGORIE: idCategorie,
-        //DTOPENOT: DateTime.parse(beforeTime));
-    );
+      newIdOT = value.first.IDOT;
+      newIdOT++;
+      log("idOt incréemente" +newIdOT.toString());
 
-    await database.otDao.insertOt(newOt);
+      //final DateTime now = DateTime.now();
+      //String beforeTime = DateFormat.Hm().format(now);
+
+      Ot newOt = Ot(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt,
+          IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie);
+      // DTOPENOT : DateTime.parse(beforeTime));
+
+      await database.otDao.insertOt(newOt); log("Insert new ot "+newOt.toString());
+      print("-------------------- Fin insert OT.. -------------------------------");
+    }).catchError((error) {
+      log(error);
+    });
+
   }
 
   void addNewDocument(int idOt, int idAttachement, String attachement) {}

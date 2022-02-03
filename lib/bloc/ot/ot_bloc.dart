@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -19,6 +20,8 @@ class OtBloc extends Bloc<OtEvent, OtState> {
 
   OtBloc(this._repository) : super(OtInitial()) {
     on<OtEvent>((event, emit) async {
+
+
       if (event is FetchEventOt) {
         print("Appel FetchEvent ");
         emit(OtLoading());
@@ -44,14 +47,12 @@ class OtBloc extends Bloc<OtEvent, OtState> {
 
       if (event is NewEventOt) {
         if (event.categorie != null) {
-          print("ajout repo");
-          await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE,
-              event.categorie.LIBELLECATEGORIE);
+          emit(OtInsertLoading());
+          _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) =>
+          {add(FetchEventOt())});
         }
-        add(FetchEventOt());
-        print("Appui FetchEvent.......");
       }
-    });
 
+    });
   }
 }

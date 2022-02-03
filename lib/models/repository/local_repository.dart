@@ -15,9 +15,6 @@ class LocalRepository {
 
   LocalRepository(this.database);
 
-  StreamController<bool> flagotliste = StreamController<bool>.broadcast();
-
-  //GetAll Methods from db.sqlite database
   Future<List<Matricule>> getAllMatricule() {
     return database.matriculeDao.getAllMatricules();
   }
@@ -69,12 +66,12 @@ class LocalRepository {
 
   Future<void> addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
     int newIdOT =0;
-    Future<List<Ot>> lastdata = database.otDao.sortTable();
+    List<Ot> lastdata = await database.otDao.sortTable();
 
-    lastdata.then((value) async {
-      log("msgg "+value.toString());
 
-      newIdOT = value.first.IDOT;
+      log("msgg "+lastdata.toString());
+
+      newIdOT = lastdata.first.IDOT;
       newIdOT++;
       log("idOt incréemente" +newIdOT.toString());
 
@@ -85,12 +82,9 @@ class LocalRepository {
           IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie);
       // DTOPENOT : DateTime.parse(beforeTime));
 
-      await database.otDao.insertOt(newOt); log("Insert new ot "+newOt.toString());
-      print("-------------------- Fin insert OT.. -------------------------------");
-    }).catchError((error) {
-      log(error);
-    });
-
+      await database.otDao.insertOt(newOt);
+      log("Insert new ot "+newOt.toString());
+      print(" -------------------- Fin insert OT -------------------- ");
   }
 
   void addNewDocument(int idOt, int idAttachement, String attachement) {}

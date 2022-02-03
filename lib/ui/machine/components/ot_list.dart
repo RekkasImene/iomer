@@ -24,6 +24,8 @@ class _OTListState extends State<OTListWidget> {
     super.initState();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,10 +52,10 @@ class _OTListState extends State<OTListWidget> {
                         children: [
                           Expanded(
                               child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: state.ots.length,
-                            itemBuilder: (context, index) {
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: state.ots.length,
+                                itemBuilder: (context, index) {
                               return ListTile(
                                   title: Text(state.ots[index].LIBELLEOT)
                               );
@@ -110,5 +112,10 @@ class _OTListState extends State<OTListWidget> {
         return ListTile(title: Text(ots[index].LIBELLEOT));
       },
     );
+
+
+
+
+
   }
 }

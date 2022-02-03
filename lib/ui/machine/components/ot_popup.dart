@@ -47,21 +47,25 @@ class _OTPopupState extends State<OTPopUpWidget> {
                         child: DropdownButton(
                           value: chooseValueCategorie,
                           isExpanded: true,
-                          items: state.categorie.map((Categorie valueItem) {
-                            return DropdownMenuItem<Categorie>(
-                              value: valueItem,
-                              child: Text(
-                                valueItem.LIBELLECATEGORIE,
-                                style: const TextStyle(fontSize: 20),
-                              ),
-                            );
-                          })
+                          items: state.categorie
+                              .map((Categorie valueItem) {
+                                return DropdownMenuItem<Categorie>(
+                                  value: valueItem,
+                                  child: Text(
+                                    valueItem.LIBELLECATEGORIE,
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
+                                );
+                              },
+                          )
                               .toSet()
                               .toList(),
                           onChanged: (Categorie? newvalue) {
-                            setState(() {
-                              chooseValueCategorie = newvalue!;
-                            });
+                            setState(
+                              () {
+                                chooseValueCategorie = newvalue!;
+                              },
+                            );
                           },
                         ),
                       );
@@ -83,17 +87,15 @@ class _OTPopupState extends State<OTPopUpWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   TextButton(
-                      onPressed: () =>
-                      [
-                        Navigator.pop(context, 'Cancel'),
-                        widget.otBloc.add(FetchEventOt())
-                      ],
+                      onPressed: () => [
+                            Navigator.pop(context, 'Cancel'),
+                            //widget.otBloc.add(FetchEventOt())
+                          ],
                       child: const Text('Cancel')),
                   TextButton(
                     onPressed: () =>
-                    [Navigator.pop(context, 'OK'), ValidationCreateOT()],
+                        [Navigator.pop(context, 'OK'), ValidationCreateOT()],
                     child: const Text('OK'),
                   ),
                 ],
@@ -108,6 +110,7 @@ class _OTPopupState extends State<OTPopUpWidget> {
   }
 
   ValidationCreateOT() {
+    print("widget.otBloc.add(NewEventOt(chooseValueCategorie!));");
     widget.otBloc.add(NewEventOt(chooseValueCategorie!));
   }
 }

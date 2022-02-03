@@ -23,8 +23,9 @@ class OtBloc extends Bloc<OtEvent, OtState> {
 
 
       if (event is FetchEventOt) {
-        print("Appel FetchEvent ");
+        print("Appel FetchEvent ............ ");
         emit(OtLoading());
+        print("fin emit Loading");
         final List<Ot> ots = await _repository.getAllOt();
         if (ots.isNotEmpty) {
           emit(OtLoaded(ots));
@@ -46,11 +47,9 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       }
 
       if (event is NewEventOt) {
-        if (event.categorie != null) {
-          emit(OtInsertLoading());
-          _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) =>
-          {add(FetchEventOt())});
-        }
+        print("New Event OT");
+        //await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE);
+        emit(OtInsertLoaded());
       }
 
     });

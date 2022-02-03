@@ -73,22 +73,26 @@ class LocalRepository {
   }
 
   Future<void> addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
-
-    int newIdOT =0;
+    int newIdOT = 0;
     List<Ot> lastdata = await database.otDao.sortTable();
 
 
-      newIdOT = lastdata.first.IDOT;
-      newIdOT++;
-      final DateTime now = DateTime.now();
-      String beforeTime = DateFormat.Hm().format(now);
+    newIdOT = lastdata.first.IDOT;
+    newIdOT++;
+    final DateTime now = DateTime.now();
+    String beforeTime = DateFormat.Hm().format(now);
 
-    Ot newOt = Ot(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt,
-    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie, DTOPENOT : DateTime.parse(beforeTime));
+    Ot newOt = Ot(IDOT: newIdOT,
+        CODEOT: "null",
+        LIBELLEOT: libelleOt,
+        IDORIGINE: idOrigine,
+        IDEQUIPEMENT: idEquipement,
+        IDCATEGORIE: idCategorie,
+        DTOPENOT: DateTime.parse(beforeTime));
 
 
-      await database.otDao.insertOt(newOt);
-
+    await database.otDao.insertOt(newOt);
+  }
   Future insertDocument(int idOt, Uint8List attachement) async{
     database.documentDao.insertDocument(
         DocumentsCompanion(IDOT: Value(idOt),ATTACHEMENT: Value(attachement)));

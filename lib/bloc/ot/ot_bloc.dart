@@ -43,11 +43,6 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       }
 
       if (event is NewEventOt) {
-        //if (event. != null) {
-
-
-        //}
-
 
         if (event.categorie != null ) {
           print("ajout repo");

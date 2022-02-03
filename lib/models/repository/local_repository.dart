@@ -11,6 +11,7 @@ import '../bdd/iomer_database.dart';
 @injectable
 class LocalRepository {
   final IomerDatabase database;
+
   LocalRepository(this.database);
 
   //GetAll Methods from db.sqlite database
@@ -21,6 +22,7 @@ class LocalRepository {
   Future<List<Ot>> getAllOt() async {
     return await database.otDao.getAllOts();
   }
+
   Future<List<Article>> getAllArticle() async {
     return await database.articleDao.getAllArticles();
   }
@@ -45,7 +47,7 @@ class LocalRepository {
     return database.siteDao.getAllSites();
   }
 
-  Future<List<Reservation>> getAllReservation() async{
+  Future<List<Reservation>> getAllReservation() async {
     return await database.reservationDao.getAllReservations();
   }
 
@@ -62,25 +64,25 @@ class LocalRepository {
     database.configDao.insertConfig(config);
   }
 
-  Future<void> addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
-
-    int newIdOT =0;
+  Future<void> addNewOt(int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
+    int newIdOT = 0;
     List<Ot> lastdata = await database.otDao.sortTable();
 
+   /* final DateTime now = DateTime.now();
+    String beforeTime = DateFormat.Hm().format(now);*/
 
-     final DateTime now = DateTime.now();
-     String beforeTime = DateFormat.Hm().format(now);
+    Ot newOt = Ot(
+        IDOT: newIdOT,
+        CODEOT: "null",
+        LIBELLEOT: libelleOt,
+        IDORIGINE: idOrigine,
+        IDEQUIPEMENT: idEquipement,
+        IDCATEGORIE: idCategorie,
+        //DTOPENOT: DateTime.parse(beforeTime));
+    );
 
-    Ot newOt = Ot(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt, 
-    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie, DTOPENOT : DateTime.parse(beforeTime));
-    
-
-      await database.otDao.insertOt(newOt);
-
+    await database.otDao.insertOt(newOt);
   }
 
-void addNewDocument( int idOt, int idAttachement, String attachement) {
-
-}
-
+  void addNewDocument(int idOt, int idAttachement, String attachement) {}
 }

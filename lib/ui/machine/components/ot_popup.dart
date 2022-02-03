@@ -23,8 +23,8 @@ class _OTPopupState extends State<OTPopUpWidget> {
   void initState() {
     _value = null;
     chooseValueCategorie = null;
-    super.initState();
     widget.otBloc.add(FetchEventCategorie());
+    super.initState();
   }
 
   @override
@@ -105,6 +105,7 @@ class _OTPopupState extends State<OTPopUpWidget> {
 
   ValidationCreateOT() {
     print("Emmettre etat validation.");
+
     widget.otBloc.add(NewEventOt(chooseValueCategorie!));
   }
 }

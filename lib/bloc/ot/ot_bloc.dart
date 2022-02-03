@@ -9,6 +9,7 @@ import 'package:iomer/models/repository/local_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'ot_event.dart';
+
 part 'ot_state.dart';
 
 @Environment(Env.prod)
@@ -18,7 +19,6 @@ class OtBloc extends Bloc<OtEvent, OtState> {
 
   OtBloc(this._repository) : super(OtInitial()) {
     on<OtEvent>((event, emit) async {
-      
       if (event is FetchEventOt) {
         print("Appel FetchEvent ");
         emit(OtLoading());
@@ -30,29 +30,28 @@ class OtBloc extends Bloc<OtEvent, OtState> {
         }
       }
 
-      if(event is FetchEventCategorie) {
+      if (event is FetchEventCategorie) {
         print("Appel FetchEventCategorie... ");
         emit(OtLoading());
         final List<Categorie> categories = await _repository.getAllCategory();
         if (categories.isNotEmpty) {
           print("Categories succès...");
-          emit(CategoriesLoaded(categories) );
+          emit(CategoriesLoaded(categories));
         } else {
-          emit(const OtError('Error') );
+          emit(const OtError('Error'));
         }
       }
 
       if (event is NewEventOt) {
-
-        if (event.categorie != null ) {
+        if (event.categorie != null) {
           print("ajout repo");
-          await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE);
+          await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE,
+              event.categorie.LIBELLECATEGORIE);
         }
-
         add(FetchEventOt());
         print("Appui FetchEvent.......");
       }
     });
+
   }
 }
-

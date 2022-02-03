@@ -131,7 +131,6 @@ class _SiteState extends State<SiteWidget> {
   Navigation() {
     _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig));
     _sitesBloc.nextnav.stream.listen((event) {
-      print("----------------------------------------------------------- Je suis entrer dans listen... " + event.toString());
       if (event) {
         Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstScreen()));
       }

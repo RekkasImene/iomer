@@ -177,4 +177,9 @@ class InRepository extends InRepositoryAbs {
           }));
     });
   }
+
+  Future<void> deleteAllDatabase() async {
+    database.deleteEverything();
+  }
+
 }

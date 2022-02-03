@@ -22,5 +22,8 @@ class ArticleDao extends DatabaseAccessor<IomerDatabase> with _$ArticleDaoMixin{
    Future insertArticle(Article article) => into(articles).insertOnConflictUpdate(article);
   Future<List<Article>> getAllArticles() => select(articles).get();
 
-
+  Future<Article> findArticleBy(String codeArticle) {
+    return (select(articles)..where((article) =>
+        article.CODEARTICLE.equals(codeArticle))).getSingle();
+  }
 }

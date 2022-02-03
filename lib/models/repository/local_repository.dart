@@ -1,5 +1,6 @@
 //Vue vers bdd et bdd  vers vue, mode hors ligne
 import 'dart:developer';
+import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
 import 'package:iomer/config/injection.dart';
@@ -26,6 +27,7 @@ class LocalRepository {
   Future<List<Ot>> getAllOt() async {
     return await database.otDao.getAllOts();
   }
+
   Future<List<Article>> getAllArticle() async {
     return await database.articleDao.getAllArticles();
   }
@@ -50,11 +52,11 @@ class LocalRepository {
     return database.siteDao.getAllSites();
   }
 
-  Future<List<Reservation>> getAllReservation() async{
+  Future<List<Reservation>> getAllReservation() async {
     return await database.reservationDao.getAllReservations();
   }
 
-  Future<void> ModifieMatricule(Matricule matricule) async {
+  Future<void> modifyMatricule(Matricule matricule) async {
     await database.matriculeDao.modifieMatricule(matricule);
   }
 
@@ -87,12 +89,48 @@ class LocalRepository {
 
       await database.otDao.insertOt(newOt);
 
+  Future insertDocument(int idOt, Uint8List attachement) async{
+    database.documentDao.insertDocument(
+        DocumentsCompanion(IDOT: Value(idOt),ATTACHEMENT: Value(attachement)));
+  }
+  Future<List<Ot>> findOtsBy(int idEquipement) async {
+    return database.otDao.findOtsBy(idEquipement);
   }
 
-  Future<Document> addNewDocument(Document photo) async{
-    await database.documentDao.insertDocument(photo);
-    return photo;
-    }
+  Future<Equipement> findEquipementsBy(String codeEquipement) async {
+    return database.equipementDao.findEquipementBy(codeEquipement);
+  }
 
-
+  Future<List<Matricule>> findMatriculesChecked () async{
+    return findMatriculesChecked();
+  }
+  Future<Article> findArticleBy(String codeArticle) async{
+    return database.articleDao.findArticleBy(codeArticle);
+  }
+  Future <List<Reservation>> findReservationBy (int idOt) async{
+    return database.reservationDao.findReservationBy(idOt);
+  }
+  Future insertReservation (Article article, int idOt , int quantity) async{
+    List<Reservation> reservations = await database.reservationDao.sortTable();
+    int newId = reservations.first.IDPIECE;
+    database.reservationDao.insertReservation(
+        Reservation(
+            IDPIECE: newId++,
+            LIBELLEARTICLE: article.LIBELLEARTICLE,
+            QTEARTICLE: quantity,
+            IDARTICLE: article.IDARTICLE,
+            IDOT: idOt));
+  }
+  Future modifyReservation (Reservation reservation) async{
+    database.reservationDao.modifieReservation(reservation);
+  }
+  Future <List<Tache>> findTachesBy (int idOt) async{
+    return database.tacheDao.findTachesBy(idOt);
+  }
+  Future modifyOt(Ot ot) async{
+    database.otDao.modifieOt(ot);
+  }
+  Future modifyTache(int idOt) async{
+    database.tacheDao.findTachesBy(idOt);
+  }
 }

@@ -22,6 +22,13 @@ class TacheDao extends DatabaseAccessor<IomerDatabase> with _$TacheDaoMixin{
   final IomerDatabase db;
   TacheDao(this.db):super (db);
 
-   Future insertTache(Tache tache) => into(taches).insertOnConflictUpdate(tache);
+  Future insertTache(Tache tache) => into(taches).insertOnConflictUpdate(tache);
   Future<List<Tache>> getAllTaches() => select(taches).get();
+
+  Future<List<Tache>> findTachesBy(int idOt) {
+    return (select(taches)..where((tache) =>
+        tache.IDOT.equals(idOt))).get();
+  }
+
+  Future modifieTache(Tache tache) => update(taches).replace(tache);
 }

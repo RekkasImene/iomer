@@ -25,8 +25,15 @@ class MatriculeDao extends DatabaseAccessor<IomerDatabase>
 
   Future insertMatricule(Matricule matricule) =>
       into(matricules).insertOnConflictUpdate(matricule);
+
   Future<List<Matricule>> getAllMatricules() => select(matricules).get();
 
   Future modifieMatricule(Matricule matricule) =>
       update(matricules).replace(matricule);
+
+  Future<List<Matricule>> findMatriculesChecket() {
+    return (select(matricules)..where((matricule) =>
+        matricule.CHECKED.equals(true))).get();
+  }
+
 }

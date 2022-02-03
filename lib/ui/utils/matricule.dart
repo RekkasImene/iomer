@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/matricule/matricule_bloc.dart';
 import 'package:iomer/config/injection.dart';
+import 'package:iomer/models/bdd/iomer_database.dart';
 
-class Matricule extends StatefulWidget {
-  const Matricule({Key? key}) : super(key: key);
+class MatriculeWidget extends StatefulWidget {
+  const MatriculeWidget({Key? key}) : super(key: key);
 
   @override
-  State<Matricule> createState() => _MatriculeState();
+  State<MatriculeWidget> createState() => _MatriculeState();
 }
 
-class _MatriculeState extends State<Matricule> {
+class _MatriculeState extends State<MatriculeWidget> {
   late MatriculeBloc _matriculeBloc;
-  late bool? ischecked;
+  late Matricule selectedMatricule;
 
   @override
   void initState() {
@@ -33,21 +34,51 @@ class _MatriculeState extends State<Matricule> {
             builder: (context, state) {
               if (state is MatriculeLoaded) {
                 return ListView.builder(
-                  itemCount: state.matricule.length,
+                  itemCount: state.matricules.length,
                   itemBuilder: (context, index) {
-                    ischecked = state.matricule[index].CHECKED;
-                    log("ischecked = " + ischecked.toString());
+                    selectedMatricule = state.matricules[index];
+                    log("ischecked = " + selectedMatricule.toString());
 
                     return CheckboxListTile(
-                      title:
-                      Text(state.matricule[index].NOMMATRICULE),
+                      title: Text(state.matricules[index].NOMMATRICULE),
                       //  value: _isChecked[index],
-                      value: ischecked,
-                      onChanged: (value) {
+                      value: selectedMatricule.CHECKED,
+                      onChanged: (bool? newValue) {
                         setState(
-                              () {
-                            ischecked = value!;
-                            log(ischecked.toString());
+                          () {
+                            // ischecked = newValue!;
+                            log("la valeur de ischecked" +
+                                selectedMatricule.CHECKED.toString());
+
+                            _matriculeBloc.add(CheckedMatriculeEvenet(state
+                                .matricules[index]
+                                .copyWith(CHECKED: newValue)));
+
+                            log(newValue.toString());
+                          },
+                        );
+                      },
+                    );
+                  },
+                );
+              } else if (state is CheckMatriculeUpdated) {
+                return ListView.builder(
+                  itemCount: state.matricules.length,
+                  itemBuilder: (context, index) {
+                    selectedMatricule = state.matricules[index];
+
+                    return CheckboxListTile(
+                      title: Text(state.matricules[index].NOMMATRICULE),
+                      //  value: _isChecked[index],
+                      value: selectedMatricule.CHECKED,
+                      onChanged: (bool? newValue) {
+                        setState(
+                          () {
+                            // ischecked = newValue!;
+
+                            _matriculeBloc.add(CheckedMatriculeEvenet(state
+                                .matricules[index]
+                                .copyWith(CHECKED: newValue)));
                           },
                         );
                       },
@@ -59,13 +90,10 @@ class _MatriculeState extends State<Matricule> {
               }
               return const Center(
                 child: SizedBox(
-                    width: 32,
-                    height: 32,
-                    child: CircularProgressIndicator()),
+                    width: 32, height: 32, child: CircularProgressIndicator()),
               );
             },
           ),
-        )
-    );
+        ));
   }
 }

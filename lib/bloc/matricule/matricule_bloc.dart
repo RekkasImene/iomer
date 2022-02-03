@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
@@ -13,18 +15,30 @@ part 'matricule_state.dart';
 @Environment(Env.prod)
 @injectable
 class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
-  final LocalRepository _repository;
+  final LocalRepository _localRepository;
+  final InRepository _inRepository;
 
-  MatriculeBloc(this._repository) : super(MatriculeInitial()) {
+  MatriculeBloc(this._localRepository, this._inRepository)
+      : super(MatriculeInitial()) {
     on<MatriculeEvent>((event, emit) async {
       if (event is MatriculeEvent) {
         emit(MatriculeLoading());
-        final matricule = await _repository.getAllMatricule();
-        print(matricule.length);
-        if (matricule != null) {
+        final matricule = await _localRepository.getAllMatricule();
+        if (matricule.isNotEmpty) {
           emit(MatriculeLoaded(matricule));
         } else {
           emit(const MatriculeError('Error'));
+        }
+      }
+
+      if (event is CheckedMatriculeEvenet) {
+        if (event.matricule != null) {
+          //ecrire dans la base de donnée
+          await _localRepository.ModifieMatricule(event.matricule);
+          final matricule2 = await _localRepository.getAllMatricule();
+          if (matricule2 != null) {
+            emit(CheckMatriculeUpdated(matricule2));
+          }
         }
       }
     });

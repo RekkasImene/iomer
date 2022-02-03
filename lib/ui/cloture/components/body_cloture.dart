@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+
+import 'package:iomer/models/repository/local_repository.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 import 'package:iomer/ui/utils/matricule.dart';
 
 class Body extends StatelessWidget {
+
   const Body({Key? key}) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class Body extends StatelessWidget {
             child: Info(),
           ),
           const Expanded(
-            child: Matricule(),
+            child: MatriculeWidget(),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 8),
@@ -40,14 +45,16 @@ class Body extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
+                  
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const MachineScreen()),
+                      builder: (context) => MachineScreen(text: "",)),
                 );
               },
               child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
+                
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),

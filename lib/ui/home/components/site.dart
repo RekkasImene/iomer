@@ -18,6 +18,7 @@ class _SiteState extends State<SiteWidget> {
   late String choosedConfig;
   final myController = TextEditingController();
 
+
   @override
   void initState() {
     chooseValue = null;
@@ -33,6 +34,7 @@ class _SiteState extends State<SiteWidget> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -44,8 +46,7 @@ class _SiteState extends State<SiteWidget> {
               if (state is SitesLoaded) {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 6),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.grey, width: 1),
@@ -96,7 +97,6 @@ class _SiteState extends State<SiteWidget> {
                 child:
                 _buildButton(),
               ),
-
             ],
           ),
         )
@@ -109,16 +109,9 @@ class _SiteState extends State<SiteWidget> {
       child: const Text('Valider', style: TextStyle(fontSize: 20)),
       style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed: calculateWhetherDisabledReturnsBool()
-          ? null
-          : () => [
+      onPressed: calculateWhetherDisabledReturnsBool() ? null:()=>[
                 choosedConfig = myController.text,
-                _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig)),
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FirstScreen()),
-                )
+                Navigation()
               ],
     );
   }
@@ -134,4 +127,17 @@ class _SiteState extends State<SiteWidget> {
   setConfig() {
     choosedConfig = myController.text;
   }
+
+  Navigation() {
+    _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig));
+    _sitesBloc.nextnav.stream.listen((event) {
+      print("----------------------------------------------------------- Je suis entrer dans listen... " + event.toString());
+      if (event) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstScreen()));
+      }
+    });
+  }
+
+
+
 }

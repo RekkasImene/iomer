@@ -14,13 +14,9 @@ class Body extends StatelessWidget {
         children: const [
           Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              "Selectionner le site :",
-              style: TextStyle(fontSize: 20),
-            ),
+            child: Text("Selectionner le site :", style: TextStyle(fontSize: 20))
           ),
           Expanded(child: SiteWidget()),
-
         ],
       ),
     );

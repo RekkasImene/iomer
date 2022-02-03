@@ -1,6 +1,7 @@
 //Vue vers bdd et bdd  vers vue, mode hors ligne
 import 'dart:developer';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import '../bdd/iomer_database.dart';
@@ -22,69 +23,69 @@ class LocalRepository {
     return database.matriculeDao.getAllMatricules();
   }
 
-  Future<List<OtData>> getAllOt() async{
-    return database.otDao.getAllOts();
+  Future<List<Ot>> getAllOt() async {
+    return await database.otDao.getAllOts();
   }
-  Future<List<Article>> getAllArticle() async{
-    return database.articleDao.getAllArticles();
-  }
-
-  Future<List<Categorie>> getAllCategory() async{
-    return database.categorieDao.getAllCategories();
+  Future<List<Article>> getAllArticle() async {
+    return await database.articleDao.getAllArticles();
   }
 
-  Future<List<Equipement>> getAllEquipement() async{
-    return database.equipementDao.getAllEquipements();
+  Future<List<Categorie>> getAllCategory() async {
+    return await database.categorieDao.getAllCategories();
   }
 
-  Future<List<Origine>> getAllOrigine() async{
-    return database.origineDao.getAllOrigine();
+  Future<List<Equipement>> getAllEquipement() async {
+    return await database.equipementDao.getAllEquipements();
   }
 
-  Future<List<Tache>> getAllTache() async{
-    return database.tacheDao.getAllTaches();
+  Future<List<Origine>> getAllOrigine() async {
+    return await database.origineDao.getAllOrigine();
   }
 
-  Future<List<Site>> getAllSite() async{
+  Future<List<Tache>> getAllTache() async {
+    return await database.tacheDao.getAllTaches();
+  }
+
+  Future<List<Site>> getAllSite() async {
     return database.siteDao.getAllSites();
   }
 
   Future<List<Reservation>> getAllReservation() async{
-    return database.reservationDao.getAllReservations();
+    return await database.reservationDao.getAllReservations();
+  }
+
+  Future<void> ModifieMatricule(Matricule matricule) async {
+    await database.matriculeDao.modifieMatricule(matricule);
+  }
+
+  void ModifieOt(Ot ot) {
+    database.otDao.modifieOt(ot);
   }
 
   //save id from Blooc to DB
-  Future saveData(Site site, ConfigData config, Origine origine) async{
+  void saveData(Site site, Config config, Origine origine) async{
     database.siteDao.insertSite(site);
     database.configDao.insertConfig(config);
     database.origineDao.insertOrigine(origine);
 
   }
 
-  //Create an unexistant ot (new one)
-  void addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) {
+  Future<void> addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
 
     int newIdOT =0;
-    Future<List<OtData>> lastdata = database.otDao.sortTable();
+    List<Ot> lastdata = await database.otDao.sortTable();
 
-     lastdata.then((value) {
 
-      newIdOT = value.first.IDOT;
+      newIdOT = lastdata.first.IDOT;
       newIdOT++;
+      final DateTime now = DateTime.now();
+      String beforeTime = DateFormat.Hm().format(now);
 
-      OtData newOt = OtData(
-          IDOT: newIdOT,
-          CODEOT: "null",
-          LIBELLEOT: libelleOt,
-          IDORIGINE: idOrigine,
-          IDEQUIPEMENT: idEquipement,
-          IDCATEGORIE: idCategorie);
+    Ot newOt = Ot(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt,
+    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie, DTOPENOT : DateTime.parse(beforeTime));
 
-    database.otDao.insertOt(newOt);
 
-    }).catchError((error) {
-      log(error);
-    });
+      await database.otDao.insertOt(newOt);
 
   }
 

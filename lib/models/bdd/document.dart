@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:drift/drift.dart';
 
 import 'iomer_database.dart';
@@ -7,7 +9,7 @@ class Documents extends Table {
   IntColumn get IDATTACHEMENT => integer().autoIncrement()();
   IntColumn get IDOT =>
       integer().nullable().customConstraint('NULL REFERENCES Ot(IDOT)')();
-  TextColumn get ATTACHEMENT => text().withLength(min: 1, max: 48)();
+  BlobColumn get ATTACHEMENT => blob()();
 
   @override
   Set<Column> get primaryKey => {IDATTACHEMENT};
@@ -20,6 +22,6 @@ class Documents extends Table {
 class DocumentDao extends DatabaseAccessor<IomerDatabase> with _$DocumentDaoMixin{
   final IomerDatabase db;
   DocumentDao(this.db):super (db);
-   Future insertDocument(Document document) => into(documents).insertOnConflictUpdate(document);
+   Future insertDocument(DocumentsCompanion document) => into(documents).insertOnConflictUpdate(document);
   Future<List<Document>> getAllDocuments() => select(documents).get();
 }

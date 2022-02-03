@@ -62,6 +62,11 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
           ]))
         .get();
   }
+
   // Updates a Task with a matching primary key
   Future modifieOt(Ot ot) => update(ots).replace(ot);
+
+  Future<List<Ot>> findOtsBy(int idEquipement) {
+    return (select(ots)..where((ot) => ot.IDEQUIPEMENT.equals(idEquipement))).get();
+  }
 }

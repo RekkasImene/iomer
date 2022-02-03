@@ -22,6 +22,10 @@ class EquipementDao extends DatabaseAccessor<IomerDatabase> with _$EquipementDao
   final IomerDatabase db;
   EquipementDao(this.db):super (db);
 
-   Future insertEquipement(Equipement equipement) => into(equipements).insertOnConflictUpdate(equipement);
+  Future insertEquipement(Equipement equipement) => into(equipements).insertOnConflictUpdate(equipement);
   Future<List<Equipement>> getAllEquipements() => select(equipements).get();
+  Future<Equipement> findEquipementBy(String codeEquipement) {
+    return (select(equipements)..where((equipement) =>
+        equipement.CODEEQUIPEMENT.equals(codeEquipement))).getSingle();
+  }
 }

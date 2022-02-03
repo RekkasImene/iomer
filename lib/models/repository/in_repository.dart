@@ -21,9 +21,11 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Site>> futureSite;
   final IomerDatabase database;
   final LocalRepository localRepository;
+  final Services services;
+  
   StreamController<bool> flag = StreamController<bool>.broadcast();
 
-  InRepository(this.database, this.localRepository);
+  InRepository(this.database, this.localRepository, this.services);
 
   late Future<List<Site>> futureSites;
   late Future<List<Origine>> futureOrigines;
@@ -36,8 +38,8 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Tache>> futureTaches;
   late Future<List<Config>> futureConfigs;
 
-  Future<void> updateOrigines(int idSite) async {
-    futureOrigines = fetchOrigines(idSite);
+  void updateOrigines(int idSite) {
+    futureOrigines = services.fetchOrigines(idSite);
 
     futureOrigines.then((value) {
       value.forEach((e) {
@@ -49,8 +51,8 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  Future<void> updateMatricules(int idOrigine) async {
-    futureMatricules = fetchMatricules(idOrigine);
+  Future<void> updateMatricules(int idOrigine) {
+    futureMatricules = services.fetchMatricules(idOrigine);
     return futureMatricules.then((value) {
       value.forEach((e) {
         database.matriculeDao.insertMatricule(e);
@@ -61,8 +63,8 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  Future<void> updateOTs(int idSite, int idOrigine) async {
-    futureOTs = fetchOTs(idSite, idOrigine);
+  Future<void> updateOTs(int idSite, int idOrigine) {
+    futureOTs = services.fetchOTs(idSite, idOrigine);
     return futureOTs.then((value) {
       value.forEach((e) {
         database.otDao.insertOt(e);
@@ -73,8 +75,8 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  Future<void> updateCategories(int idSite) async {
-    futureCategories = fetchCategories(idSite);
+  Future<void> updateCategories(int idSite) {
+    futureCategories = services.fetchCategories(idSite);
     return futureCategories.then((value) {
       value.forEach((e) {
         database.categorieDao.insertCategorie(e);
@@ -84,8 +86,8 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  Future<void> updateReservation(int idOt) async {
-    futureReservations = fetchReservations(idOt);
+  Future<void> updateReservation(int idOt) {
+    futureReservations = services.fetchReservations(idOt);
     return futureReservations.then((value) {
       value.forEach((e) {
         database.reservationDao.insertReservation(e);
@@ -96,8 +98,8 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  Future<void> updateArticles(String codeArticle) async {
-    futureArticles = fetchArticles(codeArticle);
+  Future<void> updateArticles(String codeArticle) {
+    futureArticles = services.fetchArticles(codeArticle);
     return futureArticles.then((value) {
       value.forEach((e) {
         database.articleDao.insertArticle(e);
@@ -108,8 +110,8 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  Future<void> updateEquipements(int idSite) async {
-    futureEquipements = fetchEquipements(idSite);
+  Future<void> updateEquipements(int idSite) {
+    futureEquipements = services.fetchEquipements(idSite);
     return futureEquipements.then((value) {
       value.forEach((e) {
         database.equipementDao.insertEquipement(e);
@@ -120,8 +122,8 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  Future<void> updateTaches(int idOT) async {
-    futureTaches = fetchOTTaches(idOT);
+  Future<void> updateTaches(int idOT) {
+    futureTaches = services.fetchOTTaches(idOT);
     return futureTaches.then((value) {
       value.forEach((e) {
         database.tacheDao.insertTache(e);
@@ -133,8 +135,8 @@ class InRepository extends InRepositoryAbs {
   }
 
   @override
-  Future<List<Site>> getAllSite() async {
-    return fetchSites();
+  Future<List<Site>> getAllSite() {
+    return services.fetchSites();
   }
 
   @override
@@ -145,7 +147,7 @@ class InRepository extends InRepositoryAbs {
   //Filed database
   Future<void> pushDB(int idSite, String codePocket) async {
     //push matricule & ot
-    futureConfigs = fetchConfigs(idSite, codePocket);
+    futureConfigs = services.fetchConfigs(idSite, codePocket);
     futureConfigs.then((value) {
       int idOrigine = value.first.IDORIGINE!;
       updateMatricules(idOrigine).then((value) =>

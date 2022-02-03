@@ -1,0 +1,3 @@
+[submodule "android/app/src/vendor/inject.dart"]
+	path = android/app/src/vendor/inject.dart
+	url = https://github.com/google/inject.dart

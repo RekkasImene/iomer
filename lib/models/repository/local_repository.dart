@@ -1,6 +1,7 @@
 //Vue vers bdd et bdd  vers vue, mode hors ligne
 import 'dart:developer';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import '../bdd/iomer_database.dart';
@@ -67,15 +68,12 @@ class LocalRepository {
     List<Ot> lastdata = await database.otDao.sortTable();
 
 
-      newIdOT = lastdata.first.IDOT;
-      newIdOT++;
-      Ot newOt = Ot(
-          IDOT: newIdOT,
-          CODEOT: "null",
-          LIBELLEOT: libelleOt,
-          IDORIGINE: idOrigine,
-          IDEQUIPEMENT: idEquipement,
-          IDCATEGORIE: idCategorie);
+     final DateTime now = DateTime.now();
+     String beforeTime = DateFormat.Hm().format(now);
+
+    Ot newOt = Ot(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt, 
+    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie, DTOPENOT : DateTime.parse(beforeTime));
+    
 
       await database.otDao.insertOt(newOt);
 

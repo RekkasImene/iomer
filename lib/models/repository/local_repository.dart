@@ -124,17 +124,4 @@ class LocalRepository {
   Future modifyTache(int idOt) async{
     database.tacheDao.findTachesBy(idOt);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

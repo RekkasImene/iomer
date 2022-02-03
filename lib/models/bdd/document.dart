@@ -1,7 +1,4 @@
-import 'dart:html';
-
 import 'package:drift/drift.dart';
-
 import 'iomer_database.dart';
 part 'generate/document.g.dart';
 

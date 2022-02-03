@@ -44,7 +44,7 @@ class _InfoState extends State<Info> {
                     )),
                     Align(
                         child: Text(
-                      state.ot.LIBELLEOT,
+                      state.ot.CODEOT,
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ))
                   ],

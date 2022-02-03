@@ -23,7 +23,7 @@ class LocalRepository {
   }
 
   Future <Ot> getOt() async{
-    return Ot(IDOT: 1, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
+    return Ot(IDOT: 1, CODEOT: "test CODEOT", LIBELLEOT: "test LIBELLEOT");
   }
   Future<List<Article>> getAllArticle() async {
     return await database.articleDao.getAllArticles();

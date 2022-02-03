@@ -45,8 +45,8 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       if (event is selectEventOt){
         print("selectEventOt.......");
 
-        await _repository.getOt();
-
+        Ot ot=await _repository.getOt();
+        emit(OtSelected(ot));
       }
     });
   }

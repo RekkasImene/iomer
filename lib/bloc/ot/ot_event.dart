@@ -16,4 +16,10 @@ class NewEventOt extends OtEvent {
   NewEventOt(this.numero);
 }
 
-class selectEventOt extends OtEvent{}
+class SetEventOt extends OtEvent{
+  final Ot ot;
+  SetEventOt(this.ot);
+}
+
+class SelectEventOt extends OtEvent{}
+

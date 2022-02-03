@@ -6,8 +6,7 @@ import 'package:iomer/ui/task/tasks_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 
 class Body extends StatefulWidget {
-  final int? OtId;
-  Body({Key? key,required this.OtId}) : super(key: key);
+  Body({Key? key}) : super(key: key);
 
   @override
   State<Body> createState() => _BodyState();

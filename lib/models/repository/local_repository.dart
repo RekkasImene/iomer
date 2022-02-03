@@ -13,6 +13,8 @@ class LocalRepository {
   final IomerDatabase database;
   LocalRepository(this.database);
 
+  Ot otSaved= Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
+
   //GetAll Methods from db.sqlite database
   Future<List<Matricule>> getAllMatricule() {
     return database.matriculeDao.getAllMatricules();
@@ -22,8 +24,12 @@ class LocalRepository {
     return await database.otDao.getAllOts();
   }
 
+  void saveIdOt(Ot ot) async{
+    otSaved = ot;
+  }
+
   Future <Ot> getOt() async{
-    return Ot(IDOT: 1, CODEOT: "test CODEOT", LIBELLEOT: "test LIBELLEOT");
+    return otSaved;
   }
   Future<List<Article>> getAllArticle() async {
     return await database.articleDao.getAllArticles();
@@ -72,11 +78,11 @@ class LocalRepository {
     List<Ot> lastdata = await database.otDao.sortTable();
 
 
-     final DateTime now = DateTime.now();
-     String beforeTime = DateFormat.Hm().format(now);
+     //final DateTime now = DateTime.now();
+     //String beforeTime = DateFormat.Hm().format(now);
 
     Ot newOt = Ot(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt, 
-    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie, DTOPENOT : DateTime.parse(beforeTime));
+    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie, /*DTOPENOT : DateTime.parse(beforeTime)*/);
     
 
       await database.otDao.insertOt(newOt);

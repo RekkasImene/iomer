@@ -42,11 +42,17 @@ class OtBloc extends Bloc<OtEvent, OtState> {
         print("Appui FetchEvent.......");
       }
 
-      if (event is selectEventOt){
+      if (event is SelectEventOt){
         print("selectEventOt.......");
 
         Ot ot=await _repository.getOt();
         emit(OtSelected(ot));
+      }
+
+      if (event is SetEventOt){
+        if (event.ot != null ) {
+          _repository.saveIdOt(event.ot);
+        }
       }
     });
   }

@@ -17,12 +17,12 @@ class OTListWidget extends StatefulWidget {
 
 class _OTListState extends State<OTListWidget> {
   late OtBloc _otBloc;
-  late int choosedOtId;
+  late Ot choosedOt;
   @override
   void initState() {
     _otBloc = getIt.get<OtBloc>();
     _otBloc.add(FetchEventOt());
-    choosedOtId=0;
+    choosedOt= new Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
     super.initState();
   }
 
@@ -60,12 +60,14 @@ class _OTListState extends State<OTListWidget> {
                             return ListTile(
                                 title: Text(state.ots[index].LIBELLEOT),
                               onTap: (){
-                                  choosedOtId=state.ots[index].IDOT;
+                                  choosedOt=state.ots[index];
+                                  _otBloc.add(SetEventOt(choosedOt));
+
                                   //print(choosedOtCode);
                                   //print(choosedOtLibelle);
                                   Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context)=> ActionScreen(OtId: choosedOtId,)));
+                                      MaterialPageRoute(builder: (context)=> ActionScreen()));
                               },
                             );
                           },

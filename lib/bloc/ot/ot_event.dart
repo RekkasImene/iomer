@@ -10,8 +10,9 @@ abstract class OtEvent extends Equatable {
 
 class FetchEventOt extends OtEvent {}
 
+class FetchEventCategorie extends OtEvent {}
 
 class NewEventOt extends OtEvent {
-  final int numero;
-  NewEventOt(this.numero);
+  final Categorie categorie;
+  NewEventOt(this.categorie);
 }

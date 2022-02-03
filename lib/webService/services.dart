@@ -3,16 +3,14 @@ import 'dart:developer';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart' as http;
 
-var url = 'https://fresh-warthog-73.loca.lt/';
+var url = 'https://iomere.loca.lt/';
 
 /* Get Sites */
 Future<List<Site>> fetchSites() async {
   final response = await http.get(Uri.parse('$url/GetSites'));
   if (response.statusCode == 200) {
     List<Site> sites;
-    sites = (json.decode(response.body) as List)
-        .map((siteJson) => Site.fromJson(siteJson))
-        .toList();
+    sites = (json.decode(response.body) as List).map((siteJson) => Site.fromJson(siteJson)).toList();
     return sites;
   } else {
     throw Exception('Failed to load site');

@@ -17,6 +17,12 @@ class OtLoaded extends OtState {
   const OtLoaded(this.ots);
 }
 
+class CategoriesLoaded extends OtState {
+  final List<Categorie> categorie;
+  const CategoriesLoaded(this.categorie);
+}
+
+
 class OtError extends OtState {
   final String message;
   const OtError(this.message);

@@ -39,10 +39,9 @@ class _OTListState extends State<OTListWidget> {
             child: BlocProvider<OtBloc>(
               create: (context) => otBloc,
               child: BlocConsumer<OtBloc, OtState>(listener: (context, state) {
-                print("state as changed");
+
               }, builder: (context, state) {
               if (state is OtLoaded) {
-                print("passé par la");
                 return Container(
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.black)),
@@ -94,10 +93,8 @@ class _OTListState extends State<OTListWidget> {
               );
             },
             child: const Text('Scan machine'),
-            style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-          ),
+            style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20))
+          )
         )
       ],
     );

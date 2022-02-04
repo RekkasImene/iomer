@@ -55,13 +55,18 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
   Future<List<Ot>> getAllOts() => select(ots).get();
   Stream<List<Ot>> watchAllOts() => select(ots).watch();
 
-  Future<List<Ot>> sortTable() {
+  Future<List<Ot>> sortTable() async {
     return (select(ots)
           ..orderBy([
             (t) => OrderingTerm(expression: t.IDOT, mode: OrderingMode.desc)
           ]))
         .get();
   }
+
   // Updates a Task with a matching primary key
   Future modifieOt(Ot ot) => update(ots).replace(ot);
+
+  Future<List<Ot>> findOtsBy(int idEquipement) {
+    return (select(ots)..where((ot) => ot.IDEQUIPEMENT.equals(idEquipement))).get();
+  }
 }

@@ -34,7 +34,7 @@ class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
       if (event is CheckedMatriculeEvenet) {
         if (event.matricule != null) {
           //ecrire dans la base de donnée
-          await _localRepository.ModifieMatricule(event.matricule);
+          await _localRepository.modifyMatricule(event.matricule);
           final matricule2 = await _localRepository.getAllMatricule();
           if (matricule2 != null) {
             emit(CheckMatriculeUpdated(matricule2));

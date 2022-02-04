@@ -31,7 +31,6 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
     on<SitesEvent>((event, emit) async {
 
       _Inrepository.flag.stream.listen((event) {
-        print("--------------------------------------------------- Je suis la copie listen... " + event.toString());
         nextnav.add(event);
       });
 

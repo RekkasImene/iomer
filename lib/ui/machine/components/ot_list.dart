@@ -111,7 +111,6 @@ class _OTListState extends State<OTListWidget> {
             child: const Text('Scan machine'),
             style: ElevatedButton.styleFrom(
                 padding:
-
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
           ),
         )

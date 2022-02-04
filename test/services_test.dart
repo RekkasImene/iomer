@@ -1,7 +1,5 @@
 
 
-import 'dart:math';
-
 import 'package:http/http.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/services.dart';

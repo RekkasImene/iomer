@@ -23,7 +23,7 @@ part 'iomer_database.g.dart';
 @DriftDatabase(tables: [Articles,Categories,Documents,Equipements,Matricules,
   Origines,Ots,Reservations,Sites,Taches,Configs],
     daos: [ArticleDao,CategorieDao,EquipementDao,MatriculeDao,OrigineDao,OtDao,
-      ReservationDao,SiteDao,TacheDao,ConfigDao]
+      ReservationDao,SiteDao,TacheDao,ConfigDao,DocumentDao]
 )
 
 @Environment(Env.prod)

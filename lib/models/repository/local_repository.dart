@@ -60,25 +60,30 @@ class LocalRepository {
     database.configDao.insertConfig(config);
   }
 
-  Future<void> addNewOt(int idEquipement, int idOrigine, int idCategorie,
-      String libelleOt) async {
-    int newIdOT = 0;
-    List<Ot> lastdata = await database.otDao.sortTable();
+  Future<void> addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
 
-    final DateTime now = DateTime.now();
-    String beforeTime = DateFormat.Hm().format(now);
+    int newIdOT =0;
+    Future<List<Ot>> lastdata = database.otDao.sortTable();
 
-    Ot newOt = Ot(
-        IDOT: newIdOT,
-        CODEOT: "null",
-        LIBELLEOT: libelleOt,
-        IDORIGINE: idOrigine,
-        IDEQUIPEMENT: idEquipement,
-        IDCATEGORIE: idCategorie,
-        DTOPENOT: DateTime.parse(beforeTime));
+    lastdata.then((value) {
+      log("msgg "+value.toString());
 
-    await database.otDao.insertOt(newOt);
-  }
+      newIdOT = value.first.IDOT;
+      newIdOT++;
+      log("idOt incréemente" +newIdOT.toString());
+
+  //final DateTime now = DateTime.now();
+     //String beforeTime = DateFormat.Hm().format(now);
+
+    Ot newOt = Ot(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt, 
+    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie);
+    // DTOPENOT : DateTime.parse(beforeTime));
+
+      database.otDao.insertOt(newOt);
+       log("Insert new ot "+newOt.toString());
+    }).catchError((error) {
+      log(error);
+    });
 
   Future insertDocument(int idOt, Uint8List attachement) async{
     database.documentDao.insertDocument(
@@ -124,4 +129,5 @@ class LocalRepository {
   Future modifyTache(int idOt) async{
     database.tacheDao.findTachesBy(idOt);
   }
+}
 }

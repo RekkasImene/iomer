@@ -21,6 +21,7 @@ class QrScanner extends StatelessWidget {
             scanLineColor: Colors.green,
             onCapture: (data) {
               qrcode = data;
+
               (context as Element).markNeedsBuild();
               Navigator.push(
                 context,

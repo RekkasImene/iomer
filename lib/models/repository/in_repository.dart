@@ -95,7 +95,7 @@ class InRepository extends InRepositoryAbs {
     });
   }
 
-  Future<void> updateArticles(String codeArticle) {
+  Future<void> updateArticles(String codeArticle) async {
     futureArticles = fetchArticles(codeArticle);
     return futureArticles.then((value) {
       value.forEach((e) {
@@ -142,7 +142,7 @@ class InRepository extends InRepositoryAbs {
   }
 
   //Filed database
-  void pushDB(int idSite, String codePocket) {
+  Future<void> pushDB(int idSite, String codePocket) async {
     //push matricule & ot
     futureConfigs = fetchConfigs(idSite, codePocket);
     futureConfigs.then((value) {
@@ -161,8 +161,8 @@ class InRepository extends InRepositoryAbs {
                                     localRepository
                                         .getAllReservation()
                                         .then((value) {
-                                      value.forEach((e) {
-                                        updateArticles(e.CODEARTICLE!);
+                                      value.forEach((e) async {
+                                        await updateArticles(e.CODEARTICLE!);
                                       });
                                       flag = true;
                                     }).catchError((error) {
@@ -173,17 +173,12 @@ class InRepository extends InRepositoryAbs {
                           }).catchError((error) {
                             log(error);
                           });
-
                         }));
               }));
     });
   }
 
-
   bool getFlag() {
     return this.flag;
   }
-
-
-
 }

@@ -19,38 +19,28 @@ part 'sites_state.dart';
 @Environment(Env.prod)
 @injectable
 class SitesBloc extends Bloc<SitesEvent, SitesState> {
-
   final InRepository _Inrepository;
 
   final LocalRepository _localRepository;
-  
 
-
-  SitesBloc(this._Inrepository,this._localRepository) : super(SitesInitial()) {
+  SitesBloc(this._Inrepository, this._localRepository) : super(SitesInitial()) {
     on<SitesEvent>((event, emit) async {
-
       if (event is FetchEventSites) {
         emit(SitesLoading());
         final List<Site> sites = await _Inrepository.getAllSite();
         if (sites != null) {
           emit(SitesLoaded(sites));
-          
-     
-        
         } else {
           emit(const SitesError('Error'));
         }
       }
 
       if (event is ValidateEventSites) {
-        if(event.monsite != null || event.macategorie != null) {
-          print("Mon site selectionné est  :"+ event.monsite.NOMSITE);
-          print("Ma categorie : "+event.macategorie);
-          _Inrepository.pushDB(event.monsite.IDSITE, event.macategorie);
-
-
+        if (event.monsite != null || event.macategorie != null) {
+          print("Mon site selectionné est  :" + event.monsite.NOMSITE);
+          print("Ma categorie : " + event.macategorie);
+          await _Inrepository.pushDB(event.monsite.IDSITE, event.macategorie);
           print("Fin chargement bdd.. ");
-
         }
       }
     });

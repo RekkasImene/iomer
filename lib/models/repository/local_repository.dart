@@ -55,46 +55,40 @@ class LocalRepository {
   Future<void> modifyMatricule(Matricule matricule) async {
     await database.matriculeDao.modifieMatricule(matricule);
   }
-
   Future saveData(Site site, Config config) async {
     database.siteDao.insertSite(site);
     database.configDao.insertConfig(config);
   }
 
   Future<void> addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
-    int newIdOT = 0;
+
+    int newIdOT =0;
     Future<List<Ot>> lastdata = database.otDao.sortTable();
 
     lastdata.then((value) {
-      log("msgg " + value.toString());
+      log("msgg "+value.toString());
 
       newIdOT = value.first.IDOT;
       newIdOT++;
-      log("idOt incréemente" + newIdOT.toString());
+      log("idOt incréemente" +newIdOT.toString());
 
-      //final DateTime now = DateTime.now();
-      //String beforeTime = DateFormat.Hm().format(now);
+  //final DateTime now = DateTime.now();
+     //String beforeTime = DateFormat.Hm().format(now);
 
-      Ot newOt = Ot(IDOT: newIdOT,
-          CODEOT: "null",
-          LIBELLEOT: libelleOt,
-          IDORIGINE: idOrigine,
-          IDEQUIPEMENT: idEquipement,
-          IDCATEGORIE: idCategorie);
-      // DTOPENOT : DateTime.parse(beforeTime));
+    Ot newOt = Ot(IDOT: newIdOT, CODEOT: "null", LIBELLEOT: libelleOt, 
+    IDORIGINE : idOrigine, IDEQUIPEMENT : idEquipement, IDCATEGORIE: idCategorie);
+    // DTOPENOT : DateTime.parse(beforeTime));
 
       database.otDao.insertOt(newOt);
-      log("Insert new ot " + newOt.toString());
+       log("Insert new ot "+newOt.toString());
     }).catchError((error) {
       log(error);
     });
-  }
 
   Future insertDocument(int idOt, Uint8List attachement) async{
     database.documentDao.insertDocument(
         DocumentsCompanion(IDOT: Value(idOt),ATTACHEMENT: Value(attachement)));
   }
-
   Future<List<Ot>> findOtsBy(int idEquipement) async {
     return database.otDao.findOtsBy(idEquipement);
   }
@@ -106,16 +100,13 @@ class LocalRepository {
   Future<List<Matricule>> findMatriculesChecked () async{
     return findMatriculesChecked();
   }
-
   Future<Article> findArticleBy(String codeArticle) async{
     return database.articleDao.findArticleBy(codeArticle);
   }
-
   Future <List<Reservation>> findReservationBy (int idOt) async{
     return database.reservationDao.findReservationBy(idOt);
   }
-
-  Future insertReservation (Article article, int idOt , double quantity) async{
+  Future insertReservation (Article article, int idOt , int quantity) async{
     List<Reservation> reservations = await database.reservationDao.sortTable();
     int newId = reservations.first.IDPIECE;
     database.reservationDao.insertReservation(
@@ -126,20 +117,17 @@ class LocalRepository {
             IDARTICLE: article.IDARTICLE,
             IDOT: idOt));
   }
-
   Future modifyReservation (Reservation reservation) async{
     database.reservationDao.modifieReservation(reservation);
   }
-
   Future <List<Tache>> findTachesBy (int idOt) async{
     return database.tacheDao.findTachesBy(idOt);
   }
-
   Future modifyOt(Ot ot) async{
     database.otDao.modifieOt(ot);
   }
-
   Future modifyTache(int idOt) async{
     database.tacheDao.findTachesBy(idOt);
   }
+}
 }

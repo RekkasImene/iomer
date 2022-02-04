@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -9,6 +10,7 @@ import 'package:iomer/models/repository/local_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'ot_event.dart';
+
 part 'ot_state.dart';
 
 @Environment(Env.prod)
@@ -18,9 +20,10 @@ class OtBloc extends Bloc<OtEvent, OtState> {
 
   OtBloc(this._repository) : super(OtInitial()) {
     on<OtEvent>((event, emit) async {
-      
+
+
       if (event is FetchEventOt) {
-        print("Appel FetchEvent ");
+        print("Appel FetchEvent ............ ");
         emit(OtLoading());
         final List<Ot> ots = await _repository.getAllOt();
         if (ots.isNotEmpty) {
@@ -31,17 +34,10 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       }
 
       if (event is NewEventOt) {
-        String label;
-        print(event.numero);
-        if(event == 1) { label = "Corrective" ; } else { label = "Preventive"; }
-        if (event.numero != null ) {
-          print("ajout repo");
-          await _repository.addNewOt(110, 14, 12, label);
-        }
-        add(FetchEventOt());
-        print("Appui FetchEvent.......");
+        print("New Event OT");
+        await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) => add(FetchEventOt()));
       }
+
     });
   }
 }
-

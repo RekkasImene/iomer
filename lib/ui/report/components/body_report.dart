@@ -1,7 +1,6 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -12,19 +11,20 @@ class Body extends StatelessWidget {
   Body({Key? key}) : super(key: key);
   final ImagePicker imgPicker =ImagePicker();
   String imgPath = "";
-  StreamController<String> baseString = StreamController();
+  StreamController<List<Uint8List>> baseString = StreamController();
+  List<Uint8List> listDocuments= [] ;
 
   openImage() async{
     var pickedFile= await imgPicker.pickImage(source: ImageSource.camera);
     if (pickedFile != null)
     {
       imgPath=pickedFile.path;
-      print("imgPath : "+imgPath);
       File imgFile=File(imgPath);
       Uint8List imgbytes= await imgFile.readAsBytes();
-      String base64string= base64.encode(imgbytes);
-      print("base64string : "+base64string);
-      baseString.add(base64string);
+      listDocuments.add(imgbytes);
+      //String base64string= base64.encode(imgbytes);
+      //print("base64string : "+base64string);
+      baseString.add(listDocuments);
     }
   }
 
@@ -63,17 +63,23 @@ class Body extends StatelessWidget {
               ),
             ),
           ),
-          StreamBuilder<String>(
-            stream: baseString.stream,
+          StreamBuilder<List<Uint8List>>(
+              stream: baseString.stream,
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (!snapshot.hasData) {
                   return const Text("");
                 } else {
-                  log("snapshoot" +snapshot.data);
-                  return Image(
-                    image: ResizeImage(MemoryImage(base64.decode(snapshot.data)), width: 50, height: 100),
-                  );
-
+                  return  SizedBox(
+                      height: 300,
+                      child: ListView.builder(
+                          itemCount: snapshot.data.length,
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Image(
+                              image: ResizeImage(MemoryImage(snapshot.data[index]), height: 280, width: 200),
+                            );
+                          }));
                 }
               }
           ),

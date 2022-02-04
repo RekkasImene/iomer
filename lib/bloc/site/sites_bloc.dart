@@ -50,6 +50,7 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
         if (event.monsite != null || event.macategorie != null) {
           print("Mon site selectionné est  :" + event.monsite.NOMSITE);
           print("Ma categorie : " + event.macategorie);
+          await _Inrepository.deleteAllDatabase();
           await _Inrepository.pushDB(event.monsite.IDSITE, event.macategorie);
         }
       }

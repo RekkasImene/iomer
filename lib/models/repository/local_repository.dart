@@ -106,7 +106,7 @@ class LocalRepository {
   Future <List<Reservation>> findReservationBy (int idOt) async{
     return database.reservationDao.findReservationBy(idOt);
   }
-  Future insertReservation (Article article, int idOt , int quantity) async{
+  Future insertReservation (Article article, int idOt , double quantity) async{
     List<Reservation> reservations = await database.reservationDao.sortTable();
     int newId = reservations.first.IDPIECE;
     database.reservationDao.insertReservation(

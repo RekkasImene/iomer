@@ -52,35 +52,34 @@ class _ListPartsState extends State<ListParts> {
           itemBuilder: (context, index) {
             return Column(
               children: [
-                CheckboxListTile(
+                ListTile(
                   title: Text(parts[index]['code']),
                   subtitle: Text(parts[index]['libelle']),
                   //secondary: Text (parts[index]['quantite'],
 
-                  value: _isChecked[index],
-                  onChanged: (val) {
-                    setState(
-                      () {
-                        _isChecked[index] = val!;
-                      },
-                    );
-                  },
+                  trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+                    InkWell(
+                        onTap: () {},
+                        child: const Icon(
+                          Icons.remove,
+
+                        )),
+                    Text(parts[index]['quantite']),
+                    InkWell(
+                        onTap: () {},
+                        child: const Icon(
+                          Icons.add,
+
+                        )),
+                    InkWell(
+                        onTap: () {},
+                        child: const Icon(
+                          Icons.refresh,
+
+                        )),
+                  ]),
                 ),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  InkWell(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.remove,
-                        size: 16,
-                      )),
-                  Text(parts[index]['quantite']),
-                  InkWell(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.add,
-                        size: 16,
-                      )),
-                ]),
+
               ],
             );
           },

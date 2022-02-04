@@ -3,11 +3,18 @@ import 'package:images_picker/images_picker.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:scan/scan.dart';
 
-class QrScanner extends StatelessWidget {
-  ScanController controller = ScanController();
-  String qrcode = 'Unknown';
+class QrScanner extends StatefulWidget {
 
   QrScanner({Key? key}) : super(key: key);
+
+  @override
+  State<QrScanner> createState() => _QrScannerState();
+}
+
+class _QrScannerState extends State<QrScanner> {
+  ScanController controller = ScanController();
+
+  String qrcode = 'Unknown';
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +27,12 @@ class QrScanner extends StatelessWidget {
             scanAreaScale: .7,
             scanLineColor: Colors.green,
             onCapture: (data) {
-              qrcode = data;
+              setState(() {
+                qrcode = data;
+              });
+
               (context as Element).markNeedsBuild();
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MachineScreen(
-                          text: qrcode,
-                        )),
-              );
+              Navigator.pop(context, qrcode);
             },
           ),
         ),
@@ -40,8 +44,6 @@ class QrScanner extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             shape: const CircleBorder(),
             padding: const EdgeInsets.all(20),
-            //primary: Colors.blue, // <-- Button color
-            //onPrimary: Colors.red, // <-- Splash color
           ),
         )
       ],

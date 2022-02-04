@@ -1,4 +1,5 @@
 //Vue vers bdd et bdd  vers vue, mode hors ligne
+import 'dart:async';
 import 'dart:developer';
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
@@ -19,8 +20,10 @@ class LocalRepository {
     database.close();
   }
 
+  Ot otSaved= Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
+
   //GetAll Methods from db.sqlite database
-  Future<List<Matricule>> getAllMatricule() async{
+  Future<List<Matricule>> getAllMatricule() async {
     return database.matriculeDao.getAllMatricules();
   }
 
@@ -28,6 +31,13 @@ class LocalRepository {
     return await database.otDao.getAllOts();
   }
 
+  void saveIdOt(Ot ot) async{
+    otSaved = ot;
+  }
+
+  Future <Ot> getOt() async{
+    return otSaved;
+  }
   Future<List<Article>> getAllArticle() async {
     return await database.articleDao.getAllArticles();
   }
@@ -64,12 +74,9 @@ class LocalRepository {
     database.otDao.modifieOt(ot);
   }
 
-  //save id from Blooc to DB
-  void saveData(Site site, Config config, Origine origine) async{
+  void saveData(Site site, Config config) {
     database.siteDao.insertSite(site);
     database.configDao.insertConfig(config);
-    database.origineDao.insertOrigine(origine);
-
   }
 
   Future<void> addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
@@ -82,7 +89,8 @@ class LocalRepository {
     final DateTime now = DateTime.now();
     String beforeTime = DateFormat.Hm().format(now);
 
-    Ot newOt = Ot(IDOT: newIdOT,
+    Ot newOt = Ot(
+        IDOT: newIdOT,
         CODEOT: "null",
         LIBELLEOT: libelleOt,
         IDORIGINE: idOrigine,
@@ -90,13 +98,14 @@ class LocalRepository {
         IDCATEGORIE: idCategorie,
         DTOPENOT: DateTime.parse(beforeTime));
 
-
     await database.otDao.insertOt(newOt);
   }
-  Future insertDocument(int idOt, Uint8List attachement) async{
+
+  Future insertDocument(int idOt, Uint8List attachement) async {
     database.documentDao.insertDocument(
-        DocumentsCompanion(IDOT: Value(idOt),ATTACHEMENT: Value(attachement)));
+        DocumentsCompanion(IDOT: Value(idOt), ATTACHEMENT: Value(attachement)));
   }
+
   Future<List<Ot>> findOtsBy(int idEquipement) async {
     return database.otDao.findOtsBy(idEquipement);
   }
@@ -105,36 +114,42 @@ class LocalRepository {
     return database.equipementDao.findEquipementBy(codeEquipement);
   }
 
-  Future<List<Matricule>> findMatriculesChecked () async{
+  Future<List<Matricule>> findMatriculesChecked() async {
     return findMatriculesChecked();
   }
-  Future<Article> findArticleBy(String codeArticle) async{
+
+  Future<Article> findArticleBy(String codeArticle) async {
     return database.articleDao.findArticleBy(codeArticle);
   }
-  Future <List<Reservation>> findReservationBy (int idOt) async{
+
+  Future<List<Reservation>> findReservationBy(int idOt) async {
     return database.reservationDao.findReservationBy(idOt);
   }
-  Future insertReservation (Article article, int idOt , int quantity) async{
+
+  Future insertReservation (Article article, int idOt , double quantity) async{
     List<Reservation> reservations = await database.reservationDao.sortTable();
     int newId = reservations.first.IDPIECE;
-    database.reservationDao.insertReservation(
-        Reservation(
-            IDPIECE: newId++,
-            LIBELLEARTICLE: article.LIBELLEARTICLE,
-            QTEARTICLE: quantity,
-            IDARTICLE: article.IDARTICLE,
-            IDOT: idOt));
+    database.reservationDao.insertReservation(Reservation(
+        IDPIECE: newId++,
+        LIBELLEARTICLE: article.LIBELLEARTICLE,
+        QTEARTICLE: quantity,
+        IDARTICLE: article.IDARTICLE,
+        IDOT: idOt));
   }
-  Future modifyReservation (Reservation reservation) async{
+
+  Future modifyReservation(Reservation reservation) async {
     database.reservationDao.modifieReservation(reservation);
   }
-  Future <List<Tache>> findTachesBy (int idOt) async{
+
+  Future<List<Tache>> findTachesBy(int idOt) async {
     return database.tacheDao.findTachesBy(idOt);
   }
-  Future modifyOt(Ot ot) async{
+
+  Future modifyOt(Ot ot) async {
     database.otDao.modifieOt(ot);
   }
-  Future modifyTache(int idOt) async{
+
+  Future modifyTache(int idOt) async {
     database.tacheDao.findTachesBy(idOt);
   }
 }

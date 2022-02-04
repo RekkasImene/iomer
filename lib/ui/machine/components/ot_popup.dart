@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iomer/bloc/categorie/categorie_bloc.dart';
 import 'package:iomer/bloc/ot/ot_bloc.dart';
+import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 
 class OTPopUpWidget extends StatefulWidget {
@@ -15,12 +17,15 @@ class OTPopUpWidget extends StatefulWidget {
 class _OTPopupState extends State<OTPopUpWidget> {
   late int? _value;
   late Categorie? chooseValueCategorie;
+  late CategorieBloc _categorieBloc;
+
 
   @override
   void initState() {
     _value = null;
     chooseValueCategorie = null;
-    widget.otBloc.add(FetchEventCategorie());
+    _categorieBloc = getIt.get<CategorieBloc>();
+    _categorieBloc.add(FetchEventCategorie());
     super.initState();
   }
 
@@ -32,8 +37,8 @@ class _OTPopupState extends State<OTPopUpWidget> {
           return Column(
             children: [
               BlocProvider(
-                create: (context) => widget.otBloc,
-                child: BlocBuilder<OtBloc, OtState>(
+                create: (context) => _categorieBloc,
+                child: BlocBuilder<CategorieBloc, CategorieState>(
                   builder: (context, state) {
                     if (state is CategoriesLoaded) {
                       return Container(
@@ -47,8 +52,7 @@ class _OTPopupState extends State<OTPopUpWidget> {
                         child: DropdownButton(
                           value: chooseValueCategorie,
                           isExpanded: true,
-                          items: state.categorie
-                              .map((Categorie valueItem) {
+                          items: state.categorie.map((Categorie valueItem) {
                                 return DropdownMenuItem<Categorie>(
                                   value: valueItem,
                                   child: Text(
@@ -57,22 +61,14 @@ class _OTPopupState extends State<OTPopUpWidget> {
                                   ),
                                 );
                               },
-                          )
-                              .toSet()
-                              .toList(),
+                          ).toSet().toList(),
                           onChanged: (Categorie? newvalue) {
-                            setState(
-                              () {
-                                chooseValueCategorie = newvalue!;
-                              },
+                            setState(() { chooseValueCategorie = newvalue!;},
                             );
                           },
                         ),
                       );
-                    } else if (state is OtInsertLoaded) {
-                      print("Rafraichissement de la page");
-                      widget.otBloc.add(FetchEventOt());
-                    } else if (state is OtError) {
+                    } else if (state is CategorieError) {
                       return Text(state.message);
                     }
                     return const Center(
@@ -90,12 +86,11 @@ class _OTPopupState extends State<OTPopUpWidget> {
                   TextButton(
                       onPressed: () => [
                             Navigator.pop(context, 'Cancel'),
-                            //widget.otBloc.add(FetchEventOt())
+                            widget.otBloc.add(FetchEventOt())
                           ],
                       child: const Text('Cancel')),
                   TextButton(
-                    onPressed: () =>
-                        [Navigator.pop(context, 'OK'), ValidationCreateOT()],
+                    onPressed: () => [ValidationCreateOT(), Navigator.pop(context, 'OK') ],
                     child: const Text('OK'),
                   ),
                 ],
@@ -110,7 +105,10 @@ class _OTPopupState extends State<OTPopUpWidget> {
   }
 
   ValidationCreateOT() {
-    print("widget.otBloc.add(NewEventOt(chooseValueCategorie!));");
+    print("ValidationCreateOT : ");
     widget.otBloc.add(NewEventOt(chooseValueCategorie!));
+
+
   }
+
 }

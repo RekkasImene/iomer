@@ -25,7 +25,6 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       if (event is FetchEventOt) {
         print("Appel FetchEvent ............ ");
         emit(OtLoading());
-        print("fin emit Loading");
         final List<Ot> ots = await _repository.getAllOt();
         if (ots.isNotEmpty) {
           emit(OtLoaded(ots));
@@ -34,22 +33,9 @@ class OtBloc extends Bloc<OtEvent, OtState> {
         }
       }
 
-      if (event is FetchEventCategorie) {
-        print("Appel FetchEventCategorie... ");
-        emit(OtLoading());
-        final List<Categorie> categories = await _repository.getAllCategory();
-        if (categories.isNotEmpty) {
-          print("Categories succès...");
-          emit(CategoriesLoaded(categories));
-        } else {
-          emit(const OtError('Error'));
-        }
-      }
-
       if (event is NewEventOt) {
         print("New Event OT");
-        //await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE);
-        emit(OtInsertLoaded());
+        await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) => add(FetchEventOt()));
       }
 
     });

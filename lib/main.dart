@@ -1,13 +1,6 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:iomer/models/repository/in_repository.dart';
 import 'package:iomer/ui/debug_screens.dart';
-import 'package:iomer/ui/home/home_screen.dart';
 import 'config/injection.dart';
-import 'models/repository/local_repository.dart';
-
-
 
 void main() {
   configureInjection(Env.prod);
@@ -26,11 +19,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    /*LocalRepository localRepository = getIt.get<LocalRepository>();
-    InRepository inRepository = getIt.get<InRepository>();
-    inRepository.updateOTs(1, 12);
-   localRepository.addNewOt(115, 10, 13, "reparation");*/
-
   }
 
   @override
@@ -49,7 +37,7 @@ class _MyAppState extends State<MyApp> {
           ),
 
       ),
-      home: const HomeScreen(),
+      home: const DebugScreen(),
     );
   }
 }

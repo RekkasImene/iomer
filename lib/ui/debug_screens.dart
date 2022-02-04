@@ -28,7 +28,7 @@ class DebugScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ActionScreen()),
+                    MaterialPageRoute(builder: (context) => ActionScreen()),
                   );
                 },
                 child: const Text('ActionScreen', style: TextStyle(fontSize: 20)),

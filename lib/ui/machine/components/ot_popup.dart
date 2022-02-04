@@ -8,7 +8,7 @@ import 'package:iomer/models/bdd/iomer_database.dart';
 class OTPopUpWidget extends StatefulWidget {
   OtBloc otBloc;
 
-  OTPopUpWidget({Key? key, required OtBloc this.otBloc}) : super(key: key);
+  OTPopUpWidget({Key? key, required this.otBloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _OTPopupState();

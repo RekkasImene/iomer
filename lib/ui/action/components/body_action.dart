@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:iomer/ui/cloture/cloture_screen.dart';
+import 'package:iomer/ui/parts/parts_screen.dart';
+import 'package:iomer/ui/report/report_screen.dart';
+import 'package:iomer/ui/task/tasks_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 
-class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
+class Body extends StatefulWidget {
+  Body({Key? key}) : super(key: key);
 
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,8 +28,8 @@ class Body extends StatelessWidget {
         Expanded(
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Info(),
               ),
               Expanded(
@@ -31,7 +40,13 @@ class Body extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           //pour griser
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const PartsScreen()),
+                            );
+                          },
                           //onPressed:(),
                           child: const Text(
                             'Pièces à changer',
@@ -46,7 +61,13 @@ class Body extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           //pour griser
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ReportScreen()),
+                            );
+                          },
                           //onPressed:(),
                           child: const Text(
                             'Saisir un compte rendu',
@@ -61,7 +82,13 @@ class Body extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           //pour griser
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const TasksScreen()),
+                            );
+                          },
                           //onPressed:(),
                           child: const Text(
                             'Taches à réaliser',
@@ -77,7 +104,13 @@ class Body extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ClotureOtScreen()),
+                    );
+                  },
                   child: const Text(
                     'Clôturer OT',
                     style: TextStyle(fontSize: 20),

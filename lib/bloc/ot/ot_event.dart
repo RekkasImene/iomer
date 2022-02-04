@@ -14,3 +14,11 @@ class NewEventOt extends OtEvent {
   final Categorie categorie;
   NewEventOt(this.categorie);
 }
+
+class SetEventOt extends OtEvent{
+  final Ot ot;
+  SetEventOt(this.ot);
+}
+
+class SelectEventOt extends OtEvent{}
+

@@ -16,6 +16,8 @@ class LocalRepository {
 
   LocalRepository(this.database);
 
+  Ot otSaved= Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
+
   //GetAll Methods from db.sqlite database
   Future<List<Matricule>> getAllMatricule() async {
     return database.matriculeDao.getAllMatricules();
@@ -25,6 +27,13 @@ class LocalRepository {
     return await database.otDao.getAllOts();
   }
 
+  void saveIdOt(Ot ot) async{
+    otSaved = ot;
+  }
+
+  Future <Ot> getOt() async{
+    return otSaved;
+  }
   Future<List<Article>> getAllArticle() async {
     return await database.articleDao.getAllArticles();
   }

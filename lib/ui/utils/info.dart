@@ -13,6 +13,7 @@ class Info extends StatefulWidget {
 class _InfoState extends State<Info> {
   late OtBloc _otBloc;
 
+  @override
   void initState() {
     _otBloc = getIt.get<OtBloc>();
     _otBloc.add(SelectEventOt()); /////////////////////incertain

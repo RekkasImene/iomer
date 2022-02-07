@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:iomer/ui/new_part/components/part_editor.dart';
 import 'package:iomer/ui/parts/parts_screen.dart';
+import 'package:iomer/ui/scan/scan_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20.0),
-      
+
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -26,7 +34,7 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 Info(),
-                PartEditor(),
+                PartEditor(controller: _controller,),
               ],
             ),
           ),
@@ -35,7 +43,9 @@ class Body extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _navigateAndRetriveCode(context);
+                },
                 child: const Text('Scan Pièce', style: TextStyle(fontSize: 20)),
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
@@ -64,5 +74,16 @@ class Body extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _navigateAndRetriveCode(BuildContext context) async {
+    final String nextPageValues = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const ScanScreen()),
+    );
+    setState(() {
+      _controller.text =
+          nextPageValues; //first element is stored at the 0th index for a list
+    });
   }
 }

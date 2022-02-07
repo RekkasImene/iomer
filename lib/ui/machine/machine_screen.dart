@@ -4,7 +4,7 @@ import 'components/body_machine.dart';
 
 class MachineScreen extends StatelessWidget {
   final String text;
-  MachineScreen({Key? key,required this.text}) : super(key: key);
+  const MachineScreen({Key? key,required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class MachineScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Maintenance'),
       ),
-      body: Body()
+      body: const Body()
 
     );
   }

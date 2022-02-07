@@ -51,29 +51,43 @@ class _ListPartsState extends State<ListParts> {
               ListTile(
                 title: Text(parts[index]['code']),
                 subtitle: Text(parts[index]['libelle']),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.remove,
+                trailing: SizedBox(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        child: const Icon(
+                          Icons.remove,
+                        ),
                       ),
-                    ),
-                    Text(parts[index]['quantite']),
-                    InkWell(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.add,
+
+                      //Text(parts[index]['quantite']),
+                      const SizedBox(
+                        width: 75,
+                        height: 40,
+                        child: TextField(
+
+                          maxLength: null,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder()),
+                        ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.refresh,
+                      InkWell(
+                        onTap: () {},
+                        child: const Icon(
+                          Icons.add,
+                        ),
                       ),
-                    ),
-                  ],
+                      InkWell(
+                        onTap: () {},
+                        child: const Icon(
+                          Icons.refresh,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

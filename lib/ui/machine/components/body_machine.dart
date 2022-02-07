@@ -50,7 +50,7 @@ class _BodyState extends State<Body> {
               onPressed: () {
                 _navigateAndRetriveCode(context);
               },
-              child: Text('Scan machine '),
+              child: const Text('Scan machine '),
               style: ElevatedButton.styleFrom(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),

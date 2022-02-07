@@ -13,8 +13,12 @@ import '../bdd/iomer_database.dart';
 @injectable
 class LocalRepository {
   final IomerDatabase database;
-
   LocalRepository(this.database);
+
+  //for closing database
+  Future close() async {
+    database.close();
+  }
 
   Ot otSaved= Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
 
@@ -75,16 +79,15 @@ class LocalRepository {
     database.configDao.insertConfig(config);
   }
 
-  Future<void> addNewOt(int idEquipement, int idOrigine, int idCategorie,
-      String libelleOt) async {
+  Future<void> addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
     int newIdOT = 0;
     List<Ot> lastdata = await database.otDao.sortTable();
 
-    log("msgg " + lastdata.toString());
 
     newIdOT = lastdata.first.IDOT;
     newIdOT++;
-    log("idOt incréemente" + newIdOT.toString());
+    final DateTime now = DateTime.now();
+    String beforeTime = DateFormat.Hm().format(now);
 
     Ot newOt = Ot(
         IDOT: newIdOT,
@@ -92,10 +95,10 @@ class LocalRepository {
         LIBELLEOT: libelleOt,
         IDORIGINE: idOrigine,
         IDEQUIPEMENT: idEquipement,
-        IDCATEGORIE: idCategorie);
+        IDCATEGORIE: idCategorie,
+        DTOPENOT: DateTime.parse(beforeTime));
 
     await database.otDao.insertOt(newOt);
-    log("Insert new ot " + newOt.toString());
   }
 
   Future insertDocument(int idOt, Uint8List attachement) async {

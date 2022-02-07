@@ -109,7 +109,7 @@ Future<List<Ot>> fetchOTs(int idSite, int idOrigine) async {
 //  log("Liste de Ots : " +ots.toString());
     return ots;
   } else {
-    throw Exception('Failed to load OTs');
+    throw Exception('Failed to load Config');
   }
 }
 

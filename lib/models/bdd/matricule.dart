@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:drift/drift.dart';
 import 'iomer_database.dart';
 part 'generate/matricule.g.dart';
@@ -32,8 +34,11 @@ class MatriculeDao extends DatabaseAccessor<IomerDatabase>
       update(matricules).replace(matricule);
 
   Future<List<Matricule>> findMatriculesChecket() {
+  
     return (select(matricules)..where((matricule) =>
         matricule.CHECKED.equals(true))).get();
+        
+   
   }
 
 }

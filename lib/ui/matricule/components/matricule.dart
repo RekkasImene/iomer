@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/matricule/matricule_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomer/models/repository/local_repository.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 
 class MatriculeWidget extends StatefulWidget {
@@ -16,6 +17,7 @@ class MatriculeWidget extends StatefulWidget {
 class _MatriculeState extends State<MatriculeWidget> {
   late MatriculeBloc _matriculeBloc;
   late Matricule selectedMatricule;
+ 
 
   var nbWorkers;
 
@@ -24,6 +26,7 @@ class _MatriculeState extends State<MatriculeWidget> {
     _matriculeBloc = getIt.get<MatriculeBloc>();
     _matriculeBloc.add(FetchMatriculeEvenet());
     super.initState();
+  
   }
 
   @override
@@ -119,14 +122,16 @@ class _MatriculeState extends State<MatriculeWidget> {
       child: const Text('Valider', style: TextStyle(fontSize: 20)),
       style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed:()=>[
+      onPressed:() 
+      {
+      
 
         //choosedConfig = myController.text,
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => MachineScreen(text: "")),
-        )
-      ],
+          MaterialPageRoute(builder: (context) => MachineScreen(text: ""))
+        );
+      }
 
     );
   }

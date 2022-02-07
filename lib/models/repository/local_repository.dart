@@ -152,4 +152,16 @@ class LocalRepository {
   Future modifyTache(int idOt) async {
     database.tacheDao.findTachesBy(idOt);
   }
+
+
+  Future setOt ()async {
+    
+    Future <List<Matricule>> matricule = database.matriculeDao.findMatriculesChecket();
+
+    matricule.then((value) => 
+     log("111111111111"+value.toString())
+     
+    );
+   
+  }
 }

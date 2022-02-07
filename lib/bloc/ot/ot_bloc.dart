@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import 'package:iomer/bloc/categorie/categorie_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/models/repository/local_repository.dart';
@@ -35,6 +36,14 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       if (event is NewEventOt) {
         print("New Event OT");
         await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) => add(FetchEventOt()));
+      }
+
+      if (event is CodeMachine) {
+        print("Code machine saisi") ;
+        await _repository.findEquipementsBy(event.codeEquipement.CODEEQUIPEMENT).then((value) => add(FetchNomMachine()),
+      
+        );
+        
       }
 
       if (event is SelectEventOt){

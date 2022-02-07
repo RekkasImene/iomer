@@ -16,7 +16,7 @@ class _ReportScreenState extends State<ReportScreen> {
       appBar: AppBar(
         title: const Text('Maintenance'),
       ),
-      body: const Body(),
+      body:  Body(),
     );
   }
 }

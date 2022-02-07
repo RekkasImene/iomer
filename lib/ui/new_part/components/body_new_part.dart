@@ -24,7 +24,7 @@ class Body extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: Column(
-              children: const [
+              children: [
                 Info(),
                 PartEditor(),
               ],
@@ -41,16 +41,6 @@ class Body extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 20)),
               ),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: const Text('Voir', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
           ),
           Expanded(

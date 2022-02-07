@@ -5,14 +5,14 @@ import 'package:iomer/bloc/matricule/matricule_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 
-class MatriculeWidget extends StatefulWidget {
-  const MatriculeWidget({Key? key}) : super(key: key);
+class ClotureMatriculeWidget extends StatefulWidget {
+  const ClotureMatriculeWidget({Key? key}) : super(key: key);
 
   @override
-  State<MatriculeWidget> createState() => _MatriculeState();
+  State<ClotureMatriculeWidget> createState() => _ClotureMatriculeState();
 }
 
-class _MatriculeState extends State<MatriculeWidget> {
+class _ClotureMatriculeState extends State<ClotureMatriculeWidget> {
   late MatriculeBloc _matriculeBloc;
   late Matricule selectedMatricule;
 

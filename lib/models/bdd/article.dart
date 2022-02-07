@@ -6,7 +6,7 @@ class Articles extends Table {
   IntColumn get IDARTICLE => integer()();
   TextColumn get CODEARTICLE => text().withLength(min: 1, max: 16)();
   TextColumn get LIBELLEARTICLE => text().withLength(min: 1, max: 48)();
-  IntColumn get QTEARTICLE => integer()();
+  RealColumn get QTEARTICLE => real()();
 
   @override
   Set<Column> get primaryKey => {IDARTICLE, CODEARTICLE};
@@ -22,5 +22,8 @@ class ArticleDao extends DatabaseAccessor<IomerDatabase> with _$ArticleDaoMixin{
    Future insertArticle(Article article) => into(articles).insertOnConflictUpdate(article);
   Future<List<Article>> getAllArticles() => select(articles).get();
 
-
+  Future<Article> findArticleBy(String codeArticle) {
+    return (select(articles)..where((article) =>
+        article.CODEARTICLE.equals(codeArticle))).getSingle();
+  }
 }

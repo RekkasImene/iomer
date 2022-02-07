@@ -19,7 +19,6 @@ class _OTPopupState extends State<OTPopUpWidget> {
   late Categorie? chooseValueCategorie;
   late CategorieBloc _categorieBloc;
 
-
   @override
   void initState() {
     _value = null;
@@ -107,8 +106,6 @@ class _OTPopupState extends State<OTPopUpWidget> {
   ValidationCreateOT() {
     print("ValidationCreateOT : ");
     widget.otBloc.add(NewEventOt(chooseValueCategorie!));
-
-
   }
 
 }

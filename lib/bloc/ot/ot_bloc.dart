@@ -46,7 +46,7 @@ class OtBloc extends Bloc<OtEvent, OtState> {
 
       if (event is SetEventOt){
         if (event.ot != null ) {
-          _repository.saveIdOt(event.ot);
+          _repository.saveOt(event.ot);
         }
       }
     });

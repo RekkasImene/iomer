@@ -9,15 +9,17 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:http/http.dart' as _i3;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../bloc/categorie/categorie_bloc.dart' as _i10;
-import '../bloc/matricule/matricule_bloc.dart' as _i12;
+import '../bloc/categorie/categorie_bloc.dart' as _i12;
+import '../bloc/matricule/matricule_bloc.dart' as _i14;
 import '../bloc/ot/ot_bloc.dart' as _i8;
-import '../bloc/site/sites_bloc.dart' as _i13;
+import '../bloc/parts/parts_bloc.dart' as _i10;
+import '../bloc/report/report_bloc.dart' as _i11;
+import '../bloc/site/sites_bloc.dart' as _i15;
 import '../models/bdd/iomer_database.dart' as _i6;
-import '../models/repository/in_repository.dart' as _i11;
+import '../models/repository/in_repository.dart' as _i13;
 import '../models/repository/local_repository.dart' as _i7;
 import '../models/repository/out_repository.dart' as _i9;
-import '../models/repository/registermodule.dart' as _i14;
+import '../models/repository/registermodule.dart' as _i16;
 import '../webService/services.dart' as _i5;
 
 const String _prod = 'prod';
@@ -41,22 +43,26 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       registerFor: {_prod});
   gh.singleton<_i9.OutRepository>(_i9.OutRepository(get<_i6.IomerDatabase>()),
       registerFor: {_prod});
-  gh.factory<_i10.CategorieBloc>(
-      () => _i10.CategorieBloc(get<_i7.LocalRepository>()),
+  gh.factory<_i10.PartsBloc>(() => _i10.PartsBloc(get<_i7.LocalRepository>()),
       registerFor: {_prod});
-  gh.singleton<_i11.InRepository>(
-      _i11.InRepository(get<_i6.IomerDatabase>(), get<_i7.LocalRepository>(),
+  gh.factory<_i11.ReportBloc>(() => _i11.ReportBloc(get<_i7.LocalRepository>()),
+      registerFor: {_prod});
+  gh.factory<_i12.CategorieBloc>(
+      () => _i12.CategorieBloc(get<_i7.LocalRepository>()),
+      registerFor: {_prod});
+  gh.singleton<_i13.InRepository>(
+      _i13.InRepository(get<_i6.IomerDatabase>(), get<_i7.LocalRepository>(),
           get<_i5.Services>()),
       registerFor: {_prod});
-  gh.factory<_i12.MatriculeBloc>(
-      () => _i12.MatriculeBloc(
-          get<_i7.LocalRepository>(), get<_i11.InRepository>()),
+  gh.factory<_i14.MatriculeBloc>(
+      () => _i14.MatriculeBloc(
+          get<_i7.LocalRepository>(), get<_i13.InRepository>()),
       registerFor: {_prod});
-  gh.factory<_i13.SitesBloc>(
+  gh.factory<_i15.SitesBloc>(
       () =>
-          _i13.SitesBloc(get<_i11.InRepository>(), get<_i7.LocalRepository>()),
+          _i15.SitesBloc(get<_i13.InRepository>(), get<_i7.LocalRepository>()),
       registerFor: {_prod});
   return get;
 }
 
-class _$RegisterModule extends _i14.RegisterModule {}
+class _$RegisterModule extends _i16.RegisterModule {}

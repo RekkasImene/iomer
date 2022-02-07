@@ -16,7 +16,7 @@ class _InfoState extends State<Info> {
   @override
   void initState() {
     _otBloc = getIt.get<OtBloc>();
-    _otBloc.add(SelectEventOt()); /////////////////////incertain
+    _otBloc.add(SelectEventOt());
     super.initState();
   }
 

@@ -69,4 +69,18 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
   Future<List<Ot>> findOtsBy(int idEquipement) {
     return (select(ots)..where((ot) => ot.IDEQUIPEMENT.equals(idEquipement))).get();
   }
+
+  Future<List<Ot>> findOtBy(int idOt) {
+    return (select(ots)..where((ot) => ot.IDOT.equals(idOt))).get() ;
+  }
+
+  Future updateComment(int idOt, String comment) async {
+    var ot;
+    findOtBy(idOt).then((value) {
+      ot = value.first;
+      var otCopy= ot.copyWith(COMMENTOT: comment);
+      update(ots).replace(otCopy);
+    }) ;
+
+  }
 }

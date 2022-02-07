@@ -1,25 +1,28 @@
-
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:iomer/bloc/report/report_bloc.dart';
+import 'package:iomer/config/injection.dart';
 import 'package:iomer/ui/utils/info.dart';
 
 class Body extends StatelessWidget {
   Body({Key? key}) : super(key: key);
-  final ImagePicker imgPicker =ImagePicker();
+  final ImagePicker imgPicker = ImagePicker();
   String imgPath = "";
   StreamController<List<Uint8List>> baseString = StreamController();
-  List<Uint8List> listDocuments= [] ;
+  List<Uint8List> listDocuments = [];
 
-  openImage() async{
-    var pickedFile= await imgPicker.pickImage(source: ImageSource.camera);
-    if (pickedFile != null)
-    {
-      imgPath=pickedFile.path;
-      File imgFile=File(imgPath);
-      Uint8List imgbytes= await imgFile.readAsBytes();
+  final ReportBloc _reportBloc = getIt.get<ReportBloc>();
+  final textfieldController = TextEditingController();
+
+  openImage() async {
+    var pickedFile = await imgPicker.pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      imgPath = pickedFile.path;
+      File imgFile = File(imgPath);
+      Uint8List imgbytes = await imgFile.readAsBytes();
       listDocuments.add(imgbytes);
       //String base64string= base64.encode(imgbytes);
       //print("base64string : "+base64string);
@@ -46,10 +49,11 @@ class Body extends StatelessWidget {
           ),
           Expanded(
             child: TextFormField(
+              controller: textfieldController,
               minLines: 1,
               maxLines: 100,
               keyboardType: TextInputType.multiline,
-              decoration:  InputDecoration(
+              decoration: InputDecoration(
                 hintText: "Saisir un compte rendu",
                 hintStyle: const TextStyle(color: Colors.grey),
                 border: const OutlineInputBorder(
@@ -68,7 +72,7 @@ class Body extends StatelessWidget {
                 if (!snapshot.hasData) {
                   return const Text("");
                 } else {
-                  return  SizedBox(
+                  return SizedBox(
                       height: 300,
                       child: ListView.builder(
                           itemCount: snapshot.data.length,
@@ -76,18 +80,22 @@ class Body extends StatelessWidget {
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
                             return Image(
-                              image: ResizeImage(MemoryImage(snapshot.data[index]), height: 280, width: 200),
+                              image: ResizeImage(
+                                  MemoryImage(snapshot.data[index]),
+                                  height: 280,
+                                  width: 200),
                             );
                           }));
                 }
-              }
-          ),
-
+              }),
           SizedBox(
             width: double.maxFinite,
             child: ElevatedButton(
               //pour griser
-              onPressed: () {},
+              onPressed: () {
+                _reportBloc.add(
+                    ValidateReport(listDocuments, textfieldController.text));
+              },
               //onPressed:(),
               child: const Text(
                 'valider',

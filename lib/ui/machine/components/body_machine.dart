@@ -20,10 +20,10 @@ class Body extends StatelessWidget {
     _codeController.addListener(this.onCodeChange);
   }
 
-  onCodeChange(String name) {
+  onCodeChange() {
     if (_codeFocusNode.hasFocus) {
       if (_codeController.text != null) {
-        _nameController.value = TextEditingValue(text: name);
+        _nameController.value = TextEditingValue(text: "");
       }
     }
   }
@@ -47,6 +47,7 @@ class Body extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextFormField(
                 controller: _codeController,
+                focusNode: _codeFocusNode,
                 initialValue: text,
                 decoration: InputDecoration(
                   border: const UnderlineInputBorder(),

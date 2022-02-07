@@ -24,21 +24,18 @@ class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
       if (event is MatriculeEvent) {
         emit(MatriculeLoading());
         final matricule = await _localRepository.getAllMatricule();
-        print(matricule.length);
-        if (matricule != null) {
+        if (matricule.isNotEmpty) {
           emit(MatriculeLoaded(matricule));
         } else {
           emit(const MatriculeError('Error'));
         }
       }
+
       if (event is CheckedMatriculeEvenet) {
         if (event.matricule != null) {
           //ecrire dans la base de donnée
-
-          await _localRepository.ModifieMatricule(event.matricule);
-
+          await _localRepository.modifyMatricule(event.matricule);
           final matricule2 = await _localRepository.getAllMatricule();
-          log("imene " + matricule2.toString());
           if (matricule2 != null) {
             emit(CheckMatriculeUpdated(matricule2));
           }

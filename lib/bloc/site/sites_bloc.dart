@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -14,6 +15,7 @@ import 'package:iomer/models/repository/local_repository.dart';
 import 'package:iomer/webService/services.dart';
 
 part 'sites_event.dart';
+
 part 'sites_state.dart';
 
 @Environment(Env.prod)
@@ -23,12 +25,21 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
 
   final LocalRepository _localRepository;
 
+  late StreamController<bool> nextnav = StreamController<bool>.broadcast();
+
   SitesBloc(this._Inrepository, this._localRepository) : super(SitesInitial()) {
     on<SitesEvent>((event, emit) async {
+      _Inrepository.flag.stream.listen((event) {
+        print(
+            "--------------------------------------------------- Je suis la copie listen... " +
+                event.toString());
+        nextnav.add(event);
+      });
+
       if (event is FetchEventSites) {
         emit(SitesLoading());
         final List<Site> sites = await _Inrepository.getAllSite();
-        if (sites != null) {
+        if (sites.isNotEmpty) {
           emit(SitesLoaded(sites));
         } else {
           emit(const SitesError('Error'));
@@ -40,7 +51,6 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
           print("Mon site selectionné est  :" + event.monsite.NOMSITE);
           print("Ma categorie : " + event.macategorie);
           await _Inrepository.pushDB(event.monsite.IDSITE, event.macategorie);
-          print("Fin chargement bdd.. ");
         }
       }
     });

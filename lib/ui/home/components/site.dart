@@ -109,14 +109,7 @@ class _SiteState extends State<SiteWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
       onPressed: calculateWhetherDisabledReturnsBool()
           ? null
-          : () => [
-                choosedConfig = myController.text,
-                _sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig)),
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FirstScreen()),
-                )
-              ],
+          : () => [choosedConfig = myController.text, Navigation()],
     );
   }
 
@@ -130,5 +123,18 @@ class _SiteState extends State<SiteWidget> {
 
   setConfig() {
     choosedConfig = myController.text;
+  }
+
+  Navigation() {
+    _sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig));
+    _sitesBloc.nextnav.stream.listen((event) {
+      print(
+          "----------------------------------------------------------- Je suis entrer dans listen... " +
+              event.toString());
+      if (event) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const FirstScreen()));
+      }
+    });
   }
 }

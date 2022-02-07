@@ -6,3 +6,5 @@ abstract class MachineEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class getMachineName extends MachineEvent {}

@@ -12,7 +12,4 @@ class OutRepository {
   final IomerDatabase database;
   OutRepository(this.database);
 
-
-
-
 }

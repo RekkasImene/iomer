@@ -11,7 +11,7 @@ class Article extends DataClass implements Insertable<Article> {
   final int IDARTICLE;
   final String CODEARTICLE;
   final String LIBELLEARTICLE;
-  final int QTEARTICLE;
+  final double QTEARTICLE;
   Article(
       {required this.IDARTICLE,
       required this.CODEARTICLE,
@@ -26,7 +26,7 @@ class Article extends DataClass implements Insertable<Article> {
           .mapFromDatabaseResponse(data['${effectivePrefix}codearticle'])!,
       LIBELLEARTICLE: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}libellearticle'])!,
-      QTEARTICLE: const IntType()
+      QTEARTICLE: const RealType()
           .mapFromDatabaseResponse(data['${effectivePrefix}qtearticle'])!,
     );
   }
@@ -36,7 +36,7 @@ class Article extends DataClass implements Insertable<Article> {
     map['idarticle'] = Variable<int>(IDARTICLE);
     map['codearticle'] = Variable<String>(CODEARTICLE);
     map['libellearticle'] = Variable<String>(LIBELLEARTICLE);
-    map['qtearticle'] = Variable<int>(QTEARTICLE);
+    map['qtearticle'] = Variable<double>(QTEARTICLE);
     return map;
   }
 
@@ -56,7 +56,7 @@ class Article extends DataClass implements Insertable<Article> {
       IDARTICLE: serializer.fromJson<int>(json['IDARTICLE']),
       CODEARTICLE: serializer.fromJson<String>(json['CODEARTICLE']),
       LIBELLEARTICLE: serializer.fromJson<String>(json['LIBELLEARTICLE']),
-      QTEARTICLE: serializer.fromJson<int>(json['QTEARTICLE']),
+      QTEARTICLE: serializer.fromJson<double>(json['QTEARTICLE']),
     );
   }
   @override
@@ -66,7 +66,7 @@ class Article extends DataClass implements Insertable<Article> {
       'IDARTICLE': serializer.toJson<int>(IDARTICLE),
       'CODEARTICLE': serializer.toJson<String>(CODEARTICLE),
       'LIBELLEARTICLE': serializer.toJson<String>(LIBELLEARTICLE),
-      'QTEARTICLE': serializer.toJson<int>(QTEARTICLE),
+      'QTEARTICLE': serializer.toJson<double>(QTEARTICLE),
     };
   }
 
@@ -74,7 +74,7 @@ class Article extends DataClass implements Insertable<Article> {
           {int? IDARTICLE,
           String? CODEARTICLE,
           String? LIBELLEARTICLE,
-          int? QTEARTICLE}) =>
+          double? QTEARTICLE}) =>
       Article(
         IDARTICLE: IDARTICLE ?? this.IDARTICLE,
         CODEARTICLE: CODEARTICLE ?? this.CODEARTICLE,
@@ -109,7 +109,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
   final Value<int> IDARTICLE;
   final Value<String> CODEARTICLE;
   final Value<String> LIBELLEARTICLE;
-  final Value<int> QTEARTICLE;
+  final Value<double> QTEARTICLE;
   const ArticlesCompanion({
     this.IDARTICLE = const Value.absent(),
     this.CODEARTICLE = const Value.absent(),
@@ -120,7 +120,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
     required int IDARTICLE,
     required String CODEARTICLE,
     required String LIBELLEARTICLE,
-    required int QTEARTICLE,
+    required double QTEARTICLE,
   })  : IDARTICLE = Value(IDARTICLE),
         CODEARTICLE = Value(CODEARTICLE),
         LIBELLEARTICLE = Value(LIBELLEARTICLE),
@@ -129,7 +129,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
     Expression<int>? IDARTICLE,
     Expression<String>? CODEARTICLE,
     Expression<String>? LIBELLEARTICLE,
-    Expression<int>? QTEARTICLE,
+    Expression<double>? QTEARTICLE,
   }) {
     return RawValuesInsertable({
       if (IDARTICLE != null) 'idarticle': IDARTICLE,
@@ -143,7 +143,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
       {Value<int>? IDARTICLE,
       Value<String>? CODEARTICLE,
       Value<String>? LIBELLEARTICLE,
-      Value<int>? QTEARTICLE}) {
+      Value<double>? QTEARTICLE}) {
     return ArticlesCompanion(
       IDARTICLE: IDARTICLE ?? this.IDARTICLE,
       CODEARTICLE: CODEARTICLE ?? this.CODEARTICLE,
@@ -165,7 +165,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
       map['libellearticle'] = Variable<String>(LIBELLEARTICLE.value);
     }
     if (QTEARTICLE.present) {
-      map['qtearticle'] = Variable<int>(QTEARTICLE.value);
+      map['qtearticle'] = Variable<double>(QTEARTICLE.value);
     }
     return map;
   }
@@ -207,9 +207,9 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
       typeName: 'TEXT',
       requiredDuringInsert: true);
   final VerificationMeta _QTEARTICLEMeta = const VerificationMeta('QTEARTICLE');
-  late final GeneratedColumn<int?> QTEARTICLE = GeneratedColumn<int?>(
+  late final GeneratedColumn<double?> QTEARTICLE = GeneratedColumn<double?>(
       'qtearticle', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      typeName: 'REAL', requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
       [IDARTICLE, CODEARTICLE, LIBELLEARTICLE, QTEARTICLE];
@@ -2267,7 +2267,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
   final int? IDOT;
   final String? CODEARTICLE;
   final String LIBELLEARTICLE;
-  final int QTEARTICLE;
+  final double QTEARTICLE;
   final int IDARTICLE;
   Reservation(
       {required this.IDPIECE,
@@ -2287,7 +2287,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
           .mapFromDatabaseResponse(data['${effectivePrefix}codearticle']),
       LIBELLEARTICLE: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}libellearticle'])!,
-      QTEARTICLE: const IntType()
+      QTEARTICLE: const RealType()
           .mapFromDatabaseResponse(data['${effectivePrefix}qtearticle'])!,
       IDARTICLE: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}idarticle'])!,
@@ -2304,7 +2304,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
       map['codearticle'] = Variable<String?>(CODEARTICLE);
     }
     map['libellearticle'] = Variable<String>(LIBELLEARTICLE);
-    map['qtearticle'] = Variable<int>(QTEARTICLE);
+    map['qtearticle'] = Variable<double>(QTEARTICLE);
     map['idarticle'] = Variable<int>(IDARTICLE);
     return map;
   }
@@ -2330,7 +2330,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
       IDOT: serializer.fromJson<int?>(json['IDOT']),
       CODEARTICLE: serializer.fromJson<String?>(json['CODEARTICLE']),
       LIBELLEARTICLE: serializer.fromJson<String>(json['LIBELLEARTICLE']),
-      QTEARTICLE: serializer.fromJson<int>(json['QTEARTICLE']),
+      QTEARTICLE: serializer.fromJson<double>(json['QTEARTICLE']),
       IDARTICLE: serializer.fromJson<int>(json['IDARTICLE']),
     );
   }
@@ -2342,7 +2342,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
       'IDOT': serializer.toJson<int?>(IDOT),
       'CODEARTICLE': serializer.toJson<String?>(CODEARTICLE),
       'LIBELLEARTICLE': serializer.toJson<String>(LIBELLEARTICLE),
-      'QTEARTICLE': serializer.toJson<int>(QTEARTICLE),
+      'QTEARTICLE': serializer.toJson<double>(QTEARTICLE),
       'IDARTICLE': serializer.toJson<int>(IDARTICLE),
     };
   }
@@ -2352,7 +2352,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
           int? IDOT,
           String? CODEARTICLE,
           String? LIBELLEARTICLE,
-          int? QTEARTICLE,
+          double? QTEARTICLE,
           int? IDARTICLE}) =>
       Reservation(
         IDPIECE: IDPIECE ?? this.IDPIECE,
@@ -2395,7 +2395,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
   final Value<int?> IDOT;
   final Value<String?> CODEARTICLE;
   final Value<String> LIBELLEARTICLE;
-  final Value<int> QTEARTICLE;
+  final Value<double> QTEARTICLE;
   final Value<int> IDARTICLE;
   const ReservationsCompanion({
     this.IDPIECE = const Value.absent(),
@@ -2410,7 +2410,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
     this.IDOT = const Value.absent(),
     this.CODEARTICLE = const Value.absent(),
     required String LIBELLEARTICLE,
-    required int QTEARTICLE,
+    required double QTEARTICLE,
     required int IDARTICLE,
   })  : LIBELLEARTICLE = Value(LIBELLEARTICLE),
         QTEARTICLE = Value(QTEARTICLE),
@@ -2420,7 +2420,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
     Expression<int?>? IDOT,
     Expression<String?>? CODEARTICLE,
     Expression<String>? LIBELLEARTICLE,
-    Expression<int>? QTEARTICLE,
+    Expression<double>? QTEARTICLE,
     Expression<int>? IDARTICLE,
   }) {
     return RawValuesInsertable({
@@ -2438,7 +2438,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
       Value<int?>? IDOT,
       Value<String?>? CODEARTICLE,
       Value<String>? LIBELLEARTICLE,
-      Value<int>? QTEARTICLE,
+      Value<double>? QTEARTICLE,
       Value<int>? IDARTICLE}) {
     return ReservationsCompanion(
       IDPIECE: IDPIECE ?? this.IDPIECE,
@@ -2466,7 +2466,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
       map['libellearticle'] = Variable<String>(LIBELLEARTICLE.value);
     }
     if (QTEARTICLE.present) {
-      map['qtearticle'] = Variable<int>(QTEARTICLE.value);
+      map['qtearticle'] = Variable<double>(QTEARTICLE.value);
     }
     if (IDARTICLE.present) {
       map['idarticle'] = Variable<int>(IDARTICLE.value);
@@ -2521,9 +2521,9 @@ class $ReservationsTable extends Reservations
       typeName: 'TEXT',
       requiredDuringInsert: true);
   final VerificationMeta _QTEARTICLEMeta = const VerificationMeta('QTEARTICLE');
-  late final GeneratedColumn<int?> QTEARTICLE = GeneratedColumn<int?>(
+  late final GeneratedColumn<double?> QTEARTICLE = GeneratedColumn<double?>(
       'qtearticle', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+      typeName: 'REAL', requiredDuringInsert: true);
   final VerificationMeta _IDARTICLEMeta = const VerificationMeta('IDARTICLE');
   late final GeneratedColumn<int?> IDARTICLE = GeneratedColumn<int?>(
       'idarticle', aliasedName, false,

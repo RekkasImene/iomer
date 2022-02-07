@@ -21,3 +21,8 @@ class OtError extends OtState {
   final String message;
   const OtError(this.message);
 }
+
+class OtSelected extends OtState {
+  final Ot ot;
+  const OtSelected(this.ot);
+}

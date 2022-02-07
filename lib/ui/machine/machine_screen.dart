@@ -13,8 +13,6 @@ class MachineScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Maintenance'),
         ),
-        body: Body(
-          text: text,
-        ));
+        body: Body());
   }
 }

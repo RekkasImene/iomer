@@ -30,9 +30,6 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
   SitesBloc(this._Inrepository, this._localRepository) : super(SitesInitial()) {
     on<SitesEvent>((event, emit) async {
       _Inrepository.flag.stream.listen((event) {
-        print(
-            "--------------------------------------------------- Je suis la copie listen... " +
-                event.toString());
         nextnav.add(event);
       });
 
@@ -50,6 +47,7 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
         if (event.monsite != null || event.macategorie != null) {
           print("Mon site selectionné est  :" + event.monsite.NOMSITE);
           print("Ma categorie : " + event.macategorie);
+          await _Inrepository.deleteAllDatabase();
           await _Inrepository.pushDB(event.monsite.IDSITE, event.macategorie);
         }
       }

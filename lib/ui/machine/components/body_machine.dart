@@ -48,7 +48,7 @@ class _BodyState extends State<Body> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                _navigateAndRetriveCode(context);
+                _navigateAndRetrieveCode(context);
               },
               child: const Text('Scan machine '),
               style: ElevatedButton.styleFrom(
@@ -60,7 +60,7 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-  _navigateAndRetriveCode(BuildContext context) async {
+  _navigateAndRetrieveCode(BuildContext context) async {
     final String nextPageValues = await Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => const ScanScreen()),

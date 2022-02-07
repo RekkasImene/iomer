@@ -8,6 +8,12 @@ abstract class ReportEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class ValidateReport extends ReportEvent {
+  final List<Uint8List> listAttachements;
+  final String textReport;
+  ValidateReport(this.listAttachements, this.textReport);
+}
+
 
 
 

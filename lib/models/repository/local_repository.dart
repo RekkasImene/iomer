@@ -31,13 +31,15 @@ class LocalRepository {
     return await database.otDao.getAllOts();
   }
 
-  void saveIdOt(Ot ot) async{
+  void saveOt(Ot ot) async{
     otSaved = ot;
   }
 
   Future <Ot> getOt() async{
+    await database.otDao.findOtBy(otSaved.IDOT).then((value) => saveOt(value.first));
     return otSaved;
   }
+
   Future<List<Article>> getAllArticle() async {
     return await database.articleDao.getAllArticles();
   }
@@ -68,10 +70,6 @@ class LocalRepository {
 
   Future<void> modifyMatricule(Matricule matricule) async {
     await database.matriculeDao.modifieMatricule(matricule);
-  }
-
-  void ModifieOt(Ot ot) {
-    database.otDao.modifieOt(ot);
   }
 
   void saveData(Site site, Config config) {
@@ -151,5 +149,9 @@ class LocalRepository {
 
   Future modifyTache(int idOt) async {
     database.tacheDao.findTachesBy(idOt);
+  }
+
+  Future modifyCommentOt(int idOt,String comment) async{
+    database.otDao.updateComment(idOt, comment);
   }
 }

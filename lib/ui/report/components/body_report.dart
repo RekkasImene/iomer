@@ -5,14 +5,20 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:iomer/bloc/report/report_bloc.dart';
+import 'package:iomer/config/injection.dart';
 import 'package:iomer/ui/utils/info.dart';
 
 class Body extends StatelessWidget {
+
   Body({Key? key}) : super(key: key);
   final ImagePicker imgPicker =ImagePicker();
   String imgPath = "";
   StreamController<List<Uint8List>> baseString = StreamController();
   List<Uint8List> listDocuments= [] ;
+  final ReportBloc _reportBloc = getIt.get<ReportBloc>();
+  final textfieldController = TextEditingController();
+
 
   openImage() async{
     var pickedFile= await imgPicker.pickImage(source: ImageSource.camera);
@@ -27,6 +33,7 @@ class Body extends StatelessWidget {
       baseString.add(listDocuments);
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +54,7 @@ class Body extends StatelessWidget {
           ),
           Expanded(
             child: TextFormField(
+              controller: textfieldController,
               minLines: 1,
               maxLines: 100,
               keyboardType: TextInputType.multiline,
@@ -88,7 +96,10 @@ class Body extends StatelessWidget {
             width: double.maxFinite,
             child: ElevatedButton(
               //pour griser
-              onPressed: () {},
+              onPressed: () {
+                print("Appui bouton..");
+                _reportBloc.add(ValidateReport(listDocuments,textfieldController.text));
+              },
               //onPressed:(),
               child: const Text(
                 'valider',

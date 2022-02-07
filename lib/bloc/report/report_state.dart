@@ -6,12 +6,13 @@ abstract class ReportState {
 
   @override
   List<Object> get props => [];
-  }
+}
 
 class ReportInitial extends ReportState {}
 
 class ReportError extends ReportState {
   final String message;
+
   const ReportError(this.message);
 }
 

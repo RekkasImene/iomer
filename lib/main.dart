@@ -26,11 +26,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    /*LocalRepository localRepository = getIt.get<LocalRepository>();
-    InRepository inRepository = getIt.get<InRepository>();
-    inRepository.updateOTs(1, 12);
-   localRepository.addNewOt(115, 10, 13, "reparation");*/
-
   }
 
   @override

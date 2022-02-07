@@ -10,6 +10,7 @@ import 'package:iomer/models/repository/local_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'report_event.dart';
+
 part 'report_state.dart';
 
 @Environment(Env.prod)
@@ -19,21 +20,16 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
 
   ReportBloc(this._repository) : super(ReportInitial()) {
     on<ReportEvent>((event, emit) async {
-
       if (event is ValidateReport) {
-        print("Validate report");
         Ot ot = await _repository.getOt();
         event.listAttachements.forEach((element) async {
-          await _repository.insertDocument(ot.IDOT,element);
+          await _repository.insertDocument(ot.IDOT, element);
         });
 
         await _repository.modifyCommentOt(ot.IDOT, event.textReport);
-        print("modifier comment ot : "+ _repository.getOt().toString());
-
-      }else {
+      } else {
         emit(const ReportError('Error'));
       }
-
     });
   }
 }

@@ -76,9 +76,11 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
 
   Future updateComment(int idOt, String comment) async {
     var ot;
-    findOtBy(idOt).then((value) => ot=value.first) ;
-    var otCopy= ot.copyWith(COMMENTOT: comment);
-    update(ots).replace(otCopy);
-  }
+    findOtBy(idOt).then((value) {
+      ot = value.first;
+      var otCopy= ot.copyWith(COMMENTOT: comment);
+      update(ots).replace(otCopy);
+    }) ;
 
+  }
 }

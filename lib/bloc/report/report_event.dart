@@ -11,9 +11,6 @@ abstract class ReportEvent extends Equatable {
 class ValidateReport extends ReportEvent {
   final List<Uint8List> listAttachements;
   final String textReport;
+
   ValidateReport(this.listAttachements, this.textReport);
 }
-
-
-
-

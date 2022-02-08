@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: Info(),
           ),
@@ -33,7 +33,7 @@ class Body extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {},
               child: const Text(
-                'valider',
+                'Enregistrer',
                 style: TextStyle(fontSize: 20),
               ),
               style: ElevatedButton.styleFrom(

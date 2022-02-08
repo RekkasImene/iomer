@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:drift/drift.dart';
 import 'iomer_database.dart';
 
@@ -16,8 +18,7 @@ class Reservations extends Table {
 
   TextColumn get LIBELLEARTICLE => text().withLength(min: 1, max: 48)();
 
-  IntColumn get QTEARTICLE => integer()();
-
+  RealColumn get QTEARTICLE => real()();
   IntColumn get IDARTICLE => integer()();
 
   @override

@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iomer/bloc/parts/parts_bloc.dart';
+import 'package:iomer/config/injection.dart';
 
 class ListParts extends StatefulWidget {
   const ListParts({Key? key}) : super(key: key);
@@ -11,75 +15,75 @@ class _ListPartsState extends State<ListParts> {
   //TODO a remplacer avec données (les memes que pour l'ecran first_screen)
   bool isChecked = false;
 
-  List parts = [
-    {
-      'code': 'test1',
-      'libelle': 'test3 NU315',
-      'quantite': '2',
-    },
-    {
-      'code': 'test2',
-      'libelle': 'test3 YT20',
-      'quantite': '5',
-    },
-    {
-      'code': 'test3',
-      'libelle': 'test3 PT150',
-      'quantite': '1',
-    },
-    {
-      'code': 'test4',
-      'libelle': 'test3 NU315',
-      'quantite': '2',
-    },
-  ];
+  late PartsBloc _partsBloc;
 
   @override
   void initState() {
+    _partsBloc = getIt.get<PartsBloc>();
+    _partsBloc.add(FetchEventParts());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-      child: ListView.builder(
-        itemCount: parts.length,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              ListTile(
-                title: Text(parts[index]['code']),
-                subtitle: Text(parts[index]['libelle']),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.remove,
+        decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+        child: BlocProvider<PartsBloc>(
+              create: (context)=>_partsBloc,
+        child: BlocConsumer<PartsBloc, PartsState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                if (state is PartsLoaded) {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: state.reservation.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                ListTile(
+                                  title: Text(state.reservation[index].CODEARTICLE.toString()),
+                                  subtitle: Text(state.reservation[index].LIBELLEARTICLE),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {},
+                                        child: const Icon(
+                                          Icons.remove,
+                                        ),
+                                      ),
+                                      Text(state.reservation[index].QTEARTICLE.toString()),
+                                      InkWell(
+                                        onTap: () {},
+                                        child: const Icon(Icons.add),
+                                      ),
+                                      InkWell(
+                                        onTap: () {},
+                                        child: const Icon(Icons.refresh),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                    Text(parts[index]['quantite']),
-                    InkWell(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.add,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.refresh,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+                    ],
+                  );
+                } else if (state is PartsError) {
+                  return Text(state.message);
+                }return const Center(
+                  child: SizedBox(
+                      width: 32,
+                      height: 32,
+                      child: CircularProgressIndicator()),
+                );
+              }
+    ),
+    ),
     );
   }
 }

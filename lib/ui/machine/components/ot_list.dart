@@ -63,8 +63,7 @@ class _OTListState extends State<OTListWidget> {
                                 onTap: () {
                                   choosedOt = state.ots[index];
                                   _otBloc.add(SetEventOt(choosedOt));
-                                  //print(choosedOtCode);
-                                  //print(choosedOtLibelle);
+
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

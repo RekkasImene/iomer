@@ -111,7 +111,7 @@ class LocalRepository {
   }
 
   Future<Equipement> findEquipementsBy(String codeEquipement) async {
-    return database.equipementDao.findEquipementBy(codeEquipement);
+    return await database.equipementDao.findEquipementBy(codeEquipement);
   }
 
   Future<List<Matricule>> findMatriculesChecked() async {

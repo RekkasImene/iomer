@@ -25,7 +25,7 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       if (event is FetchEventOt) {
         print("Appel FetchEvent ............ ");
         emit(OtLoading());
-        final List<Ot> ots = await _repository.getAllOt();
+        final List<Ot> ots = await _repository.findOtsBy(event.equipement.IDEQUIPEMENT);
         if (ots.isNotEmpty) {
           emit(OtLoaded(ots));
         } else {
@@ -35,15 +35,23 @@ class OtBloc extends Bloc<OtEvent, OtState> {
 
       if (event is NewEventOt) {
         print("New Event OT");
-        await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) => add(FetchEventOt()));
+        await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) => add(FetchEventOt(event.equipement)));
       }
 
-      if (event is CodeMachine) {
-        print("Code machine saisi") ;
-        await _repository.findEquipementsBy(event.codeEquipement.CODEEQUIPEMENT).then((value) => add(FetchNomMachine()),
-      
-        );
-        
+      if (event is CodeEventMachine) {
+
+        if(event.codeEquipement != "") {
+          final Equipement equipement = await _repository.findEquipementsBy(event.codeEquipement);
+          if (equipement != null) {
+            emit(CodeMachineLoaded(equipement.LIBELLEEQUIPEMENT));
+            FetchEventOt(equipement);
+          } else {
+            emit(const OtError('Error'));
+          }
+        } else {
+          print("Je suis event init....");
+          emit(CodeMachineLoaded(""));
+        }
       }
 
       if (event is SelectEventOt){

@@ -16,6 +16,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   late TextEditingController _controllerCode;
+
   late TextEditingController _controllerNom;
 
   late OtBloc _otBloc;
@@ -46,100 +47,84 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return
 
-      BlocProvider<OtBloc>(
-        create: (context) => _otBloc,
-        child: BlocBuilder<OtBloc, OtState>(
-            builder: (context, state) {
-              print(state);
-              if (state is CodeMachineLoaded) {
-                return Column(
-                  children:
-                  [
-                    const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Text(
-                        'Selection de la machine',
-                        style: TextStyle(fontSize: 24),
-                      ),
+    return BlocProvider<OtBloc>(
+      create: (context) => _otBloc,
+      child: BlocBuilder<OtBloc, OtState>(builder: (context, state) {
+        print(state);
+        if (state is CodeMachineLoaded) {
+          return Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'Selection de la machine',
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child: TextFormField(
+                  controller: _controllerCode,
+                  decoration: InputDecoration(
+                    border: const UnderlineInputBorder(),
+                    labelText: 'Code machine',
+                    suffixIcon: Align(
+                      widthFactor: 1.0,
+                      heightFactor: 1.0,
+                      child: IconButton(
+                          icon: const Icon(Icons.qr_code_scanner_outlined),
+                          onPressed: () {
+                            _navigateAndRetriveCode(context);
+                          }),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 16),
-                      child:
-                      TextFormField(
-                        controller: _controllerCode,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'Code machine',
-                          suffixIcon: Align(
-                            widthFactor: 1.0,
-                            heightFactor: 1.0,
-                            child: IconButton(
-                                icon: const Icon(
-                                    Icons.qr_code_scanner_outlined
-                                ),
-                                onPressed: () {
-                                  _navigateAndRetriveCode(context);
-                                }
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-
-
-
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                      child: TextField(
-                        controller: _controllerNom,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'Nom machine',
-                        ),
-                      ),
-                    ),
-                    const Expanded(child: OTListWidget()),
-
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: isButtonActive ? () {
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child: TextField(
+                  controller: _controllerNom,
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Nom machine',
+                  ),
+                ),
+              ),
+              Expanded(child: OTListWidget(codeMachine: _controllerCode.text),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: isButtonActive
+                      ? () {
                           _otBloc.add(CodeEventMachine(_controllerCode.text));
-                          setState(() => [ isButtonActive = true,
-                              _controllerNom.text = state.nomMachine
-                            ]
-                          );
+                          setState(() => [
+                                isButtonActive = true,
+                                _controllerNom.text = state.nomMachine
+                              ]);
+                        }
+                      : null,
+                  child: Text('Actualiser'),
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 20)),
+                ),
+              )
+            ],
+          );
+        } else if (state is OtError) {
+          return Text(state.message);
+        }
 
-                        } : null,
-                        child: Text('Actualiser'),
-                        style: ElevatedButton.styleFrom(
-                            padding:
-                            const EdgeInsets.symmetric(
-                                horizontal: 50, vertical: 20)),
-                      ),
-                    )
-                  ],
-                );
-
-              } else if (state is OtError) {
-                return Text(state.message);
-              }
-
-              return const Center(
-                child: SizedBox(
-                    width: 32,
-                    height: 32,
-                    child: CircularProgressIndicator()),
-              );
-
-            }
-        ),
-      );
+        return const Center(
+          child: SizedBox(
+              width: 32, height: 32, child: CircularProgressIndicator()),
+        );
+      }),
+    );
   }
-
 
   _navigateAndRetriveCode(BuildContext context) async {
     final String nextPageValues = await Navigator.push(
@@ -151,10 +136,4 @@ class _BodyState extends State<Body> {
           nextPageValues; //first element is stored at the 0th index for a list
     });
   }
-
-
-
-
-
-
 }

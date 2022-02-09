@@ -34,8 +34,13 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       }
 
       if (event is NewEventOt) {
-        print("New Event OT");
-        await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) => add(FetchEventOt(event.equipement)));
+
+        await _repository.getAllOrigine();
+
+        Equipement equipement = await _repository.findEquipementsBy(event.codeMachine);
+        List<Matricule> matricule = await _repository.getAllMatricule();
+        await _repository.addNewOt(equipement.IDEQUIPEMENT, matricule.first.IDORIGINE!, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) =>
+            add(FetchEventOt(equipement)));
       }
 
       if (event is CodeEventMachine) {

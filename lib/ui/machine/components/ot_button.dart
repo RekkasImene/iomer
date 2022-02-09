@@ -5,7 +5,8 @@ import 'package:iomer/bloc/ot/ot_bloc.dart';
 import 'package:iomer/ui/machine/components/ot_popup.dart';
 
 class OTButtonWidget extends StatelessWidget {
-  const OTButtonWidget({Key? key}) : super(key: key);
+  String codeMachine;
+  OTButtonWidget({Key? key, required this.codeMachine}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,8 @@ class OTButtonWidget extends StatelessWidget {
           context: context,
           builder: (BuildContext context) => BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: OTPopUpWidget(otBloc: otblc))),
+              child: OTPopUpWidget(otBloc: otblc, codeMachine: codeMachine),
+          )),
     );
   }
 }

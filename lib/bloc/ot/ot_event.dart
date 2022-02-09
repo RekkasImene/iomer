@@ -14,9 +14,9 @@ class FetchEventOt extends OtEvent {
 }
 
 class NewEventOt extends OtEvent {
-  final Equipement equipement;
+  final String codeMachine;
   final Categorie categorie;
-  NewEventOt(this.categorie, this.equipement);
+  NewEventOt(this.categorie, this.codeMachine);
 
 }
 

@@ -7,7 +7,9 @@ import 'package:iomer/ui/action/action_screen.dart';
 import 'package:iomer/ui/machine/components/ot_button.dart';
 
 class OTListWidget extends StatefulWidget {
-  const OTListWidget({Key? key}) : super(key: key);
+  String codeMachine;
+
+  OTListWidget({Key? key, required this.codeMachine }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _OTListState();
@@ -20,8 +22,7 @@ class _OTListState extends State<OTListWidget> {
   @override
   void initState() {
     _otBloc = getIt.get<OtBloc>();
-    _otBloc.add(FetchEventOt());
-    choosedOt = new Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
+    choosedOt = Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
     super.initState();
   }
 
@@ -46,7 +47,6 @@ class _OTListState extends State<OTListWidget> {
               },
               builder: (context, state) {
                 if (state is OtLoaded) {
-                  print("passé par la");
                   return Container(
                     decoration:
                         BoxDecoration(border: Border.all(color: Colors.black)),
@@ -77,10 +77,10 @@ class _OTListState extends State<OTListWidget> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: const [
+                          children: [
                             Align(
                               alignment: Alignment.bottomRight,
-                              child: OTButtonWidget(),
+                              child: OTButtonWidget(codeMachine : widget.codeMachine),
                             ),
                           ],
                         ),

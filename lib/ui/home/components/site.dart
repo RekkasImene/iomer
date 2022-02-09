@@ -13,6 +13,7 @@ class SiteWidget extends StatefulWidget {
 }
 
 class _SiteState extends State<SiteWidget> {
+  bool _isLoading = false;
   late SitesBloc _sitesBloc;
   late Site? chooseValue;
   late String choosedConfig;
@@ -21,7 +22,7 @@ class _SiteState extends State<SiteWidget> {
 
   @override
   void initState() {
-    chooseValue = null;
+    chooseValue = null;/////////////////////////////////////////////////////////////////////////////
     choosedConfig = "";
     _sitesBloc = getIt.get<SitesBloc>();
     _sitesBloc.add(FetchEventSites());
@@ -77,8 +78,11 @@ class _SiteState extends State<SiteWidget> {
                 return Text(state.message);
               }
               return const Center(
-                child: SizedBox(
-                    width: 32, height: 32, child: CircularProgressIndicator()),
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                      child: CircularProgressIndicator()),
+                ),
               );
             },
           ),
@@ -105,13 +109,18 @@ class _SiteState extends State<SiteWidget> {
   }
 
   Widget _buildButton() {
-    return ElevatedButton(
-      child: const Text('Valider', style: TextStyle(fontSize: 20)),
+    return ElevatedButton.icon(
+      icon: _isLoading ? Container(child: CircularProgressIndicator()) : const Icon(null),
+      label: Text(
+        _isLoading ? 'Loading...' : 'Valider',
+        style: const TextStyle(fontSize: 20),
+      ),
       style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)
+      ),
       onPressed: calculateWhetherDisabledReturnsBool() ? null:()=>[
                 choosedConfig = myController.text,
-                Navigation()
+                navigation()
               ],
     );
   }
@@ -119,16 +128,18 @@ class _SiteState extends State<SiteWidget> {
   calculateWhetherDisabledReturnsBool() {
     if (chooseValue != null) {
       return false;
-    } else {
+    } else if  (_isLoading==true) {
       return true;
     }
-  }
+      else{
+        return true;
+      }
+    }
 
-  setConfig() {
-    choosedConfig = myController.text;
-  }
-
-  Navigation() {
+  navigation() {
+    setState(() {
+      _isLoading=true;
+    });
     _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig));
     _sitesBloc.nextnav.stream.listen((event) {
       if (event) {

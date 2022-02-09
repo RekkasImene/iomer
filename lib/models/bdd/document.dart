@@ -4,8 +4,7 @@ part 'generate/document.g.dart';
 
 class Documents extends Table {
   IntColumn get IDATTACHEMENT => integer().autoIncrement()();
-  IntColumn get IDOT =>
-      integer().nullable().customConstraint('NULL REFERENCES Ot(IDOT)')();
+  IntColumn get IDOT => integer().nullable().customConstraint('NULL REFERENCES Ot(IDOT)')();
   BlobColumn get ATTACHEMENT => blob()();
 
   @override

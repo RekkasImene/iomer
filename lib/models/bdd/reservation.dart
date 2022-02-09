@@ -41,8 +41,8 @@ class ReservationDao extends DatabaseAccessor<IomerDatabase>
     return (select(reservations)..where((reservation) =>
         reservation.IDOT.equals(idOt))).get();
   }
-  Future modifieReservation(Reservation reservation) =>
-      update(reservations).replace(reservation);
+
+  Future modifieReservation(Reservation reservation) => update(reservations).replace(reservation);
   Future<List<Reservation>> sortTable() {
     return (select(reservations)
       ..orderBy([
@@ -50,4 +50,5 @@ class ReservationDao extends DatabaseAccessor<IomerDatabase>
       ]))
         .get();
   }
+
 }

@@ -82,6 +82,5 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
       var otCopy= ot.copyWith(COMMENTOT: comment);
       update(ots).replace(otCopy);
     }) ;
-
   }
 }

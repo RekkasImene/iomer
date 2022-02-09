@@ -127,7 +127,7 @@ class _SiteState extends State<SiteWidget> {
 
   calculateWhetherDisabledReturnsBool() {
     if (chooseValue != null) {
-      return false;
+      return false;//btn activé
     } else if  (_isLoading==true) {
       return true;
     }

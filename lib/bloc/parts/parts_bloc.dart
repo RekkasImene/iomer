@@ -36,10 +36,20 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
 
       if (event is UpdateEventParts) {
         emit(PartsLoading());
-        for(int i=0;i<event.reservation.length;i++) {
-          _localRepository.modifyReservation(event.reservation[i]);
+        for(int i=0;i<event.listreservation.length;i++) {
+          _localRepository.modifyReservation(event.listreservation[i]);
         }
         emit(PartsUpdate());
+      }
+
+      if(event is AddEventParts) {
+        emit(PartsLoading());
+        Ot ot= await _localRepository.getOt();
+        Reservation res = Reservation(IDPIECE: null, IDOT: null, CODEARTICLE: null, LIBELLEARTICLE:, QTEARTICLE: null, IDARTICLE: null);
+
+        _localRepository.insertReservation(article, ot.IDOT, quantity);
+
+
       }
 
     });

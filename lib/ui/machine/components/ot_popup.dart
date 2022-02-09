@@ -15,13 +15,11 @@ class OTPopUpWidget extends StatefulWidget {
 }
 
 class _OTPopupState extends State<OTPopUpWidget> {
-  late int? _value;
   late Categorie? chooseValueCategorie;
   late CategorieBloc _categorieBloc;
 
   @override
   void initState() {
-    _value = null;
     chooseValueCategorie = null;
     _categorieBloc = getIt.get<CategorieBloc>();
     _categorieBloc.add(FetchEventCategorie());

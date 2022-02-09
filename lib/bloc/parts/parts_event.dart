@@ -12,6 +12,11 @@ class FetchEventParts extends PartsEvent {}
 //class ValidateEventParts extends PartsEvent {}
 
 class UpdateEventParts extends PartsEvent {
-  final List<Reservation> reservation;
-  UpdateEventParts(this.reservation);
+  final List<Reservation> listreservation;
+  UpdateEventParts(this.listreservation);
+}
+
+class AddEventParts extends PartsEvent {
+  // A remplir ...
+  AddEventParts();
 }

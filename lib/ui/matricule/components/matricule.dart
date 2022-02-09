@@ -120,7 +120,6 @@ class _MatriculeState extends State<MatriculeWidget> {
       style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
       onPressed:()=>[
-
         //choosedConfig = myController.text,
         Navigator.push(context, MaterialPageRoute(builder: (context) => MachineScreen(text: "")),)
       ],

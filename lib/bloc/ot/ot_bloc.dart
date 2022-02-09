@@ -34,7 +34,7 @@ class OtBloc extends Bloc<OtEvent, OtState> {
 
       if (event is NewEventOt) {
         print("New Event OT");
-        await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) => add(FetchEventOt()));
+        await _repository.addNewOt(, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) => add(FetchEventOt()));
       }
 
       if (event is SelectEventOt){

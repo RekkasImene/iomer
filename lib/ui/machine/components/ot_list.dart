@@ -42,14 +42,11 @@ class _OTListState extends State<OTListWidget> {
             create: (context) => _otBloc,
             child: BlocConsumer<OtBloc, OtState>(
               listener: (context, state) {
-                print("state as changed");
               },
               builder: (context, state) {
                 if (state is OtLoaded) {
-                  print("passé par la");
                   return Container(
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.black)),
+                    decoration: BoxDecoration(border: Border.all(color: Colors.black)),
                     child: Column(
                       children: [
                         Expanded(

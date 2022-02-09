@@ -20,3 +20,7 @@ class PartsError extends PartsState {
   final String message;
   const PartsError(this.message);
 }
+
+class PartsUpdate extends PartsState {
+  PartsUpdate();
+}

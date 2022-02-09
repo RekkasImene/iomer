@@ -39,6 +39,7 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
         for(int i=0;i<event.reservation.length;i++) {
           _localRepository.modifyReservation(event.reservation[i]);
         }
+        emit(PartsUpdate());
       }
 
     });

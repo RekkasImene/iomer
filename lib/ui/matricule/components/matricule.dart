@@ -122,10 +122,7 @@ class _MatriculeState extends State<MatriculeWidget> {
       onPressed:()=>[
 
         //choosedConfig = myController.text,
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MachineScreen(text: "")),
-        )
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MachineScreen(text: "")),)
       ],
 
     );

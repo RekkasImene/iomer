@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import 'package:iomer/bloc/categorie/categorie_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/models/repository/local_repository.dart';
@@ -23,31 +24,58 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       
       if (event is FetchEventOt) {
         print("Appel FetchEvent ............ ");
-        emit(OtLoading());
-        final List<Ot> ots = await _repository.getAllOt();
-        if (ots.isNotEmpty) {
-          emit(OtLoaded(ots));
+        if (event.equipement != null) {
+            print("Equipement : "+event.equipement.toString());
+            emit(OtLoading());
+            final List<Ot> ots = await _repository.findOtsBy(event.equipement!.IDEQUIPEMENT);
+            if (ots.isNotEmpty) {
+              print("Evenement OT Loaded....." + ots.toString());
+              emit(OtLoaded(ots));
+            } else {
+              emit(const OtError('Error'));
+            }
         } else {
-          emit(const OtError('Error'));
+          print("list empty :");
+          emit(OtLoaded(List<Ot>.empty()));
         }
       }
 
       if (event is NewEventOt) {
-        print("New Event OT");
-        await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) => add(FetchEventOt()));
+
+        await _repository.getAllOrigine();
+        Equipement equipement = await _repository.findEquipementsBy(event.codeMachine);
+        List<Matricule> matricule = await _repository.getAllMatricule();
+        await _repository.addNewOt(equipement.IDEQUIPEMENT, matricule.first.IDORIGINE!, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) =>
+            add(FetchEventOt(equipement)));
+      }
+
+      if (event is CodeEventMachine) {
+        if(event.codeEquipement != "") {
+          print("CodeEventMachine Instantiation... ");
+          final Equipement equipement = await _repository.findEquipementsBy(event.codeEquipement);
+          print(equipement.toString());
+          if (equipement != null) {
+            print("Nom equipement dans codeEventMachine:"+equipement.LIBELLEEQUIPEMENT);
+            emit(CodeMachineLoaded(equipement.LIBELLEEQUIPEMENT));
+            add(FetchEventOt(equipement));
+          } else {
+            emit(const OtError('Error'));
+          }
+        } else {
+          print("CodeEventMachine : event init....");
+          emit(CodeMachineLoaded(""));
+        }
       }
 
       if (event is SelectEventOt){
         print("selectEventOt.......");
-
         Ot ot=await _repository.getOt();
         emit(OtSelected(ot));
       }
 
       if (event is SetEventOt){
-        if (event.ot != null ) {
-          _repository.saveOt(event.ot);
-        }
+        _repository.saveOt(event.ot);
+
       }
     });
   }

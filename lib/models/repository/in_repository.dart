@@ -146,7 +146,7 @@ class InRepository extends InRepositoryAbs {
 
   //Filed database
   Future<void> pushDB(int idSite, String codePocket) async {
-    //push matricule & ot
+    //Push matricule & ot
     futureConfigs = services.fetchConfigs(idSite, codePocket);
     futureConfigs.then((value) {
       int idOrigine = value.first.IDORIGINE!;

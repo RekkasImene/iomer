@@ -24,19 +24,22 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       
       if (event is FetchEventOt) {
         print("Appel FetchEvent ............ ");
-        emit(OtLoading());
-        final List<Ot> ots = await _repository.findOtsBy(event.equipement.IDEQUIPEMENT);
-        if (ots.isNotEmpty) {
-          emit(OtLoaded(ots));
-        } else {
-          emit(const OtError('Error'));
+        print("Equipement : "+event.equipement.toString());
+        emit(OtLoaded(List<Ot>.empty()));
+        if (event.equipement == null) {
+          emit(OtLoading());
+          final List<Ot> ots = await _repository.findOtsBy(event.equipement.IDEQUIPEMENT);
+          if (ots.isNotEmpty) {
+            emit(OtLoaded(ots));
+          } else {
+            emit(const OtError('Error'));
+          }
         }
       }
 
       if (event is NewEventOt) {
 
         await _repository.getAllOrigine();
-
         Equipement equipement = await _repository.findEquipementsBy(event.codeMachine);
         List<Matricule> matricule = await _repository.getAllMatricule();
         await _repository.addNewOt(equipement.IDEQUIPEMENT, matricule.first.IDORIGINE!, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) =>
@@ -44,24 +47,24 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       }
 
       if (event is CodeEventMachine) {
-
         if(event.codeEquipement != "") {
+          print("CodeEventMachine Instantiation... ");
           final Equipement equipement = await _repository.findEquipementsBy(event.codeEquipement);
+          print(equipement.toString());
           if (equipement != null) {
-            emit(CodeMachineLoaded(equipement.LIBELLEEQUIPEMENT));
-            FetchEventOt(equipement);
+            //add(FetchEventOt(equipement));
+            //emit(CodeMachineLoaded(equipement.LIBELLEEQUIPEMENT));
           } else {
             emit(const OtError('Error'));
           }
         } else {
-          print("Je suis event init....");
+          print("CodeEventMachine : event init....");
           emit(CodeMachineLoaded(""));
         }
       }
 
       if (event is SelectEventOt){
         print("selectEventOt.......");
-
         Ot ot=await _repository.getOt();
         emit(OtSelected(ot));
       }

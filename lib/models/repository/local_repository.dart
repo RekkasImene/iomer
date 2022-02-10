@@ -32,21 +32,14 @@ class LocalRepository {
     return await database.otDao.getAllOts();
   }
 
-<<<<<<< HEAD
-  void saveIdOt(Ot ot) async {
-=======
   void saveOt(Ot ot) async {
->>>>>>> 222ebcd85234aea310f5c819def8e30bde42567e
     otSaved = ot;
   }
 
   Future<Ot> getOt() async {
-<<<<<<< HEAD
-=======
     await database.otDao
         .findOtBy(otSaved.IDOT)
         .then((value) => saveOt(value.first));
->>>>>>> 222ebcd85234aea310f5c819def8e30bde42567e
     return otSaved;
   }
 

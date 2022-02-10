@@ -12,23 +12,15 @@ import 'package:injectable/injectable.dart' as _i2;
 import '../bloc/categorie/categorie_bloc.dart' as _i12;
 import '../bloc/matricule/matricule_bloc.dart' as _i14;
 import '../bloc/ot/ot_bloc.dart' as _i8;
-<<<<<<< HEAD
-import '../bloc/site/sites_bloc.dart' as _i13;
-import '../bloc/taches/taches_bloc.dart' as _i14;
-=======
 import '../bloc/parts/parts_bloc.dart' as _i10;
 import '../bloc/report/report_bloc.dart' as _i11;
 import '../bloc/site/sites_bloc.dart' as _i15;
->>>>>>> 222ebcd85234aea310f5c819def8e30bde42567e
+import '../bloc/taches/taches_bloc.dart' as _i16;
 import '../models/bdd/iomer_database.dart' as _i6;
 import '../models/repository/in_repository.dart' as _i13;
 import '../models/repository/local_repository.dart' as _i7;
 import '../models/repository/out_repository.dart' as _i9;
-<<<<<<< HEAD
-import '../models/repository/registermodule.dart' as _i15;
-=======
-import '../models/repository/registermodule.dart' as _i16;
->>>>>>> 222ebcd85234aea310f5c819def8e30bde42567e
+import '../models/repository/registermodule.dart' as _i17;
 import '../webService/services.dart' as _i5;
 
 const String _prod = 'prod';
@@ -71,15 +63,11 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () =>
           _i15.SitesBloc(get<_i13.InRepository>(), get<_i7.LocalRepository>()),
       registerFor: {_prod});
-  gh.factory<_i14.TachesBloc>(
+  gh.factory<_i16.TachesBloc>(
       () =>
-          _i14.TachesBloc(get<_i7.LocalRepository>(), get<_i11.InRepository>()),
+          _i16.TachesBloc(get<_i7.LocalRepository>(), get<_i13.InRepository>()),
       registerFor: {_prod});
   return get;
 }
 
-<<<<<<< HEAD
-class _$RegisterModule extends _i15.RegisterModule {}
-=======
-class _$RegisterModule extends _i16.RegisterModule {}
->>>>>>> 222ebcd85234aea310f5c819def8e30bde42567e
+class _$RegisterModule extends _i17.RegisterModule {}

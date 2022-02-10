@@ -110,7 +110,7 @@ class _SiteState extends State<SiteWidget> {
 
   Widget _buildButton() {
     return ElevatedButton.icon(
-      icon: _isLoading ? Container(child: CircularProgressIndicator()) : const Icon(null),
+      icon: _isLoading ? const SizedBox(height:20,width: 20,child: CircularProgressIndicator()) : const Icon(null),
       label: Text(
         _isLoading ? 'Loading...' : 'Valider',
         style: const TextStyle(fontSize: 20),
@@ -126,10 +126,11 @@ class _SiteState extends State<SiteWidget> {
   }
 
   calculateWhetherDisabledReturnsBool() {
+    if  (_isLoading==true) {
+      return true;
+    }
     if (chooseValue != null) {
       return false;//btn activé
-    } else if  (_isLoading==true) {
-      return true;
     }
       else{
         return true;

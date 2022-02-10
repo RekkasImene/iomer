@@ -159,6 +159,7 @@ class InRepository extends InRepositoryAbs {
                           flag.add(true);
                           localRepository.getAllOt().then((value) {
                             value.forEach((e) {
+                              log("table tache");
                               updateTaches(e.IDOT).then((value) =>
                                   updateReservation(e.IDOT).then((value) {
                                     localRepository
@@ -179,6 +180,7 @@ class InRepository extends InRepositoryAbs {
               }));
     });
   }
+
   Future<void> deleteAllDatabase() async {
     database.deleteEverything();
   }

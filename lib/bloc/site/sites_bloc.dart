@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:iomer/bloc/taches/taches_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/config.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
@@ -39,7 +40,7 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
         if (sites.isNotEmpty) {
           emit(SitesLoaded(sites));
         } else {
-          emit(const SitesError('Error'));
+          emit(const SitesError('No task were found'));
         }
       }
 

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iomer/ui/debug_screens.dart';
 import 'config/injection.dart';
-<<<<<<< HEAD
-import 'models/repository/local_repository.dart';
-=======
->>>>>>> 222ebcd85234aea310f5c819def8e30bde42567e
 
 void main() {
   configureInjection(Env.prod);

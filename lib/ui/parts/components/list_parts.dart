@@ -69,11 +69,10 @@ class _ListPartsState extends State<ListParts> {
                                       ),
                                       //TODO adapté taille a contenue
                                       SizedBox(
-                                        width: 75,
-                                        height: 40,
+                                        width: 100,
                                         child: TextField(
                                           controller: _controller[index],
-                                          maxLength: null,
+                                          maxLines: 1,
                                           keyboardType: TextInputType.number,
                                           decoration: const InputDecoration(
                                               border: OutlineInputBorder()),

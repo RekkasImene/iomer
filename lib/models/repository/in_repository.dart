@@ -22,7 +22,7 @@ class InRepository extends InRepositoryAbs {
   final IomerDatabase database;
   final LocalRepository localRepository;
   final Services services;
-  
+
   StreamController<bool> flag = StreamController<bool>.broadcast();
 
   InRepository(this.database, this.localRepository, this.services);
@@ -150,33 +150,37 @@ class InRepository extends InRepositoryAbs {
     futureConfigs = services.fetchConfigs(idSite, codePocket);
     futureConfigs.then((value) {
       int idOrigine = value.first.IDORIGINE!;
-      updateMatricules(idOrigine).then((value) =>
-          updateOTs(idSite, idOrigine).then((value) {
-            //push equipement & categories
-            updateCategories(idSite).then((value) =>
-                updateEquipements(idSite).then((value) {
-                  //push tache & OtArticle(Reservation)
-                  flag.add(true);
-                  localRepository.getAllOt().then((value) {
-                    value.forEach((e) {
-                      updateTaches(e.IDOT).then((value) =>
-                          updateReservation(e.IDOT).then((value) {
-                            localRepository.getAllReservation().then((value) {
-                              value.forEach((e) {
-                                updateArticles(e.CODEARTICLE!);
-                              });
-                            }).catchError((error) {
-                              log(error);
+      updateMatricules(idOrigine)
+          .then((value) => updateOTs(idSite, idOrigine).then((value) {
+                //push equipement & categories
+                updateCategories(idSite)
+                    .then((value) => updateEquipements(idSite).then((value) {
+                          //push tache & OtArticle(Reservation)
+                          flag.add(true);
+                          localRepository.getAllOt().then((value) {
+                            value.forEach((e) {
+                              log("table tache");
+                              updateTaches(e.IDOT).then((value) =>
+                                  updateReservation(e.IDOT).then((value) {
+                                    localRepository
+                                        .getAllReservation()
+                                        .then((value) {
+                                      value.forEach((e) {
+                                        updateArticles(e.CODEARTICLE!);
+                                      });
+                                    }).catchError((error) {
+                                      log(error);
+                                    });
+                                  }));
                             });
-                          }));
-                    });
-                  }).catchError((error) {
-                    log(error);
-                  });
-                }));
-          }));
+                          }).catchError((error) {
+                            log(error);
+                          });
+                        }));
+              }));
     });
   }
+
   Future<void> deleteAllDatabase() async {
     database.deleteEverything();
   }

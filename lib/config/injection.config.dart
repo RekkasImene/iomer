@@ -15,11 +15,12 @@ import '../bloc/ot/ot_bloc.dart' as _i8;
 import '../bloc/parts/parts_bloc.dart' as _i10;
 import '../bloc/report/report_bloc.dart' as _i11;
 import '../bloc/site/sites_bloc.dart' as _i15;
+import '../bloc/taches/taches_bloc.dart' as _i16;
 import '../models/bdd/iomer_database.dart' as _i6;
 import '../models/repository/in_repository.dart' as _i13;
 import '../models/repository/local_repository.dart' as _i7;
 import '../models/repository/out_repository.dart' as _i9;
-import '../models/repository/registermodule.dart' as _i16;
+import '../models/repository/registermodule.dart' as _i17;
 import '../webService/services.dart' as _i5;
 
 const String _prod = 'prod';
@@ -62,7 +63,11 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () =>
           _i15.SitesBloc(get<_i13.InRepository>(), get<_i7.LocalRepository>()),
       registerFor: {_prod});
+  gh.factory<_i16.TachesBloc>(
+      () =>
+          _i16.TachesBloc(get<_i7.LocalRepository>(), get<_i13.InRepository>()),
+      registerFor: {_prod});
   return get;
 }
 
-class _$RegisterModule extends _i16.RegisterModule {}
+class _$RegisterModule extends _i17.RegisterModule {}

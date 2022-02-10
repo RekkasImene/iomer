@@ -1,6 +1,6 @@
 //Vue vers bdd et bdd  vers vue, mode hors ligne
 import 'dart:async';
-import 'dart:developer';
+
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
@@ -153,8 +153,8 @@ class LocalRepository {
     database.otDao.modifieOt(ot);
   }
 
-  Future modifyTache(int idOt) async {
-    database.tacheDao.findTachesBy(idOt);
+  Future modifyTache(Tache tache) async {
+    database.tacheDao.modifieTache(tache);
   }
 
   Future modifyCommentOt(int idOt, String comment) async {

@@ -3,7 +3,6 @@ import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:scan/scan.dart';
 
 class QrScanner extends StatefulWidget {
-
   QrScanner({Key? key}) : super(key: key);
 
   @override

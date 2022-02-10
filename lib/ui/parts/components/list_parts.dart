@@ -60,11 +60,14 @@ class _ListPartsState extends State<ListParts> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          _controller[index].text=(double.parse(_controller[index].text)-1).toString() ;
+                                        },
                                         child: const Icon(
                                           Icons.remove,
                                         ),
                                       ),
+                                      //TODO adapté taille a contenue
                                       SizedBox(
                                         width: 75,
                                         height: 40,
@@ -77,16 +80,11 @@ class _ListPartsState extends State<ListParts> {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () {},
+                                        onTap: () {
+                                          _controller[index].text=(double.parse(_controller[index].text)+1).toString() ;
+                                        },
                                         child: const Icon(Icons.add),
                                       ),
-                                      /*
-                                      InkWell(
-                                        onTap: () {},
-                                        child: const Icon(Icons.refresh),
-                                      ),
-
-                                       */
                                     ],
                                   ),
                                 ),

@@ -57,8 +57,7 @@ class _BodyState extends State<Body> {
           }
         },
         builder: (context, state) {
-            print(state);
-            if (state is CodeMachineLoaded) {
+            if (state is CodeMachineLoaded || state is OtLoaded) {
               return Column(
                 children: [
                   const Padding(
@@ -98,7 +97,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                   ),
-                  Expanded(child: OTListWidget(codeMachine: _controllerCode.text, otBloc: _otBloc),
+                  Expanded(child: OTListWidget(codeMachine: _controllerCode.text, otblc: _otBloc),
                   ),
                   SizedBox(
                     width: double.infinity,
@@ -119,7 +118,9 @@ class _BodyState extends State<Body> {
                   )
                 ],
               );
-            } else if (state is OtError) {
+            }
+
+            else if (state is OtError) {
               return Text(state.message);
             }
 

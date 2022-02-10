@@ -29,12 +29,13 @@ class OtBloc extends Bloc<OtEvent, OtState> {
             emit(OtLoading());
             final List<Ot> ots = await _repository.findOtsBy(event.equipement!.IDEQUIPEMENT);
             if (ots.isNotEmpty) {
-              print("Evenement OT Loaded.....");
+              print("Evenement OT Loaded....." + ots.toString());
               emit(OtLoaded(ots));
             } else {
               emit(const OtError('Error'));
             }
         } else {
+          print("list empty :");
           emit(OtLoaded(List<Ot>.empty()));
         }
       }

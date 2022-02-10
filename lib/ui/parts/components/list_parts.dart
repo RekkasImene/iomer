@@ -14,7 +14,7 @@ class ListParts extends StatefulWidget {
 class _ListPartsState extends State<ListParts> {
   //TODO a remplacer avec données (les memes que pour l'ecran first_screen)
   bool isChecked = false;
-  final TextEditingController eCtrl = new TextEditingController();
+  List<TextEditingController> _controller = [];
   late TextEditingController myController;
   late PartsBloc _partsBloc;
   @override
@@ -32,7 +32,14 @@ class _ListPartsState extends State<ListParts> {
       child: BlocProvider<PartsBloc>(
         create: (context) => _partsBloc,
         child: BlocConsumer<PartsBloc, PartsState>(
-            listener: (context, state) {},
+            listener: (context, state) {
+              if (state is PartsLoaded) {
+                for (int i = 0; i < state.reservation.length; i++) {
+                  _controller.add(TextEditingController());
+                  _controller[i].text =state.reservation[i].QTEARTICLE.toString();
+                }
+    }
+            },
             builder: (context, state) {
               if (state is PartsLoaded) {
                 return Column(
@@ -62,15 +69,13 @@ class _ListPartsState extends State<ListParts> {
                                         width: 75,
                                         height: 40,
                                         child: TextField(
-                                          controller: eCtrl,
+                                          controller: _controller[index],
                                           maxLength: null,
                                           keyboardType: TextInputType.number,
                                           decoration: const InputDecoration(
                                               border: OutlineInputBorder()),
                                         ),
                                       ),
-                                      Text(state.reservation[index].QTEARTICLE
-                                          .toString()),
                                       InkWell(
                                         onTap: () {},
                                         child: const Icon(Icons.add),

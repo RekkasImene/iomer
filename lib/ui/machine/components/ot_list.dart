@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/ot/ot_bloc.dart';
@@ -8,20 +10,21 @@ import 'package:iomer/ui/machine/components/ot_button.dart';
 
 class OTListWidget extends StatefulWidget {
   String codeMachine;
+  OtBloc otBloc;
 
-  OTListWidget({Key? key, required this.codeMachine }) : super(key: key);
+  OTListWidget({Key? key, required this.codeMachine, required this.otBloc})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _OTListState();
 }
 
 class _OTListState extends State<OTListWidget> {
-  late OtBloc _otBloc;
   late Ot choosedOt;
+  StreamController<List<Ot>> otList = StreamController();
 
   @override
   void initState() {
-    _otBloc = getIt.get<OtBloc>();
     choosedOt = Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
     super.initState();
   }
@@ -40,10 +43,13 @@ class _OTListState extends State<OTListWidget> {
         ),
         Expanded(
           child: BlocProvider<OtBloc>(
-            create: (context) => _otBloc,
+            create: (context) => widget.otBloc,
             child: BlocConsumer<OtBloc, OtState>(
               listener: (context, state) {
-                print("state as changed");
+                if (state is OtLoaded) {
+                  otList.add(state.ots);
+                  print("list ot : " + otList.toString());
+                }
               },
               builder: (context, state) {
                 if (state is OtLoaded) {
@@ -53,34 +59,45 @@ class _OTListState extends State<OTListWidget> {
                     child: Column(
                       children: [
                         Expanded(
-                          child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: state.ots.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(state.ots[index].LIBELLEOT),
-                                onTap: () {
-                                  choosedOt = state.ots[index];
-                                  _otBloc.add(SetEventOt(choosedOt));
-
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ActionScreen()),
+                          child: StreamBuilder<List<Ot>>(
+                              stream: otList.stream,
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<dynamic> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return const Text("");
+                                } else {
+                                  return ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data.length,
+                                    itemBuilder: (context, index) {
+                                      return ListTile(
+                                        title: Text(
+                                            snapshot.data[index].LIBELLEOT),
+                                        onTap: () {
+                                          choosedOt = snapshot.data[index];
+                                          widget.otBloc
+                                              .add(SetEventOt(choosedOt));
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ActionScreen()),
+                                          );
+                                        },
+                                      );
+                                    },
                                   );
-                                },
-                              );
-                            },
-                          ),
+                                }
+                              }),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Align(
                               alignment: Alignment.bottomRight,
-                              child: OTButtonWidget(codeMachine : widget.codeMachine),
+                              child: OTButtonWidget(
+                                  codeMachine: widget.codeMachine),
                             ),
                           ],
                         ),

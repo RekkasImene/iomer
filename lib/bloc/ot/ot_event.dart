@@ -9,7 +9,7 @@ abstract class OtEvent extends Equatable {
 }
 
 class FetchEventOt extends OtEvent {
-  Equipement equipement;
+  Equipement? equipement;
   FetchEventOt(this.equipement);
 }
 

@@ -24,16 +24,18 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       
       if (event is FetchEventOt) {
         print("Appel FetchEvent ............ ");
-        print("Equipement : "+event.equipement.toString());
-        emit(OtLoaded(List<Ot>.empty()));
-        if (event.equipement == null) {
-          emit(OtLoading());
-          final List<Ot> ots = await _repository.findOtsBy(event.equipement.IDEQUIPEMENT);
-          if (ots.isNotEmpty) {
-            emit(OtLoaded(ots));
-          } else {
-            emit(const OtError('Error'));
-          }
+        if (event.equipement != null) {
+            print("Equipement : "+event.equipement.toString());
+            emit(OtLoading());
+            final List<Ot> ots = await _repository.findOtsBy(event.equipement!.IDEQUIPEMENT);
+            if (ots.isNotEmpty) {
+              print("Evenement OT Loaded.....");
+              emit(OtLoaded(ots));
+            } else {
+              emit(const OtError('Error'));
+            }
+        } else {
+          emit(OtLoaded(List<Ot>.empty()));
         }
       }
 
@@ -52,8 +54,9 @@ class OtBloc extends Bloc<OtEvent, OtState> {
           final Equipement equipement = await _repository.findEquipementsBy(event.codeEquipement);
           print(equipement.toString());
           if (equipement != null) {
-            //add(FetchEventOt(equipement));
-            //emit(CodeMachineLoaded(equipement.LIBELLEEQUIPEMENT));
+            print("Nom equipement dans codeEventMachine:"+equipement.LIBELLEEQUIPEMENT);
+            emit(CodeMachineLoaded(equipement.LIBELLEEQUIPEMENT));
+            add(FetchEventOt(equipement));
           } else {
             emit(const OtError('Error'));
           }
@@ -70,9 +73,7 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       }
 
       if (event is SetEventOt){
-        if (event.ot != null ) {
-          _repository.saveIdOt(event.ot);
-        }
+        _repository.saveIdOt(event.ot);
       }
     });
   }

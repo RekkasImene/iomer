@@ -123,12 +123,10 @@ class _BodyState extends State<Body> {
             else if (state is OtError) {
               return Text(state.message);
             }
-
             return const Center(
               child: SizedBox(
                   width: 32, height: 32, child: CircularProgressIndicator()),
             );
-
 
         },
       ),

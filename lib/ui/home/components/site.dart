@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/site/sites_bloc.dart';
@@ -19,10 +21,9 @@ class _SiteState extends State<SiteWidget> {
   late String choosedConfig;
   final myController = TextEditingController();
 
-
   @override
   void initState() {
-    chooseValue = null;/////////////////////////////////////////////////////////////////////////////
+    chooseValue = null;
     choosedConfig = "";
     _sitesBloc = getIt.get<SitesBloc>();
     _sitesBloc.add(FetchEventSites());
@@ -35,7 +36,6 @@ class _SiteState extends State<SiteWidget> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,7 +47,8 @@ class _SiteState extends State<SiteWidget> {
               if (state is SitesLoaded) {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 6),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.grey, width: 1),
@@ -98,8 +99,7 @@ class _SiteState extends State<SiteWidget> {
             children: [
               SizedBox(
                 width: double.infinity,
-                child:
-                _buildButton(),
+                child: _buildButton(),
               ),
             ],
           ),
@@ -118,10 +118,8 @@ class _SiteState extends State<SiteWidget> {
       style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)
       ),
-      onPressed: calculateWhetherDisabledReturnsBool() ? null:()=>[
-                choosedConfig = myController.text,
-                navigation()
-              ],
+      onPressed: calculateWhetherDisabledReturnsBool() ? null
+          : () => [choosedConfig = myController.text, navigation()],
     );
   }
 
@@ -141,10 +139,11 @@ class _SiteState extends State<SiteWidget> {
     setState(() {
       _isLoading=true;
     });
-    _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig));
+    _sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig));
     _sitesBloc.nextnav.stream.listen((event) {
       if (event) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const FirstScreen()));
       }
     });
   }

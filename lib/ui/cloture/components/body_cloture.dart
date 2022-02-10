@@ -48,7 +48,9 @@ class Body extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MachineScreen(text: "",)),
+                      builder: (context) => MachineScreen(
+                            text: "",
+                          )),
                 );
               },
               child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),

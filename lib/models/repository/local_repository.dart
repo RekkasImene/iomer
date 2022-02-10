@@ -1,6 +1,6 @@
 //Vue vers bdd et bdd  vers vue, mode hors ligne
 import 'dart:async';
-import 'dart:developer';
+
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';

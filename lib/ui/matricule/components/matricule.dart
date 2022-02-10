@@ -22,7 +22,9 @@ class _MatriculeState extends State<MatriculeWidget> {
   @override
   void initState() {
     _matriculeBloc = getIt.get<MatriculeBloc>();
+
     _matriculeBloc.add(FetchMatriculeEvenet());
+
     super.initState();
   }
 

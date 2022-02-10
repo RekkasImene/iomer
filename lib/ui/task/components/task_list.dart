@@ -51,7 +51,6 @@ class _TaskListState extends State<TaskList> {
           child:
               BlocBuilder<TachesBloc, TachesState>(builder: (context, state) {
             if (state is TachesLoaded) {
-              log("hiii");
               return ListView.builder(
                 itemCount: state.taches.length,
                 itemBuilder: (context, index) {
@@ -78,6 +77,31 @@ class _TaskListState extends State<TaskList> {
                 },
               );
             } else if (state is CheckTacheUpdated) {
+              return ListView.builder(
+                itemCount: state.taches.length,
+                itemBuilder: (context, index) {
+                  selectedTache = state.taches[index];
+                  log("ischecked = " + selectedTache.toString());
+                  return CheckboxListTile(
+                    title: Text(state.taches[index].LIBELLETACHE),
+                    value: selectedTache.STATUTTACHE,
+                    onChanged: (bool? newValue) {
+                      setState(
+                        () {
+                          log("la valeur de ischecked" +
+                              selectedTache.STATUTTACHE.toString());
+
+                          _tachesBloc.add(CheckedTachesEvenet(state
+                              .taches[index]
+                              .copyWith(STATUTTACHE: newValue)));
+
+                          log(newValue.toString());
+                        },
+                      );
+                    },
+                  );
+                },
+              );
             } else if (state is TachesError) {
               return Text(state.message);
             }

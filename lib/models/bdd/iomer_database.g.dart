@@ -2854,14 +2854,14 @@ class Tache extends DataClass implements Insertable<Tache> {
   final int? IDOT;
   final String CODETACHE;
   final String LIBELLETACHE;
-  final int STATUTTACHE;
+  final bool? STATUTTACHE;
   final String? COMMENTTACHE;
   Tache(
       {required this.IDTACHE,
       this.IDOT,
       required this.CODETACHE,
       required this.LIBELLETACHE,
-      required this.STATUTTACHE,
+      this.STATUTTACHE,
       this.COMMENTTACHE});
   factory Tache.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -2874,8 +2874,8 @@ class Tache extends DataClass implements Insertable<Tache> {
           .mapFromDatabaseResponse(data['${effectivePrefix}codetache'])!,
       LIBELLETACHE: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}libelletache'])!,
-      STATUTTACHE: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}statuttache'])!,
+      STATUTTACHE: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}statuttache']),
       COMMENTTACHE: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}commenttache']),
     );
@@ -2889,7 +2889,9 @@ class Tache extends DataClass implements Insertable<Tache> {
     }
     map['codetache'] = Variable<String>(CODETACHE);
     map['libelletache'] = Variable<String>(LIBELLETACHE);
-    map['statuttache'] = Variable<int>(STATUTTACHE);
+    if (!nullToAbsent || STATUTTACHE != null) {
+      map['statuttache'] = Variable<bool?>(STATUTTACHE);
+    }
     if (!nullToAbsent || COMMENTTACHE != null) {
       map['commenttache'] = Variable<String?>(COMMENTTACHE);
     }
@@ -2902,7 +2904,9 @@ class Tache extends DataClass implements Insertable<Tache> {
       IDOT: IDOT == null && nullToAbsent ? const Value.absent() : Value(IDOT),
       CODETACHE: Value(CODETACHE),
       LIBELLETACHE: Value(LIBELLETACHE),
-      STATUTTACHE: Value(STATUTTACHE),
+      STATUTTACHE: STATUTTACHE == null && nullToAbsent
+          ? const Value.absent()
+          : Value(STATUTTACHE),
       COMMENTTACHE: COMMENTTACHE == null && nullToAbsent
           ? const Value.absent()
           : Value(COMMENTTACHE),
@@ -2917,7 +2921,7 @@ class Tache extends DataClass implements Insertable<Tache> {
       IDOT: serializer.fromJson<int?>(json['IDOT']),
       CODETACHE: serializer.fromJson<String>(json['CODETACHE']),
       LIBELLETACHE: serializer.fromJson<String>(json['LIBELLETACHE']),
-      STATUTTACHE: serializer.fromJson<int>(json['STATUTTACHE']),
+      STATUTTACHE: serializer.fromJson<bool?>(json['STATUTTACHE']),
       COMMENTTACHE: serializer.fromJson<String?>(json['COMMENTTACHE']),
     );
   }
@@ -2929,7 +2933,7 @@ class Tache extends DataClass implements Insertable<Tache> {
       'IDOT': serializer.toJson<int?>(IDOT),
       'CODETACHE': serializer.toJson<String>(CODETACHE),
       'LIBELLETACHE': serializer.toJson<String>(LIBELLETACHE),
-      'STATUTTACHE': serializer.toJson<int>(STATUTTACHE),
+      'STATUTTACHE': serializer.toJson<bool?>(STATUTTACHE),
       'COMMENTTACHE': serializer.toJson<String?>(COMMENTTACHE),
     };
   }
@@ -2939,7 +2943,7 @@ class Tache extends DataClass implements Insertable<Tache> {
           int? IDOT,
           String? CODETACHE,
           String? LIBELLETACHE,
-          int? STATUTTACHE,
+          bool? STATUTTACHE,
           String? COMMENTTACHE}) =>
       Tache(
         IDTACHE: IDTACHE ?? this.IDTACHE,
@@ -2982,7 +2986,7 @@ class TachesCompanion extends UpdateCompanion<Tache> {
   final Value<int?> IDOT;
   final Value<String> CODETACHE;
   final Value<String> LIBELLETACHE;
-  final Value<int> STATUTTACHE;
+  final Value<bool?> STATUTTACHE;
   final Value<String?> COMMENTTACHE;
   const TachesCompanion({
     this.IDTACHE = const Value.absent(),
@@ -2997,18 +3001,17 @@ class TachesCompanion extends UpdateCompanion<Tache> {
     this.IDOT = const Value.absent(),
     required String CODETACHE,
     required String LIBELLETACHE,
-    required int STATUTTACHE,
+    this.STATUTTACHE = const Value.absent(),
     this.COMMENTTACHE = const Value.absent(),
   })  : IDTACHE = Value(IDTACHE),
         CODETACHE = Value(CODETACHE),
-        LIBELLETACHE = Value(LIBELLETACHE),
-        STATUTTACHE = Value(STATUTTACHE);
+        LIBELLETACHE = Value(LIBELLETACHE);
   static Insertable<Tache> custom({
     Expression<int>? IDTACHE,
     Expression<int?>? IDOT,
     Expression<String>? CODETACHE,
     Expression<String>? LIBELLETACHE,
-    Expression<int>? STATUTTACHE,
+    Expression<bool?>? STATUTTACHE,
     Expression<String?>? COMMENTTACHE,
   }) {
     return RawValuesInsertable({
@@ -3026,7 +3029,7 @@ class TachesCompanion extends UpdateCompanion<Tache> {
       Value<int?>? IDOT,
       Value<String>? CODETACHE,
       Value<String>? LIBELLETACHE,
-      Value<int>? STATUTTACHE,
+      Value<bool?>? STATUTTACHE,
       Value<String?>? COMMENTTACHE}) {
     return TachesCompanion(
       IDTACHE: IDTACHE ?? this.IDTACHE,
@@ -3054,7 +3057,7 @@ class TachesCompanion extends UpdateCompanion<Tache> {
       map['libelletache'] = Variable<String>(LIBELLETACHE.value);
     }
     if (STATUTTACHE.present) {
-      map['statuttache'] = Variable<int>(STATUTTACHE.value);
+      map['statuttache'] = Variable<bool?>(STATUTTACHE.value);
     }
     if (COMMENTTACHE.present) {
       map['commenttache'] = Variable<String?>(COMMENTTACHE.value);
@@ -3107,9 +3110,12 @@ class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
       requiredDuringInsert: true);
   final VerificationMeta _STATUTTACHEMeta =
       const VerificationMeta('STATUTTACHE');
-  late final GeneratedColumn<int?> STATUTTACHE = GeneratedColumn<int?>(
-      'statuttache', aliasedName, false,
-      typeName: 'INTEGER', requiredDuringInsert: true);
+  late final GeneratedColumn<bool?> STATUTTACHE = GeneratedColumn<bool?>(
+      'statuttache', aliasedName, true,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK (statuttache IN (0, 1))',
+      defaultValue: const Constant(false));
   final VerificationMeta _COMMENTTACHEMeta =
       const VerificationMeta('COMMENTTACHE');
   late final GeneratedColumn<String?> COMMENTTACHE = GeneratedColumn<String?>(
@@ -3158,8 +3164,6 @@ class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
           _STATUTTACHEMeta,
           STATUTTACHE.isAcceptableOrUnknown(
               data['statuttache']!, _STATUTTACHEMeta));
-    } else if (isInserting) {
-      context.missing(_STATUTTACHEMeta);
     }
     if (data.containsKey('commenttache')) {
       context.handle(

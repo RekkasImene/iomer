@@ -7,8 +7,6 @@ import 'package:iomer/ui/home/home_screen.dart';
 import 'config/injection.dart';
 import 'models/repository/local_repository.dart';
 
-
-
 void main() {
   configureInjection(Env.prod);
   runApp(const MyApp());
@@ -20,7 +18,6 @@ class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
-
 
 class _MyAppState extends State<MyApp> {
   @override
@@ -37,12 +34,10 @@ class _MyAppState extends State<MyApp> {
         brightness: Brightness.dark,
         primaryColor: Colors.blueGrey,
         elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-        //onPrimary: Colors.yellow,
-        primary: Colors.blueGrey,
-    )
-          ),
-
+            style: ElevatedButton.styleFrom(
+          //onPrimary: Colors.yellow,
+          primary: Colors.blueGrey,
+        )),
       ),
       home: const DebugScreen(),
     );

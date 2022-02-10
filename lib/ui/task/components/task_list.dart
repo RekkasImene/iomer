@@ -51,7 +51,6 @@ class _TaskListState extends State<TaskList> {
           child:
               BlocBuilder<TachesBloc, TachesState>(builder: (context, state) {
             if (state is TachesLoaded) {
-              log("hiii");
               return ListView.builder(
                 itemCount: state.taches.length,
                 itemBuilder: (context, index) {
@@ -78,7 +77,6 @@ class _TaskListState extends State<TaskList> {
                 },
               );
             } else if (state is CheckTacheUpdated) {
-              log("hiii");
               return ListView.builder(
                 itemCount: state.taches.length,
                 itemBuilder: (context, index) {

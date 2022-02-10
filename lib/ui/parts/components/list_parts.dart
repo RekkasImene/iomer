@@ -72,7 +72,7 @@ class _ListPartsState extends State<ListParts> {
                                         width: 100,
                                         child: TextField(
                                           controller: _controller[index],
-                                          maxLines: 1,
+
                                           keyboardType: TextInputType.number,
                                           decoration: const InputDecoration(
                                               border: OutlineInputBorder()),

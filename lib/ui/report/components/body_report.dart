@@ -95,6 +95,9 @@ class Body extends StatelessWidget {
               onPressed: () {
                 _reportBloc.add(
                     ValidateReport(listDocuments, textfieldController.text));
+                Navigator.pop(
+                  context,
+                );
               },
               //onPressed:(),
               child: const Text(

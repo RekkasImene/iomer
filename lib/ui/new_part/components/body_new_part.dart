@@ -60,9 +60,9 @@ class _BodyState extends State<Body> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pop(
                   context,
-                  MaterialPageRoute(builder: (context) => const PartsScreen()),
+                  
                 );
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),

@@ -45,9 +45,9 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
       if(event is AddEventParts) {
         emit(PartsLoading());
         Ot ot= await _localRepository.getOt();
-        Reservation res = Reservation(IDPIECE: null, IDOT: null, CODEARTICLE: null, LIBELLEARTICLE:, QTEARTICLE: null, IDARTICLE: null);
+        //Reservation res = Reservation(IDPIECE: null, IDOT: null, CODEARTICLE: null, LIBELLEARTICLE:, QTEARTICLE: null, IDARTICLE: null);
 
-        _localRepository.insertReservation(article, ot.IDOT, quantity);
+       // _localRepository.insertReservation(article, ot.IDOT, quantity);
 
 
       }

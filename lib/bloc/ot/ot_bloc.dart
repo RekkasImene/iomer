@@ -22,7 +22,7 @@ class OtBloc extends Bloc<OtEvent, OtState> {
     on<OtEvent>((event, emit) async {
       
       if (event is FetchEventOt) {
-        print("Appel FetchEvent ............ ");
+        print("FetchEventOt :");
         emit(OtLoading());
         final List<Ot> ots = await _repository.getAllOt();
         if (ots.isNotEmpty) {
@@ -33,18 +33,18 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       }
 
       if (event is NewEventOt) {
-        print("New Event OT");
-        await _repository.addNewOt(, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) => add(FetchEventOt()));
+        print("NewEventOt :");
+        await _repository.addNewOt(110, 14, event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE).then((value) => add(FetchEventOt()));
       }
 
       if (event is SelectEventOt){
-        print("selectEventOt.......");
-
+        print("SelectEventOt :");
         Ot ot=await _repository.getOt();
         emit(OtSelected(ot));
       }
 
       if (event is SetEventOt){
+        print("SetEventOt :");
         if (event.ot != null ) {
           _repository.saveOt(event.ot);
         }

@@ -1,13 +1,6 @@
-import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:iomer/models/repository/in_repository.dart';
 import 'package:iomer/ui/debug_screens.dart';
-import 'package:iomer/ui/home/home_screen.dart';
 import 'config/injection.dart';
-import 'models/repository/local_repository.dart';
-
-
 
 void main() {
   configureInjection(Env.prod);

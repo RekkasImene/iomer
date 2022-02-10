@@ -13,6 +13,7 @@ import '../bdd/iomer_database.dart';
 @injectable
 class LocalRepository {
   final IomerDatabase database;
+
   LocalRepository(this.database);
 
   //for closing database
@@ -20,7 +21,7 @@ class LocalRepository {
     database.close();
   }
 
-  Ot otSaved= Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
+  Ot otSaved = Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
 
   //GetAll Methods from db.sqlite database
   Future<List<Matricule>> getAllMatricule() async {
@@ -31,13 +32,17 @@ class LocalRepository {
     return await database.otDao.getAllOts();
   }
 
-  void saveIdOt(Ot ot) async{
+  void saveOt(Ot ot) async {
     otSaved = ot;
   }
 
-  Future <Ot> getOt() async{
+  Future<Ot> getOt() async {
+    await database.otDao
+        .findOtBy(otSaved.IDOT)
+        .then((value) => saveOt(value.first));
     return otSaved;
   }
+
   Future<List<Article>> getAllArticle() async {
     return await database.articleDao.getAllArticles();
   }
@@ -70,19 +75,15 @@ class LocalRepository {
     await database.matriculeDao.modifieMatricule(matricule);
   }
 
-  void ModifieOt(Ot ot) {
-    database.otDao.modifieOt(ot);
-  }
-
   void saveData(Site site, Config config) {
     database.siteDao.insertSite(site);
     database.configDao.insertConfig(config);
   }
 
-  Future<void> addNewOt( int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
+  Future<void> addNewOt(int idEquipement, int idOrigine, int idCategorie,
+      String libelleOt) async {
     int newIdOT = 0;
     List<Ot> lastdata = await database.otDao.sortTable();
-
 
     newIdOT = lastdata.first.IDOT;
     newIdOT++;
@@ -111,7 +112,7 @@ class LocalRepository {
   }
 
   Future<Equipement> findEquipementsBy(String codeEquipement) async {
-    return await database.equipementDao.findEquipementBy(codeEquipement);
+    return database.equipementDao.findEquipementBy(codeEquipement);
   }
 
   Future<List<Matricule>> findMatriculesChecked() async {
@@ -126,7 +127,7 @@ class LocalRepository {
     return database.reservationDao.findReservationBy(idOt);
   }
 
-  Future insertReservation (Article article, int idOt , double quantity) async{
+  Future insertReservation(Article article, int idOt, double quantity) async {
     List<Reservation> reservations = await database.reservationDao.sortTable();
     int newId = reservations.first.IDPIECE;
     database.reservationDao.insertReservation(Reservation(
@@ -153,15 +154,7 @@ class LocalRepository {
     database.tacheDao.findTachesBy(idOt);
   }
 
-
-  Future setOt ()async {
-    
-    Future <List<Matricule>> matricule = database.matriculeDao.findMatriculesChecket();
-
-    matricule.then((value) => 
-     log("111111111111"+value.toString())
-     
-    );
-   
+  Future modifyCommentOt(int idOt, String comment) async {
+    database.otDao.updateComment(idOt, comment);
   }
 }

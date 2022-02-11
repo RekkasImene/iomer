@@ -135,7 +135,7 @@ void main() {
           IDTACHE: 101010,
           CODETACHE: "CODETACHE",
           LIBELLETACHE: "LIBELLETACHE",
-          STATUTTACHE: true);
+          STATUTTACHE: 1);
       await db.tacheDao.insertTache(tache);
       List<Tache> tacheDb = await db.tacheDao.getAllTaches();
       expect(tacheDb.first, tache);

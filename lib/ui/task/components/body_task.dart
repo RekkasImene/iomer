@@ -31,7 +31,12 @@ class Body extends StatelessWidget {
           SizedBox(
             width: double.maxFinite,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(
+                  context,
+
+                );
+              },
               child: const Text(
                 'Enregistrer',
                 style: TextStyle(fontSize: 20),

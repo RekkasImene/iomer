@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PartEditor extends StatelessWidget {
-  const PartEditor({Key? key}) : super(key: key);
+  final TextEditingController controller;
+  const PartEditor( {Key? key,required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +12,9 @@ class PartEditor extends StatelessWidget {
           width: 10,
           height: 10,
         ),
-        const TextField(
-          decoration: InputDecoration(
+        TextField(
+          controller: controller,
+          decoration: const InputDecoration(
               border: OutlineInputBorder(), labelText: 'N° Pièce :'),
         ),
         const SizedBox(

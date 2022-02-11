@@ -58,7 +58,7 @@ class _TaskListState extends State<TaskList> {
                   log("ischecked = " + selectedTache.toString());
                   return CheckboxListTile(
                     title: Text(state.taches[index].LIBELLETACHE),
-                    value: selectedTache.STATUTTACHE,
+                    value: selectedTache.STATUTTACHE == 1 ? true : false,
                     onChanged: (bool? newValue) {
                       setState(
                         () {
@@ -67,7 +67,7 @@ class _TaskListState extends State<TaskList> {
 
                           _tachesBloc.add(CheckedTachesEvenet(state
                               .taches[index]
-                              .copyWith(STATUTTACHE: newValue)));
+                              .copyWith(STATUTTACHE: newValue! ? 1 : 0)));
 
                           log(newValue.toString());
                         },
@@ -84,7 +84,7 @@ class _TaskListState extends State<TaskList> {
                   log("ischecked = " + selectedTache.toString());
                   return CheckboxListTile(
                     title: Text(state.taches[index].LIBELLETACHE),
-                    value: selectedTache.STATUTTACHE,
+                    value: selectedTache.STATUTTACHE == 1 ? true : false,
                     onChanged: (bool? newValue) {
                       setState(
                         () {
@@ -93,7 +93,7 @@ class _TaskListState extends State<TaskList> {
 
                           _tachesBloc.add(CheckedTachesEvenet(state
                               .taches[index]
-                              .copyWith(STATUTTACHE: newValue)));
+                              .copyWith(STATUTTACHE: newValue! ? 1 : 0)));
 
                           log(newValue.toString());
                         },

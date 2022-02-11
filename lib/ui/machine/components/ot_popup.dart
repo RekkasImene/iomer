@@ -7,8 +7,9 @@ import 'package:iomer/models/bdd/iomer_database.dart';
 
 class OTPopUpWidget extends StatefulWidget {
   OtBloc otBloc;
+  String codeMachine;
 
-  OTPopUpWidget({Key? key, required this.otBloc}) : super(key: key);
+  OTPopUpWidget({Key? key, required this.otBloc, required this.codeMachine}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _OTPopupState();
@@ -17,6 +18,7 @@ class OTPopUpWidget extends StatefulWidget {
 class _OTPopupState extends State<OTPopUpWidget> {
   late Categorie? chooseValueCategorie;
   late CategorieBloc _categorieBloc;
+
 
   @override
   void initState() {
@@ -83,7 +85,7 @@ class _OTPopupState extends State<OTPopUpWidget> {
                   TextButton(
                       onPressed: () => [
                             Navigator.pop(context, 'Cancel'),
-                            widget.otBloc.add(FetchEventOt())
+                            widget.otBloc.add(CodeEventMachine(widget.codeMachine))
                           ],
                       child: const Text('Cancel')),
                   TextButton(
@@ -103,7 +105,7 @@ class _OTPopupState extends State<OTPopUpWidget> {
 
   ValidationCreateOT() {
     print("ValidationCreateOT : ");
-    widget.otBloc.add(NewEventOt(chooseValueCategorie!));
+    widget.otBloc.add(NewEventOt(chooseValueCategorie!, widget.codeMachine ));
   }
 
 }

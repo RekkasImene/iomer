@@ -8,26 +8,24 @@ class Taches extends Table {
       integer().nullable().customConstraint('NULL REFERENCES Ot(IDOT)')();
   TextColumn get CODETACHE => text().withLength(min: 1, max: 24)();
   TextColumn get LIBELLETACHE => text().withLength(min: 1, max: 48)();
-  IntColumn get STATUTTACHE => integer()();
-  TextColumn get COMMENTTACHE => text().nullable().withLength( max: 2018)();
+  BoolColumn get STATUTTACHE =>
+      boolean().nullable().withDefault(const Constant(false))();
+  TextColumn get COMMENTTACHE => text().nullable().withLength(max: 2018)();
 
   @override
-  Set<Column> get primaryKey => {CODETACHE,IDTACHE};
+  Set<Column> get primaryKey => {CODETACHE, IDTACHE};
 }
 
-@DriftAccessor(
-    tables:[Taches]
-)
-class TacheDao extends DatabaseAccessor<IomerDatabase> with _$TacheDaoMixin{
+@DriftAccessor(tables: [Taches])
+class TacheDao extends DatabaseAccessor<IomerDatabase> with _$TacheDaoMixin {
   final IomerDatabase db;
-  TacheDao(this.db):super (db);
+  TacheDao(this.db) : super(db);
 
   Future insertTache(Tache tache) => into(taches).insertOnConflictUpdate(tache);
   Future<List<Tache>> getAllTaches() => select(taches).get();
 
   Future<List<Tache>> findTachesBy(int idOt) {
-    return (select(taches)..where((tache) =>
-        tache.IDOT.equals(idOt))).get();
+    return (select(taches)..where((tache) => tache.IDOT.equals(idOt))).get();
   }
 
   Future modifieTache(Tache tache) => update(taches).replace(tache);

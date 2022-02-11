@@ -138,8 +138,6 @@ class LocalRepository {
         IDOT: idOt));
   }
 
-
-
   Future modifyReservation(Reservation reservation) async {
     database.reservationDao.modifieReservation(reservation);
   }
@@ -152,8 +150,8 @@ class LocalRepository {
     database.otDao.modifieOt(ot);
   }
 
-  Future modifyTache(int idOt) async {
-    database.tacheDao.findTachesBy(idOt);
+  Future modifyTache(Tache tache) async {
+    database.tacheDao.modifieTache(tache);
   }
 
   Future modifyCommentOt(int idOt, String comment) async {

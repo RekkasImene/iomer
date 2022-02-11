@@ -35,7 +35,8 @@ class _MatriculeState extends State<MatriculeWidget> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: Container(
-                decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.black)),
                 //padding: const EdgeInsets.all(16.0) ,
                 child: BlocProvider(
                   create: (context) => _matriculeBloc,
@@ -59,9 +60,9 @@ class _MatriculeState extends State<MatriculeWidget> {
                                     log("la valeur de ischecked" +
                                         selectedMatricule.CHECKED.toString());
 
-                                    _matriculeBloc.add(CheckedMatriculeEvenet(state
-                                        .matricules[index]
-                                        .copyWith(CHECKED: newValue)));
+                                    _matriculeBloc.add(CheckedMatriculeEvenet(
+                                        state.matricules[index]
+                                            .copyWith(CHECKED: newValue)));
 
                                     log(newValue.toString());
                                   },
@@ -85,9 +86,9 @@ class _MatriculeState extends State<MatriculeWidget> {
                                   () {
                                     // ischecked = newValue!;
 
-                                    _matriculeBloc.add(CheckedMatriculeEvenet(state
-                                        .matricules[index]
-                                        .copyWith(CHECKED: newValue)));
+                                    _matriculeBloc.add(CheckedMatriculeEvenet(
+                                        state.matricules[index]
+                                            .copyWith(CHECKED: newValue)));
                                   },
                                 );
                               },
@@ -99,7 +100,9 @@ class _MatriculeState extends State<MatriculeWidget> {
                       }
                       return const Center(
                         child: SizedBox(
-                            width: 32, height: 32, child: CircularProgressIndicator()),
+                            width: 32,
+                            height: 32,
+                            child: CircularProgressIndicator()),
                       );
                     },
                   ),
@@ -108,24 +111,27 @@ class _MatriculeState extends State<MatriculeWidget> {
         ),
         SizedBox(
           width: double.infinity,
-          child:
-          _buildButton(),
+          child: _buildButton(),
         ),
       ],
     );
   }
+
   Widget _buildButton() {
     return ElevatedButton(
       child: const Text('Valider', style: TextStyle(fontSize: 20)),
       style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed:()=>[
+      onPressed: () => [
         //choosedConfig = myController.text,
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MachineScreen(text: "")),)
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MachineScreen(text: "")),
+        )
       ],
-
     );
   }
+
   calculateIfAvailable() {
     if (nbWorkers > 0) {
       return false;

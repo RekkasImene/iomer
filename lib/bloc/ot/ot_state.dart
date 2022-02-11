@@ -26,3 +26,8 @@ class OtSelected extends OtState {
   final Ot ot;
   const OtSelected(this.ot);
 }
+
+class CodeMachineLoaded extends OtState{
+  final String  nomMachine;
+  const CodeMachineLoaded(this.nomMachine);
+}

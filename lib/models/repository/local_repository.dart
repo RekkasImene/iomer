@@ -87,8 +87,11 @@ class LocalRepository {
 
     newIdOT = lastdata.first.IDOT;
     newIdOT++;
+
+    /*
     final DateTime now = DateTime.now();
     String beforeTime = DateFormat.Hm().format(now);
+    */
 
     Ot newOt = Ot(
         IDOT: newIdOT,
@@ -97,7 +100,7 @@ class LocalRepository {
         IDORIGINE: idOrigine,
         IDEQUIPEMENT: idEquipement,
         IDCATEGORIE: idCategorie,
-        DTOPENOT: DateTime.parse(beforeTime));
+        /*DTOPENOT: DateTime.parse(beforeTime)*/);
 
     await database.otDao.insertOt(newOt);
   }

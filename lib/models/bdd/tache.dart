@@ -8,8 +8,8 @@ class Taches extends Table {
       integer().nullable().customConstraint('NULL REFERENCES Ot(IDOT)')();
   TextColumn get CODETACHE => text().withLength(min: 1, max: 24)();
   TextColumn get LIBELLETACHE => text().withLength(min: 1, max: 48)();
-  BoolColumn get STATUTTACHE =>
-      boolean().nullable().withDefault(const Constant(false))();
+  IntColumn get STATUTTACHE =>
+      integer().nullable().withDefault(const Constant(0))();
   TextColumn get COMMENTTACHE => text().nullable().withLength(max: 2018)();
 
   @override

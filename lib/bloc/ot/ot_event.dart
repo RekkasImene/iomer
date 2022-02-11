@@ -8,11 +8,21 @@ abstract class OtEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchEventOt extends OtEvent {}
+class FetchEventOt extends OtEvent {
+  Equipement? equipement;
+  FetchEventOt(this.equipement);
+}
 
 class NewEventOt extends OtEvent {
+  final String codeMachine;
   final Categorie categorie;
-  NewEventOt(this.categorie);
+  NewEventOt(this.categorie, this.codeMachine);
+
+}
+
+class CodeEventMachine extends OtEvent {
+  final String codeEquipement;
+  CodeEventMachine(this.codeEquipement);
 }
 
 class SetEventOt extends OtEvent{

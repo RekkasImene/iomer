@@ -48,94 +48,97 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _otBloc,
-      child: BlocConsumer< OtBloc, OtState>(
-        listener: (context, state) {
-          if (state is CodeMachineLoaded) {
-            _controllerNom.text = state.nomMachine;
-          }
-        },
-        builder: (context, state) {
-            if (state is CodeMachineLoaded || state is OtLoaded) {
-              return Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      'Selection de la machine',
-                      style: TextStyle(fontSize: 24),
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: BlocProvider(
+        create: (context) => _otBloc,
+        child: BlocConsumer< OtBloc, OtState>(
+          listener: (context, state) {
+            if (state is CodeMachineLoaded) {
+              _controllerNom.text = state.nomMachine;
+            }
+          },
+          builder: (context, state) {
+              if (state is CodeMachineLoaded || state is OtLoaded) {
+                return Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text(
+                        'Selection de la machine',
+                        style: TextStyle(fontSize: 24),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                    child: TextFormField(
-                      controller: _controllerCode,
-                      decoration: InputDecoration(
-                        border: const UnderlineInputBorder(),
-                        labelText: 'Code machine',
-                        suffixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: IconButton(
-                              icon: const Icon(Icons.qr_code_scanner_outlined),
-                              onPressed: () {
-                                _navigateAndRetriveCode(context);
-                              }),
+                    Padding(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                      child: TextFormField(
+                        controller: _controllerCode,
+                        decoration: InputDecoration(
+                          border: const UnderlineInputBorder(),
+                          labelText: 'Code machine',
+                          suffixIcon: Align(
+                            widthFactor: 1.0,
+                            heightFactor: 1.0,
+                            child: IconButton(
+                                icon: const Icon(Icons.qr_code_scanner_outlined),
+                                onPressed: () {
+                                  _navigateAndRetrieveCode(context);
+                                }),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                    child: TextField(
-                      controller: _controllerNom,
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Nom machine',
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                      child: TextField(
+                        controller: _controllerNom,
+                        decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: 'Nom machine',
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(child: OTListWidget(codeMachine: _controllerCode.text, otblc: _otBloc),
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: isButtonActive
-                          ? () {
-                        _otBloc.add(CodeEventMachine(_controllerCode.text));
-                        setState(() => [
-                          isButtonActive = true,
-                        ]);
-                      }
-                          : null,
-                      child: Text('Actualiser'),
-                      style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 50, vertical: 20)),
+                    Expanded(child: OTListWidget(codeMachine: _controllerCode.text, otblc: _otBloc),
                     ),
-                  )
-                ],
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: isButtonActive
+                            ? () {
+                          _otBloc.add(CodeEventMachine(_controllerCode.text));
+                          setState(() => [
+                            isButtonActive = true,
+                          ]);
+                        }
+                            : null,
+                        child: const Text('Actualiser'),
+                        style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 20)),
+                      ),
+                    )
+                  ],
+                );
+              }
+
+              else if (state is OtError) {
+                return Text(state.message);
+              }
+
+              return const Center(
+                child: SizedBox(
+                    width: 32, height: 32, child: CircularProgressIndicator()),
               );
-            }
-
-            else if (state is OtError) {
-              return Text(state.message);
-            }
-
-            return const Center(
-              child: SizedBox(
-                  width: 32, height: 32, child: CircularProgressIndicator()),
-            );
 
 
-        },
+          },
+        ),
       ),
     );
   }
 
-  _navigateAndRetriveCode(BuildContext context) async {
+  _navigateAndRetrieveCode(BuildContext context) async {
     final String nextPageValues = await Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => const ScanScreen()),

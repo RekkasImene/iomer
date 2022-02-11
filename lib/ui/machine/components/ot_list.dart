@@ -71,41 +71,48 @@ class _OTListState extends State<OTListWidget> {
                                           width: 32, height: 32, child: CircularProgressIndicator()),
                                     );
                                   } else {
-                                    return ListView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      itemCount: snapshot.data.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                              snapshot.data[index].LIBELLEOT),
-                                          onTap: () {
-                                            choosedOt = snapshot.data[index];
-                                            widget.otblc
-                                                .add(SetEventOt(choosedOt));
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ActionScreen()),
-                                            );
-                                          },
-                                        );
-                                      },
+                                    return Column(
+                                      children: [
+                                        Expanded(
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.vertical,
+                                            shrinkWrap: true,
+                                            itemCount: snapshot.data.length,
+                                            itemBuilder: (context, index) {
+                                              return ListTile(
+                                                title: Text(
+                                                    snapshot.data[index].LIBELLEOT),
+                                                onTap: () {
+                                                  choosedOt = snapshot.data[index];
+                                                  widget.otblc
+                                                      .add(SetEventOt(choosedOt));
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const ActionScreen()),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: OTButtonWidget(
+                                                  codeMachine: widget.codeMachine),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     );
                                   }
                                 }),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: OTButtonWidget(
-                                    codeMachine: widget.codeMachine),
-                              ),
-                            ],
-                          ),
+
                         ],
                       ),
                     )

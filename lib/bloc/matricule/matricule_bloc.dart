@@ -16,9 +16,7 @@ part 'matricule_state.dart';
 @injectable
 class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
   final LocalRepository _localRepository;
-  final InRepository _inRepository;
-
-  MatriculeBloc(this._localRepository, this._inRepository)
+  MatriculeBloc(this._localRepository)
       : super(MatriculeInitial()) {
     on<MatriculeEvent>((event, emit) async {
       if (event is MatriculeEvent) {

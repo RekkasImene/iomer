@@ -14,7 +14,6 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
@@ -30,12 +29,10 @@ class _MyAppState extends State<MyApp> {
         brightness: Brightness.dark,
         primaryColor: Colors.blueGrey,
         elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-        //onPrimary: Colors.yellow,
-        primary: Colors.blueGrey,
-    )
-          ),
-
+            style: ElevatedButton.styleFrom(
+          //onPrimary: Colors.yellow,
+          primary: Colors.blueGrey,
+        )),
       ),
       home: const DebugScreen(),
     );

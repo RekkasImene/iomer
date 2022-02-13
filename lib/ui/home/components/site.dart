@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/site/sites_bloc.dart';
@@ -13,11 +15,11 @@ class SiteWidget extends StatefulWidget {
 }
 
 class _SiteState extends State<SiteWidget> {
+  bool _isLoading = false;
   late SitesBloc _sitesBloc;
   late Site? chooseValue;
   late String choosedConfig;
   final myController = TextEditingController();
-
 
   @override
   void initState() {
@@ -34,7 +36,6 @@ class _SiteState extends State<SiteWidget> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -46,7 +47,8 @@ class _SiteState extends State<SiteWidget> {
               if (state is SitesLoaded) {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 6),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.grey, width: 1),
@@ -77,8 +79,11 @@ class _SiteState extends State<SiteWidget> {
                 return Text(state.message);
               }
               return const Center(
-                child: SizedBox(
-                    width: 32, height: 32, child: CircularProgressIndicator()),
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                      child: CircularProgressIndicator()),
+                ),
               );
             },
           ),
@@ -94,8 +99,7 @@ class _SiteState extends State<SiteWidget> {
             children: [
               SizedBox(
                 width: double.infinity,
-                child:
-                _buildButton(),
+                child: _buildButton(),
               ),
             ],
           ),
@@ -105,34 +109,41 @@ class _SiteState extends State<SiteWidget> {
   }
 
   Widget _buildButton() {
-    return ElevatedButton(
-      child: const Text('Valider', style: TextStyle(fontSize: 20)),
+    return ElevatedButton.icon(
+      icon: _isLoading ? const SizedBox(height:20,width: 20,child: CircularProgressIndicator()) : const Icon(null),
+      label: Text(
+        _isLoading ? 'Loading...' : 'Valider',
+        style: const TextStyle(fontSize: 20),
+      ),
       style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed: calculateWhetherDisabledReturnsBool() ? null:()=>[
-                choosedConfig = myController.text,
-                Navigation()
-              ],
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)
+      ),
+      onPressed: calculateWhetherDisabledReturnsBool() ? null
+          : () => [choosedConfig = myController.text, navigation()],
     );
   }
 
   calculateWhetherDisabledReturnsBool() {
-    if (chooseValue != null) {
-      return false;
-    } else {
+    if  (_isLoading==true) {
       return true;
     }
-  }
+    if (chooseValue != null) {
+      return false;//btn activé
+    }
+      else{
+        return true;
+      }
+    }
 
-  setConfig() {
-    choosedConfig = myController.text;
-  }
-
-  Navigation() {
-    _sitesBloc.add(ValidateEventSites(chooseValue!,choosedConfig));
+  navigation() {
+    setState(() {
+      _isLoading=true;
+    });
+    _sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig));
     _sitesBloc.nextnav.stream.listen((event) {
       if (event) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const FirstScreen()));
       }
     });
   }

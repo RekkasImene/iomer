@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:drift/drift.dart';
 import 'iomer_database.dart';
 part 'generate/equipement.g.dart';
@@ -24,8 +26,14 @@ class EquipementDao extends DatabaseAccessor<IomerDatabase> with _$EquipementDao
 
   Future insertEquipement(Equipement equipement) => into(equipements).insertOnConflictUpdate(equipement);
   Future<List<Equipement>> getAllEquipements() => select(equipements).get();
-  Future<Equipement> findEquipementBy(String codeEquipement) {
+ 
+  Future <Equipement> findEquipementBy(String codeEquipement) {
+    //getMachinebyCodeMachine
     return (select(equipements)..where((equipement) =>
         equipement.CODEEQUIPEMENT.equals(codeEquipement))).getSingle();
+        
+        
+        
+        
   }
 }

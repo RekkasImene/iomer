@@ -1,6 +1,5 @@
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -46,7 +45,7 @@ class Body extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Info(),
           ),
           Expanded(
@@ -97,6 +96,9 @@ class Body extends StatelessWidget {
               onPressed: () {
                 _reportBloc.add(
                     ValidateReport(listDocuments, textfieldController.text));
+                Navigator.pop(
+                  context,
+                );
               },
               //onPressed:(),
               child: const Text(

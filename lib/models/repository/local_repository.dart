@@ -1,6 +1,6 @@
 //Vue vers bdd et bdd  vers vue, mode hors ligne
 import 'dart:async';
-import 'dart:developer';
+
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
@@ -87,8 +87,11 @@ class LocalRepository {
 
     newIdOT = lastdata.first.IDOT;
     newIdOT++;
+
+    /*
     final DateTime now = DateTime.now();
     String beforeTime = DateFormat.Hm().format(now);
+    */
 
     Ot newOt = Ot(
         IDOT: newIdOT,
@@ -97,7 +100,7 @@ class LocalRepository {
         IDORIGINE: idOrigine,
         IDEQUIPEMENT: idEquipement,
         IDCATEGORIE: idCategorie,
-        DTOPENOT: DateTime.parse(beforeTime));
+        /*DTOPENOT: DateTime.parse(beforeTime)*/);
 
     await database.otDao.insertOt(newOt);
   }
@@ -150,8 +153,8 @@ class LocalRepository {
     database.otDao.modifieOt(ot);
   }
 
-  Future modifyTache(int idOt) async {
-    database.tacheDao.findTachesBy(idOt);
+  Future modifyTache(Tache tache) async {
+    database.tacheDao.modifieTache(tache);
   }
 
   Future modifyCommentOt(int idOt, String comment) async {

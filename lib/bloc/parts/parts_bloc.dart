@@ -9,23 +9,22 @@ import 'package:iomer/models/repository/local_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'parts_event.dart';
+
 part 'parts_state.dart';
 
 @Environment(Env.prod)
 @injectable
 class PartsBloc extends Bloc<PartsEvent, PartsState> {
-
   final LocalRepository _localRepository;
 
-
   PartsBloc(this._localRepository) : super(PartsInitial()) {
-    on<PartsEvent>((event, emit) async{
-
+    on<PartsEvent>((event, emit) async {
       if (event is FetchEventParts) {
         emit(PartsLoading());
-        Ot ot= await _localRepository.getOt();
+        Ot ot = await _localRepository.getOt();
         //print("list reservation: "+ ot.toString());
-        final List<Reservation> reservation = await _localRepository.findReservationBy(ot.IDOT);
+        final List<Reservation> reservation =
+            await _localRepository.findReservationBy(ot.IDOT);
         //print("list reservation: "+ reservation.toString());
         if (reservation.isNotEmpty) {
           emit(PartsLoaded(reservation));
@@ -34,23 +33,14 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
         }
       }
 
-      if (event is UpdateEventParts) {
+      if (event is UpdateEventListParts) {
         emit(PartsLoading());
-        for(int i=0;i<event.listreservation.length;i++) {
+        for (int i = 0; i < event.listreservation.length; i++) {
           _localRepository.modifyReservation(event.listreservation[i]);
         }
         emit(PartsUpdate());
       }
 
-      if(event is AddEventParts) {
-        emit(PartsLoading());
-        Ot ot= await _localRepository.getOt();
-        //Reservation res = Reservation(IDPIECE: null, IDOT: null, CODEARTICLE: null, LIBELLEARTICLE:, QTEARTICLE: null, IDARTICLE: null);
-
-       // _localRepository.insertReservation(article, ot.IDOT, quantity);
-
-
-      }
 
     });
   }

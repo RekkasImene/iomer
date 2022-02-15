@@ -11,5 +11,6 @@ class FetchMatriculeEvenet extends MatriculeEvent {}
 
 class CheckedMatriculeEvenet extends MatriculeEvent {
   final Matricule matricule;
+
   const CheckedMatriculeEvenet(this.matricule);
 }

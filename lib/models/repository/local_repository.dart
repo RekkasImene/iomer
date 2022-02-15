@@ -91,13 +91,13 @@ class LocalRepository {
     String beforeTime = DateFormat.Hm().format(now);*/
 
     Ot newOt = Ot(
-        IDOT: newIdOT,
-        CODEOT: "null",
-        LIBELLEOT: libelleOt,
-        IDORIGINE: idOrigine,
-        IDEQUIPEMENT: idEquipement,
-        IDCATEGORIE: idCategorie,
-        /*DTOPENOT: DateTime.parse(beforeTime)*/);
+      IDOT: newIdOT,
+      CODEOT: "null",
+      LIBELLEOT: libelleOt,
+      IDORIGINE: idOrigine,
+      IDEQUIPEMENT: idEquipement,
+      IDCATEGORIE: idCategorie, /*DTOPENOT: DateTime.parse(beforeTime)*/
+    );
 
     await database.otDao.insertOt(newOt);
   }

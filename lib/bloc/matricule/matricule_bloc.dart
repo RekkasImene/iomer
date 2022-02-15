@@ -10,6 +10,7 @@ import 'package:iomer/models/repository/local_repository.dart';
 import 'package:iomer/models/repository/out_repository.dart';
 
 part 'matricule_event.dart';
+
 part 'matricule_state.dart';
 
 @Environment(Env.prod)

@@ -53,6 +53,7 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
   Future insertOt(Ot otData) => into(ots).insertOnConflictUpdate(otData);
 
   Future<List<Ot>> getAllOts() => select(ots).get();
+
   Stream<List<Ot>> watchAllOts() => select(ots).watch();
 
   Future<List<Ot>> sortTable() async {
@@ -66,21 +67,21 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
   // Updates a Task with a matching primary key
   Future modifieOt(Ot ot) => update(ots).replace(ot);
 
-
   Future<List<Ot>> findOtsBy(int idEquipement) {
-    return (select(ots)..where((ot) => ot.IDEQUIPEMENT.equals(idEquipement))).get();
+    return (select(ots)..where((ot) => ot.IDEQUIPEMENT.equals(idEquipement)))
+        .get();
   }
 
   Future<List<Ot>> findOtBy(int idOt) {
-    return (select(ots)..where((ot) => ot.IDOT.equals(idOt))).get() ;
+    return (select(ots)..where((ot) => ot.IDOT.equals(idOt))).get();
   }
 
   Future updateComment(int idOt, String comment) async {
     var ot;
     findOtBy(idOt).then((value) {
       ot = value.first;
-      var otCopy= ot.copyWith(COMMENTOT: comment);
+      var otCopy = ot.copyWith(COMMENTOT: comment);
       update(ots).replace(otCopy);
-    }) ;
+    });
   }
 }

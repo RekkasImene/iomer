@@ -1,26 +1,31 @@
 import 'package:drift/drift.dart';
 import 'iomer_database.dart';
-part 'generate/categorie.g.dart';
 
+part 'generate/categorie.g.dart';
 
 class Categories extends Table {
   IntColumn get IDCATEGORIE => integer()();
-  IntColumn get IDSITE => integer()
-      .nullable()
-      .customConstraint('NULL REFERENCES Sites(IDSITE)')();
+
+  IntColumn get IDSITE =>
+      integer().nullable().customConstraint('NULL REFERENCES Sites(IDSITE)')();
+
   TextColumn get CODECATEGORIE => text().withLength(min: 1, max: 12)();
+
   TextColumn get LIBELLECATEGORIE => text().withLength(min: 1, max: 48)();
 
   @override
   Set<Column> get primaryKey => {IDCATEGORIE};
 }
-@DriftAccessor(
-    tables:[Categories]
-)
 
-class CategorieDao extends DatabaseAccessor<IomerDatabase> with _$CategorieDaoMixin{
+@DriftAccessor(tables: [Categories])
+class CategorieDao extends DatabaseAccessor<IomerDatabase>
+    with _$CategorieDaoMixin {
   final IomerDatabase db;
-  CategorieDao(this.db):super (db);
-  Future insertCategorie(Categorie categorie) => into(categories).insertOnConflictUpdate(categorie);
+
+  CategorieDao(this.db) : super(db);
+
+  Future insertCategorie(Categorie categorie) =>
+      into(categories).insertOnConflictUpdate(categorie);
+
   Future<List<Categorie>> getAllCategories() => select(categories).get();
 }

@@ -19,6 +19,7 @@ class Reservations extends Table {
   TextColumn get LIBELLEARTICLE => text().withLength(min: 1, max: 48)();
 
   RealColumn get QTEARTICLE => real()();
+
   IntColumn get IDARTICLE => integer()();
 
   @override
@@ -38,17 +39,19 @@ class ReservationDao extends DatabaseAccessor<IomerDatabase>
   Future<List<Reservation>> getAllReservations() => select(reservations).get();
 
   Future<List<Reservation>> findReservationBy(int idOt) {
-    return (select(reservations)..where((reservation) =>
-        reservation.IDOT.equals(idOt))).get();
-  }
-
-  Future modifieReservation(Reservation reservation) => update(reservations).replace(reservation);
-  Future<List<Reservation>> sortTable() {
     return (select(reservations)
-      ..orderBy([
-            (t) => OrderingTerm(expression: t.IDPIECE, mode: OrderingMode.desc)
-      ]))
+          ..where((reservation) => reservation.IDOT.equals(idOt)))
         .get();
   }
 
+  Future modifieReservation(Reservation reservation) =>
+      update(reservations).replace(reservation);
+
+  Future<List<Reservation>> sortTable() {
+    return (select(reservations)
+          ..orderBy([
+            (t) => OrderingTerm(expression: t.IDPIECE, mode: OrderingMode.desc)
+          ]))
+        .get();
+  }
 }

@@ -7,6 +7,7 @@ import 'package:iomer/models/repository/in_repository.dart';
 import 'package:iomer/models/repository/local_repository.dart';
 
 part 'taches_event.dart';
+
 part 'taches_state.dart';
 
 @Environment(Env.prod)
@@ -14,6 +15,7 @@ part 'taches_state.dart';
 class TachesBloc extends Bloc<TachesEvent, TachesState> {
   final LocalRepository _localRepository;
   final InRepository _inRepository;
+
   TachesBloc(this._localRepository, this._inRepository)
       : super(TachesInitial()) {
     on<TachesEvent>((event, emit) async {

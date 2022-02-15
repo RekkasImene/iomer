@@ -12,11 +12,12 @@ class ListParts extends StatefulWidget {
 }
 
 class _ListPartsState extends State<ListParts> {
-  //TODO a remplacer avec données (les memes que pour l'ecran first_screen)
   bool isChecked = false;
   List<TextEditingController> _controller = [];
   late TextEditingController myController;
   late PartsBloc _partsBloc;
+
+
   @override
   void initState() {
     myController=TextEditingController();
@@ -67,7 +68,6 @@ class _ListPartsState extends State<ListParts> {
                                           Icons.remove,
                                         ),
                                       ),
-                                      //TODO adapté taille a contenue
                                       SizedBox(
                                         width: 100,
                                         child: TextField(

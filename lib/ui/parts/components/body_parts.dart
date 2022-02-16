@@ -10,11 +10,7 @@ import '../../../bloc/parts/parts_bloc.dart';
 class Body extends StatelessWidget {
   Body({Key? key}) : super(key: key);
 
-  PartsBloc partsBloc = getIt.get<PartsBloc>();
 
-  void initState() {
-    partsBloc.add(FetchEventParts());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +32,8 @@ class Body extends StatelessWidget {
             child: Info(),
           ),
 
-          Expanded(
-            child: ListParts(partsbloc: partsBloc),
+          const Expanded(
+            child: ListParts(),
           ),
 
 
@@ -69,7 +65,6 @@ class Body extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 [
-
                   Navigator.pop(context),
                 ];
               },

@@ -2,26 +2,33 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/parts/parts_bloc.dart';
+import 'package:iomer/bloc/parts/parts_bloc.dart';
 import 'package:iomer/config/injection.dart';
+
+import '../../../bloc/parts/parts_bloc.dart';
 
 class ListParts extends StatefulWidget {
 
-  PartsBloc partsbloc;
-
-  ListParts({Key? key, required this.partsbloc}) : super(key: key);
+  const ListParts({Key? key}) : super(key: key);
 
   @override
   State<ListParts> createState() => _ListPartsState();
 }
 
 class _ListPartsState extends State<ListParts> {
-  bool isChecked = false;
+
   final List<TextEditingController> _controller = [];
   late TextEditingController myController;
+  late PartsBloc partsBloc;
+
+  bool isChecked = false;
 
   @override
   void initState() {
+    partsBloc = getIt.get<PartsBloc>();
+    partsBloc.add(FetchEventParts());
     myController = TextEditingController();
+    super.initState();
   }
 
   @override
@@ -29,8 +36,8 @@ class _ListPartsState extends State<ListParts> {
     return Container(
       decoration: BoxDecoration(border: Border.all(color: Colors.black)),
       child: BlocProvider<PartsBloc>(
-        create: (context) => widget.partsbloc,
-        child: BlocConsumer<PartsBloc, PartsState>(listener: (context, state) {
+        create: (context) => partsBloc,
+        child: BlocConsumer<PartsBloc, PartsState>( listener: (context, state) {
           if (state is PartsLoaded) {
             for (int i = 0; i < state.reservation.length; i++) {
               _controller.add(TextEditingController());

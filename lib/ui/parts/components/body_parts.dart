@@ -21,7 +21,7 @@ class Body extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Info(),
           ),
           const Expanded(

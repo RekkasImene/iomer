@@ -28,20 +28,18 @@ class InRepository extends InRepositoryAbs {
   InRepository(this.database, this.localRepository, this.services);
 
   late Future<List<Site>> futureSites;
-  late Future<List<Origine>> futureOrigines;
+  late List<Origine> futureOrigines;
   late Future<List<Matricule>> futureMatricules;
-  late Future<List<Ot>> futureOTs;
+  late List<Ot> futureOTs;
   late Future<List<Categorie>> futureCategories;
   late Future<List<Reservation>> futureReservations;
   late Future<List<Article>> futureArticles;
   late Future<List<Equipement>> futureEquipements;
   late Future<List<Tache>> futureTaches;
-  late Future<List<Config>> futureConfigs;
+  late List<Config> futureConfigs;
 
   void updateOrigines(int idSite) {
-    futureOrigines = services.fetchOrigines(idSite);
-
-    futureOrigines.then((value) {
+    services.fetchOrigines(idSite).then((value) {
       value.forEach((e) {
         database.origineDao.insertOrigine(e);
         log("table origine insérée");
@@ -64,8 +62,7 @@ class InRepository extends InRepositoryAbs {
   }
 
   Future<void> updateOTs(int idSite, int idOrigine) {
-    futureOTs = services.fetchOTs(idSite, idOrigine);
-    return futureOTs.then((value) {
+    return services.fetchOTs(idSite, idOrigine).then((value) {
       value.forEach((e) {
         database.otDao.insertOt(e);
         log("table ot insérée");
@@ -147,38 +144,30 @@ class InRepository extends InRepositoryAbs {
   //Filed database
   Future<void> pushDB(int idSite, String codePocket) async {
     //Push matricule & ot
-    futureConfigs = services.fetchConfigs(idSite, codePocket);
-    futureConfigs.then((value) {
-      int idOrigine = value.first.IDORIGINE!;
-      updateMatricules(idOrigine)
-          .then((value) => updateOTs(idSite, idOrigine).then((value) {
-                //push equipement & categories
-                updateCategories(idSite)
-                    .then((value) => updateEquipements(idSite).then((value) {
+    futureConfigs = await services.fetchConfigs(idSite, codePocket);
+
+    int idOrigine = futureConfigs.first.IDORIGINE!;
+
+    await updateMatricules(idOrigine);
+    await updateOTs(idSite, idOrigine);
+
+    await updateCategories(idSite);
+    await updateEquipements(idSite);
+
                           //push tache & OtArticle(Reservation)
-                          flag.add(true);
-                          localRepository.getAllOt().then((value) {
-                            value.forEach((e) {
-                              log("table tache");
-                              updateTaches(e.IDOT).then((value) =>
-                                  updateReservation(e.IDOT).then((value) {
-                                    localRepository
-                                        .getAllReservation()
-                                        .then((value) {
-                                      value.forEach((e) {
-                                        updateArticles(e.CODEARTICLE!);
-                                      });
-                                    }).catchError((error) {
-                                      log(error);
-                                    });
-                                  }));
-                            });
-                          }).catchError((error) {
-                            log(error);
-                          });
-                        }));
-              }));
-    });
+    (await localRepository.getAllOt()).forEach((e) async {
+      log("table tache");
+      await updateTaches(e.IDOT);
+      await updateReservation(e.IDOT);
+
+      (await localRepository.getAllReservation()).forEach((e) async {
+          await updateArticles(e.CODEARTICLE!);
+        });
+      });
+
+
+    flag.add(true);
+
   }
 
   Future<void> deleteAllDatabase() async {

@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/matricule/matricule_bloc.dart';
@@ -14,17 +15,14 @@ class MatriculeWidget extends StatefulWidget {
 }
 
 class _MatriculeState extends State<MatriculeWidget> {
+  bool isChecked = false;
   late MatriculeBloc _matriculeBloc;
   late Matricule selectedMatricule;
-
-  var nbWorkers;
 
   @override
   void initState() {
     _matriculeBloc = getIt.get<MatriculeBloc>();
-
     _matriculeBloc.add(FetchMatriculeEvenet());
-
     super.initState();
   }
 
@@ -50,21 +48,23 @@ class _MatriculeState extends State<MatriculeWidget> {
                           itemBuilder: (context, index) {
                             selectedMatricule = state.matricules[index];
                             log("ischecked = " + selectedMatricule.toString());
-
                             return CheckboxListTile(
                               title: Text(state.matricules[index].NOMMATRICULE),
                               //  value: _isChecked[index],
-                              value: selectedMatricule.CHECKED,
+                              value: selectedMatricule.CHECKED == true
+                                  ? true
+                                  : false,
+
                               onChanged: (bool? newValue) {
                                 setState(
                                   () {
-                                    // ischecked = newValue!;
                                     log("la valeur de ischecked" +
                                         selectedMatricule.CHECKED.toString());
 
                                     _matriculeBloc.add(CheckedMatriculeEvenet(
-                                        state.matricules[index]
-                                            .copyWith(CHECKED: newValue)));
+                                        state.matricules[index].copyWith(
+                                            CHECKED:
+                                                newValue! ? true : false)));
 
                                     log(newValue.toString());
                                   },
@@ -81,16 +81,16 @@ class _MatriculeState extends State<MatriculeWidget> {
 
                             return CheckboxListTile(
                               title: Text(state.matricules[index].NOMMATRICULE),
-                              //  value: _isChecked[index],
-                              value: selectedMatricule.CHECKED,
+                              value: selectedMatricule.CHECKED == true
+                                  ? true
+                                  : false,
                               onChanged: (bool? newValue) {
                                 setState(
                                   () {
-                                    // ischecked = newValue!;
-
                                     _matriculeBloc.add(CheckedMatriculeEvenet(
-                                        state.matricules[index]
-                                            .copyWith(CHECKED: newValue)));
+                                        state.matricules[index].copyWith(
+                                            CHECKED:
+                                                newValue! ? true : false)));
                                   },
                                 );
                               },
@@ -132,13 +132,5 @@ class _MatriculeState extends State<MatriculeWidget> {
         )
       ],
     );
-  }
-
-  calculateIfAvailable() {
-    if (nbWorkers > 0) {
-      return false;
-    } else {
-      return true;
-    }
   }
 }

@@ -9,7 +9,8 @@ class OTPopUpWidget extends StatefulWidget {
   OtBloc otBloc;
   String codeMachine;
 
-  OTPopUpWidget({Key? key, required this.otBloc, required this.codeMachine}) : super(key: key);
+  OTPopUpWidget({Key? key, required this.otBloc, required this.codeMachine})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _OTPopupState();
@@ -18,7 +19,6 @@ class OTPopUpWidget extends StatefulWidget {
 class _OTPopupState extends State<OTPopUpWidget> {
   late Categorie? chooseValueCategorie;
   late CategorieBloc _categorieBloc;
-
 
   @override
   void initState() {
@@ -51,18 +51,25 @@ class _OTPopupState extends State<OTPopUpWidget> {
                         child: DropdownButton(
                           value: chooseValueCategorie,
                           isExpanded: true,
-                          items: state.categorie.map((Categorie valueItem) {
-                                return DropdownMenuItem<Categorie>(
-                                  value: valueItem,
-                                  child: Text(
-                                    valueItem.LIBELLECATEGORIE,
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
-                                );
-                              },
-                          ).toSet().toList(),
+                          items: state.categorie
+                              .map(
+                                (Categorie valueItem) {
+                                  return DropdownMenuItem<Categorie>(
+                                    value: valueItem,
+                                    child: Text(
+                                      valueItem.LIBELLECATEGORIE,
+                                      style: const TextStyle(fontSize: 20),
+                                    ),
+                                  );
+                                },
+                              )
+                              .toSet()
+                              .toList(),
                           onChanged: (Categorie? newvalue) {
-                            setState(() { chooseValueCategorie = newvalue!;},
+                            setState(
+                              () {
+                                chooseValueCategorie = newvalue!;
+                              },
                             );
                           },
                         ),
@@ -85,11 +92,13 @@ class _OTPopupState extends State<OTPopUpWidget> {
                   TextButton(
                       onPressed: () => [
                             Navigator.pop(context, 'Cancel'),
-                            widget.otBloc.add(CodeEventMachine(widget.codeMachine))
+                            widget.otBloc
+                                .add(CodeEventMachine(widget.codeMachine))
                           ],
                       child: const Text('Cancel')),
                   TextButton(
-                    onPressed: () => [ValidationCreateOT(), Navigator.pop(context, 'OK') ],
+                    onPressed: () =>
+                        [ValidationCreateOT(), Navigator.pop(context, 'OK')],
                     child: const Text('OK'),
                   ),
                 ],
@@ -105,7 +114,6 @@ class _OTPopupState extends State<OTPopUpWidget> {
 
   ValidationCreateOT() {
     print("ValidationCreateOT : ");
-    widget.otBloc.add(NewEventOt(chooseValueCategorie!, widget.codeMachine ));
+    widget.otBloc.add(NewEventOt(chooseValueCategorie!, widget.codeMachine));
   }
-
 }

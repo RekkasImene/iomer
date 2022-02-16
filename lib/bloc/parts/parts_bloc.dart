@@ -22,10 +22,7 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
       if (event is FetchEventParts) {
         emit(PartsLoading());
         Ot ot = await _localRepository.getOt();
-        //print("list reservation: "+ ot.toString());
-        final List<Reservation> reservation =
-            await _localRepository.findReservationBy(ot.IDOT);
-        //print("list reservation: "+ reservation.toString());
+        final List<Reservation> reservation = await _localRepository.findReservationBy(ot.IDOT);
         if (reservation.isNotEmpty) {
           emit(PartsLoaded(reservation));
         } else {
@@ -40,8 +37,8 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
         }
         emit(PartsUpdate());
       }
-
-
     });
+
+
   }
 }

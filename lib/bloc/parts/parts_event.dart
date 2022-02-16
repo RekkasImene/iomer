@@ -9,7 +9,6 @@ abstract class PartsEvent extends Equatable {
 }
 
 class FetchEventParts extends PartsEvent {}
-//class ValidateEventParts extends PartsEvent {}
 
 class UpdateEventListParts extends PartsEvent {
   final List<Reservation> listreservation;

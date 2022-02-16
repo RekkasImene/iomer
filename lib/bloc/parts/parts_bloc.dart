@@ -31,6 +31,9 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
       }
 
       if (event is UpdateEventListParts) {
+
+        print("Je suis Update event part ..." + event.listreservation.length.toString());
+
         emit(PartsLoading());
         for (int i = 0; i < event.listreservation.length; i++) {
           _localRepository.modifyReservation(event.listreservation[i]);

@@ -37,42 +37,7 @@ class Body extends StatelessWidget {
           ),
 
 
-          Row(
-            children: [
-              const Expanded(child: SizedBox()),
-              Align(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const NewPartScreen()),
-                    );
-                  },
 
-
-                  child: const Text('Ajout'),
-                  style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10)),
-                ),
-              ),
-            ],
-          ),
-
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                [
-                  Navigator.pop(context),
-                ];
-              },
-              child: const Text('Valider', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
-          )
 
 
         ],

@@ -12,8 +12,9 @@ class FetchEventParts extends PartsEvent {}
 
 class UpdateEventListParts extends PartsEvent {
   final List<Reservation> listreservation;
+  final List<TextEditingController> controller;
 
-  UpdateEventListParts(this.listreservation);
+  UpdateEventListParts(this.listreservation, this.controller);
 }
 
 class AddEventParts extends PartsEvent {

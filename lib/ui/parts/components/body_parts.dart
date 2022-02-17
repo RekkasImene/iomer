@@ -35,11 +35,6 @@ class Body extends StatelessWidget {
           const Expanded(
             child: ListParts(),
           ),
-
-
-
-
-
         ],
       ),
     );

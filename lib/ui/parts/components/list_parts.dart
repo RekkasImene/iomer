@@ -14,11 +14,12 @@ class ListParts extends StatefulWidget {
 }
 
 class _ListPartsState extends State<ListParts> {
-  //TODO a remplacer avec données (les memes que pour l'ecran first_screen)
+
   bool isChecked = false;
   List<TextEditingController> _controller = [];
   late TextEditingController myController;
   late PartsBloc _partsBloc;
+
   @override
   void initState() {
     myController=TextEditingController();
@@ -74,7 +75,6 @@ class _ListPartsState extends State<ListParts> {
                                         width: 100,
                                         child: TextField(
                                           controller: _controller[index],
-
                                           keyboardType: TextInputType.number,
                                           decoration: const InputDecoration(
                                               border: OutlineInputBorder()),
@@ -96,12 +96,8 @@ class _ListPartsState extends State<ListParts> {
                       ),
                     ),
 
-
-
-
                     Row(
                       children: [
-                        const Expanded(child: SizedBox()),
                         Align(
                           child: ElevatedButton(
                             onPressed: () {
@@ -127,7 +123,7 @@ class _ListPartsState extends State<ListParts> {
                       child: ElevatedButton(
                         onPressed: () {
                           [
-                            _partsBloc.add(UpdateEventListParts(state.reservation)),
+                            _partsBloc.add(UpdateEventListParts(state.reservation, _controller)),
                             Navigator.pop(context),
                           ];
                         },
@@ -136,9 +132,6 @@ class _ListPartsState extends State<ListParts> {
                             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
                       ),
                     )
-
-
-
 
                   ],
                 );

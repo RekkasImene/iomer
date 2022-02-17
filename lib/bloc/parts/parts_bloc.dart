@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
@@ -26,17 +27,29 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
         if (reservation.isNotEmpty) {
           emit(PartsLoaded(reservation));
         } else {
-          emit(const PartsError('Error'));
+          emit(const PartsError("Pas de données dans la base."));
         }
       }
 
       if (event is UpdateEventListParts) {
+        for(int i=0;i<event.listreservation.length;i++) {
 
-        print("Je suis Update event part ..." + event.listreservation.length.toString());
-
-        emit(PartsLoading());
-        for (int i = 0; i < event.listreservation.length; i++) {
-          _localRepository.modifyReservation(event.listreservation[i]);
+          try {
+            if(event.controller[i].text.isNotEmpty) {
+              _localRepository.modifyReservation(
+                  Reservation(
+                      IDPIECE: event.listreservation[i].IDPIECE,
+                      LIBELLEARTICLE: event.listreservation[i].LIBELLEARTICLE,
+                      IDOT: event.listreservation[i].IDOT,
+                      CODEARTICLE: event.listreservation[i].CODEARTICLE,
+                      QTEARTICLE: double.parse(event.controller[i].text),
+                      IDARTICLE: event.listreservation[i].IDARTICLE
+                  )
+              );
+            }
+          } catch (e) {
+            print("Ce nest pas un nombre..");
+          }
         }
         emit(PartsUpdate());
       }

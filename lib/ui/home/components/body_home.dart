@@ -16,6 +16,7 @@ class Body extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Text("Selectionner le site :", style: TextStyle(fontSize: 20))
           ),
+          /// dans cette vue on implemente le widget SiteWidget
           Expanded(child: SiteWidget()),
         ],
       ),

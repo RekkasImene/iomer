@@ -42,110 +42,128 @@ class _BodyState extends State<Body> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
+
+                /// affiche un bandeau d'information sur l'ot en cours
                 child: Info(),
               ),
               Expanded(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const PartsScreen()),
-                            );
-                          },
-                          child: const Text(
-                            'Pièces à changer',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.all(20.0),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const ReportScreen()),
-                            );
-                          },
-                          child: const Text(
-                            'Saisir un compte rendu',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.all(20.0),
-                          ),
-                        ),
-                      ),
-                      BlocProvider<OtBloc>(
-                        create: (context) => _otBloc,
-                        child: BlocBuilder<OtBloc, OtState>(
-                          builder: (context, state) {
-                            if (state is OtSelected) {
-                              if (state.ot.CODEOT != "null") {
-                                return SizedBox(
-                                  width: double.infinity,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const TasksScreen()),
-                                      );
-                                    },
-                                    //onPressed:(),
-                                    child: const Text(
-                                      'Taches à réaliser',
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.all(20.0),
-                                    ),
-                                  ),
-                                );
-                              }
-                            }
-                            return const Center(
-                              child: SizedBox()
-                            );
-                          },
-                        ),
-                      ),
+                      /// boutton pour acceder au pieces
+                      btnPart(),
+
+                      /// boutton pour editer un cpt rendu
+                      btnReport(),
+
+                      /// boutton pour acceder au taches
+                      btnTask(),
                     ]),
               ),
-              SizedBox(
+              /// boutton pour cloturer l'Ot actif
+              btnCloture(),
+            ],
+          ),
+        ),
+      ]),
+    );
+  }
+
+  Widget btnPart() {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const PartsScreen()),
+          );
+        },
+        child: const Text(
+          'Pièces à changer',
+          style: TextStyle(fontSize: 20),
+        ),
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.all(20.0),
+        ),
+      ),
+    );
+  }
+
+  Widget btnReport() {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ReportScreen()),
+          );
+        },
+        child: const Text(
+          'Saisir un compte rendu',
+          style: TextStyle(fontSize: 20),
+        ),
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.all(20.0),
+        ),
+      ),
+    );
+  }
+
+  Widget btnTask() {
+    return BlocProvider<OtBloc>(
+      create: (context) => _otBloc,
+      child: BlocBuilder<OtBloc, OtState>(
+        builder: (context, state) {
+          if (state is OtSelected) {
+            if (state.ot.CODEOT != "null") {
+              return SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ClotureOtScreen()),
+                          builder: (context) => const TasksScreen()),
                     );
                   },
+                  //onPressed:(),
                   child: const Text(
-                    'Clôturer OT',
+                    'Taches à réaliser',
                     style: TextStyle(fontSize: 20),
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(20.0),
                   ),
                 ),
-              ),
-            ],
-          ),
+              );
+            }
+          }
+          return const Center(child: SizedBox());
+        },
+      ),
+    );
+  }
+
+  Widget btnCloture() {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ClotureOtScreen()),
+          );
+        },
+        child: const Text(
+          'Clôturer OT',
+          style: TextStyle(fontSize: 20),
         ),
-      ]),
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.all(20.0),
+        ),
+      ),
     );
   }
 }

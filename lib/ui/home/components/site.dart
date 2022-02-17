@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/site/sites_bloc.dart';
@@ -30,13 +28,6 @@ class _SiteState extends State<SiteWidget> {
   }
 
   @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -45,61 +36,33 @@ class _SiteState extends State<SiteWidget> {
           child: BlocBuilder<SitesBloc, SitesState>(
             builder: (context, state) {
               if (state is SitesLoaded) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 6),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.grey, width: 1),
-                  ),
-                  child: DropdownButton(
-                    value: chooseValue,
-                    isExpanded: true,
-                    items: state.sites
-                        .map((Site valueItem) {
-                          return DropdownMenuItem<Site>(
-                            value: valueItem,
-                            child: Text(
-                              valueItem.NOMSITE,
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                          );
-                        })
-                        .toSet()
-                        .toList(),
-                    onChanged: (Site? newvalue) {
-                      setState(() {
-                        chooseValue = newvalue!;
-                      });
-                    },
-                  ),
-                );
+                /// affiche un dropdown button avec la liste des sites
+                return listSite(state);
               } else if (state is SitesError) {
+                /// affiche un message d'erreur
                 return Text(state.message);
               }
               return const Center(
+                /// affiche un loading
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: SizedBox(
-                      child: CircularProgressIndicator()),
+                  child: SizedBox(child: CircularProgressIndicator()),
                 ),
               );
             },
           ),
         ),
-        TextField(
-          controller: myController,
-          decoration: const InputDecoration(
-              border: OutlineInputBorder(), labelText: 'Service :'),
-        ),
+        /// affiche un textfield pour rentrer le nom du service rechercher
+        inputService(),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SizedBox(
                 width: double.infinity,
-                child: _buildButton(),
+                /// bouton pour valider le site et le service
+                /// navigue a la prochaine étape
+                child: buildButton(),
               ),
             ],
           ),
@@ -108,36 +71,78 @@ class _SiteState extends State<SiteWidget> {
     );
   }
 
-  Widget _buildButton() {
+  Widget listSite(state) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey, width: 1),
+      ),
+      child: DropdownButton(
+        value: chooseValue,
+        isExpanded: true,
+        items: state.sites
+            .map((Site valueItem) {
+              return DropdownMenuItem<Site>(
+                value: valueItem,
+                child: Text(
+                  valueItem.NOMSITE,
+                  style: const TextStyle(fontSize: 20),
+                ),
+              );
+            })
+            .toSet()
+            .toList(),
+        onChanged: (Site? newvalue) {
+          setState(() {
+            chooseValue = newvalue!;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget inputService() {
+    return TextField(
+      controller: myController,
+      decoration: const InputDecoration(
+          border: OutlineInputBorder(), labelText: 'Service :'),
+    );
+  }
+
+  Widget buildButton() {
     return ElevatedButton.icon(
-      icon: _isLoading ? const SizedBox(height:20,width: 20,child: CircularProgressIndicator()) : const Icon(null),
+      icon: _isLoading
+          ? const SizedBox(
+              height: 20, width: 20, child: CircularProgressIndicator())
+          : const Icon(null),
       label: Text(
         _isLoading ? 'Loading...' : 'Valider',
         style: const TextStyle(fontSize: 20),
       ),
       style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)
-      ),
-      onPressed: calculateWhetherDisabledReturnsBool() ? null
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+      onPressed: calculateWhetherDisabledReturnsBool()
+          ? null
           : () => [choosedConfig = myController.text, navigation()],
     );
   }
 
   calculateWhetherDisabledReturnsBool() {
-    if  (_isLoading==true) {
+    if (_isLoading == true) {
       return true;
     }
     if (chooseValue != null) {
-      return false;//btn activé
+      return false; //btn activé
+    } else {
+      return true;
     }
-      else{
-        return true;
-      }
-    }
+  }
 
   navigation() {
     setState(() {
-      _isLoading=true;
+      _isLoading = true;
     });
     _sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig));
     _sitesBloc.nextnav.stream.listen((event) {

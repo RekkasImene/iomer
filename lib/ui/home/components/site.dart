@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/site/sites_bloc.dart';
@@ -25,6 +27,7 @@ class _SiteState extends State<SiteWidget> {
     choosedConfig = "";
     _sitesBloc = getIt.get<SitesBloc>();
     _sitesBloc.add(FetchEventSites());
+    super.initState();
   }
 
   @override
@@ -37,7 +40,36 @@ class _SiteState extends State<SiteWidget> {
             builder: (context, state) {
               if (state is SitesLoaded) {
                 /// affiche un dropdown button avec la liste des sites
-                return listSite(state);
+                return Container(
+                  margin: const EdgeInsets.symmetric(vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.grey, width: 1),
+                  ),
+                  child: DropdownButton(
+                    value: chooseValue,
+                    isExpanded: true,
+                    items: state.sites
+                        .map((Site valueItem) {
+                          return DropdownMenuItem<Site>(
+                            value: valueItem,
+                            child: Text(
+                              valueItem.NOMSITE,
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                          );
+                        })
+                        .toSet()
+                        .toList(),
+                    onChanged: (Site? newvalue) {
+                      setState(() {
+                        chooseValue = newvalue!;
+                      });
+                    },
+                  ),
+                );
               } else if (state is SitesError) {
                 /// affiche un message d'erreur
                 return Text(state.message);
@@ -52,6 +84,7 @@ class _SiteState extends State<SiteWidget> {
             },
           ),
         ),
+
         /// affiche un textfield pour rentrer le nom du service rechercher
         inputService(),
         Expanded(
@@ -60,6 +93,7 @@ class _SiteState extends State<SiteWidget> {
             children: [
               SizedBox(
                 width: double.infinity,
+
                 /// bouton pour valider le site et le service
                 /// navigue a la prochaine étape
                 child: buildButton(),
@@ -71,37 +105,6 @@ class _SiteState extends State<SiteWidget> {
     );
   }
 
-  Widget listSite(state) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey, width: 1),
-      ),
-      child: DropdownButton(
-        value: chooseValue,
-        isExpanded: true,
-        items: state.sites
-            .map((Site valueItem) {
-              return DropdownMenuItem<Site>(
-                value: valueItem,
-                child: Text(
-                  valueItem.NOMSITE,
-                  style: const TextStyle(fontSize: 20),
-                ),
-              );
-            })
-            .toSet()
-            .toList(),
-        onChanged: (Site? newvalue) {
-          setState(() {
-            chooseValue = newvalue!;
-          });
-        },
-      ),
-    );
-  }
 
   Widget inputService() {
     return TextField(
@@ -140,6 +143,14 @@ class _SiteState extends State<SiteWidget> {
     }
   }
 
+  FutureOr onGoBack(dynamic value) {
+    /// est utilisé pour reinitilaser les parametres après un retour arriere
+    setState(() {
+      _isLoading = false;
+      chooseValue=null;
+    });
+  }
+
   navigation() {
     setState(() {
       _isLoading = true;
@@ -148,7 +159,7 @@ class _SiteState extends State<SiteWidget> {
     _sitesBloc.nextnav.stream.listen((event) {
       if (event) {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const FirstScreen()));
+            MaterialPageRoute(builder: (context) => const FirstScreen())).then(onGoBack);
       }
     });
   }

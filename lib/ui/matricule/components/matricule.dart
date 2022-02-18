@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -111,10 +112,19 @@ class _MatriculeState extends State<MatriculeWidget> {
                 )),
           ),
         ),
-        SizedBox(
-          width: double.infinity,
-          child: _buildButton(),
-        ),
+        BlocProvider(
+            create: (context) => _matriculeBloc,
+            child: BlocBuilder<MatriculeBloc, MatriculeState>(
+                builder: (context, state) {
+              if (state is MatriculeLoaded || state is CheckMatriculeUpdated) {
+                return SizedBox();
+              } else {
+                return SizedBox(
+                  width: double.infinity,
+                  child: _buildButton(),
+                );
+              }
+            })),
       ],
     );
   }

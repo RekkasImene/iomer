@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:iomer/bloc/matricule/matricule_bloc.dart';
+import 'package:iomer/bloc/taches/taches_bloc.dart';
+import 'package:iomer/config/injection.dart';
+import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/ui/cloture/components/cloture_matricule.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 import 'package:iomer/ui/matricule/components/matricule.dart';
 
-class Body extends StatelessWidget {
-
+class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
+  @override
+  State<Body> createState() => _BodyState();
+}
 
+class _BodyState extends State<Body> {
+  late MatriculeBloc _matriculeBloc;
+
+  late Matricule selectedMatricule;
+
+  @override
+  void initState() {
+    _matriculeBloc = getIt.get<MatriculeBloc>();
+    _matriculeBloc.add(TestEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +45,7 @@ class Body extends StatelessWidget {
             child: Info(),
           ),
           const Expanded(
-            child: ClotureMatriculeWidget(),
+            child: MatriculeWidget(),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 8),
@@ -44,7 +61,6 @@ class Body extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                  
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -55,7 +71,6 @@ class Body extends StatelessWidget {
               },
               child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),

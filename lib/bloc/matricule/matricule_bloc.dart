@@ -35,6 +35,7 @@ class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
           await _localRepository.modifyMatricule(event.matricule);
           final matricule2 = await _localRepository.getAllMatricule();
           if (matricule2 != null) {
+            // emit(CheckMatriculeUpdated(matricule2));
             emit(CheckMatriculeUpdated(matricule2));
           }
         }

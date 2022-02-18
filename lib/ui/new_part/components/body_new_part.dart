@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:iomer/bloc/parts/parts_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/ui/new_part/components/part_editor.dart';
-import 'package:iomer/ui/parts/parts_screen.dart';
 import 'package:iomer/ui/scan/scan_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 

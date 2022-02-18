@@ -47,7 +47,7 @@ class _MatriculeState extends State<MatriculeWidget> {
                           itemCount: state.matricules.length,
                           itemBuilder: (context, index) {
                             selectedMatricule = state.matricules[index];
-                            log("ischecked = " + selectedMatricule.toString());
+                            //log("ischecked = " + selectedMatricule.toString());
                             return CheckboxListTile(
                               title: Text(state.matricules[index].NOMMATRICULE),
                               //  value: _isChecked[index],
@@ -58,8 +58,8 @@ class _MatriculeState extends State<MatriculeWidget> {
                               onChanged: (bool? newValue) {
                                 setState(
                                   () {
-                                    log("la valeur de ischecked" +
-                                        selectedMatricule.CHECKED.toString());
+                                    //log("la valeur de ischecked" +
+                                        //selectedMatricule.CHECKED.toString());
 
                                     _matriculeBloc.add(CheckedMatriculeEvenet(
                                         state.matricules[index].copyWith(

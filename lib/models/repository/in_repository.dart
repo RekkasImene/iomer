@@ -38,97 +38,100 @@ class InRepository extends InRepositoryAbs {
   late Future<List<Tache>> futureTaches;
   late List<Config> futureConfigs;
 
-  void updateOrigines(int idSite) {
-    services.fetchOrigines(idSite).then((value) {
-      value.forEach((e) {
-        database.origineDao.insertOrigine(e);
+  void updateOrigines(int idSite) async {
+    try {
+      var origines = await services.fetchOrigines(idSite);
+      origines.forEach((e) async {
+        await database.origineDao.insertOrigine(e);
         log("table origine insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateMatricules(int idOrigine) {
-    futureMatricules = services.fetchMatricules(idOrigine);
-    return futureMatricules.then((value) {
-      value.forEach((e) {
-        database.matriculeDao.insertMatricule(e);
+  Future<void> updateMatricules(int idOrigine) async {
+    try {
+      var martricules = await services.fetchMatricules(idOrigine);
+      martricules.forEach((e) async {
+        await database.matriculeDao.insertMatricule(e);
         log("table matricule insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateOTs(int idSite, int idOrigine) {
-    return services.fetchOTs(idSite, idOrigine).then((value) {
-      value.forEach((e) {
-        database.otDao.insertOt(e);
+  Future<void> updateOTs(int idSite, int idOrigine) async {
+    try {
+      var ots = await services.fetchOTs(idSite, idOrigine);
+      ots.forEach((e) async {
+        await database.otDao.insertOt(e);
         log("table ot insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateCategories(int idSite) {
-    futureCategories = services.fetchCategories(idSite);
-    return futureCategories.then((value) {
-      value.forEach((e) {
-        database.categorieDao.insertCategorie(e);
+  Future<void> updateCategories(int idSite) async {
+    try {
+      var categories = await services.fetchCategories(idSite);
+      categories.forEach((e) async {
+        await database.categorieDao.insertCategorie(e);
+        log("table categories insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateReservation(int idOt) {
-    futureReservations = services.fetchReservations(idOt);
-    return futureReservations.then((value) {
-      value.forEach((e) {
-        database.reservationDao.insertReservation(e);
+  Future<void> updateReservation(int idOt) async {
+    try {
+      var reservations = await services.fetchReservations(idOt);
+      reservations.forEach((e) async{
+        await database.reservationDao.insertReservation(e);
         log("table reservation insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateArticles(String codeArticle) {
-    futureArticles = services.fetchArticles(codeArticle);
-    return futureArticles.then((value) {
-      value.forEach((e) {
-        database.articleDao.insertArticle(e);
+  Future<void> updateArticles(String codeArticle) async{
+    try {
+      var articles = await services.fetchArticles(codeArticle);
+      articles.forEach((e) async {
+        await database.articleDao.insertArticle(e);
         log("table articles insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateEquipements(int idSite) {
-    futureEquipements = services.fetchEquipements(idSite);
-    return futureEquipements.then((value) {
-      value.forEach((e) {
-        database.equipementDao.insertEquipement(e);
+  Future<void> updateEquipements(int idSite) async {
+    try {
+      var equipements = await services.fetchEquipements(idSite);
+      equipements.forEach((e) async {
+        await database.equipementDao.insertEquipement(e);
         log("table équipement insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateTaches(int idOT) {
-    futureTaches = services.fetchOTTaches(idOT);
-    return futureTaches.then((value) {
-      value.forEach((e) {
-        database.tacheDao.insertTache(e);
+  Future<void> updateTaches(int idOT) async {
+    try {
+      var taches = await services.fetchOTTaches(idOT);
+      taches.forEach((e) async {
+        await database.tacheDao.insertTache(e);
         log("table tache insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
   @override
@@ -150,24 +153,25 @@ class InRepository extends InRepositoryAbs {
 
     await updateMatricules(idOrigine);
     await updateOTs(idSite, idOrigine);
-
     await updateCategories(idSite);
     await updateEquipements(idSite);
 
-                          //push tache & OtArticle(Reservation)
-    (await localRepository.getAllOt()).forEach((e) async {
-      log("table tache");
-      await updateTaches(e.IDOT);
-      await updateReservation(e.IDOT);
+    //push tache & OtArticle(Reservation)
 
-      (await localRepository.getAllReservation()).forEach((e) async {
-          await updateArticles(e.CODEARTICLE!);
-        });
-      });
+    var ots = await localRepository.getAllOt();
 
+    ots.forEach((e) {
+      updateTaches(e.IDOT);
+      updateReservation(e.IDOT);
+    });
 
+    var reservations = await localRepository.getAllReservation();
+    reservations.forEach((element) {
+      updateArticles(element.CODEARTICLE!);
+    });
+
+    log("Flag OK");
     flag.add(true);
-
   }
 
   Future<void> deleteAllDatabase() async {

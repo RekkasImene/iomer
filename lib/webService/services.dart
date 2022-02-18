@@ -95,9 +95,8 @@ class Services {
 
   /* Get OTs */
   Future<List<Ot>> fetchOTs(int idSite, int idOrigine) async {
-    final response =
-        await client.get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
-    // log(response.body.toString());
+    final response = await client.get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
+     log(response.body.toString());
     if (response.statusCode == 200) {
       List<Ot> ots;
       ots = (json.decode(response.body) as List)
@@ -112,7 +111,7 @@ class Services {
   /* Get OT Taches */
   Future<List<Tache>> fetchOTTaches(int idOT) async {
     final response = await client.get(Uri.parse('$url/GETOT_TACHES/$idOT'));
-    // log(response.body.toString());
+    log(response.body.toString());
     if (response.statusCode == 200) {
       List<Tache> taches;
       taches = (json.decode(response.body) as List)
@@ -129,7 +128,7 @@ class Services {
     final response =
         await client.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
     if (response.statusCode == 200) {
-      //log(response.body.toString());
+      log(response.body.toString());
       List<Config> configs;
       configs = (json.decode(response.body) as List)
           .map((configJson) => Config.fromJson(configJson))
@@ -141,8 +140,7 @@ class Services {
   }
 
   Future<List<Article>> fetchArticles(String codeArticle) async {
-    final response =
-        await client.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
+    final response = await client.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
     if (response.statusCode == 200) {
       List<Article> articles;
       articles = (json.decode(response.body) as List)
@@ -173,8 +171,7 @@ class Services {
     String newTempsOt = tempsOt.toString();
     newTempsOt = newTempsOt.replaceAll('.', ',');
 
-    final response = await client
-        .get(Uri.parse('$url/SetOt/$idOt/$commentOt/$newTempsOt/$statutOt'));
+    final response = await client.get(Uri.parse('$url/SetOt/$idOt/$commentOt/$newTempsOt/$statutOt'));
   }
 
   Future<void> postOtTache(

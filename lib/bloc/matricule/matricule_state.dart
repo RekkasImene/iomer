@@ -25,3 +25,5 @@ class CheckMatriculeUpdated extends MatriculeState {
   final List<Matricule> matricules;
   const CheckMatriculeUpdated(this.matricules);
 }
+
+class TestState extends MatriculeState {}

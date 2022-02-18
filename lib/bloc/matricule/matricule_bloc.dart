@@ -16,10 +16,11 @@ part 'matricule_state.dart';
 @injectable
 class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
   final LocalRepository _localRepository;
-  MatriculeBloc(this._localRepository)
-      : super(MatriculeInitial()) {
+  MatriculeBloc(this._localRepository) : super(MatriculeInitial()) {
     on<MatriculeEvent>((event, emit) async {
-      if (event is MatriculeEvent) {
+      if (event is TestEvent) {
+        emit(TestState());
+      } else if (event is MatriculeEvent) {
         emit(MatriculeLoading());
         final matricule = await _localRepository.getAllMatricule();
         if (matricule.isNotEmpty) {

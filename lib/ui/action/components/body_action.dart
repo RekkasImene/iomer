@@ -50,27 +50,28 @@ class _BodyState extends State<Body> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    /// boutton pour acceder au pieces
-                    NavButton(
-                      navDestination: const PartsScreen(),
+                    /// bouton pour acceder au pieces
+                    const NavButton(
+                      navDestination: PartsScreen(),
                       navName: "Pièces à changer",
                     ),
 
-                    /// boutton pour editer un cpt rendu
-                    NavButton(
-                      navDestination: const ReportScreen(),
+                    /// bouton pour editer un cpt rendu
+                    const NavButton(
+                      navDestination: ReportScreen(),
                       navName: "Saisir un compte rendu",
                     ),
 
-                    /// boutton pour acceder au taches
+                    /// bouton pour acceder au taches si l'ot est prèvue
+                    /// sinon rien ne s'affiche
                     BlocProvider<OtBloc>(
                       create: (context) => _otBloc,
                       child: BlocBuilder<OtBloc, OtState>(
                         builder: (context, state) {
                           if (state is OtSelected) {
                             if (state.ot.CODEOT != "null") {
-                              return NavButton(
-                                navDestination: const TasksScreen(),
+                              return const NavButton(
+                                navDestination: TasksScreen(),
                                 navName: "Taches à réaliser",
                               );
                             }
@@ -83,9 +84,9 @@ class _BodyState extends State<Body> {
                 ),
               ),
 
-              /// boutton pour cloturer l'Ot actif
-              NavButton(
-                navDestination: const ClotureOtScreen(),
+              /// bouton pour cloturer l'Ot actif
+              const NavButton(
+                navDestination: ClotureOtScreen(),
                 navName: "Clôturer OT",
               ),
             ],

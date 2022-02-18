@@ -83,17 +83,6 @@ class _OTListState extends State<OTListWidget> {
     );
   }
 
-  Widget buildList(List<Ot> ots) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: ots.length,
-      itemBuilder: (context, index) {
-        return ListTile(title: Text(ots[index].LIBELLEOT));
-      },
-    );
-  }
-
   Widget listOt(AsyncSnapshot snapshot) {
     return Column(
       children: [

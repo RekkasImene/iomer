@@ -13,22 +13,22 @@ class Body extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
-        children: [
-          const Align(
+        children: const [
+          Align(
             alignment: Alignment.topLeft,
             child: Text(
               "Clôture de l'OT :",
               style: TextStyle(fontSize: 20),
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: Info(),
           ),
-          const Expanded(
+          Expanded(
             child: ClotureMatriculeWidget(),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 8),
             child: Align(
               alignment: Alignment.topLeft,
@@ -39,7 +39,7 @@ class Body extends StatelessWidget {
             ),
           ),
           NavButton(
-            navDestination: const MachineScreen(),
+            navDestination: MachineScreen(),
             navName: "Clôturer OT",
           ),
         ],

@@ -34,6 +34,7 @@ class _OTPopupState extends State<OTPopUpWidget> {
       content: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               BlocProvider(
                 create: (context) => _categorieBloc,

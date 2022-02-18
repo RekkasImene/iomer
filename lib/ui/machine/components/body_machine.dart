@@ -47,7 +47,7 @@ class _BodyState extends State<Body> {
           },
           builder: (context, state) {
             if (state is CodeMachineLoaded || state is OtLoaded) {
-              ///
+              /// affiche la page entiere si l'ot est chargé
               return Column(
                 children: [
                   const Padding(
@@ -57,16 +57,21 @@ class _BodyState extends State<Body> {
                       style: TextStyle(fontSize: 24),
                     ),
                   ),
-                  ///
+                  /// input du code machine
+                  /// avec un bouton QR code (fonctionne aussi avec barcode)
                   inputCodeMachine(),
-                  ///
+
+                  /// input du nom de la machine
                   inputNameMachine(),
+
                   Expanded(
                     child:
+                    /// affiche la liste des Ot en fonction de la machine
                     OTListWidget(codeMachine: _controllerCode.text, otblc: _otBloc),
                   ),
                   SizedBox(
                     width: double.infinity,
+                    /// bouton pour actualiser la page et préremplir les champs
                     child: ElevatedButton(
                       onPressed: isButtonActive
                           ? () {
@@ -85,10 +90,12 @@ class _BodyState extends State<Body> {
                 ],
               );
             } else if (state is OtError) {
+              /// affiche message d'erreur
               return Text(state.message);
             }
             return const Center(
               child: SizedBox(
+                /// affiche loading
                   width: 32, height: 32, child: CircularProgressIndicator()),
             );
           },

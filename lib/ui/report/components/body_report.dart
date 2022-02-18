@@ -91,7 +91,6 @@ class Body extends StatelessWidget {
           SizedBox(
             width: double.maxFinite,
             child: ElevatedButton(
-              //pour griser
               onPressed: () {
                 _reportBloc.add(
                     ValidateReport(listDocuments, textfieldController.text));
@@ -99,7 +98,6 @@ class Body extends StatelessWidget {
                   context,
                 );
               },
-              //onPressed:(),
               child: const Text(
                 'valider',
                 style: TextStyle(fontSize: 20),

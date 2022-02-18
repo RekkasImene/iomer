@@ -4,7 +4,7 @@ import 'package:iomer/bloc/ot/ot_bloc.dart';
 import 'package:iomer/config/injection.dart';
 
 class Info extends StatefulWidget {
-  Info({Key? key}) : super(key: key);
+  const Info({Key? key}) : super(key: key);
 
   @override
   State<Info> createState() => _InfoState();
@@ -26,7 +26,7 @@ class _InfoState extends State<Info> {
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.all(Radius.circular(40.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(40.0)),
       ),
       child: BlocProvider<OtBloc>(
         create: (context) => _otBloc,
@@ -41,12 +41,12 @@ class _InfoState extends State<Info> {
                     Align(
                         child: Text(
                       state.ot.LIBELLEOT,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: const TextStyle(fontSize: 20, color: Colors.white),
                     )),
                     Align(
                         child: Text(
                       state.ot.CODEOT,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: const TextStyle(fontSize: 20, color: Colors.white),
                     ))
                   ],
                 ),

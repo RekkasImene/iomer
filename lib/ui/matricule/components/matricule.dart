@@ -6,6 +6,7 @@ import 'package:iomer/bloc/matricule/matricule_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
+import 'package:iomer/ui/utils/nav_button.dart';
 
 class MatriculeWidget extends StatefulWidget {
   const MatriculeWidget({Key? key}) : super(key: key);
@@ -111,25 +112,7 @@ class _MatriculeState extends State<MatriculeWidget> {
                 )),
           ),
         ),
-        SizedBox(
-          width: double.infinity,
-          child: _buildButton(),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildButton() {
-    return ElevatedButton(
-      child: const Text('Valider', style: TextStyle(fontSize: 20)),
-      style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed: () => [
-        //choosedConfig = myController.text,
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MachineScreen(text: "")),
-        )
+        NavButton(navDestination: const MachineScreen(), navName: 'Valider')
       ],
     );
   }

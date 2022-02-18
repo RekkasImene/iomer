@@ -15,9 +15,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   late TextEditingController _controllerCode;
-
   late TextEditingController _controllerNom;
-
   late OtBloc _otBloc;
   bool isButtonActive = false;
 
@@ -31,15 +29,7 @@ class _BodyState extends State<Body> {
       final isButtonActive = _controllerCode.text.isNotEmpty;
       setState(() => this.isButtonActive = isButtonActive);
     });
-
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _controllerCode.dispose();
-    _controllerNom.dispose();
-    super.dispose();
   }
 
   @override
@@ -51,12 +41,49 @@ class _BodyState extends State<Body> {
         child: BlocConsumer<OtBloc, OtState>(
           listener: (context, state) {
             if (state is CodeMachineLoaded) {
+              /// recupère le code machine après scan
               _controllerNom.text = state.nomMachine;
             }
           },
           builder: (context, state) {
             if (state is CodeMachineLoaded || state is OtLoaded) {
-              return machineForm();
+              ///
+              return Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      'Selection de la machine',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                  ///
+                  inputCodeMachine(),
+                  ///
+                  inputNameMachine(),
+                  Expanded(
+                    child:
+                    OTListWidget(codeMachine: _controllerCode.text, otblc: _otBloc),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: isButtonActive
+                          ? () {
+                        _otBloc.add(CodeEventMachine(_controllerCode.text));
+                        setState(() => [
+                          isButtonActive = true,
+                        ]);
+                      }
+                          : null,
+                      child: const Text('Actualiser'),
+                      style: ElevatedButton.styleFrom(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+                    ),
+                  )
+                ],
+              );
             } else if (state is OtError) {
               return Text(state.message);
             }
@@ -70,6 +97,44 @@ class _BodyState extends State<Body> {
     );
   }
 
+
+  Widget inputCodeMachine() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+      child: TextFormField(
+        controller: _controllerCode,
+        decoration: InputDecoration(
+          border: const UnderlineInputBorder(),
+          labelText: 'Code machine',
+          suffixIcon: Align(
+            widthFactor: 1.0,
+            heightFactor: 1.0,
+            child: IconButton(
+                icon: const Icon(Icons.qr_code_scanner_outlined),
+                onPressed: () {
+                  /// lance le scan pour récuperer un code machine
+                  _navigateAndRetrieveCode(context);
+                }),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget inputNameMachine() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+      child: TextField(
+        controller: _controllerNom,
+        decoration: const InputDecoration(
+          border: UnderlineInputBorder(),
+          labelText: 'Nom machine',
+        ),
+      ),
+    );
+  }
+
+
   _navigateAndRetrieveCode(BuildContext context) async {
     final String nextPageValues = await Navigator.push(
       context,
@@ -79,69 +144,5 @@ class _BodyState extends State<Body> {
       _controllerCode.text =
           nextPageValues; //first element is stored at the 0th index for a list
     });
-  }
-
-  Widget machineForm() {
-    return Column(
-      children: [
-        const Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text(
-            'Selection de la machine',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextFormField(
-            controller: _controllerCode,
-            decoration: InputDecoration(
-              border: const UnderlineInputBorder(),
-              labelText: 'Code machine',
-              suffixIcon: Align(
-                widthFactor: 1.0,
-                heightFactor: 1.0,
-                child: IconButton(
-                    icon: const Icon(Icons.qr_code_scanner_outlined),
-                    onPressed: () {
-                      _navigateAndRetrieveCode(context);
-                    }),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextField(
-            controller: _controllerNom,
-            decoration: const InputDecoration(
-              border: UnderlineInputBorder(),
-              labelText: 'Nom machine',
-            ),
-          ),
-        ),
-        Expanded(
-          child:
-              OTListWidget(codeMachine: _controllerCode.text, otblc: _otBloc),
-        ),
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: isButtonActive
-                ? () {
-                    _otBloc.add(CodeEventMachine(_controllerCode.text));
-                    setState(() => [
-                          isButtonActive = true,
-                        ]);
-                  }
-                : null,
-            child: const Text('Actualiser'),
-            style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-          ),
-        )
-      ],
-    );
   }
 }

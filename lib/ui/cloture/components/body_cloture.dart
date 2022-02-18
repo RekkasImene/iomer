@@ -3,6 +3,7 @@ import 'package:iomer/ui/cloture/components/cloture_matricule.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 import 'package:iomer/ui/matricule/components/matricule.dart';
+import 'package:iomer/ui/utils/nav_button.dart';
 
 class Body extends StatelessWidget {
 
@@ -23,7 +24,7 @@ class Body extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: Info(),
           ),
@@ -40,25 +41,9 @@ class Body extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                  
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MachineScreen(
-                            text: "",
-                          )),
-                );
-              },
-              child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
+          NavButton(
+            navDestination: const MachineScreen(),
+            navName: "Clôturer OT",
           ),
         ],
       ),

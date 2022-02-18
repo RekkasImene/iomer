@@ -23,6 +23,16 @@ class ArticleDao extends DatabaseAccessor<IomerDatabase>
 
   ArticleDao(this.db) : super(db);
 
+  Future<List<Article>> sortTable() async {
+    return (select(articles)
+      ..orderBy([
+            (t) => OrderingTerm(expression: t.IDARTICLE, mode: OrderingMode.desc)
+      ]))
+        .get();
+  }
+
+
+
   Future insertArticle(Article article) =>
       into(articles).insertOnConflictUpdate(article);
 

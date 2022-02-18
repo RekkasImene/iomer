@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -24,6 +25,10 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
         emit(PartsLoading());
         Ot ot = await _localRepository.getOt();
         final List<Reservation> reservation = await _localRepository.findReservationBy(ot.IDOT);
+        print(ot.toString());
+        print(reservation.toString());
+
+
         if (reservation.isNotEmpty) {
           emit(PartsLoaded(reservation));
         } else {
@@ -33,9 +38,9 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
 
       if (event is UpdateEventListParts) {
         for(int i=0;i<event.listreservation.length;i++) {
-
           try {
             if(event.controller[i].text.isNotEmpty) {
+
               _localRepository.modifyReservation(
                   Reservation(
                       IDPIECE: event.listreservation[i].IDPIECE,
@@ -46,6 +51,7 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
                       IDARTICLE: event.listreservation[i].IDARTICLE
                   )
               );
+
             }
           } catch (e) {
             print("Ce nest pas un nombre..");
@@ -53,8 +59,29 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
         }
         emit(PartsUpdate());
       }
+
+      if (event is AddPieceEventParts) {
+        late double quantite;
+        print(event.piece+";"+event.libelle+";"+event.qte);
+        Ot ot = await _localRepository.getOt();
+        print(ot.toString());
+        Article article = await _localRepository.findArticleBy(event.piece);
+        print(article.toString());
+
+        if(event.qte.isNotEmpty) {
+          quantite = double.parse(event.qte);
+        } else {
+          quantite = article.QTEARTICLE;
+        }
+
+        _localRepository.insertReservation(
+            Article(
+                IDARTICLE: article.IDARTICLE,
+                CODEARTICLE: article.CODEARTICLE,
+                LIBELLEARTICLE: article.LIBELLEARTICLE,
+                QTEARTICLE: quantite
+            ), ot.IDOT, ot.IDEQUIPEMENT!);
+      }
     });
-
-
   }
 }

@@ -17,7 +17,10 @@ class UpdateEventListParts extends PartsEvent {
   UpdateEventListParts(this.listreservation, this.controller);
 }
 
-class AddEventParts extends PartsEvent {
-  // A remplir ...
-  AddEventParts();
+class AddPieceEventParts extends PartsEvent {
+  final String piece;
+  final String libelle;
+  final String qte;
+
+  AddPieceEventParts(this.piece, this.libelle, this.qte);
 }

@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +17,7 @@ class ListParts extends StatefulWidget {
 class _ListPartsState extends State<ListParts> {
 
   bool isChecked = false;
-  List<TextEditingController> _controller = [];
+  final List<TextEditingController> _controller = [];
   late TextEditingController myController;
   late PartsBloc _partsBloc;
 
@@ -75,6 +76,7 @@ class _ListPartsState extends State<ListParts> {
                                         width: 100,
                                         child: TextField(
                                           controller: _controller[index],
+
                                           keyboardType: TextInputType.number,
                                           decoration: const InputDecoration(
                                               border: OutlineInputBorder()),
@@ -96,8 +98,12 @@ class _ListPartsState extends State<ListParts> {
                       ),
                     ),
 
+
+
+
                     Row(
                       children: [
+                        const Expanded(child: SizedBox()),
                         Align(
                           child: ElevatedButton(
                             onPressed: () {
@@ -133,6 +139,9 @@ class _ListPartsState extends State<ListParts> {
                       ),
                     )
 
+
+
+
                   ],
                 );
               } else if (state is PartsError) {
@@ -147,3 +156,4 @@ class _ListPartsState extends State<ListParts> {
     );
   }
 }
+

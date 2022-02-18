@@ -23,12 +23,9 @@ class OtBloc extends Bloc<OtEvent, OtState> {
     on<OtEvent>((event, emit) async {
       if (event is FetchEventOt) {
         if (event.equipement != null) {
-          print("Equipement : " + event.equipement.toString());
           emit(OtLoading());
-          final List<Ot> ots =
-              await _repository.findOtsBy(event.equipement!.IDEQUIPEMENT);
+          final List<Ot> ots = await _repository.findOtsBy(event.equipement!.IDEQUIPEMENT);
           if (ots.isNotEmpty) {
-            print("Evenement OT Loaded....." + ots.toString());
             emit(OtLoaded(ots));
           } else {
             emit(const OtError('Error'));
@@ -66,7 +63,6 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       }
 
       if (event is SelectEventOt) {
-        //print("selectEventOt.......");
         Ot ot = await _repository.getOt();
         emit(OtSelected(ot));
       }

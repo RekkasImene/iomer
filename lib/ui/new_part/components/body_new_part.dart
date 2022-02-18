@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iomer/ui/new_part/components/part_editor.dart';
-import 'package:iomer/ui/parts/parts_screen.dart';
 import 'package:iomer/ui/scan/scan_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 
@@ -33,7 +32,7 @@ class _BodyState extends State<Body> {
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: Column(
               children: [
-                Info(),
+                const Info(),
                 PartEditor(controller: _controller,),
               ],
             ),

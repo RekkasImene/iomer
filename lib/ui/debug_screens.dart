@@ -22,17 +22,17 @@ class DebugScreen extends StatelessWidget {
         title: const Text('Iomere'),
       ),
       body: ListView(
-        children: [
-          NavButton(navDestination: const ActionScreen(), navName: 'ActionScreen'),
-          NavButton(navDestination: const ClotureOtScreen(), navName: 'ClotureOtScreen'),
-          NavButton(navDestination: const HomeScreen(), navName: 'HomeScreen'),
-          NavButton(navDestination: const MachineScreen(), navName: 'MachineScreen'),
-          NavButton(navDestination: const FirstScreen(), navName: 'FirstScreen (matricule)'),
-          NavButton(navDestination: const NewPartScreen(), navName: 'NewPartScreen'),
-          NavButton(navDestination: const PartsScreen(), navName: 'PartsScreen'),
-          NavButton(navDestination: const ReportScreen(), navName: 'ReportScreen'),
-          NavButton(navDestination: const TasksScreen(), navName: 'TasksScreen'),
-          NavButton(navDestination: const ScanScreen(), navName: 'ScanScreen'),
+        children: const [
+          NavButton(navDestination: ActionScreen(), navName: 'ActionScreen'),
+          NavButton(navDestination: ClotureOtScreen(), navName: 'ClotureOtScreen'),
+          NavButton(navDestination: HomeScreen(), navName: 'HomeScreen'),
+          NavButton(navDestination: MachineScreen(), navName: 'MachineScreen'),
+          NavButton(navDestination: FirstScreen(), navName: 'FirstScreen (matricule)'),
+          NavButton(navDestination: NewPartScreen(), navName: 'NewPartScreen'),
+          NavButton(navDestination: PartsScreen(), navName: 'PartsScreen'),
+          NavButton(navDestination: ReportScreen(), navName: 'ReportScreen'),
+          NavButton(navDestination: TasksScreen(), navName: 'TasksScreen'),
+          NavButton(navDestination: ScanScreen(), navName: 'ScanScreen'),
         ],
       ),
     );

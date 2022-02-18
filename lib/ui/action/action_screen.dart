@@ -18,6 +18,6 @@ class _ActionScreenState extends State<ActionScreen> {
         appBar: AppBar(
           title: const Text('IOmere'),
         ),
-        body: Body());
+        body: const Body());
   }
 }

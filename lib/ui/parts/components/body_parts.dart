@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/action/action_screen.dart';
 import 'package:iomer/ui/new_part/new_part_screen.dart';
 import 'package:iomer/ui/parts/components/list_parts.dart';
 import 'package:iomer/ui/utils/info.dart';
@@ -20,8 +19,8 @@ class Body extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
             child: Info(),
           ),
           const Expanded(

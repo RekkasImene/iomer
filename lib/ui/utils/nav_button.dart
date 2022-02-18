@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/ot/ot_bloc.dart';
-import 'package:iomer/config/injection.dart';
 
 class NavButton extends StatefulWidget {
   final Widget navDestination;
   final String navName;
-  NavButton({Key? key, required this.navDestination, required this.navName}) : super(key: key);
+  const NavButton({Key? key, required this.navDestination, required this.navName}) : super(key: key);
 
   @override
   State<NavButton> createState() => _NavButtonState();

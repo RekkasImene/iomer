@@ -83,7 +83,7 @@ class _OTListState extends State<OTListWidget> {
     );
   }
 
-  Widget BuildList(List<Ot> ots) {
+  Widget buildList(List<Ot> ots) {
     return ListView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,

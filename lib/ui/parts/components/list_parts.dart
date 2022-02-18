@@ -14,7 +14,7 @@ class ListParts extends StatefulWidget {
 class _ListPartsState extends State<ListParts> {
   //TODO a remplacer avec données (les memes que pour l'ecran first_screen)
   bool isChecked = false;
-  List<TextEditingController> _controller = [];
+  final List<TextEditingController> _controller = [];
   late TextEditingController myController;
   late PartsBloc _partsBloc;
   @override

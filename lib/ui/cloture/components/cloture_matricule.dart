@@ -27,7 +27,6 @@ class _ClotureMatriculeState extends State<ClotureMatriculeWidget> {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-        //padding: const EdgeInsets.all(16.0) ,
         child: BlocProvider(
           create: (context) => _matriculeBloc,
           child: BlocBuilder<MatriculeBloc, MatriculeState>(
@@ -38,10 +37,8 @@ class _ClotureMatriculeState extends State<ClotureMatriculeWidget> {
                   itemBuilder: (context, index) {
                     selectedMatricule = state.matricules[index];
                     log("ischecked = " + selectedMatricule.toString());
-
                     return CheckboxListTile(
                       title: Text(state.matricules[index].NOMMATRICULE),
-                      //  value: _isChecked[index],
                       value: selectedMatricule.CHECKED,
                       onChanged: (bool? newValue) {
                         setState(
@@ -53,7 +50,6 @@ class _ClotureMatriculeState extends State<ClotureMatriculeWidget> {
                             _matriculeBloc.add(CheckedMatriculeEvenet(state
                                 .matricules[index]
                                 .copyWith(CHECKED: newValue)));
-
                             log(newValue.toString());
                           },
                         );
@@ -69,13 +65,10 @@ class _ClotureMatriculeState extends State<ClotureMatriculeWidget> {
 
                     return CheckboxListTile(
                       title: Text(state.matricules[index].NOMMATRICULE),
-                      //  value: _isChecked[index],
                       value: selectedMatricule.CHECKED,
                       onChanged: (bool? newValue) {
                         setState(
                           () {
-                            // ischecked = newValue!;
-
                             _matriculeBloc.add(CheckedMatriculeEvenet(state
                                 .matricules[index]
                                 .copyWith(CHECKED: newValue)));

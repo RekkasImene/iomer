@@ -5,7 +5,7 @@ import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart';
 
-var url = 'https://iomer.loca.lt';
+var url = 'https://fuzzy-elephant-29.loca.lt';
 
 @Environment(Env.prod)
 @singleton

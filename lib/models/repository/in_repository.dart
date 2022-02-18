@@ -89,8 +89,8 @@ class InRepository extends InRepositoryAbs {
   Future<void> updateReservation(int idOt) async {
     try {
       var reservations = await services.fetchReservations(idOt);
-      reservations.forEach((e) async{
-        await database.reservationDao.insertReservation(e);
+      reservations.forEach((e) {
+        database.reservationDao.insertReservation(e);
         log("table reservation insérée");
       });
     } on Exception catch (e) {
@@ -101,8 +101,8 @@ class InRepository extends InRepositoryAbs {
   Future<void> updateArticles(String codeArticle) async{
     try {
       var articles = await services.fetchArticles(codeArticle);
-      articles.forEach((e) async {
-        await database.articleDao.insertArticle(e);
+      articles.forEach((e) {
+        database.articleDao.insertArticle(e);
         log("table articles insérée");
       });
     } on Exception catch (e) {
@@ -125,8 +125,8 @@ class InRepository extends InRepositoryAbs {
   Future<void> updateTaches(int idOT) async {
     try {
       var taches = await services.fetchOTTaches(idOT);
-      taches.forEach((e) async {
-        await database.tacheDao.insertTache(e);
+      taches.forEach((e)  {
+        database.tacheDao.insertTache(e);
         log("table tache insérée");
       });
     } on Exception catch (e) {
@@ -157,20 +157,24 @@ class InRepository extends InRepositoryAbs {
     await updateEquipements(idSite);
 
     //push tache & OtArticle(Reservation)
+    pushDB2(idSite, codePocket);
+  }
 
+  Future<void> pushDB2(int idSite, String codePocket) async {
     var ots = await localRepository.getAllOt();
-
+    log(" -------------- Apres equipement ---------------------- ");
     ots.forEach((e) {
       updateTaches(e.IDOT);
       updateReservation(e.IDOT);
     });
 
     var reservations = await localRepository.getAllReservation();
-    reservations.forEach((element) {
-      updateArticles(element.CODEARTICLE!);
-    });
+    if(reservations.isNotEmpty) {
+      reservations.forEach((element) {
+        updateArticles(element.CODEARTICLE!);
+      });
+    }
 
-    log("Flag OK");
     flag.add(true);
   }
 

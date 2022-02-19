@@ -30,7 +30,8 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20.0),
-      child: Column(children: [
+      child: Column(
+          children: [
         const Align(
           alignment: Alignment.topLeft,
           child: Text(
@@ -84,15 +85,15 @@ class _BodyState extends State<Body> {
                 ),
               ),
 
-              /// bouton pour cloturer l'Ot actif
-              const NavButton(
-                navDestination: ClotureOtScreen(),
-                navName: "Clôturer OT",
-              ),
+    /// bouton pour cloturer l'Ot actif
+    const NavButton(
+    navDestination: ClotureOtScreen(),
+    navName: "Clôturer OT",
+    ),
             ],
           ),
         ),
-      ]),
+          ]),
     );
   }
 }

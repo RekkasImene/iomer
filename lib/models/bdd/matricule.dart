@@ -2,16 +2,22 @@ import 'dart:developer';
 
 import 'package:drift/drift.dart';
 import 'iomer_database.dart';
+
 part 'generate/matricule.g.dart';
 
 class Matricules extends Table {
   IntColumn get IDMATRICULE => integer()();
+
   IntColumn get IDORIGINE => integer()
       .nullable()
       .customConstraint('NULL REFERENCES Origines(IDORIGINE)')();
+
   TextColumn get CODEMATRICULE => text().withLength(min: 1, max: 12)();
+
   TextColumn get NOMMATRICULE => text().withLength(min: 1, max: 48)();
+
   TextColumn get PRENOMMATRICULE => text().withLength(min: 1, max: 48)();
+
   BoolColumn get CHECKED =>
       boolean().nullable().withDefault(const Constant(false))();
 
@@ -23,6 +29,7 @@ class Matricules extends Table {
 class MatriculeDao extends DatabaseAccessor<IomerDatabase>
     with _$MatriculeDaoMixin {
   final IomerDatabase db;
+
   MatriculeDao(this.db) : super(db);
 
   Future insertMatricule(Matricule matricule) =>
@@ -34,11 +41,8 @@ class MatriculeDao extends DatabaseAccessor<IomerDatabase>
       update(matricules).replace(matricule);
 
   Future<List<Matricule>> findMatriculesChecket() {
-  
-    return (select(matricules)..where((matricule) =>
-        matricule.CHECKED.equals(true))).get();
-        
-   
+    return (select(matricules)
+          ..where((matricule) => matricule.CHECKED.equals(true)))
+        .get();
   }
-
 }

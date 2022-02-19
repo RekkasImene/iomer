@@ -1,8 +1,11 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/parts/parts_bloc.dart';
 import 'package:iomer/config/injection.dart';
+
+import '../../new_part/new_part_screen.dart';
 
 class ListParts extends StatefulWidget {
   const ListParts({Key? key}) : super(key: key);
@@ -12,11 +15,12 @@ class ListParts extends StatefulWidget {
 }
 
 class _ListPartsState extends State<ListParts> {
-  //TODO a remplacer avec données (les memes que pour l'ecran first_screen)
+
   bool isChecked = false;
   final List<TextEditingController> _controller = [];
   late TextEditingController myController;
   late PartsBloc _partsBloc;
+
   @override
   void initState() {
     myController=TextEditingController();
@@ -38,7 +42,7 @@ class _ListPartsState extends State<ListParts> {
                   _controller.add(TextEditingController());
                   _controller[i].text =state.reservation[i].QTEARTICLE.toString();
                 }
-    }
+              }
             },
             builder: (context, state) {
               if (state is PartsLoaded) {
@@ -67,7 +71,7 @@ class _ListPartsState extends State<ListParts> {
                                           Icons.remove,
                                         ),
                                       ),
-                                      //TODO adapté taille a contenue
+
                                       SizedBox(
                                         width: 100,
                                         child: TextField(
@@ -93,6 +97,51 @@ class _ListPartsState extends State<ListParts> {
                         },
                       ),
                     ),
+
+
+
+
+                    Row(
+                      children: [
+                        const Expanded(child: SizedBox()),
+                        Align(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const NewPartScreen()),
+                              );
+                            },
+
+
+                            child: const Text('Ajout'),
+                            style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10)),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          [
+                            _partsBloc.add(UpdateEventListParts(state.reservation, _controller)),
+                            Navigator.pop(context),
+                          ];
+                        },
+                        child: const Text('Valider', style: TextStyle(fontSize: 20)),
+                        style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+                      ),
+                    )
+
+
+
+
                   ],
                 );
               } else if (state is PartsError) {
@@ -107,3 +156,4 @@ class _ListPartsState extends State<ListParts> {
     );
   }
 }
+

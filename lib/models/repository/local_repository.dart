@@ -101,9 +101,6 @@ class LocalRepository {
     await database.otDao.insertOt(newOt);
   }
 
-
-
-
   Future insertDocument(int idOt, Uint8List attachement) async {
     database.documentDao.insertDocument(DocumentsCompanion(IDOT: Value(idOt), ATTACHEMENT: Value(attachement)));
   }

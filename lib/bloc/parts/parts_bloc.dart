@@ -40,7 +40,6 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
         for(int i=0;i<event.listreservation.length;i++) {
           try {
             if(event.controller[i].text.isNotEmpty) {
-
               _localRepository.modifyReservation(
                   Reservation(
                       IDPIECE: event.listreservation[i].IDPIECE,
@@ -51,13 +50,12 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
                       IDARTICLE: event.listreservation[i].IDARTICLE
                   )
               );
-
             }
+            emit(PartsUpdate());
           } catch (e) {
-            print("Ce nest pas un nombre..");
+            emit(const PartsError("Ce nest pas un nombre.."));
           }
         }
-        emit(PartsUpdate());
       }
 
       if (event is AddPieceEventParts) {

@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
@@ -41,8 +42,8 @@ class InRepository extends InRepositoryAbs {
   void updateOrigines(int idSite) async {
     try {
       var origines = await services.fetchOrigines(idSite);
-      origines.forEach((e) async {
-        await database.origineDao.insertOrigine(e);
+      origines.forEach((e) {
+        database.origineDao.insertOrigine(e);
         log("table origine insérée");
       });
     } on Exception catch (e) {
@@ -53,8 +54,8 @@ class InRepository extends InRepositoryAbs {
   Future<void> updateMatricules(int idOrigine) async {
     try {
       var martricules = await services.fetchMatricules(idOrigine);
-      martricules.forEach((e) async {
-        await database.matriculeDao.insertMatricule(e);
+      martricules.forEach((e) {
+        database.matriculeDao.insertMatricule(e);
         log("table matricule insérée");
       });
     } on Exception catch (e) {
@@ -65,8 +66,8 @@ class InRepository extends InRepositoryAbs {
   Future<void> updateOTs(int idSite, int idOrigine) async {
     try {
       var ots = await services.fetchOTs(idSite, idOrigine);
-      ots.forEach((e) async {
-        await database.otDao.insertOt(e);
+      ots.forEach((e) {
+        database.otDao.insertOt(e);
         log("table ot insérée");
       });
     } on Exception catch (e) {
@@ -77,8 +78,8 @@ class InRepository extends InRepositoryAbs {
   Future<void> updateCategories(int idSite) async {
     try {
       var categories = await services.fetchCategories(idSite);
-      categories.forEach((e) async {
-        await database.categorieDao.insertCategorie(e);
+      categories.forEach((e) {
+        database.categorieDao.insertCategorie(e);
         log("table categories insérée");
       });
     } on Exception catch (e) {
@@ -98,9 +99,9 @@ class InRepository extends InRepositoryAbs {
     }
   }
 
-  Future<void> updateArticles(String codeArticle) async{
+  Future<void> updateArticles(String idArticle) async{
     try {
-      var articles = await services.fetchArticles(codeArticle);
+      var articles = await services.fetchArticles(idArticle);
       articles.forEach((e) {
         database.articleDao.insertArticle(e);
         log("table articles insérée");
@@ -113,8 +114,8 @@ class InRepository extends InRepositoryAbs {
   Future<void> updateEquipements(int idSite) async {
     try {
       var equipements = await services.fetchEquipements(idSite);
-      equipements.forEach((e) async {
-        await database.equipementDao.insertEquipement(e);
+      equipements.forEach((e) {
+        database.equipementDao.insertEquipement(e);
         log("table équipement insérée");
       });
     } on Exception catch (e) {
@@ -148,7 +149,6 @@ class InRepository extends InRepositoryAbs {
   Future<void> pushDB(int idSite, String codePocket) async {
     //Push matricule & ot
     futureConfigs = await services.fetchConfigs(idSite, codePocket);
-
     int idOrigine = futureConfigs.first.IDORIGINE!;
 
     await updateMatricules(idOrigine);
@@ -157,26 +157,45 @@ class InRepository extends InRepositoryAbs {
     await updateEquipements(idSite);
 
     //push tache & OtArticle(Reservation)
-    pushDB2(idSite, codePocket);
-  }
+    log("Pause... 1 ");
+    sleep(const Duration(seconds:1));
 
-  Future<void> pushDB2(int idSite, String codePocket) async {
     var ots = await localRepository.getAllOt();
-    log(" -------------- Apres equipement ---------------------- ");
-    ots.forEach((e) {
-      updateTaches(e.IDOT);
-      updateReservation(e.IDOT);
-    });
-
-    var reservations = await localRepository.getAllReservation();
-    if(reservations.isNotEmpty) {
-      reservations.forEach((element) {
-        updateArticles(element.CODEARTICLE!);
-      });
+    for(int i=0;i<ots.length;i++) {
+      log("ID ot : "+ots[i].IDOT.toString());
+      await updateReservation(ots[i].IDOT);
+      await updateTaches(ots[i].IDOT);
     }
 
+    log("Pause... 2 ");
+    sleep(const Duration(seconds:2));
+
+    var reservations = await localRepository.getAllReservation();
+    for(int i=0;i<reservations.length;i++) {
+      List<String> list = reservations[i].CODEARTICLE!.split(".");
+      log("Dernier mot : "+list[list.length-1].toString());
+      await updateArticles(list[list.length-1]);
+    }
+
+/*
+    ots.forEach((e) async {
+      log("ID ot : "+e.IDOT.toString());
+      //
+      sleep(const Duration(seconds:1));
+      await
+    });
+
+
+    if(reservations.isNotEmpty) {
+      reservations.forEach((element) {
+
+      });
+    }*/
+
+    services.client.close();
     flag.add(true);
   }
+
 
   Future<void> deleteAllDatabase() async {
     database.deleteEverything();

@@ -140,7 +140,7 @@ class Services {
   }
 
   Future<List<Article>> fetchArticles(String idArticle) async {
-    final response = await client.get(Uri.parse('$url/GETARTICLE/'+'/$idArticle'));
+    final response = await client.get(Uri.parse('$url/GETARTICLE/$idArticle'));
     log("Réponse article : " + response.body.toString());
     if (response.statusCode == 200 && response.body.length != 41) {
       List<Article> articles;

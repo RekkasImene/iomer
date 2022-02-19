@@ -172,25 +172,11 @@ class InRepository extends InRepositoryAbs {
 
     var reservations = await localRepository.getAllReservation();
     for(int i=0;i<reservations.length;i++) {
-      List<String> list = reservations[i].CODEARTICLE!.split(".");
-      log("Dernier mot : "+list[list.length-1].toString());
+      List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
+      //list[i].replaceAll(" ", "");
+      log("Dernier mot :"+list[list.length-1].toString()+"test");
       await updateArticles(list[list.length-1]);
     }
-
-/*
-    ots.forEach((e) async {
-      log("ID ot : "+e.IDOT.toString());
-      //
-      sleep(const Duration(seconds:1));
-      await
-    });
-
-
-    if(reservations.isNotEmpty) {
-      reservations.forEach((element) {
-
-      });
-    }*/
 
     services.client.close();
     flag.add(true);

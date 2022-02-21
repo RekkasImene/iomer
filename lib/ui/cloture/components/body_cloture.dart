@@ -9,12 +9,13 @@ import 'package:iomer/ui/matricule/components/matricule.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
-  TextEditingController dtOpenController = TextEditingController();
+
   @override
   State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
+  TextEditingController dtOpenController = TextEditingController();
   late Matricule selectedMatricule;
 
   @override

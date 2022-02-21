@@ -6,7 +6,7 @@ import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'services_test.mocks.dart';
 
-var url ="https://iomer.loca.lt";
+var url ="https://iomere.loca.lt";
 
 /// Ce Fichier comporte les tests unitaires qui traitent les appels du web Service.
 ///  Les requetes sont simulées avec Mockito.

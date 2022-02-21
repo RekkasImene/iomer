@@ -94,6 +94,7 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
       ot = value.first;
       var otCopy= ot.copyWith(DTOPENOT: dtOpen);
       update(ots).replace(otCopy);
+      print("date time in bdd "+dtOpen.toString());
     }) ;
 
   }

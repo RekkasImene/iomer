@@ -19,7 +19,7 @@ class Services {
 
   Services(Client httpClient) : client = httpClient;
 
-  /// Recupérer une liste de Sites via le WebService
+  /// Recupérer une liste de [Site] via le WebService
   Future<List<Site>> fetchSites() async {
     final response = await client.get(Uri.parse('$url/GetSites'));
 
@@ -40,7 +40,7 @@ class Services {
     }
   }
 
-  /// Récupérer une liste de Origines via le WebService en passant en paramètre "idSite"
+  /// Récupérer une liste de [Origine] via le WebService en passant en paramètre "idSite"
   Future<List<Origine>> fetchOrigines(int id) async {
     final response = await client.get(Uri.parse('$url/GetOrigines/$id'));
 
@@ -59,7 +59,7 @@ class Services {
     }
   }
 
-  /// Récupérer une liste de Matricules via le WebService en passant en paramètre "idOrigine"
+  /// Récupérer une liste de [Matricule] via le WebService en passant en paramètre "idOrigine"
   Future<List<Matricule>> fetchMatricules(int? id) async {
     final response = await client.get(Uri.parse('$url/GetMatricules/$id'));
 
@@ -78,7 +78,7 @@ class Services {
     }
   }
 
-  /// Récupérer une liste d'Equipements via le WebService en passant en paramètre "idSite"
+  /// Récupérer une liste d'[Equipement] via le WebService en passant en paramètre "idSite"
   Future<List<Equipement>> fetchEquipements(int id) async {
     final response = await client.get(Uri.parse('$url/GetEquipements/$id'));
 
@@ -97,7 +97,7 @@ class Services {
     }
   }
 
-  /// Récupérer une liste de Categories via le WebService en passant en paramètre "idSite"
+  /// Récupérer une liste de [Categorie] via le WebService en passant en paramètre "idSite"
   Future<List<Categorie>> fetchCategories(int id) async {
     final response = await client.get(Uri.parse('$url/GetCategories/$id'));
 
@@ -116,7 +116,7 @@ class Services {
     }
   }
 
-  /// Récupérer une liste d'Ots via le WebService en passant en paramètre "idSite" et "idOrigine"
+  /// Récupérer une liste d'[Ot] via le WebService en passant en paramètre "idSite" et "idOrigine"
   Future<List<Ot>> fetchOTs(int idSite, int idOrigine) async {
     final response =
         await client.get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
@@ -136,7 +136,7 @@ class Services {
     }
   }
 
-  /// Récupérer une liste de Taches via le WebService en passant en paramètre "idOT"
+  /// Récupérer une liste de [Tache] via le WebService en passant en paramètre "idOT"
   Future<List<Tache>> fetchOTTaches(int idOT) async {
     final response = await client.get(Uri.parse('$url/GETOT_TACHES/$idOT'));
 
@@ -155,7 +155,7 @@ class Services {
     }
   }
 
-  /// Récupérer une liste de Configs via le WebService en passant en paramètre "idSite" et "codePocket"
+  /// Récupérer une liste de [Config] via le WebService en passant en paramètre "idSite" et "codePocket"
   Future<List<Config>> fetchConfigs(int idSite, String codePocket) async {
     final response =
         await client.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
@@ -175,7 +175,7 @@ class Services {
     }
   }
 
-  /// Récupérer une liste d'Articles via le WebService en passant en paramètre "codeArticles"
+  /// Récupérer une liste d'[Article] via le WebService en passant en paramètre "codeArticles"
   Future<List<Article>> fetchArticles(String codeArticle) async {
     final response =
         await client.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
@@ -197,7 +197,7 @@ class Services {
 
 
 
-  /// Récupérer une liste de Reservation ( GETOT_ARTICLE) via le WebService en passant en paramètre "idOT"
+  /// Récupérer une liste de [Reservation] ( GETOT_ARTICLE) via le WebService en passant en paramètre "idOT"
 
   Future<List<Reservation>> fetchReservations(int idOt) async {
     final response = await client.get(Uri.parse('$url/GETOT_ARTICLES/$idOt'));
@@ -217,48 +217,46 @@ class Services {
     }
   }
 
+  /// Envoyer la liste des [Ot] dans le WebService
   Future<void> postOt(
       int idOt, String commentOt, double tempsOt, String statutOt) async {
     String newTempsOt = tempsOt.toString();
     newTempsOt = newTempsOt.replaceAll('.', ',');
-
     final response = await client
         .get(Uri.parse('$url/SetOt/$idOt/$commentOt/$newTempsOt/$statutOt'));
   }
-
+  /// Envoyer la liste des [Tache] dans le WebService
   Future<void> postOtTache(
       int idTache, String statutTache, String commentTache) async {
     final response = await client
         .get(Uri.parse('$url/SETOT_TACHE/$idTache/$statutTache/$commentTache'));
   }
-
+  /// Envoyer la liste des [Article] dans le WebService
   Future<void> postOtArticle(int idPiece, double qteArticle) async {
     String newQteArticle = qteArticle.toString();
     newQteArticle = newQteArticle.replaceAll('.', ',');
-
     final response = await client
         .get(Uri.parse('$url/SETOT_ARTICLE/$idPiece/$newQteArticle'));
   }
-
+  /// Envoyer la liste des [Matricule] dans le WebService
   Future<void> postMatricule(int idMatricule, int checked) async {
     final response =
         await client.get(Uri.parse('$url/SETMATRICULE/$idMatricule/$checked'));
   }
-
+  /// Envoyer la liste des [Document] dans le WebService
   Future<void> postAttachment(int idOt, String attachment) async {
     final response =
         await client.get(Uri.parse('$url/SETATTACHMENT/$idOt/$attachment'));
   }
-
+  /// Envoyer la liste des [Article] dans le WebService
   Future<void> createOtArticle(
       int idOt, int idArticle, double qteArticle) async {
     String newQteArticle = qteArticle.toString();
     newQteArticle = newQteArticle.replaceAll('.', ',');
-
     final response = await client.get(
         Uri.parse('$url/CREATEOT_ARTICLE/$idOt/$idArticle/$newQteArticle'));
   }
-
+  /// Créer une nouvelle [Ot]
   Future<void> createOt(int idEquipement, int idOrigine, int idCategorie,
       String libelleOt) async {
     final response = await client.get(Uri.parse(

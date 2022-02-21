@@ -98,9 +98,8 @@ class _OTListState extends State<OTListWidget> {
 
                                           onTap: () {
                                             DateTime now = DateTime.now();
-                                            print("the daate is"+now.toString());
                                             choosedOt = snapshot.data[index];
-                                            widget.otblc.add(SetOpenOt(choosedOt, now));
+                                            widget.otblc.add(SetOpenOt(choosedOt.IDOT, now));
                   widget.otblc.add(SetEventOt(choosedOt));
                   Navigator.push(
                     context,

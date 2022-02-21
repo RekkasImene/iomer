@@ -183,10 +183,9 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
 }
 
 class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
-  @override
-  final GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase _db;
   final String? _alias;
-  $ArticlesTable(this.attachedDatabase, [this._alias]);
+  $ArticlesTable(this._db, [this._alias]);
   final VerificationMeta _IDARTICLEMeta = const VerificationMeta('IDARTICLE');
   late final GeneratedColumn<int?> IDARTICLE = GeneratedColumn<int?>(
       'idarticle', aliasedName, false,
@@ -266,7 +265,7 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
 
   @override
   $ArticlesTable createAlias(String alias) {
-    return $ArticlesTable(attachedDatabase, alias);
+    return $ArticlesTable(_db, alias);
   }
 }
 
@@ -448,10 +447,9 @@ class CategoriesCompanion extends UpdateCompanion<Categorie> {
 
 class $CategoriesTable extends Categories
     with TableInfo<$CategoriesTable, Categorie> {
-  @override
-  final GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase _db;
   final String? _alias;
-  $CategoriesTable(this.attachedDatabase, [this._alias]);
+  $CategoriesTable(this._db, [this._alias]);
   final VerificationMeta _IDCATEGORIEMeta =
       const VerificationMeta('IDCATEGORIE');
   late final GeneratedColumn<int?> IDCATEGORIE = GeneratedColumn<int?>(
@@ -530,7 +528,7 @@ class $CategoriesTable extends Categories
 
   @override
   $CategoriesTable createAlias(String alias) {
-    return $CategoriesTable(attachedDatabase, alias);
+    return $CategoriesTable(_db, alias);
   }
 }
 
@@ -680,10 +678,9 @@ class DocumentsCompanion extends UpdateCompanion<Document> {
 
 class $DocumentsTable extends Documents
     with TableInfo<$DocumentsTable, Document> {
-  @override
-  final GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase _db;
   final String? _alias;
-  $DocumentsTable(this.attachedDatabase, [this._alias]);
+  $DocumentsTable(this._db, [this._alias]);
   final VerificationMeta _IDATTACHEMENTMeta =
       const VerificationMeta('IDATTACHEMENT');
   late final GeneratedColumn<int?> IDATTACHEMENT = GeneratedColumn<int?>(
@@ -744,7 +741,7 @@ class $DocumentsTable extends Documents
 
   @override
   $DocumentsTable createAlias(String alias) {
-    return $DocumentsTable(attachedDatabase, alias);
+    return $DocumentsTable(_db, alias);
   }
 }
 
@@ -926,10 +923,9 @@ class EquipementsCompanion extends UpdateCompanion<Equipement> {
 
 class $EquipementsTable extends Equipements
     with TableInfo<$EquipementsTable, Equipement> {
-  @override
-  final GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase _db;
   final String? _alias;
-  $EquipementsTable(this.attachedDatabase, [this._alias]);
+  $EquipementsTable(this._db, [this._alias]);
   final VerificationMeta _IDEQUIPEMENTMeta =
       const VerificationMeta('IDEQUIPEMENT');
   late final GeneratedColumn<int?> IDEQUIPEMENT = GeneratedColumn<int?>(
@@ -1008,7 +1004,7 @@ class $EquipementsTable extends Equipements
 
   @override
   $EquipementsTable createAlias(String alias) {
-    return $EquipementsTable(attachedDatabase, alias);
+    return $EquipementsTable(_db, alias);
   }
 }
 
@@ -1242,10 +1238,9 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
 
 class $MatriculesTable extends Matricules
     with TableInfo<$MatriculesTable, Matricule> {
-  @override
-  final GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase _db;
   final String? _alias;
-  $MatriculesTable(this.attachedDatabase, [this._alias]);
+  $MatriculesTable(this._db, [this._alias]);
   final VerificationMeta _IDMATRICULEMeta =
       const VerificationMeta('IDMATRICULE');
   late final GeneratedColumn<int?> IDMATRICULE = GeneratedColumn<int?>(
@@ -1357,7 +1352,7 @@ class $MatriculesTable extends Matricules
 
   @override
   $MatriculesTable createAlias(String alias) {
-    return $MatriculesTable(attachedDatabase, alias);
+    return $MatriculesTable(_db, alias);
   }
 }
 
@@ -1538,10 +1533,9 @@ class OriginesCompanion extends UpdateCompanion<Origine> {
 }
 
 class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
-  @override
-  final GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase _db;
   final String? _alias;
-  $OriginesTable(this.attachedDatabase, [this._alias]);
+  $OriginesTable(this._db, [this._alias]);
   final VerificationMeta _IDORIGINEMeta = const VerificationMeta('IDORIGINE');
   late final GeneratedColumn<int?> IDORIGINE = GeneratedColumn<int?>(
       'idorigine', aliasedName, false,
@@ -1617,7 +1611,7 @@ class $OriginesTable extends Origines with TableInfo<$OriginesTable, Origine> {
 
   @override
   $OriginesTable createAlias(String alias) {
-    return $OriginesTable(attachedDatabase, alias);
+    return $OriginesTable(_db, alias);
   }
 }
 
@@ -2082,10 +2076,9 @@ class OtsCompanion extends UpdateCompanion<Ot> {
 }
 
 class $OtsTable extends Ots with TableInfo<$OtsTable, Ot> {
-  @override
-  final GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase _db;
   final String? _alias;
-  $OtsTable(this.attachedDatabase, [this._alias]);
+  $OtsTable(this._db, [this._alias]);
   final VerificationMeta _IDOTMeta = const VerificationMeta('IDOT');
   late final GeneratedColumn<int?> IDOT = GeneratedColumn<int?>(
       'idot', aliasedName, false,
@@ -2265,7 +2258,7 @@ class $OtsTable extends Ots with TableInfo<$OtsTable, Ot> {
 
   @override
   $OtsTable createAlias(String alias) {
-    return $OtsTable(attachedDatabase, alias);
+    return $OtsTable(_db, alias);
   }
 }
 
@@ -2497,10 +2490,9 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
 
 class $ReservationsTable extends Reservations
     with TableInfo<$ReservationsTable, Reservation> {
-  @override
-  final GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase _db;
   final String? _alias;
-  $ReservationsTable(this.attachedDatabase, [this._alias]);
+  $ReservationsTable(this._db, [this._alias]);
   final VerificationMeta _IDPIECEMeta = const VerificationMeta('IDPIECE');
   late final GeneratedColumn<int?> IDPIECE = GeneratedColumn<int?>(
       'idpiece', aliasedName, false,
@@ -2597,7 +2589,7 @@ class $ReservationsTable extends Reservations
 
   @override
   $ReservationsTable createAlias(String alias) {
-    return $ReservationsTable(attachedDatabase, alias);
+    return $ReservationsTable(_db, alias);
   }
 }
 
@@ -2775,10 +2767,9 @@ class SitesCompanion extends UpdateCompanion<Site> {
 }
 
 class $SitesTable extends Sites with TableInfo<$SitesTable, Site> {
-  @override
-  final GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase _db;
   final String? _alias;
-  $SitesTable(this.attachedDatabase, [this._alias]);
+  $SitesTable(this._db, [this._alias]);
   final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
   late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
       'idsite', aliasedName, false,
@@ -2854,7 +2845,7 @@ class $SitesTable extends Sites with TableInfo<$SitesTable, Site> {
 
   @override
   $SitesTable createAlias(String alias) {
-    return $SitesTable(attachedDatabase, alias);
+    return $SitesTable(_db, alias);
   }
 }
 
@@ -3089,10 +3080,9 @@ class TachesCompanion extends UpdateCompanion<Tache> {
 }
 
 class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
-  @override
-  final GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase _db;
   final String? _alias;
-  $TachesTable(this.attachedDatabase, [this._alias]);
+  $TachesTable(this._db, [this._alias]);
   final VerificationMeta _IDTACHEMeta = const VerificationMeta('IDTACHE');
   late final GeneratedColumn<int?> IDTACHE = GeneratedColumn<int?>(
       'idtache', aliasedName, false,
@@ -3122,7 +3112,7 @@ class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
       const VerificationMeta('STATUTTACHE');
   late final GeneratedColumn<int?> STATUTTACHE = GeneratedColumn<int?>(
       'statuttache', aliasedName, true,
-      type: const IntType(),
+      typeName: 'INTEGER',
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
   final VerificationMeta _COMMENTTACHEMeta =
@@ -3193,7 +3183,7 @@ class $TachesTable extends Taches with TableInfo<$TachesTable, Tache> {
 
   @override
   $TachesTable createAlias(String alias) {
-    return $TachesTable(attachedDatabase, alias);
+    return $TachesTable(_db, alias);
   }
 }
 
@@ -3426,10 +3416,9 @@ class ConfigsCompanion extends UpdateCompanion<Config> {
 }
 
 class $ConfigsTable extends Configs with TableInfo<$ConfigsTable, Config> {
-  @override
-  final GeneratedDatabase attachedDatabase;
+  final GeneratedDatabase _db;
   final String? _alias;
-  $ConfigsTable(this.attachedDatabase, [this._alias]);
+  $ConfigsTable(this._db, [this._alias]);
   final VerificationMeta _IDSITEMeta = const VerificationMeta('IDSITE');
   late final GeneratedColumn<int?> IDSITE = GeneratedColumn<int?>(
       'idsite', aliasedName, true,
@@ -3529,7 +3518,7 @@ class $ConfigsTable extends Configs with TableInfo<$ConfigsTable, Config> {
 
   @override
   $ConfigsTable createAlias(String alias) {
-    return $ConfigsTable(attachedDatabase, alias);
+    return $ConfigsTable(_db, alias);
   }
 }
 

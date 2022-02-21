@@ -5,14 +5,13 @@ import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart';
 
-var url = 'http://10.0.2.2:8080';
+var url = 'https://iomere.loca.lt';
 
 @Environment(Env.prod)
 @singleton
 @injectable
 class Services {
   final Client client;
-
   Services(Client httpClient) : client = httpClient;
 
   /* Get Sites */
@@ -112,7 +111,6 @@ class Services {
   /* Get OT Taches */
   Future<List<Tache>> fetchOTTaches(int idOT) async {
     final response = await client.get(Uri.parse('$url/GETOT_TACHES/$idOT'));
-    //log("Réponse article : " + response.toString());
     if (response.statusCode == 200 && response.body.length != 41) {
       List<Tache> taches;
       taches = (json.decode(response.body) as List)

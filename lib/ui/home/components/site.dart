@@ -91,11 +91,22 @@ class _SiteState extends State<SiteWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+
               SizedBox(
                 width: double.infinity,
 
                 /// bouton pour valider le site et le service
                 /// navigue a la prochaine étape
+
+                child: SynchonousButton(),
+              ),
+
+              SizedBox(
+                width: double.infinity,
+
+                /// bouton pour synchron le site et le service
+                /// navigue a la prochaine étape
+
                 child: buildButton(),
               ),
             ],
@@ -131,6 +142,27 @@ class _SiteState extends State<SiteWidget> {
           : () => [choosedConfig = myController.text, navigation()],
     );
   }
+
+
+  Widget SynchonousButton() {
+    return ElevatedButton.icon(
+      icon: _isLoading
+          ? const SizedBox(
+          height: 20, width: 20, child: CircularProgressIndicator())
+          : const Icon(null),
+      label: Text(
+        _isLoading ? 'Loading...' : 'Synchroniser',
+        style: const TextStyle(fontSize: 20),
+      ),
+      style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+      onPressed: calculateWhetherDisabledReturnsBool()
+          ? null
+          : () => [choosedConfig = myController.text, navigation()],
+    );
+  }
+
+
 
   calculateWhetherDisabledReturnsBool() {
     if (_isLoading == true) {

@@ -3,7 +3,6 @@ import 'package:iomer/bloc/matricule/matricule_bloc.dart';
 import 'package:iomer/bloc/taches/taches_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/ui/cloture/components/cloture_matricule.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 import 'package:iomer/ui/matricule/components/matricule.dart';
@@ -16,17 +15,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  late MatriculeBloc _matriculeBloc;
-
   late Matricule selectedMatricule;
 
   @override
-  void initState() {
-    _matriculeBloc = getIt.get<MatriculeBloc>();
-    _matriculeBloc.add(TestEvent());
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -112,34 +112,6 @@ class _MatriculeState extends State<MatriculeWidget> {
                 )),
           ),
         ),
-        BlocProvider(
-            create: (context) => _matriculeBloc,
-            child: BlocBuilder<MatriculeBloc, MatriculeState>(
-                builder: (context, state) {
-              if (state is MatriculeLoaded || state is CheckMatriculeUpdated) {
-                return SizedBox();
-              } else {
-                return SizedBox(
-                  width: double.infinity,
-                  child: _buildButton(),
-                );
-              }
-            })),
-      ],
-    );
-  }
-
-  Widget _buildButton() {
-    return ElevatedButton(
-      child: const Text('Valider', style: TextStyle(fontSize: 20)),
-      style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed: () => [
-        //choosedConfig = myController.text,
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MachineScreen(text: "")),
-        )
       ],
     );
   }

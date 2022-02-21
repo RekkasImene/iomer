@@ -13,5 +13,3 @@ class CheckedMatriculeEvenet extends MatriculeEvent {
   final Matricule matricule;
   const CheckedMatriculeEvenet(this.matricule);
 }
-
-class TestEvent extends MatriculeEvent {}

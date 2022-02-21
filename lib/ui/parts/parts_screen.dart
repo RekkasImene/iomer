@@ -15,7 +15,7 @@ class _PartsScreenState extends State<PartsScreen> {
       appBar: AppBar(
         title: const Text('Maintenance'),
       ),
-      body: const Body(),
+      body: Body(),
     );
   }
 }

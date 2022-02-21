@@ -19,10 +19,18 @@ class Reservations extends Table {
   TextColumn get LIBELLEARTICLE => text().withLength(min: 1, max: 48)();
 
   RealColumn get QTEARTICLE => real()();
+
   IntColumn get IDARTICLE => integer()();
+
+  BoolColumn get NEWRESERVATION =>
+      boolean().nullable().withDefault(const Constant(false))();
 
   @override
   Set<Column> get primaryKey => {IDPIECE};
+  @override
+  List<String> get customConstraints => [
+    'UNIQUE (IDPIECE,IDOT)'
+  ];
 }
 
 @DriftAccessor(tables: [Reservations])
@@ -38,16 +46,19 @@ class ReservationDao extends DatabaseAccessor<IomerDatabase>
   Future<List<Reservation>> getAllReservations() => select(reservations).get();
 
   Future<List<Reservation>> findReservationBy(int idOt) {
-    return (select(reservations)..where((reservation) =>
-        reservation.IDOT.equals(idOt))).get();
+    return (select(reservations)
+          ..where((reservation) => reservation.IDOT.equals(idOt)))
+        .get();
   }
+
   Future modifieReservation(Reservation reservation) =>
       update(reservations).replace(reservation);
+
   Future<List<Reservation>> sortTable() {
     return (select(reservations)
-      ..orderBy([
+          ..orderBy([
             (t) => OrderingTerm(expression: t.IDPIECE, mode: OrderingMode.desc)
-      ]))
+          ]))
         .get();
   }
 }

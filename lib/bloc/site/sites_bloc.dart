@@ -37,10 +37,11 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
       if (event is FetchEventSites) {
         emit(SitesLoading());
         final List<Site> sites = await _Inrepository.getAllSite();
+        print(sites.toString());
         if (sites.isNotEmpty) {
           emit(SitesLoaded(sites));
         } else {
-          emit(const SitesError('No task were found'));
+          print("Error");
         }
       }
 

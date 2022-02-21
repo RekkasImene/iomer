@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/cloture/components/cloture_matricule.dart';
+import 'package:iomer/bloc/matricule/matricule_bloc.dart';
+import 'package:iomer/bloc/taches/taches_bloc.dart';
+import 'package:iomer/config/injection.dart';
+import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 import 'package:iomer/ui/matricule/components/matricule.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+  TextEditingController dtOpenController = TextEditingController();
+  @override
+  State<Body> createState() => _BodyState();
+}
 
-    Body({Key? key}) : super(key: key);
-    TextEditingController dtOpenController = TextEditingController();
-
+class _BodyState extends State<Body> {
+  late Matricule selectedMatricule;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +35,7 @@ class Body extends StatelessWidget {
             child: Info(),
           ),
           const Expanded(
-            child: ClotureMatriculeWidget(),
+            child: MatriculeWidget(),
           ),
            Container(
             padding: EdgeInsets.symmetric(vertical: 8),
@@ -55,19 +62,14 @@ class Body extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                  
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MachineScreen(
-                            text: "",
-                          )),
+                      builder: (context) => MachineScreen(text: "")),
                 );
               },
-              child: const Text(
-                  'Clôturer OT', style: TextStyle(fontSize: 20)),
+              child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),

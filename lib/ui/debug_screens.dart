@@ -8,6 +8,7 @@ import 'package:iomer/ui/parts/parts_screen.dart';
 import 'package:iomer/ui/report/report_screen.dart';
 import 'package:iomer/ui/scan/scan_screen.dart';
 import 'package:iomer/ui/task/tasks_screen.dart';
+import 'package:iomer/ui/utils/nav_button.dart';
 
 import 'matricule/first_screen.dart';
 
@@ -21,166 +22,24 @@ class DebugScreen extends StatelessWidget {
         title: const Text('Iomere'),
       ),
       body: ListView(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ActionScreen()),
-                );
-              },
-              child: const Text('ActionScreen', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ClotureOtScreen()),
-                );
-              },
-              child:
-                  const Text('ClotureOtScreen', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
-              },
-              child: const Text('HomeScreen', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MachineScreen(
-                            text: "",
-                          )),
-                );
-              },
-              child:
-                  const Text('MachineScreen', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FirstScreen()),
-                );
-              },
-              child: const Text('FirstScreen (matricule)',
-                  style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const NewPartScreen()),
-                );
-              },
-              child:
-                  const Text('NewPartScreen', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const PartsScreen()),
-                );
-              },
-              child: const Text('PartsScreen', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ReportScreen()),
-                );
-              },
-              child: const Text('ReportScreen', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const TasksScreen()),
-                );
-              },
-              child: const Text('TasksScreen', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ScanScreen()),
-                );
-              },
-              child: const Text('ScanScreen', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
-          ),
+        children: const [
+          NavButton(navDestination: ActionScreen(), navName: 'ActionScreen'),
+          NavButton(
+              navDestination: ClotureOtScreen(), navName: 'ClotureOtScreen'),
+          NavButton(navDestination: HomeScreen(), navName: 'HomeScreen'),
+          NavButton(
+              navDestination: MachineScreen(
+                text: '',
+              ),
+              navName: 'MachineScreen'),
+          NavButton(
+              navDestination: FirstScreen(),
+              navName: 'FirstScreen (matricule)'),
+          NavButton(navDestination: NewPartScreen(), navName: 'NewPartScreen'),
+          NavButton(navDestination: PartsScreen(), navName: 'PartsScreen'),
+          NavButton(navDestination: ReportScreen(), navName: 'ReportScreen'),
+          NavButton(navDestination: TasksScreen(), navName: 'TasksScreen'),
+          NavButton(navDestination: ScanScreen(), navName: 'ScanScreen'),
         ],
       ),
     );

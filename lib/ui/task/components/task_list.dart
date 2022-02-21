@@ -2,10 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/matricule/matricule_bloc.dart';
 import 'package:iomer/bloc/taches/taches_bloc.dart';
 import 'package:iomer/config/injection.dart';
-
 import 'package:iomer/models/bdd/iomer_database.dart';
 
 class TaskList extends StatefulWidget {
@@ -18,20 +16,6 @@ class TaskList extends StatefulWidget {
 class _TaskListState extends State<TaskList> {
   bool isChecked = false;
   late TachesBloc _tachesBloc;
-
-  // List parts = [
-  //   {
-  //     'tache': 'verifer ecrou',
-  //   },
-  //   {
-  //     'tache': 'completer le niveau d\'huile',
-  //   },
-  //   {
-  //     'tache': 'changer les pneus',
-  //   },
-  // ];
-
-  late List<bool> _isChecked;
   late Tache selectedTache;
 
   @override
@@ -39,7 +23,6 @@ class _TaskListState extends State<TaskList> {
     _tachesBloc = getIt.get<TachesBloc>();
     _tachesBloc.add(FetchTachesEvenet());
     super.initState();
-    //_isChecked = List<bool>.filled(parts.length, false);
   }
 
   @override
@@ -58,7 +41,7 @@ class _TaskListState extends State<TaskList> {
                   log("ischecked = " + selectedTache.toString());
                   return CheckboxListTile(
                     title: Text(state.taches[index].LIBELLETACHE),
-                    value: selectedTache.STATUTTACHE,
+                    value: selectedTache.STATUTTACHE == 1 ? true : false,
                     onChanged: (bool? newValue) {
                       setState(
                         () {
@@ -67,7 +50,7 @@ class _TaskListState extends State<TaskList> {
 
                           _tachesBloc.add(CheckedTachesEvenet(state
                               .taches[index]
-                              .copyWith(STATUTTACHE: newValue)));
+                              .copyWith(STATUTTACHE: newValue! ? 1 : 0)));
 
                           log(newValue.toString());
                         },
@@ -84,7 +67,7 @@ class _TaskListState extends State<TaskList> {
                   log("ischecked = " + selectedTache.toString());
                   return CheckboxListTile(
                     title: Text(state.taches[index].LIBELLETACHE),
-                    value: selectedTache.STATUTTACHE,
+                    value: selectedTache.STATUTTACHE == 1 ? true : false,
                     onChanged: (bool? newValue) {
                       setState(
                         () {
@@ -93,7 +76,7 @@ class _TaskListState extends State<TaskList> {
 
                           _tachesBloc.add(CheckedTachesEvenet(state
                               .taches[index]
-                              .copyWith(STATUTTACHE: newValue)));
+                              .copyWith(STATUTTACHE: newValue! ? 1 : 0)));
 
                           log(newValue.toString());
                         },

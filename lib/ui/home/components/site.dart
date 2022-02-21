@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ class SiteWidget extends StatefulWidget {
 }
 
 class _SiteState extends State<SiteWidget> {
+  bool _isLoading = false;
   late SitesBloc _sitesBloc;
   late Site? chooseValue;
   late String choosedConfig;
@@ -26,13 +28,7 @@ class _SiteState extends State<SiteWidget> {
     choosedConfig = "";
     _sitesBloc = getIt.get<SitesBloc>();
     _sitesBloc.add(FetchEventSites());
-  }
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
-    super.dispose();
+    super.initState();
   }
 
   @override
@@ -42,8 +38,10 @@ class _SiteState extends State<SiteWidget> {
         BlocProvider(
           create: (context) => _sitesBloc,
           child: BlocBuilder<SitesBloc, SitesState>(
+
             builder: (context, state) {
               if (state is SitesLoaded) {
+                /// affiche un dropdown button avec la liste des sites
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 6),
                   padding:
@@ -74,28 +72,31 @@ class _SiteState extends State<SiteWidget> {
                     },
                   ),
                 );
-              } else if (state is SitesError) {
-                return Text(state.message);
+              } else  {
+                return const Center(
+                  /// affiche un loading
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SizedBox(child: CircularProgressIndicator()),
+                  ),
+                );
               }
-              return const Center(
-                child: SizedBox(
-                    width: 32, height: 32, child: CircularProgressIndicator()),
-              );
             },
           ),
         ),
-        TextField(
-          controller: myController,
-          decoration: const InputDecoration(
-              border: OutlineInputBorder(), labelText: 'Service :'),
-        ),
+
+        /// affiche un textfield pour rentrer le nom du service rechercher
+        inputService(),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SizedBox(
                 width: double.infinity,
-                child: _buildButton(),
+
+                /// bouton pour valider le site et le service
+                /// navigue a la prochaine étape
+                child: buildButton(),
               ),
             ],
           ),
@@ -104,36 +105,61 @@ class _SiteState extends State<SiteWidget> {
     );
   }
 
-  Widget _buildButton() {
-    return ElevatedButton(
-      child: const Text('Valider', style: TextStyle(fontSize: 20)),
+
+  Widget inputService() {
+    return TextField(
+      controller: myController,
+      decoration: const InputDecoration(
+          border: OutlineInputBorder(), labelText: 'Service :'),
+    );
+  }
+
+  Widget buildButton() {
+    return ElevatedButton.icon(
+      icon: _isLoading
+          ? const SizedBox(
+              height: 20, width: 20, child: CircularProgressIndicator())
+          : const Icon(null),
+      label: Text(
+        _isLoading ? 'Loading...' : 'Valider',
+        style: const TextStyle(fontSize: 20),
+      ),
       style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
       onPressed: calculateWhetherDisabledReturnsBool()
           ? null
-          : () => [choosedConfig = myController.text, Navigation()],
+          : () => [choosedConfig = myController.text, navigation()],
     );
   }
 
   calculateWhetherDisabledReturnsBool() {
+    if (_isLoading == true) {
+      return true;
+    }
     if (chooseValue != null) {
-      return false;
+      return false; //btn activé
     } else {
       return true;
     }
   }
 
-  setConfig() {
-    choosedConfig = myController.text;
+  FutureOr onGoBack(dynamic value) {
+    /// est utilisé pour reinitilaser les parametres après un retour arriere
+    setState(() {
+      _isLoading = false;
+      chooseValue=null;
+    });
   }
 
-  Navigation() {
+  navigation() {
+    setState(() {
+      _isLoading = true;
+    });
     _sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig));
-
     _sitesBloc.nextnav.stream.listen((event) {
       if (event) {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const FirstScreen()));
+            MaterialPageRoute(builder: (context) => const FirstScreen())).then(onGoBack);
       }
     });
   }

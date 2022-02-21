@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:iomer/ui/scan/scan_screen.dart';
-import  'package:intl/intl.dart';
+
 import '../../../bloc/ot/ot_bloc.dart';
 import '../../../config/injection.dart';
 import 'ot_list.dart';
@@ -16,48 +15,39 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   late TextEditingController _controllerCode;
-
   late TextEditingController _controllerNom;
-
   late OtBloc _otBloc;
   bool isButtonActive = false;
 
   @override
   void initState() {
     _otBloc = getIt.get<OtBloc>();
-
     _controllerCode = TextEditingController();
     _controllerNom = TextEditingController();
-
     _otBloc.add(CodeEventMachine(_controllerCode.text));
-
     _controllerCode.addListener(() {
       final isButtonActive = _controllerCode.text.isNotEmpty;
       setState(() => this.isButtonActive = isButtonActive);
     });
-
     super.initState();
   }
 
   @override
-  void dispose() {
-    _controllerCode.dispose();
-    _controllerNom.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _otBloc,
-      child: BlocConsumer< OtBloc, OtState>(
-        listener: (context, state) {
-          if (state is CodeMachineLoaded) {
-            _controllerNom.text = state.nomMachine;
-          }
-        },
-        builder: (context, state) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: BlocProvider(
+        create: (context) => _otBloc,
+        child: BlocConsumer<OtBloc, OtState>(
+          listener: (context, state) {
+            if (state is CodeMachineLoaded) {
+              /// recupère le code machine après scan
+              _controllerNom.text = state.nomMachine;
+            }
+          },
+          builder: (context, state) {
             if (state is CodeMachineLoaded || state is OtLoaded) {
+              /// affiche la page entiere si l'ot est chargé
               return Column(
                 children: [
                   const Padding(
@@ -67,75 +57,95 @@ class _BodyState extends State<Body> {
                       style: TextStyle(fontSize: 24),
                     ),
                   ),
-                  Padding(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                    child: TextFormField(
-                      controller: _controllerCode,
-                      decoration: InputDecoration(
-                        border: const UnderlineInputBorder(),
-                        labelText: 'Code machine',
-                        suffixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: IconButton(
-                              icon: const Icon(Icons.qr_code_scanner_outlined),
-                              onPressed: () {
-                                _navigateAndRetriveCode(context);
-                              }),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                    child: TextField(
-                      controller: _controllerNom,
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Nom machine',
-                      ),
-                    ),
-                  ),
-                  Expanded(child: OTListWidget(codeMachine: _controllerCode.text, otblc: _otBloc),
+                  /// input du code machine
+                  /// avec un bouton QR code (fonctionne aussi avec barcode)
+                  inputCodeMachine(),
+
+                  /// input du nom de la machine
+                  inputNameMachine(),
+
+                  Expanded(
+                    child:
+                    /// affiche la liste des Ot en fonction de la machine
+                    OTListWidget(codeMachine: _controllerCode.text, otblc: _otBloc),
                   ),
                   SizedBox(
                     width: double.infinity,
+                    /// bouton pour actualiser la page et préremplir les champs
                     child: ElevatedButton(
                       onPressed: isButtonActive
                           ? () {
-
-
                         _otBloc.add(CodeEventMachine(_controllerCode.text));
                         setState(() => [
                           isButtonActive = true,
                         ]);
                       }
                           : null,
-                      child: Text('Actualiser'),
+                      child: const Text('Actualiser'),
                       style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 50, vertical: 20)),
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
                     ),
                   )
                 ],
               );
-            }
-
-            else if (state is OtError) {
+            } else if (state is OtError) {
+              /// affiche message d'erreur
               return Text(state.message);
             }
             return const Center(
               child: SizedBox(
+                /// affiche loading
                   width: 32, height: 32, child: CircularProgressIndicator()),
             );
-
-        },
+          },
+        ),
       ),
     );
   }
 
-  _navigateAndRetriveCode(BuildContext context) async {
+
+  Widget inputCodeMachine() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+      child: TextFormField(
+        controller: _controllerCode,
+        decoration: InputDecoration(
+          border: const UnderlineInputBorder(),
+          labelText: 'Code machine',
+          suffixIcon: Align(
+            widthFactor: 1.0,
+            heightFactor: 1.0,
+            child: Theme(
+              data: Theme.of(context),
+              child: IconButton(
+                  icon: const Icon(Icons.qr_code_scanner_outlined),
+                  onPressed: () {
+                    /// lance le scan pour récuperer un code machine
+                    _navigateAndRetrieveCode(context);
+                  }),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget inputNameMachine() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+      child: TextField(
+        controller: _controllerNom,
+        decoration: const InputDecoration(
+          border: UnderlineInputBorder(),
+          labelText: 'Nom machine',
+        ),
+      ),
+    );
+  }
+
+
+  _navigateAndRetrieveCode(BuildContext context) async {
     final String nextPageValues = await Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => const ScanScreen()),

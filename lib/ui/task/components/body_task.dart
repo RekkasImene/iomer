@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: Info(),
           ),
@@ -31,7 +31,11 @@ class Body extends StatelessWidget {
           SizedBox(
             width: double.maxFinite,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(
+                  context,
+                );
+              },
               child: const Text(
                 'Enregistrer',
                 style: TextStyle(fontSize: 20),

@@ -4,9 +4,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_barcode_scanner (2.0.0):
     - Flutter
-  - images_picker (0.0.1):
+  - image_picker (0.0.1):
     - Flutter
-    - ZLPhotoBrowser (= 4.2.0)
   - path_provider_ios (0.0.1):
     - Flutter
   - scan (0.0.1):
@@ -31,15 +30,12 @@ PODS:
     - sqlite3/json1
     - sqlite3/perf-threadsafe
     - sqlite3/rtree
-  - ZLPhotoBrowser (4.2.0):
-    - ZLPhotoBrowser/Core (= 4.2.0)
-  - ZLPhotoBrowser/Core (4.2.0)
 
 DEPENDENCIES:
   - camera (from `.symlinks/plugins/camera/ios`)
   - Flutter (from `Flutter`)
   - flutter_barcode_scanner (from `.symlinks/plugins/flutter_barcode_scanner/ios`)
-  - images_picker (from `.symlinks/plugins/images_picker/ios`)
+  - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - scan (from `.symlinks/plugins/scan/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
@@ -48,7 +44,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - sqlite3
-    - ZLPhotoBrowser
 
 EXTERNAL SOURCES:
   camera:
@@ -57,8 +52,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_barcode_scanner:
     :path: ".symlinks/plugins/flutter_barcode_scanner/ios"
-  images_picker:
-    :path: ".symlinks/plugins/images_picker/ios"
+  image_picker:
+    :path: ".symlinks/plugins/image_picker/ios"
   path_provider_ios:
     :path: ".symlinks/plugins/path_provider_ios/ios"
   scan:
@@ -72,13 +67,12 @@ SPEC CHECKSUMS:
   camera: 9993f92f2c793e87b65e35f3a23c70582afb05b1
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_barcode_scanner: 7a1144744c28dc0c57a8de7218ffe5ec59a9e4bf
-  images_picker: 8508f4097cec731ab87d47564ed964aa3fe942c7
+  image_picker: 541dcbb3b9cf32d87eacbd957845d8651d6c62c3
   path_provider_ios: 7d7ce634493af4477d156294792024ec3485acd5
   scan: aea35bb4aa59ccc8839c576a18cd57c7d492cc86
   shared_preferences_ios: aef470a42dc4675a1cdd50e3158b42e3d1232b32
   sqlite3: c0ed2889f1853952214f34195c4a081a7a7a8015
   sqlite3_flutter_libs: b26eb56ee9f5d821e55739a0e3917301e5ed4628
-  ZLPhotoBrowser: 602d505d4f2cf7f309ce973c4353d33e85216d58
 
 PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 

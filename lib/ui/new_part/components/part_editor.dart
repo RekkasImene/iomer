@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class PartEditor extends StatelessWidget {
-  const PartEditor({Key? key}) : super(key: key);
+  final TextEditingController controllerNpiece ;
+  final TextEditingController controllerLibelle ;
+  final TextEditingController controllerQte;
+
+
+  const PartEditor( {Key? key,required this.controllerNpiece, required this.controllerLibelle, required this.controllerQte})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +17,9 @@ class PartEditor extends StatelessWidget {
           width: 10,
           height: 10,
         ),
-        const TextField(
-          decoration: InputDecoration(
+        TextField(
+          controller: controllerNpiece,
+          decoration: const InputDecoration(
               border: OutlineInputBorder(), labelText: 'N° Pièce :'),
         ),
         const SizedBox(
@@ -21,23 +28,25 @@ class PartEditor extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             Flexible(
               child: TextField(
-                decoration: InputDecoration(
+                controller: controllerLibelle,
+                decoration: const InputDecoration(
                     contentPadding: EdgeInsets.all(20.0),
                     border: OutlineInputBorder(),
                     labelText: 'Libellé pièce :'),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
               height: 10,
             ),
             Flexible(
               child: TextField(
+                controller: controllerQte,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Quantité :'),
               ),
             )

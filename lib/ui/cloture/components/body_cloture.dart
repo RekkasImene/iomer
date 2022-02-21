@@ -38,26 +38,15 @@ class _BodyState extends State<Body> {
           const Expanded(
             child: MatriculeWidget(),
           ),
-           Container(
+          const Padding(
             padding: EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children:  [
-                  Column(
-                    children:  [
-                      Text(" Début d'intervention : "),
-                      TextField(
-                        controller: dtOpenController,
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: const [
-                      Text(" Fin d'intervention : "),
-                    ],
-                  ),
-                  ]
-            )
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "Temps d'intervention :",
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
           ),
           SizedBox(
             width: double.infinity,

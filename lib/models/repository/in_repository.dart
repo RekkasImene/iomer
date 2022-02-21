@@ -173,8 +173,9 @@ class InRepository extends InRepositoryAbs {
 
     var reservations = await localRepository.getAllReservation();
     for(int i=0;i<reservations.length;i++) {
-      List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
-      await updateArticles(list[list.length-1]);
+      //List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
+      //await updateArticles(list[list.length-1]);
+      await updateArticles(reservations[i].CODEARTICLE.toString());
     }
 
     services.client.close();

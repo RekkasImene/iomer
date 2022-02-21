@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +44,9 @@ class _ListPartsState extends State<ListParts> {
                   _controller.add(TextEditingController());
                   _controller[i].text =state.reservation[i].QTEARTICLE.toString();
                 }
+              } else if (state is PartsStateAddArticle) {
+                  log("Je suis PartsStateAddArticle");
+                  _partsBloc.add(FetchEventParts());
               }
             },
 

@@ -15,10 +15,11 @@ part 'matricule_state.dart';
 
 @Environment(Env.prod)
 @injectable
+
+///Les évenements de l'utilisatuer sur la vue matricule sont receptionnés par le bloc MatriculeBloc et tr
 class MatriculeBloc extends Bloc<MatriculeEvent, MatriculeState> {
   final LocalRepository _localRepository;
-  MatriculeBloc(this._localRepository)
-      : super(MatriculeInitial()) {
+  MatriculeBloc(this._localRepository) : super(MatriculeInitial()) {
     on<MatriculeEvent>((event, emit) async {
       if (event is MatriculeEvent) {
         emit(MatriculeLoading());

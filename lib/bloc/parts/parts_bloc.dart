@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:ffi';
 import 'dart:io';
 
@@ -60,27 +61,17 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
       }
 
       if (event is AddPieceEventParts) {
-        late double quantite;
         Ot ot = await _localRepository.getOt();
+        //Sawait _localRepository.insertArticle(event.piece, event.libelle, double.parse(event.qte));
         Article article = await _localRepository.findArticleBy(event.piece);
-        print("J'ai recup article.");
+        log(article.toString());
 
-        if(event.qte.isNotEmpty) {
-          quantite = double.parse(event.qte);
-        } else {
-          quantite = article.QTEARTICLE;
-        }
-
-        print("insertion reservation");
-        _localRepository.insertReservation(
-            Article(
-                IDARTICLE: article.IDARTICLE,
-                CODEARTICLE: article.CODEARTICLE,
-                LIBELLEARTICLE: article.LIBELLEARTICLE,
-                QTEARTICLE: quantite
-            ),
+        await _localRepository.insertReservation(
+            article,
             ot.IDOT
-        ).then((value) =>emit(PartsUpdate()));
+        );
+
+        emit(PartsStateAddArticle());
       }
     });
   }

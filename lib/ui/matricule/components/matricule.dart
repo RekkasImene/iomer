@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +7,6 @@ import 'package:iomer/bloc/matricule/matricule_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
-import 'package:iomer/ui/utils/nav_button.dart';
 
 class MatriculeWidget extends StatefulWidget {
   const MatriculeWidget({Key? key}) : super(key: key);
@@ -29,103 +29,90 @@ class _MatriculeState extends State<MatriculeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: Container(
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.black)),
-                    child: BlocProvider(
-                      create: (context) => _matriculeBloc,
-                      child: BlocBuilder<MatriculeBloc, MatriculeState>(
-                        builder: (context, state) {
-                          if (state is MatriculeLoaded) {
-                            return ListView.builder(
-                              itemCount: state.matricules.length,
-                              itemBuilder: (context, index) {
-                                selectedMatricule = state.matricules[index];
-                                log("ischecked = " +
-                                    selectedMatricule.toString());
-                                return CheckboxListTile(
-                                  title: Text(
-                                      state.matricules[index].NOMMATRICULE),
-                                  //  value: _isChecked[index],
-                                  value: selectedMatricule.CHECKED == true
-                                      ? true
-                                      : false,
-                                  onChanged: (bool? newValue) {
-                                    setState(
-                                      () {
-                                        log("la valeur de ischecked" +
-                                            selectedMatricule.CHECKED
-                                                .toString());
+    return Column(
+      children: [
+        //SizedBox(height: 10,),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: Container(
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.black)),
+                //padding: const EdgeInsets.all(16.0) ,
+                child: BlocProvider(
+                  create: (context) => _matriculeBloc,
+                  child: BlocBuilder<MatriculeBloc, MatriculeState>(
+                    builder: (context, state) {
+                      if (state is MatriculeLoaded) {
+                        return ListView.builder(
+                          itemCount: state.matricules.length,
+                          itemBuilder: (context, index) {
+                            selectedMatricule = state.matricules[index];
+                            log("ischecked = " + selectedMatricule.toString());
+                            return CheckboxListTile(
+                              title: Text(state.matricules[index].NOMMATRICULE),
+                              //  value: _isChecked[index],
+                              value: selectedMatricule.CHECKED == true
+                                  ? true
+                                  : false,
 
-                                        _matriculeBloc.add(
-                                            CheckedMatriculeEvenet(state
-                                                .matricules[index]
-                                                .copyWith(
-                                                    CHECKED: newValue!
-                                                        ? true
-                                                        : false)));
+                              onChanged: (bool? newValue) {
+                                setState(
+                                  () {
+                                    log("la valeur de ischecked" +
+                                        selectedMatricule.CHECKED.toString());
 
-                                        log(newValue.toString());
-                                      },
-                                    );
+                                    _matriculeBloc.add(CheckedMatriculeEvenet(
+                                        state.matricules[index].copyWith(
+                                            CHECKED:
+                                                newValue! ? true : false)));
+
+                                    log(newValue.toString());
                                   },
                                 );
                               },
                             );
-                          } else if (state is CheckMatriculeUpdated) {
-                            return ListView.builder(
-                              itemCount: state.matricules.length,
-                              itemBuilder: (context, index) {
-                                selectedMatricule = state.matricules[index];
+                          },
+                        );
+                      } else if (state is CheckMatriculeUpdated) {
+                        return ListView.builder(
+                          itemCount: state.matricules.length,
+                          itemBuilder: (context, index) {
+                            selectedMatricule = state.matricules[index];
 
-                                return CheckboxListTile(
-                                  title: Text(
-                                      state.matricules[index].NOMMATRICULE),
-                                  value: selectedMatricule.CHECKED == true
-                                      ? true
-                                      : false,
-                                  onChanged: (bool? newValue) {
-                                    setState(
-                                      () {
-                                        _matriculeBloc.add(
-                                            CheckedMatriculeEvenet(state
-                                                .matricules[index]
-                                                .copyWith(
-                                                    CHECKED: newValue!
-                                                        ? true
-                                                        : false)));
-                                      },
-                                    );
+                            return CheckboxListTile(
+                              title: Text(state.matricules[index].NOMMATRICULE),
+                              value: selectedMatricule.CHECKED == true
+                                  ? true
+                                  : false,
+                              onChanged: (bool? newValue) {
+                                setState(
+                                  () {
+                                    _matriculeBloc.add(CheckedMatriculeEvenet(
+                                        state.matricules[index].copyWith(
+                                            CHECKED:
+                                                newValue! ? true : false)));
                                   },
                                 );
                               },
                             );
-                          } else if (state is MatriculeError) {
-                            return Text(state.message);
-                          }
-                          return const Center(
-                            child: SizedBox(
-                                width: 32,
-                                height: 32,
-                                child: CircularProgressIndicator()),
-                          );
-                        },
-                      ),
-                    )),
-              ),
-            ),
-            const NavButton(navDestination: MachineScreen(), navName: 'Valider')
-          ],
+                          },
+                        );
+                      } else if (state is MatriculeError) {
+                        return Text(state.message);
+                      }
+                      return const Center(
+                        child: SizedBox(
+                            width: 32,
+                            height: 32,
+                            child: CircularProgressIndicator()),
+                      );
+                    },
+                  ),
+                )),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/cloture/components/cloture_matricule.dart';
+import 'package:iomer/bloc/matricule/matricule_bloc.dart';
+import 'package:iomer/bloc/taches/taches_bloc.dart';
+import 'package:iomer/config/injection.dart';
+import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
-import 'package:iomer/ui/utils/nav_button.dart';
+import 'package:iomer/ui/matricule/components/matricule.dart';
 
-class Body extends StatelessWidget {
-
+class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  late Matricule selectedMatricule;
+
+  @override
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
-        children: const [
-          Align(
+        children: [
+          const Align(
             alignment: Alignment.topLeft,
             child: Text(
               "Clôture de l'OT :",
@@ -25,10 +35,10 @@ class Body extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: Info(),
           ),
-          Expanded(
-            child: ClotureMatriculeWidget(),
+          const Expanded(
+            child: MatriculeWidget(),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(vertical: 8),
             child: Align(
               alignment: Alignment.topLeft,
@@ -38,9 +48,21 @@ class Body extends StatelessWidget {
               ),
             ),
           ),
-          NavButton(
-            navDestination: MachineScreen(),
-            navName: "Clôturer OT",
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MachineScreen(text: "")),
+                );
+              },
+              child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),
+              style: ElevatedButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+            ),
           ),
         ],
       ),

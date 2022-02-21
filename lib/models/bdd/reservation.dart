@@ -22,8 +22,15 @@ class Reservations extends Table {
 
   IntColumn get IDARTICLE => integer()();
 
+  BoolColumn get NEWRESERVATION =>
+      boolean().nullable().withDefault(const Constant(false))();
+
   @override
   Set<Column> get primaryKey => {IDPIECE};
+  @override
+  List<String> get customConstraints => [
+    'UNIQUE (IDPIECE,IDOT)'
+  ];
 }
 
 @DriftAccessor(tables: [Reservations])

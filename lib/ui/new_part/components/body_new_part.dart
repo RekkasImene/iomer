@@ -72,7 +72,8 @@ class _BodyState extends State<Body> {
             child: ElevatedButton(
               onPressed: () {
                 _partsBloc.add(AddPieceEventParts(_controllerPiece.text, _controllerLibelle.text, _controllerQte.text));
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const PartsScreen()),);
+                //Navigator.push(context, MaterialPageRoute(builder: (_) => const PartsScreen()),);
+                Navigator.pop(context);
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(

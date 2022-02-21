@@ -24,10 +24,17 @@ class DebugScreen extends StatelessWidget {
       body: ListView(
         children: const [
           NavButton(navDestination: ActionScreen(), navName: 'ActionScreen'),
-          NavButton(navDestination: ClotureOtScreen(), navName: 'ClotureOtScreen'),
+          NavButton(
+              navDestination: ClotureOtScreen(), navName: 'ClotureOtScreen'),
           NavButton(navDestination: HomeScreen(), navName: 'HomeScreen'),
-          NavButton(navDestination: MachineScreen(), navName: 'MachineScreen'),
-          NavButton(navDestination: FirstScreen(), navName: 'FirstScreen (matricule)'),
+          NavButton(
+              navDestination: MachineScreen(
+                text: '',
+              ),
+              navName: 'MachineScreen'),
+          NavButton(
+              navDestination: FirstScreen(),
+              navName: 'FirstScreen (matricule)'),
           NavButton(navDestination: NewPartScreen(), navName: 'NewPartScreen'),
           NavButton(navDestination: PartsScreen(), navName: 'PartsScreen'),
           NavButton(navDestination: ReportScreen(), navName: 'ReportScreen'),

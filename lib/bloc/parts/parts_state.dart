@@ -28,6 +28,6 @@ class PartsUpdate extends PartsState {
   PartsUpdate();
 }
 
-class PartsAddArticle extends PartsState {
-  PartsAddArticle();
+class PartsStateAddArticle extends PartsState {
+  PartsStateAddArticle();
 }

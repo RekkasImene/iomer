@@ -142,7 +142,6 @@ class LocalRepository {
         IDARTICLE: article.IDARTICLE,
         IDOT: idOt)
     );
-    print("insertion fini");
   }
 
   Future insertArticle(String codeArticle, String libelle, double quantite) async {

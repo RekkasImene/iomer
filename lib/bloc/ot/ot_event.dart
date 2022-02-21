@@ -34,3 +34,10 @@ class SetEventOt extends OtEvent {
 }
 
 class SelectEventOt extends OtEvent {}
+
+class SetOpenOt extends OtEvent{
+  final int idOt;
+  final DateTime openDate;
+  SetOpenOt(this.idOt, this.openDate);
+
+}

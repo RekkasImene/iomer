@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iomer/bloc/parts/parts_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/ui/new_part/components/part_editor.dart';
+import 'package:iomer/ui/parts/parts_screen.dart';
 import 'package:iomer/ui/scan/scan_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
 
@@ -71,7 +72,7 @@ class _BodyState extends State<Body> {
             child: ElevatedButton(
               onPressed: () {
                 _partsBloc.add(AddPieceEventParts(_controllerPiece.text, _controllerLibelle.text, _controllerQte.text));
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const PartsScreen()),);
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(

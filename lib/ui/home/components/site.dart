@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +38,7 @@ class _SiteState extends State<SiteWidget> {
         BlocProvider(
           create: (context) => _sitesBloc,
           child: BlocBuilder<SitesBloc, SitesState>(
+
             builder: (context, state) {
               if (state is SitesLoaded) {
                 /// affiche un dropdown button avec la liste des sites
@@ -70,17 +72,15 @@ class _SiteState extends State<SiteWidget> {
                     },
                   ),
                 );
-              } else if (state is SitesError) {
-                /// affiche un message d'erreur
-                return Text(state.message);
+              } else  {
+                return const Center(
+                  /// affiche un loading
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SizedBox(child: CircularProgressIndicator()),
+                  ),
+                );
               }
-              return const Center(
-                /// affiche un loading
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SizedBox(child: CircularProgressIndicator()),
-                ),
-              );
             },
           ),
         ),

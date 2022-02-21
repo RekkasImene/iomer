@@ -47,7 +47,6 @@ class _OTListState extends State<OTListWidget> {
                   listener: (context, state) {
                     if (state is OtLoaded) {
                       otList.add(state.ots);
-                      print("list ot : " + otList.toString());
                     } else if (state is OtError) {
                       Text(state.message);
                     }

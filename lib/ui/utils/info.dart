@@ -32,7 +32,6 @@ class _InfoState extends State<Info> {
         create: (context) => _otBloc,
         child: BlocBuilder<OtBloc, OtState>(
           builder: (context, state) {
-            print(state);
             if (state is OtSelected) {
               return SizedBox(
                 child: Column(

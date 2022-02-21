@@ -40,9 +40,8 @@ class OtBloc extends Bloc<OtEvent, OtState> {
         Equipement equipement =
             await _repository.findEquipementsBy(event.codeMachine);
         List<Matricule> matricule = await _repository.getAllMatricule();
-        await _repository
-            .addNewOt(equipement.IDEQUIPEMENT, matricule.first.IDORIGINE!,
-                event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE)
+        await _repository.addNewOt(equipement.IDEQUIPEMENT, matricule.first.IDORIGINE!,
+            event.categorie.IDCATEGORIE, event.categorie.LIBELLECATEGORIE)
             .then((value) => add(FetchEventOt(equipement)));
       }
 
@@ -50,7 +49,6 @@ class OtBloc extends Bloc<OtEvent, OtState> {
         if (event.codeEquipement != "") {
           final Equipement equipement =
               await _repository.findEquipementsBy(event.codeEquipement);
-          print(equipement.toString());
           if (equipement != null) {
             emit(CodeMachineLoaded(equipement.LIBELLEEQUIPEMENT));
             add(FetchEventOt(equipement));

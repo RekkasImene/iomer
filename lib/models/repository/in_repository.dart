@@ -136,8 +136,9 @@ class InRepository extends InRepositoryAbs {
   }
 
   @override
-  Future<List<Site>> getAllSite() {
-    return services.fetchSites();
+  Future<List<Site>> getAllSite() async {
+    List<Site> sites = await services.fetchSites();
+    return sites;
   }
 
   @override
@@ -168,13 +169,11 @@ class InRepository extends InRepositoryAbs {
     }
 
     log("Pause... 2 ");
-    sleep(const Duration(seconds:2));
+    sleep(const Duration(seconds:1));
 
     var reservations = await localRepository.getAllReservation();
     for(int i=0;i<reservations.length;i++) {
       List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
-      //list[i].replaceAll(" ", "");
-      log("Dernier mot :"+list[list.length-1].toString()+"test");
       await updateArticles(list[list.length-1]);
     }
 

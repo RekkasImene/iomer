@@ -44,6 +44,7 @@ class _ListPartsState extends State<ListParts> {
                 }
               }
             },
+
             builder: (context, state) {
               if (state is PartsLoaded) {
                 return Column(
@@ -55,10 +56,8 @@ class _ListPartsState extends State<ListParts> {
                           return Column(
                             children: [
                               ListTile(
-                                title: Text(state.reservation[index].CODEARTICLE
-                                    .toString()),
-                                subtitle: Text(
-                                    state.reservation[index].LIBELLEARTICLE),
+                                title: Text(state.reservation[index].CODEARTICLE.toString()),
+                                subtitle: Text(state.reservation[index].LIBELLEARTICLE),
                                 trailing: SizedBox(
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
@@ -155,5 +154,6 @@ class _ListPartsState extends State<ListParts> {
       ),
     );
   }
+
 }
 

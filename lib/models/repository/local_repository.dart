@@ -40,6 +40,7 @@ class LocalRepository {
     await database.otDao
         .findOtBy(otSaved.IDOT)
         .then((value) => saveOt(value.first));
+    print("Recuperation OT");
     return otSaved;
   }
 
@@ -118,22 +119,30 @@ class LocalRepository {
   }
 
   Future<Article> findArticleBy(String codeArticle) async {
-    return database.articleDao.findArticleBy(codeArticle);
+    Article article =  await database.articleDao.findArticleBy(codeArticle);
+    print("article trouve");
+    return article;
   }
 
   Future<List<Reservation>> findReservationBy(int idOt) async {
     return database.reservationDao.findReservationBy(idOt);
   }
 
-  Future insertReservation(Article article, int idOt, int idpiece) async {
-    database.reservationDao.insertReservation(Reservation(
-        IDPIECE: idpiece ,
+  Future insertReservation(Article article, int idOt ) async {
+    int newId = 0;
+    List<Reservation> lastdata = await database.reservationDao.sortTable();
+    newId = lastdata.first.IDPIECE;
+    newId++;
+
+    await database.reservationDao.insertReservation(Reservation(
+        IDPIECE: newId ,
         CODEARTICLE: article.CODEARTICLE,
         LIBELLEARTICLE: article.LIBELLEARTICLE,
         QTEARTICLE: article.QTEARTICLE,
         IDARTICLE: article.IDARTICLE,
         IDOT: idOt)
     );
+    print("insertion fini");
   }
 
   Future insertArticle(String codeArticle, String libelle, double quantite) async {

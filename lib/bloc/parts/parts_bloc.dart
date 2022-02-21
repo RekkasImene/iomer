@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -21,13 +22,13 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
 
   PartsBloc(this._localRepository) : super(PartsInitial()) {
     on<PartsEvent>((event, emit) async {
+
+
       if (event is FetchEventParts) {
+        print("FetchEventParts");
         emit(PartsLoading());
         Ot ot = await _localRepository.getOt();
         final List<Reservation> reservation = await _localRepository.findReservationBy(ot.IDOT);
-        print(ot.toString());
-        print(reservation.toString());
-
 
         if (reservation.isNotEmpty) {
           emit(PartsLoaded(reservation));
@@ -60,11 +61,9 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
 
       if (event is AddPieceEventParts) {
         late double quantite;
-        print(event.piece+";"+event.libelle+";"+event.qte);
         Ot ot = await _localRepository.getOt();
-        print(ot.toString());
         Article article = await _localRepository.findArticleBy(event.piece);
-        print(article.toString());
+        print("J'ai recup article.");
 
         if(event.qte.isNotEmpty) {
           quantite = double.parse(event.qte);
@@ -72,13 +71,16 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
           quantite = article.QTEARTICLE;
         }
 
+        print("insertion reservation");
         _localRepository.insertReservation(
             Article(
                 IDARTICLE: article.IDARTICLE,
                 CODEARTICLE: article.CODEARTICLE,
                 LIBELLEARTICLE: article.LIBELLEARTICLE,
                 QTEARTICLE: quantite
-            ), ot.IDOT, ot.IDEQUIPEMENT!);
+            ),
+            ot.IDOT
+        ).then((value) =>emit(PartsUpdate()));
       }
     });
   }

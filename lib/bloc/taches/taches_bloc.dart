@@ -13,8 +13,7 @@ part 'taches_state.dart';
 @injectable
 class TachesBloc extends Bloc<TachesEvent, TachesState> {
   final LocalRepository _localRepository;
-  final InRepository _inRepository;
-  TachesBloc(this._localRepository, this._inRepository)
+  TachesBloc(this._localRepository)
       : super(TachesInitial()) {
     on<TachesEvent>((event, emit) async {
       if (event is TachesEvent) {

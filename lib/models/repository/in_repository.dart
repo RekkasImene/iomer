@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
@@ -28,115 +29,116 @@ class InRepository extends InRepositoryAbs {
   InRepository(this.database, this.localRepository, this.services);
 
   late Future<List<Site>> futureSites;
-  late Future<List<Origine>> futureOrigines;
+  late List<Origine> futureOrigines;
   late Future<List<Matricule>> futureMatricules;
-  late Future<List<Ot>> futureOTs;
+  late List<Ot> futureOTs;
   late Future<List<Categorie>> futureCategories;
   late Future<List<Reservation>> futureReservations;
   late Future<List<Article>> futureArticles;
   late Future<List<Equipement>> futureEquipements;
   late Future<List<Tache>> futureTaches;
-  late Future<List<Config>> futureConfigs;
+  late List<Config> futureConfigs;
 
-  void updateOrigines(int idSite) {
-    futureOrigines = services.fetchOrigines(idSite);
-
-    futureOrigines.then((value) {
-      value.forEach((e) {
+  void updateOrigines(int idSite) async {
+    try {
+      var origines = await services.fetchOrigines(idSite);
+      origines.forEach((e) {
         database.origineDao.insertOrigine(e);
         log("table origine insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateMatricules(int idOrigine) {
-    futureMatricules = services.fetchMatricules(idOrigine);
-    return futureMatricules.then((value) {
-      value.forEach((e) {
+  Future<void> updateMatricules(int idOrigine) async {
+    try {
+      var martricules = await services.fetchMatricules(idOrigine);
+      martricules.forEach((e) {
         database.matriculeDao.insertMatricule(e);
         log("table matricule insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateOTs(int idSite, int idOrigine) {
-    futureOTs = services.fetchOTs(idSite, idOrigine);
-    return futureOTs.then((value) {
-      value.forEach((e) {
+  Future<void> updateOTs(int idSite, int idOrigine) async {
+    try {
+      var ots = await services.fetchOTs(idSite, idOrigine);
+      ots.forEach((e) {
         database.otDao.insertOt(e);
         log("table ot insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateCategories(int idSite) {
-    futureCategories = services.fetchCategories(idSite);
-    return futureCategories.then((value) {
-      value.forEach((e) {
+  Future<void> updateCategories(int idSite) async {
+    try {
+      var categories = await services.fetchCategories(idSite);
+      categories.forEach((e) {
         database.categorieDao.insertCategorie(e);
+        log("table categories insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateReservation(int idOt) {
-    futureReservations = services.fetchReservations(idOt);
-    return futureReservations.then((value) {
-      value.forEach((e) {
+  Future<void> updateReservation(int idOt) async {
+    try {
+      var reservations = await services.fetchReservations(idOt);
+      reservations.forEach((e) {
         database.reservationDao.insertReservation(e);
         log("table reservation insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateArticles(String codeArticle) {
-    futureArticles = services.fetchArticles(codeArticle);
-    return futureArticles.then((value) {
-      value.forEach((e) {
+  Future<void> updateArticles(String idArticle) async{
+    try {
+      var articles = await services.fetchArticles(idArticle);
+      articles.forEach((e) {
         database.articleDao.insertArticle(e);
         log("table articles insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateEquipements(int idSite) {
-    futureEquipements = services.fetchEquipements(idSite);
-    return futureEquipements.then((value) {
-      value.forEach((e) {
+  Future<void> updateEquipements(int idSite) async {
+    try {
+      var equipements = await services.fetchEquipements(idSite);
+      equipements.forEach((e) {
         database.equipementDao.insertEquipement(e);
         log("table équipement insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
-  Future<void> updateTaches(int idOT) {
-    futureTaches = services.fetchOTTaches(idOT);
-    return futureTaches.then((value) {
-      value.forEach((e) {
+  Future<void> updateTaches(int idOT) async {
+    try {
+      var taches = await services.fetchOTTaches(idOT);
+      taches.forEach((e)  {
         database.tacheDao.insertTache(e);
         log("table tache insérée");
       });
-    }).catchError((error) {
-      log(error);
-    });
+    } on Exception catch (e) {
+      log(e.toString());
+    }
   }
 
   @override
-  Future<List<Site>> getAllSite() {
-    return services.fetchSites();
+  Future<List<Site>> getAllSite() async {
+    List<Site> sites = await services.fetchSites();
+    return sites;
   }
 
   @override
@@ -147,39 +149,38 @@ class InRepository extends InRepositoryAbs {
   //Filed database
   Future<void> pushDB(int idSite, String codePocket) async {
     //Push matricule & ot
-    futureConfigs = services.fetchConfigs(idSite, codePocket);
-    futureConfigs.then((value) {
-      int idOrigine = value.first.IDORIGINE!;
-      updateMatricules(idOrigine)
-          .then((value) => updateOTs(idSite, idOrigine).then((value) {
-                //push equipement & categories
-                updateCategories(idSite)
-                    .then((value) => updateEquipements(idSite).then((value) {
-                          //push tache & OtArticle(Reservation)
-                          flag.add(true);
-                          localRepository.getAllOt().then((value) {
-                            value.forEach((e) {
-                              log("table tache");
-                              updateTaches(e.IDOT).then((value) =>
-                                  updateReservation(e.IDOT).then((value) {
-                                    localRepository
-                                        .getAllReservation()
-                                        .then((value) {
-                                      value.forEach((e) {
-                                        updateArticles(e.CODEARTICLE!);
-                                      });
-                                    }).catchError((error) {
-                                      log(error);
-                                    });
-                                  }));
-                            });
-                          }).catchError((error) {
-                            log(error);
-                          });
-                        }));
-              }));
-    });
+    futureConfigs = await services.fetchConfigs(idSite, codePocket);
+    int idOrigine = futureConfigs.first.IDORIGINE!;
+
+    await updateMatricules(idOrigine);
+    await updateOTs(idSite, idOrigine);
+    await updateCategories(idSite);
+    await updateEquipements(idSite);
+
+    //push tache & OtArticle(Reservation)
+    log("Pause... 1 ");
+    sleep(const Duration(seconds:1));
+
+    var ots = await localRepository.getAllOt();
+    for(int i=0;i<ots.length;i++) {
+      log("ID ot : "+ots[i].IDOT.toString());
+      await updateReservation(ots[i].IDOT);
+      await updateTaches(ots[i].IDOT);
+    }
+
+    log("Pause... 2 ");
+    sleep(const Duration(seconds:1));
+
+    var reservations = await localRepository.getAllReservation();
+    for(int i=0;i<reservations.length;i++) {
+      List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
+      await updateArticles(list[list.length-1]);
+    }
+
+    services.client.close();
+    flag.add(true);
   }
+
 
   Future<void> deleteAllDatabase() async {
     database.deleteEverything();

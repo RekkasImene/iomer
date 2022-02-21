@@ -11,13 +11,12 @@ class ActionScreen extends StatefulWidget {
 
 class _ActionScreenState extends State<ActionScreen> {
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text('IOmere'),
         ),
-        body: Body());
+        body: const Body());
   }
 }

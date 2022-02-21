@@ -2,21 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:iomer/ui/cloture/components/cloture_matricule.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';
 import 'package:iomer/ui/utils/info.dart';
-import 'package:iomer/ui/matricule/components/matricule.dart';
+import 'package:iomer/ui/utils/nav_button.dart';
 
 class Body extends StatelessWidget {
 
   const Body({Key? key}) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
-        children: [
-          const Align(
+        children: const [
+          Align(
             alignment: Alignment.topLeft,
             child: Text(
               "Clôture de l'OT :",
@@ -27,10 +25,10 @@ class Body extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: Info(),
           ),
-          const Expanded(
+          Expanded(
             child: ClotureMatriculeWidget(),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 8),
             child: Align(
               alignment: Alignment.topLeft,
@@ -40,25 +38,9 @@ class Body extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                  
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MachineScreen(
-                            text: "",
-                          )),
-                );
-              },
-              child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-            ),
+          NavButton(
+            navDestination: MachineScreen(),
+            navName: "Clôturer OT",
           ),
         ],
       ),

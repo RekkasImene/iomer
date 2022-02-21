@@ -5,16 +5,17 @@ import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart';
 
-var url = 'https://iomere.loca.lt';
+var url = 'http://10.0.2.2:8080';
 
 @Environment(Env.prod)
 @singleton
 @injectable
 class Services {
   final Client client;
+
   Services(Client httpClient) : client = httpClient;
 
-/* Get Sites */
+  /* Get Sites */
   Future<List<Site>> fetchSites() async {
     final response = await client.get(Uri.parse('$url/GetSites'));
     if (response.statusCode == 200) {
@@ -28,7 +29,7 @@ class Services {
     }
   }
 
-/* Get Origines */
+  /* Get Origines */
   Future<List<Origine>> fetchOrigines(int id) async {
     final response = await client.get(Uri.parse('$url/GetOrigines/$id'));
     // log(response.body.toString());
@@ -43,16 +44,14 @@ class Services {
     }
   }
 
-/* Get Matricules */
+  /* Get Matricules */
   Future<List<Matricule>> fetchMatricules(int? id) async {
     final response = await client.get(Uri.parse('$url/GetMatricules/$id'));
-    // log(response.body.toString());
     if (response.statusCode == 200) {
       List<Matricule> matricules;
       matricules = (json.decode(response.body) as List)
           .map((matriculeJson) => Matricule.fromJson(matriculeJson))
           .toList();
-      //log(matricules.toString());
       return matricules;
     } else {
       log('Failed to load Matricules' + response.statusCode.toString());
@@ -60,7 +59,7 @@ class Services {
     }
   }
 
-/* Get Equipements */
+  /* Get Equipements */
   Future<List<Equipement>> fetchEquipements(int id) async {
     final response = await client.get(Uri.parse('$url/GetEquipements/$id'));
     // log(response.body.toString());
@@ -77,7 +76,7 @@ class Services {
     }
   }
 
-/* Get Categories */
+  /* Get Categories */
   Future<List<Categorie>> fetchCategories(int id) async {
     final response = await client.get(Uri.parse('$url/GetCategories/$id'));
     // log(response.body.toString());
@@ -94,29 +93,27 @@ class Services {
     }
   }
 
-/* Get OTs */
+  /* Get OTs */
   Future<List<Ot>> fetchOTs(int idSite, int idOrigine) async {
     final response =
         await client.get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
-    // log(response.body.toString());
+    log(response.body.toString());
     if (response.statusCode == 200) {
       List<Ot> ots;
       ots = (json.decode(response.body) as List)
           .map((otJson) => Ot.fromJson(otJson))
           .toList();
-
-//  log("Liste de Ots : " +ots.toString());
       return ots;
     } else {
       throw Exception('Failed to load Config');
     }
   }
 
-/* Get OT Taches */
+  /* Get OT Taches */
   Future<List<Tache>> fetchOTTaches(int idOT) async {
     final response = await client.get(Uri.parse('$url/GETOT_TACHES/$idOT'));
-    // log(response.body.toString());
-    if (response.statusCode == 200) {
+    //log("Réponse article : " + response.toString());
+    if (response.statusCode == 200 && response.body.length != 41) {
       List<Tache> taches;
       taches = (json.decode(response.body) as List)
           .map((tacheJson) => Tache.fromJson(tacheJson))
@@ -127,52 +124,49 @@ class Services {
     }
   }
 
-/* Get Config */
+  /* Get Config */
   Future<List<Config>> fetchConfigs(int idSite, String codePocket) async {
-    final response =
-        await client.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
-    // log("conffffffff"+response.body.toString());
+    final response = await client.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
     if (response.statusCode == 200) {
-      //log(response.body.toString());
+      log(response.body.toString());
       List<Config> configs;
       configs = (json.decode(response.body) as List)
           .map((configJson) => Config.fromJson(configJson))
           .toList();
-      //  log(configs.toString());
       return configs;
     } else {
-      log('Failed to load Config' + response.statusCode.toString());
       throw Exception('Failed to load Config');
     }
   }
 
-  Future<List<Article>> fetchArticles(String codeArticle) async {
-    final response =
-        await client.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
-    // log(response.body.toString());
-    if (response.statusCode == 200) {
+  Future<List<Article>> fetchArticles(String idArticle) async {
+    final response = await client.get(Uri.parse('$url/GETARTICLE/$idArticle'));
+    log("Réponse article : " + response.body.toString());
+    if (response.statusCode == 200 && response.body.length != 41) {
       List<Article> articles;
       articles = (json.decode(response.body) as List)
           .map((articleJson) => Article.fromJson(articleJson))
           .toList();
       return articles;
+
     } else {
       throw Exception('Failed to load Config');
     }
   }
 
-/* get Reservation (GETOT_ARTICLE)*/
-
+  /* get Reservation (GETOT_ARTICLE)*/
   Future<List<Reservation>> fetchReservations(int idOt) async {
     final response = await client.get(Uri.parse('$url/GETOT_ARTICLES/$idOt'));
-    if (response.statusCode == 200) {
+    log(response.body.toString());
+    if (response.statusCode == 200 && response.body.length != 41) {
+      log("je rentre..");
       List<Reservation> reservations;
       reservations = (json.decode(response.body) as List)
           .map((reservationJson) => Reservation.fromJson(reservationJson))
           .toList();
       return reservations;
     } else {
-      throw Exception('Failed to load Config');
+      throw Exception('Failed to load Reservation');
     }
   }
 

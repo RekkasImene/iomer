@@ -40,6 +40,9 @@ class Ots extends Table {
 
   DateTimeColumn? get DTCLOSOT => dateTime().nullable()();
 
+  BoolColumn get NEWOT =>
+      boolean().nullable().withDefault(const Constant(false))();
+
   @override
   Set<Column> get primaryKey => {IDOT};
 }

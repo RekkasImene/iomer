@@ -1630,6 +1630,7 @@ class Ot extends DataClass implements Insertable<Ot> {
   final DateTime? DTWAITOT;
   final DateTime? DTCANCOT;
   final DateTime? DTCLOSOT;
+  final bool? NEWOT;
   Ot(
       {required this.IDOT,
       this.IDORIGINE,
@@ -1644,7 +1645,8 @@ class Ot extends DataClass implements Insertable<Ot> {
       this.DTEXECOT,
       this.DTWAITOT,
       this.DTCANCOT,
-      this.DTCLOSOT});
+      this.DTCLOSOT,
+      this.NEWOT});
   factory Ot.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Ot(
@@ -1676,6 +1678,8 @@ class Ot extends DataClass implements Insertable<Ot> {
           .mapFromDatabaseResponse(data['${effectivePrefix}dtcancot']),
       DTCLOSOT: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}dtclosot']),
+      NEWOT: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}newot']),
     );
   }
   @override
@@ -1716,6 +1720,9 @@ class Ot extends DataClass implements Insertable<Ot> {
     }
     if (!nullToAbsent || DTCLOSOT != null) {
       map['dtclosot'] = Variable<DateTime?>(DTCLOSOT);
+    }
+    if (!nullToAbsent || NEWOT != null) {
+      map['newot'] = Variable<bool?>(NEWOT);
     }
     return map;
   }
@@ -1758,6 +1765,8 @@ class Ot extends DataClass implements Insertable<Ot> {
       DTCLOSOT: DTCLOSOT == null && nullToAbsent
           ? const Value.absent()
           : Value(DTCLOSOT),
+      NEWOT:
+          NEWOT == null && nullToAbsent ? const Value.absent() : Value(NEWOT),
     );
   }
 
@@ -1779,6 +1788,7 @@ class Ot extends DataClass implements Insertable<Ot> {
       DTWAITOT: serializer.fromJson<DateTime?>(json['DTWAITOT']),
       DTCANCOT: serializer.fromJson<DateTime?>(json['DTCANCOT']),
       DTCLOSOT: serializer.fromJson<DateTime?>(json['DTCLOSOT']),
+      NEWOT: serializer.fromJson<bool?>(json['NEWOT']),
     );
   }
   @override
@@ -1799,6 +1809,7 @@ class Ot extends DataClass implements Insertable<Ot> {
       'DTWAITOT': serializer.toJson<DateTime?>(DTWAITOT),
       'DTCANCOT': serializer.toJson<DateTime?>(DTCANCOT),
       'DTCLOSOT': serializer.toJson<DateTime?>(DTCLOSOT),
+      'NEWOT': serializer.toJson<bool?>(NEWOT),
     };
   }
 
@@ -1816,7 +1827,8 @@ class Ot extends DataClass implements Insertable<Ot> {
           DateTime? DTEXECOT,
           DateTime? DTWAITOT,
           DateTime? DTCANCOT,
-          DateTime? DTCLOSOT}) =>
+          DateTime? DTCLOSOT,
+          bool? NEWOT}) =>
       Ot(
         IDOT: IDOT ?? this.IDOT,
         IDORIGINE: IDORIGINE ?? this.IDORIGINE,
@@ -1832,6 +1844,7 @@ class Ot extends DataClass implements Insertable<Ot> {
         DTWAITOT: DTWAITOT ?? this.DTWAITOT,
         DTCANCOT: DTCANCOT ?? this.DTCANCOT,
         DTCLOSOT: DTCLOSOT ?? this.DTCLOSOT,
+        NEWOT: NEWOT ?? this.NEWOT,
       );
   @override
   String toString() {
@@ -1849,7 +1862,8 @@ class Ot extends DataClass implements Insertable<Ot> {
           ..write('DTEXECOT: $DTEXECOT, ')
           ..write('DTWAITOT: $DTWAITOT, ')
           ..write('DTCANCOT: $DTCANCOT, ')
-          ..write('DTCLOSOT: $DTCLOSOT')
+          ..write('DTCLOSOT: $DTCLOSOT, ')
+          ..write('NEWOT: $NEWOT')
           ..write(')'))
         .toString();
   }
@@ -1869,7 +1883,8 @@ class Ot extends DataClass implements Insertable<Ot> {
       DTEXECOT,
       DTWAITOT,
       DTCANCOT,
-      DTCLOSOT);
+      DTCLOSOT,
+      NEWOT);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1887,7 +1902,8 @@ class Ot extends DataClass implements Insertable<Ot> {
           other.DTEXECOT == this.DTEXECOT &&
           other.DTWAITOT == this.DTWAITOT &&
           other.DTCANCOT == this.DTCANCOT &&
-          other.DTCLOSOT == this.DTCLOSOT);
+          other.DTCLOSOT == this.DTCLOSOT &&
+          other.NEWOT == this.NEWOT);
 }
 
 class OtsCompanion extends UpdateCompanion<Ot> {
@@ -1905,6 +1921,7 @@ class OtsCompanion extends UpdateCompanion<Ot> {
   final Value<DateTime?> DTWAITOT;
   final Value<DateTime?> DTCANCOT;
   final Value<DateTime?> DTCLOSOT;
+  final Value<bool?> NEWOT;
   const OtsCompanion({
     this.IDOT = const Value.absent(),
     this.IDORIGINE = const Value.absent(),
@@ -1920,6 +1937,7 @@ class OtsCompanion extends UpdateCompanion<Ot> {
     this.DTWAITOT = const Value.absent(),
     this.DTCANCOT = const Value.absent(),
     this.DTCLOSOT = const Value.absent(),
+    this.NEWOT = const Value.absent(),
   });
   OtsCompanion.insert({
     this.IDOT = const Value.absent(),
@@ -1936,6 +1954,7 @@ class OtsCompanion extends UpdateCompanion<Ot> {
     this.DTWAITOT = const Value.absent(),
     this.DTCANCOT = const Value.absent(),
     this.DTCLOSOT = const Value.absent(),
+    this.NEWOT = const Value.absent(),
   })  : CODEOT = Value(CODEOT),
         LIBELLEOT = Value(LIBELLEOT);
   static Insertable<Ot> custom({
@@ -1953,6 +1972,7 @@ class OtsCompanion extends UpdateCompanion<Ot> {
     Expression<DateTime?>? DTWAITOT,
     Expression<DateTime?>? DTCANCOT,
     Expression<DateTime?>? DTCLOSOT,
+    Expression<bool?>? NEWOT,
   }) {
     return RawValuesInsertable({
       if (IDOT != null) 'idot': IDOT,
@@ -1969,6 +1989,7 @@ class OtsCompanion extends UpdateCompanion<Ot> {
       if (DTWAITOT != null) 'dtwaitot': DTWAITOT,
       if (DTCANCOT != null) 'dtcancot': DTCANCOT,
       if (DTCLOSOT != null) 'dtclosot': DTCLOSOT,
+      if (NEWOT != null) 'newot': NEWOT,
     });
   }
 
@@ -1986,7 +2007,8 @@ class OtsCompanion extends UpdateCompanion<Ot> {
       Value<DateTime?>? DTEXECOT,
       Value<DateTime?>? DTWAITOT,
       Value<DateTime?>? DTCANCOT,
-      Value<DateTime?>? DTCLOSOT}) {
+      Value<DateTime?>? DTCLOSOT,
+      Value<bool?>? NEWOT}) {
     return OtsCompanion(
       IDOT: IDOT ?? this.IDOT,
       IDORIGINE: IDORIGINE ?? this.IDORIGINE,
@@ -2002,6 +2024,7 @@ class OtsCompanion extends UpdateCompanion<Ot> {
       DTWAITOT: DTWAITOT ?? this.DTWAITOT,
       DTCANCOT: DTCANCOT ?? this.DTCANCOT,
       DTCLOSOT: DTCLOSOT ?? this.DTCLOSOT,
+      NEWOT: NEWOT ?? this.NEWOT,
     );
   }
 
@@ -2050,6 +2073,9 @@ class OtsCompanion extends UpdateCompanion<Ot> {
     if (DTCLOSOT.present) {
       map['dtclosot'] = Variable<DateTime?>(DTCLOSOT.value);
     }
+    if (NEWOT.present) {
+      map['newot'] = Variable<bool?>(NEWOT.value);
+    }
     return map;
   }
 
@@ -2069,7 +2095,8 @@ class OtsCompanion extends UpdateCompanion<Ot> {
           ..write('DTEXECOT: $DTEXECOT, ')
           ..write('DTWAITOT: $DTWAITOT, ')
           ..write('DTCANCOT: $DTCANCOT, ')
-          ..write('DTCLOSOT: $DTCLOSOT')
+          ..write('DTCLOSOT: $DTCLOSOT, ')
+          ..write('NEWOT: $NEWOT')
           ..write(')'))
         .toString();
   }
@@ -2155,6 +2182,13 @@ class $OtsTable extends Ots with TableInfo<$OtsTable, Ot> {
   late final GeneratedColumn<DateTime?> DTCLOSOT = GeneratedColumn<DateTime?>(
       'dtclosot', aliasedName, true,
       typeName: 'INTEGER', requiredDuringInsert: false);
+  final VerificationMeta _NEWOTMeta = const VerificationMeta('NEWOT');
+  late final GeneratedColumn<bool?> NEWOT = GeneratedColumn<bool?>(
+      'newot', aliasedName, true,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK (newot IN (0, 1))',
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         IDOT,
@@ -2170,7 +2204,8 @@ class $OtsTable extends Ots with TableInfo<$OtsTable, Ot> {
         DTEXECOT,
         DTWAITOT,
         DTCANCOT,
-        DTCLOSOT
+        DTCLOSOT,
+        NEWOT
       ];
   @override
   String get aliasedName => _alias ?? 'ots';
@@ -2245,6 +2280,10 @@ class $OtsTable extends Ots with TableInfo<$OtsTable, Ot> {
       context.handle(_DTCLOSOTMeta,
           DTCLOSOT.isAcceptableOrUnknown(data['dtclosot']!, _DTCLOSOTMeta));
     }
+    if (data.containsKey('newot')) {
+      context.handle(
+          _NEWOTMeta, NEWOT.isAcceptableOrUnknown(data['newot']!, _NEWOTMeta));
+    }
     return context;
   }
 
@@ -2269,13 +2308,15 @@ class Reservation extends DataClass implements Insertable<Reservation> {
   final String LIBELLEARTICLE;
   final double QTEARTICLE;
   final int IDARTICLE;
+  final bool? NEWRESERVATION;
   Reservation(
       {required this.IDPIECE,
       this.IDOT,
       this.CODEARTICLE,
       required this.LIBELLEARTICLE,
       required this.QTEARTICLE,
-      required this.IDARTICLE});
+      required this.IDARTICLE,
+      this.NEWRESERVATION});
   factory Reservation.fromData(Map<String, dynamic> data, {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Reservation(
@@ -2291,6 +2332,8 @@ class Reservation extends DataClass implements Insertable<Reservation> {
           .mapFromDatabaseResponse(data['${effectivePrefix}qtearticle'])!,
       IDARTICLE: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}idarticle'])!,
+      NEWRESERVATION: const BoolType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}newreservation']),
     );
   }
   @override
@@ -2306,6 +2349,9 @@ class Reservation extends DataClass implements Insertable<Reservation> {
     map['libellearticle'] = Variable<String>(LIBELLEARTICLE);
     map['qtearticle'] = Variable<double>(QTEARTICLE);
     map['idarticle'] = Variable<int>(IDARTICLE);
+    if (!nullToAbsent || NEWRESERVATION != null) {
+      map['newreservation'] = Variable<bool?>(NEWRESERVATION);
+    }
     return map;
   }
 
@@ -2319,6 +2365,9 @@ class Reservation extends DataClass implements Insertable<Reservation> {
       LIBELLEARTICLE: Value(LIBELLEARTICLE),
       QTEARTICLE: Value(QTEARTICLE),
       IDARTICLE: Value(IDARTICLE),
+      NEWRESERVATION: NEWRESERVATION == null && nullToAbsent
+          ? const Value.absent()
+          : Value(NEWRESERVATION),
     );
   }
 
@@ -2332,6 +2381,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
       LIBELLEARTICLE: serializer.fromJson<String>(json['LIBELLEARTICLE']),
       QTEARTICLE: serializer.fromJson<double>(json['QTEARTICLE']),
       IDARTICLE: serializer.fromJson<int>(json['IDARTICLE']),
+      NEWRESERVATION: serializer.fromJson<bool?>(json['NEWRESERVATION']),
     );
   }
   @override
@@ -2344,6 +2394,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
       'LIBELLEARTICLE': serializer.toJson<String>(LIBELLEARTICLE),
       'QTEARTICLE': serializer.toJson<double>(QTEARTICLE),
       'IDARTICLE': serializer.toJson<int>(IDARTICLE),
+      'NEWRESERVATION': serializer.toJson<bool?>(NEWRESERVATION),
     };
   }
 
@@ -2353,7 +2404,8 @@ class Reservation extends DataClass implements Insertable<Reservation> {
           String? CODEARTICLE,
           String? LIBELLEARTICLE,
           double? QTEARTICLE,
-          int? IDARTICLE}) =>
+          int? IDARTICLE,
+          bool? NEWRESERVATION}) =>
       Reservation(
         IDPIECE: IDPIECE ?? this.IDPIECE,
         IDOT: IDOT ?? this.IDOT,
@@ -2361,6 +2413,7 @@ class Reservation extends DataClass implements Insertable<Reservation> {
         LIBELLEARTICLE: LIBELLEARTICLE ?? this.LIBELLEARTICLE,
         QTEARTICLE: QTEARTICLE ?? this.QTEARTICLE,
         IDARTICLE: IDARTICLE ?? this.IDARTICLE,
+        NEWRESERVATION: NEWRESERVATION ?? this.NEWRESERVATION,
       );
   @override
   String toString() {
@@ -2370,14 +2423,15 @@ class Reservation extends DataClass implements Insertable<Reservation> {
           ..write('CODEARTICLE: $CODEARTICLE, ')
           ..write('LIBELLEARTICLE: $LIBELLEARTICLE, ')
           ..write('QTEARTICLE: $QTEARTICLE, ')
-          ..write('IDARTICLE: $IDARTICLE')
+          ..write('IDARTICLE: $IDARTICLE, ')
+          ..write('NEWRESERVATION: $NEWRESERVATION')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      IDPIECE, IDOT, CODEARTICLE, LIBELLEARTICLE, QTEARTICLE, IDARTICLE);
+  int get hashCode => Object.hash(IDPIECE, IDOT, CODEARTICLE, LIBELLEARTICLE,
+      QTEARTICLE, IDARTICLE, NEWRESERVATION);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2387,7 +2441,8 @@ class Reservation extends DataClass implements Insertable<Reservation> {
           other.CODEARTICLE == this.CODEARTICLE &&
           other.LIBELLEARTICLE == this.LIBELLEARTICLE &&
           other.QTEARTICLE == this.QTEARTICLE &&
-          other.IDARTICLE == this.IDARTICLE);
+          other.IDARTICLE == this.IDARTICLE &&
+          other.NEWRESERVATION == this.NEWRESERVATION);
 }
 
 class ReservationsCompanion extends UpdateCompanion<Reservation> {
@@ -2397,6 +2452,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
   final Value<String> LIBELLEARTICLE;
   final Value<double> QTEARTICLE;
   final Value<int> IDARTICLE;
+  final Value<bool?> NEWRESERVATION;
   const ReservationsCompanion({
     this.IDPIECE = const Value.absent(),
     this.IDOT = const Value.absent(),
@@ -2404,6 +2460,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
     this.LIBELLEARTICLE = const Value.absent(),
     this.QTEARTICLE = const Value.absent(),
     this.IDARTICLE = const Value.absent(),
+    this.NEWRESERVATION = const Value.absent(),
   });
   ReservationsCompanion.insert({
     this.IDPIECE = const Value.absent(),
@@ -2412,6 +2469,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
     required String LIBELLEARTICLE,
     required double QTEARTICLE,
     required int IDARTICLE,
+    this.NEWRESERVATION = const Value.absent(),
   })  : LIBELLEARTICLE = Value(LIBELLEARTICLE),
         QTEARTICLE = Value(QTEARTICLE),
         IDARTICLE = Value(IDARTICLE);
@@ -2422,6 +2480,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
     Expression<String>? LIBELLEARTICLE,
     Expression<double>? QTEARTICLE,
     Expression<int>? IDARTICLE,
+    Expression<bool?>? NEWRESERVATION,
   }) {
     return RawValuesInsertable({
       if (IDPIECE != null) 'idpiece': IDPIECE,
@@ -2430,6 +2489,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
       if (LIBELLEARTICLE != null) 'libellearticle': LIBELLEARTICLE,
       if (QTEARTICLE != null) 'qtearticle': QTEARTICLE,
       if (IDARTICLE != null) 'idarticle': IDARTICLE,
+      if (NEWRESERVATION != null) 'newreservation': NEWRESERVATION,
     });
   }
 
@@ -2439,7 +2499,8 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
       Value<String?>? CODEARTICLE,
       Value<String>? LIBELLEARTICLE,
       Value<double>? QTEARTICLE,
-      Value<int>? IDARTICLE}) {
+      Value<int>? IDARTICLE,
+      Value<bool?>? NEWRESERVATION}) {
     return ReservationsCompanion(
       IDPIECE: IDPIECE ?? this.IDPIECE,
       IDOT: IDOT ?? this.IDOT,
@@ -2447,6 +2508,7 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
       LIBELLEARTICLE: LIBELLEARTICLE ?? this.LIBELLEARTICLE,
       QTEARTICLE: QTEARTICLE ?? this.QTEARTICLE,
       IDARTICLE: IDARTICLE ?? this.IDARTICLE,
+      NEWRESERVATION: NEWRESERVATION ?? this.NEWRESERVATION,
     );
   }
 
@@ -2471,6 +2533,9 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
     if (IDARTICLE.present) {
       map['idarticle'] = Variable<int>(IDARTICLE.value);
     }
+    if (NEWRESERVATION.present) {
+      map['newreservation'] = Variable<bool?>(NEWRESERVATION.value);
+    }
     return map;
   }
 
@@ -2482,7 +2547,8 @@ class ReservationsCompanion extends UpdateCompanion<Reservation> {
           ..write('CODEARTICLE: $CODEARTICLE, ')
           ..write('LIBELLEARTICLE: $LIBELLEARTICLE, ')
           ..write('QTEARTICLE: $QTEARTICLE, ')
-          ..write('IDARTICLE: $IDARTICLE')
+          ..write('IDARTICLE: $IDARTICLE, ')
+          ..write('NEWRESERVATION: $NEWRESERVATION')
           ..write(')'))
         .toString();
   }
@@ -2528,9 +2594,24 @@ class $ReservationsTable extends Reservations
   late final GeneratedColumn<int?> IDARTICLE = GeneratedColumn<int?>(
       'idarticle', aliasedName, false,
       typeName: 'INTEGER', requiredDuringInsert: true);
+  final VerificationMeta _NEWRESERVATIONMeta =
+      const VerificationMeta('NEWRESERVATION');
+  late final GeneratedColumn<bool?> NEWRESERVATION = GeneratedColumn<bool?>(
+      'newreservation', aliasedName, true,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'CHECK (newreservation IN (0, 1))',
+      defaultValue: const Constant(false));
   @override
-  List<GeneratedColumn> get $columns =>
-      [IDPIECE, IDOT, CODEARTICLE, LIBELLEARTICLE, QTEARTICLE, IDARTICLE];
+  List<GeneratedColumn> get $columns => [
+        IDPIECE,
+        IDOT,
+        CODEARTICLE,
+        LIBELLEARTICLE,
+        QTEARTICLE,
+        IDARTICLE,
+        NEWRESERVATION
+      ];
   @override
   String get aliasedName => _alias ?? 'reservations';
   @override
@@ -2575,6 +2656,12 @@ class $ReservationsTable extends Reservations
           IDARTICLE.isAcceptableOrUnknown(data['idarticle']!, _IDARTICLEMeta));
     } else if (isInserting) {
       context.missing(_IDARTICLEMeta);
+    }
+    if (data.containsKey('newreservation')) {
+      context.handle(
+          _NEWRESERVATIONMeta,
+          NEWRESERVATION.isAcceptableOrUnknown(
+              data['newreservation']!, _NEWRESERVATIONMeta));
     }
     return context;
   }

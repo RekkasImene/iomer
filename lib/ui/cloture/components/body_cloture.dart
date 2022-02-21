@@ -15,6 +15,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  TextEditingController dtOpenController = TextEditingController();
   late Matricule selectedMatricule;
 
   @override

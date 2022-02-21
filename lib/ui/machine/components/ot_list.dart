@@ -20,6 +20,7 @@ class OTListWidget extends StatefulWidget {
 
 class _OTListState extends State<OTListWidget> {
   late Ot choosedOt;
+
   StreamController<List<Ot>> otList = StreamController();
 
   @override
@@ -86,15 +87,19 @@ class _OTListState extends State<OTListWidget> {
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(snapshot.data[index].LIBELLEOT),
-                onTap: () {
-                  choosedOt = snapshot.data[index];
+          child:ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemCount: snapshot.data.length,
+                                      itemBuilder: (context, index) {
+                                        return ListTile(
+                                          title: Text(
+                                              snapshot.data[index].LIBELLEOT),
+
+                                          onTap: () {
+                                            DateTime now = DateTime.now();
+                                            choosedOt = snapshot.data[index];
+                                            widget.otblc.add(SetOpenOt(choosedOt.IDOT, now));
                   widget.otblc.add(SetEventOt(choosedOt));
                   Navigator.push(
                     context,

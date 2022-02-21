@@ -15,7 +15,7 @@ class _ClotureOtScreenState extends State<ClotureOtScreen> {
       appBar: AppBar(
         title: const Text('Maintenance'),
       ),
-      body: const Body(),
+      body:  Body(),
     );
   }
 }

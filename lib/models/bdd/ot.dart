@@ -87,4 +87,17 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
       update(ots).replace(otCopy);
     });
   }
+
+  Future updateDTOPENOT(int idOt, DateTime dtOpen) async {
+    var ot;
+    findOtBy(idOt).then((value) {
+      ot = value.first;
+      var otCopy= ot.copyWith(DTOPENOT: dtOpen);
+      update(ots).replace(otCopy);
+      print("date time in bdd "+dtOpen.toString());
+    }) ;
+
+  }
+
+
 }

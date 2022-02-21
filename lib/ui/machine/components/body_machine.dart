@@ -116,12 +116,15 @@ class _BodyState extends State<Body> {
           suffixIcon: Align(
             widthFactor: 1.0,
             heightFactor: 1.0,
-            child: IconButton(
-                icon: const Icon(Icons.qr_code_scanner_outlined),
-                onPressed: () {
-                  /// lance le scan pour récuperer un code machine
-                  _navigateAndRetrieveCode(context);
-                }),
+            child: Theme(
+              data: Theme.of(context),
+              child: IconButton(
+                  icon: const Icon(Icons.qr_code_scanner_outlined),
+                  onPressed: () {
+                    /// lance le scan pour récuperer un code machine
+                    _navigateAndRetrieveCode(context);
+                  }),
+            ),
           ),
         ),
       ),

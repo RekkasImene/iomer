@@ -59,10 +59,13 @@ class Body extends StatelessWidget {
                 hintStyle: const TextStyle(color: Colors.grey),
                 border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10))),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.camera_alt),
-                  onPressed: () => openImage(),
-                  iconSize: 40,
+                suffixIcon: Theme(
+                  data: Theme.of(context),
+                  child: IconButton(
+                    icon: const Icon(Icons.camera_alt),
+                    onPressed: () => openImage(),
+                    iconSize: 30.0,
+                  ),
                 ),
               ),
             ),

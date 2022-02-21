@@ -42,6 +42,8 @@ class _ListPartsState extends State<ListParts> {
                   _controller.add(TextEditingController());
                   _controller[i].text =state.reservation[i].QTEARTICLE.toString();
                 }
+              } else if (state is PartsAddArticle) {
+                  _partsBloc.add(FetchEventParts());
               }
             },
 

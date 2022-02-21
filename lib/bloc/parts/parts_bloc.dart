@@ -80,7 +80,7 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
                 QTEARTICLE: quantite
             ),
             ot.IDOT
-        ).then((value) =>emit(PartsUpdate()));
+        ).then((value) =>emit(PartsAddArticle()));
       }
     });
   }

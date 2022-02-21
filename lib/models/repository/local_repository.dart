@@ -58,6 +58,7 @@ class LocalRepository {
     return await database.documentDao.getAllDocuments();
   }
 
+
   Future<List<Origine>> getAllOrigine() async {
     return await database.origineDao.getAllOrigine();
   }

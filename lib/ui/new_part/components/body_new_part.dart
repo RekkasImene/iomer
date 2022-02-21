@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:iomer/bloc/parts/parts_bloc.dart';
+import 'package:iomer/config/injection.dart';
 import 'package:iomer/ui/new_part/components/part_editor.dart';
 import 'package:iomer/ui/parts/parts_screen.dart';
 import 'package:iomer/ui/scan/scan_screen.dart';
@@ -12,7 +14,16 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controllerPiece = TextEditingController();
+  final TextEditingController _controllerLibelle = TextEditingController();
+  final TextEditingController _controllerQte = TextEditingController();
+  late PartsBloc _partsBloc;
+
+  @override
+  void initState() {
+    _partsBloc = getIt.get<PartsBloc>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +45,7 @@ class _BodyState extends State<Body> {
             child: Column(
               children: [
                 Info(),
-                PartEditor(controller: _controller,),
+                PartEditor(controllerNpiece: _controllerPiece, controllerLibelle: _controllerLibelle, controllerQte: _controllerQte),
               ],
             ),
           ),
@@ -60,15 +71,12 @@ class _BodyState extends State<Body> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pop(
-                  context,
-                  
-                );
+                _partsBloc.add(AddPieceEventParts(_controllerPiece.text, _controllerLibelle.text, _controllerQte.text));
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const PartsScreen()),);
               },
               child: const Text('Valider', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
           ),
         ],
@@ -82,7 +90,7 @@ class _BodyState extends State<Body> {
       MaterialPageRoute(builder: (_) => const ScanScreen()),
     );
     setState(() {
-      _controller.text =
+      _controllerPiece.text =
           nextPageValues; //first element is stored at the 0th index for a list
     });
   }

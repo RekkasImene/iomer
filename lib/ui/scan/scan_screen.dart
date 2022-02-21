@@ -16,7 +16,7 @@ class _ScanScreenState extends State<ScanScreen> {
       appBar: AppBar(
         title: const Text('Maintenance'),
       ),
-      body: QrScanner(),
+      body: const QrScanner(),
     );
   }
 }

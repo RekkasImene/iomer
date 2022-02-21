@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/bloc/site/sites_bloc.dart';
 import 'package:iomer/ui/home/components/site.dart';
-import 'package:iomer/ui/matricule/first_screen.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -16,6 +14,7 @@ class Body extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Text("Selectionner le site :", style: TextStyle(fontSize: 20))
           ),
+          /// dans cette vue on implemente le widget SiteWidget
           Expanded(child: SiteWidget()),
         ],
       ),

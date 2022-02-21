@@ -14,15 +14,18 @@ class SitesLoading extends SitesState {}
 
 class SitesLoaded extends SitesState {
   final List<Site> sites;
+
   const SitesLoaded(this.sites);
 }
 
 class SitesError extends SitesState {
   final String message;
+
   const SitesError(this.message);
 }
 
 class FormFilled extends SitesState {
   final Site site;
+
   const FormFilled(this.site);
 }

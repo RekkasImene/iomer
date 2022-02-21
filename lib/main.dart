@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'IomereApp',
-      theme: darkTheme(),
+      theme: lightTheme(),
       darkTheme: darkTheme(),
       home: const DebugScreen(),
     );

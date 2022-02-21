@@ -44,8 +44,8 @@ class Body extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 8.0),
             child: Info(),
           ),
           Expanded(
@@ -59,10 +59,13 @@ class Body extends StatelessWidget {
                 hintStyle: const TextStyle(color: Colors.grey),
                 border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10))),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.camera_alt),
-                  onPressed: () => openImage(),
-                  iconSize: 40,
+                suffixIcon: Theme(
+                  data: Theme.of(context),
+                  child: IconButton(
+                    icon: const Icon(Icons.camera_alt),
+                    onPressed: () => openImage(),
+                    iconSize: 30.0,
+                  ),
                 ),
               ),
             ),
@@ -92,7 +95,6 @@ class Body extends StatelessWidget {
           SizedBox(
             width: double.maxFinite,
             child: ElevatedButton(
-              //pour griser
               onPressed: () {
                 _reportBloc.add(
                     ValidateReport(listDocuments, textfieldController.text));
@@ -100,7 +102,6 @@ class Body extends StatelessWidget {
                   context,
                 );
               },
-              //onPressed:(),
               child: const Text(
                 'valider',
                 style: TextStyle(fontSize: 20),

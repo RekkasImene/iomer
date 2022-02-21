@@ -91,22 +91,10 @@ class _SiteState extends State<SiteWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-
               SizedBox(
                 width: double.infinity,
 
                 /// bouton pour valider le site et le service
-                /// navigue a la prochaine étape
-
-                child: SynchonousButton(),
-              ),
-    SizedBox(
-      height: 10,
-    ),
-              SizedBox(
-                width: double.infinity,
-
-                /// bouton pour synchron le site et le service
                 /// navigue a la prochaine étape
 
                 child: buildButton(),

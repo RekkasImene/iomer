@@ -27,3 +27,7 @@ class PartsError extends PartsState {
 class PartsUpdate extends PartsState {
   PartsUpdate();
 }
+
+class PartsStateAddArticle extends PartsState {
+  PartsStateAddArticle();
+}

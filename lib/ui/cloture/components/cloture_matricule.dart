@@ -13,6 +13,7 @@ class ClotureMatriculeWidget extends StatefulWidget {
 }
 
 class _ClotureMatriculeState extends State<ClotureMatriculeWidget> {
+
   late MatriculeBloc _matriculeBloc;
   late Matricule selectedMatricule;
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:iomer/ui/scan/scan_screen.dart';
-
+import  'package:intl/intl.dart';
 import '../../../bloc/ot/ot_bloc.dart';
 import '../../../config/injection.dart';
 import 'ot_list.dart';
@@ -104,6 +104,8 @@ class _BodyState extends State<Body> {
                     child: ElevatedButton(
                       onPressed: isButtonActive
                           ? () {
+
+
                         _otBloc.add(CodeEventMachine(_controllerCode.text));
                         setState(() => [
                           isButtonActive = true,

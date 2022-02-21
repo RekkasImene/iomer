@@ -6,8 +6,8 @@ import 'package:iomer/ui/matricule/components/matricule.dart';
 
 class Body extends StatelessWidget {
 
-  const Body({Key? key}) : super(key: key);
-
+    Body({Key? key}) : super(key: key);
+    TextEditingController dtOpenController = TextEditingController();
 
 
   @override
@@ -30,15 +30,26 @@ class Body extends StatelessWidget {
           const Expanded(
             child: ClotureMatriculeWidget(),
           ),
-          const Padding(
+           Container(
             padding: EdgeInsets.symmetric(vertical: 8),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Temps d'intervention :",
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children:  [
+                  Column(
+                    children:  [
+                      Text(" Début d'intervention : "),
+                      TextField(
+                        controller: dtOpenController,
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: const [
+                      Text(" Fin d'intervention : "),
+                    ],
+                  ),
+                  ]
+            )
           ),
           SizedBox(
             width: double.infinity,
@@ -53,7 +64,8 @@ class Body extends StatelessWidget {
                           )),
                 );
               },
-              child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),
+              child: const Text(
+                  'Clôturer OT', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
                 
                   padding:

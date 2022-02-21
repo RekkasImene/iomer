@@ -21,6 +21,7 @@ class OTListWidget extends StatefulWidget {
 
 class _OTListState extends State<OTListWidget> {
   late Ot choosedOt;
+
   StreamController<List<Ot>> otList = StreamController();
 
   @override
@@ -79,8 +80,12 @@ class _OTListState extends State<OTListWidget> {
                                         return ListTile(
                                           title: Text(
                                               snapshot.data[index].LIBELLEOT),
+
                                           onTap: () {
+                                            DateTime now = DateTime.now();
+                                            print("the daate is"+now.toString());
                                             choosedOt = snapshot.data[index];
+                                            widget.otblc.add(SetOpenOt(choosedOt, now));
                                             widget.otblc
                                                 .add(SetEventOt(choosedOt));
                                             Navigator.push(

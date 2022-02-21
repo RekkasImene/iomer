@@ -32,3 +32,9 @@ class SetEventOt extends OtEvent{
 
 class SelectEventOt extends OtEvent{}
 
+class SetOpenOt extends OtEvent{
+  final Ot ot;
+  final DateTime openDate;
+  SetOpenOt(this.ot, this.openDate);
+
+}

@@ -5,6 +5,10 @@ import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart';
 
+/// La classe Services contient toutes les interactions avec le WebService
+/// Necessite une connexion Internet
+/// URL à modifier par l'adresse réelle du WebService
+
 var url = 'https://iomer.loca.lt';
 
 @Environment(Env.prod)
@@ -12,26 +16,36 @@ var url = 'https://iomer.loca.lt';
 @injectable
 class Services {
   final Client client;
+
   Services(Client httpClient) : client = httpClient;
 
-/* Get Sites */
+  /// Recupérer une liste de Sites via le WebService
   Future<List<Site>> fetchSites() async {
     final response = await client.get(Uri.parse('$url/GetSites'));
+
+    ///Si le serveur renvoie une réponse 200 OK,
+    /// puis convertir la réponse JSON en une Liste de Sites.
     if (response.statusCode == 200) {
+      ///Si le serveur renvoie une réponse 200 OK,
+      /// puis convertir la réponse JSON en une Liste de Sites.
       List<Site> sites;
       sites = (json.decode(response.body) as List)
           .map((siteJson) => Site.fromJson(siteJson))
           .toList();
       return sites;
     } else {
+      ///Si le serveur ne renvoie pas une réponse 200 OK,
+      /// Alors une exception est levée.
       throw Exception('Failed to load site');
     }
   }
 
-/* Get Origines */
+  /// Récupérer une liste de Origines via le WebService en passant en paramètre "idSite"
   Future<List<Origine>> fetchOrigines(int id) async {
     final response = await client.get(Uri.parse('$url/GetOrigines/$id'));
-    // log(response.body.toString());
+
+    ///Si le serveur renvoie une réponse 200 OK,
+    /// puis convertir la réponse JSON en une Liste de Origines.
     if (response.statusCode == 200) {
       List<Origine> origines;
       origines = (json.decode(response.body) as List)
@@ -39,83 +53,95 @@ class Services {
           .toList();
       return origines;
     } else {
+      ///Si le serveur ne renvoie pas une réponse 200 OK,
+      /// Alors une exception est levée.
       throw Exception('Failed to load Origines');
     }
   }
 
-/* Get Matricules */
+  /// Récupérer une liste de Matricules via le WebService en passant en paramètre "idOrigine"
   Future<List<Matricule>> fetchMatricules(int? id) async {
     final response = await client.get(Uri.parse('$url/GetMatricules/$id'));
-    // log(response.body.toString());
+
+    ///Si le serveur renvoie une réponse 200 OK,
+    /// puis convertir la réponse JSON en une Liste de Matricules.
     if (response.statusCode == 200) {
       List<Matricule> matricules;
       matricules = (json.decode(response.body) as List)
           .map((matriculeJson) => Matricule.fromJson(matriculeJson))
           .toList();
-      //log(matricules.toString());
       return matricules;
     } else {
-      log('Failed to load Matricules' + response.statusCode.toString());
+      ///Si le serveur ne renvoie pas une réponse 200 OK,
+      /// Alors une exception est levée.
       throw Exception('Failed to load Matricules');
     }
   }
 
-/* Get Equipements */
+  /// Récupérer une liste d'Equipements via le WebService en passant en paramètre "idSite"
   Future<List<Equipement>> fetchEquipements(int id) async {
     final response = await client.get(Uri.parse('$url/GetEquipements/$id'));
-    // log(response.body.toString());
+
+    ///Si le serveur renvoie une réponse 200 OK,
+    /// puis convertir la réponse JSON en une Liste d'Equipements'.
     if (response.statusCode == 200) {
       List<Equipement> equipements;
       equipements = (json.decode(response.body) as List)
           .map((equipementJson) => Equipement.fromJson(equipementJson))
           .toList();
-      //  log(equipements.toString());
       return equipements;
     } else {
-      log('Failed to load Equipements' + response.statusCode.toString());
+      ///Si le serveur ne renvoie pas une réponse 200 OK,
+      /// Alors une exception est levée.
       throw Exception('Failed to load Equipements');
     }
   }
 
-/* Get Categories */
+  /// Récupérer une liste de Categories via le WebService en passant en paramètre "idSite"
   Future<List<Categorie>> fetchCategories(int id) async {
     final response = await client.get(Uri.parse('$url/GetCategories/$id'));
-    // log(response.body.toString());
+
+    ///Si le serveur renvoie une réponse 200 OK,
+    /// puis convertir la réponse JSON en une Liste de Categories'.
     if (response.statusCode == 200) {
       List<Categorie> categories;
       categories = (json.decode(response.body) as List)
           .map((categorieJson) => Categorie.fromJson(categorieJson))
           .toList();
-      //  log(categories.toString());
       return categories;
     } else {
-      log('Failed to load categories' + response.statusCode.toString());
+      ///Si le serveur ne renvoie pas une réponse 200 OK,
+      /// Alors une exception est levée.
       throw Exception('Failed to load Categories');
     }
   }
 
-/* Get OTs */
+  /// Récupérer une liste d'Ots via le WebService en passant en paramètre "idSite" et "idOrigine"
   Future<List<Ot>> fetchOTs(int idSite, int idOrigine) async {
     final response =
         await client.get(Uri.parse('$url/GetOts/$idSite/$idOrigine'));
-    // log(response.body.toString());
+
+    ///Si le serveur renvoie une réponse 200 OK,
+    /// puis convertir la réponse JSON en une Liste d'Ots'.
     if (response.statusCode == 200) {
       List<Ot> ots;
       ots = (json.decode(response.body) as List)
           .map((otJson) => Ot.fromJson(otJson))
           .toList();
-
-//  log("Liste de Ots : " +ots.toString());
       return ots;
     } else {
+      ///Si le serveur ne renvoie pas une réponse 200 OK,
+      /// Alors une exception est levée.
       throw Exception('Failed to load Config');
     }
   }
 
-/* Get OT Taches */
+  /// Récupérer une liste de Taches via le WebService en passant en paramètre "idOT"
   Future<List<Tache>> fetchOTTaches(int idOT) async {
     final response = await client.get(Uri.parse('$url/GETOT_TACHES/$idOT'));
-    // log(response.body.toString());
+
+    ///Si le serveur renvoie une réponse 200 OK,
+    /// puis convertir la réponse JSON en une Liste de Taches'.
     if (response.statusCode == 200) {
       List<Tache> taches;
       taches = (json.decode(response.body) as List)
@@ -123,33 +149,39 @@ class Services {
           .toList();
       return taches;
     } else {
+      ///Si le serveur ne renvoie pas une réponse 200 OK,
+      /// Alors une exception est levée.
       throw Exception('Failed to load OT Taches');
     }
   }
 
-/* Get Config */
+  /// Récupérer une liste de Configs via le WebService en passant en paramètre "idSite" et "codePocket"
   Future<List<Config>> fetchConfigs(int idSite, String codePocket) async {
     final response =
         await client.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
-    // log("conffffffff"+response.body.toString());
+
+    ///Si le serveur renvoie une réponse 200 OK,
+    /// puis convertir la réponse JSON en une Liste de Configs'
     if (response.statusCode == 200) {
-      //log(response.body.toString());
       List<Config> configs;
       configs = (json.decode(response.body) as List)
           .map((configJson) => Config.fromJson(configJson))
           .toList();
-      //  log(configs.toString());
       return configs;
     } else {
-      log('Failed to load Config' + response.statusCode.toString());
+      ///Si le serveur ne renvoie pas une réponse 200 OK,
+      /// Alors une exception est levée.
       throw Exception('Failed to load Config');
     }
   }
 
+  /// Récupérer une liste d'Articles via le WebService en passant en paramètre "codeArticles"
   Future<List<Article>> fetchArticles(String codeArticle) async {
     final response =
         await client.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
-    // log(response.body.toString());
+
+    ///Si le serveur renvoie une réponse 200 OK,
+    /// puis convertir la réponse JSON en une Liste d'Articles'
     if (response.statusCode == 200) {
       List<Article> articles;
       articles = (json.decode(response.body) as List)
@@ -157,14 +189,21 @@ class Services {
           .toList();
       return articles;
     } else {
+      ///Si le serveur ne renvoie pas une réponse 200 OK,
+      /// Alors une exception est levée.
       throw Exception('Failed to load Config');
     }
   }
 
-/* get Reservation (GETOT_ARTICLE)*/
+
+
+  /// Récupérer une liste de Reservation ( GETOT_ARTICLE) via le WebService en passant en paramètre "idOT"
 
   Future<List<Reservation>> fetchReservations(int idOt) async {
     final response = await client.get(Uri.parse('$url/GETOT_ARTICLES/$idOt'));
+
+    ///Si le serveur renvoie une réponse 200 OK,
+    /// puis convertir la réponse JSON en une Liste de Réservations'
     if (response.statusCode == 200) {
       List<Reservation> reservations;
       reservations = (json.decode(response.body) as List)
@@ -172,6 +211,8 @@ class Services {
           .toList();
       return reservations;
     } else {
+      ///Si le serveur ne renvoie pas une réponse 200 OK,
+      /// Alors une exception est levée.
       throw Exception('Failed to load Config');
     }
   }

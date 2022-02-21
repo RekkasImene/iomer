@@ -149,7 +149,6 @@ class LocalRepository {
     )
 
     );
-    print("insertion fini");
   }
 
   Future modifyReservation(Reservation reservation) async {

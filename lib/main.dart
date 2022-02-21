@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iomer/resources/theme.dart';
 import 'package:iomer/ui/debug_screens.dart';
 import 'config/injection.dart';
 
@@ -25,15 +26,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'IomereApp',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.blueGrey,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-          //onPrimary: Colors.yellow,
-          primary: Colors.blueGrey,
-        )),
-      ),
+      theme: darkTheme(),
+      darkTheme: darkTheme(),
       home: const DebugScreen(),
     );
   }

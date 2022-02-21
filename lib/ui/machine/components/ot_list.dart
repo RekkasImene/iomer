@@ -99,13 +99,14 @@ class _OTListState extends State<OTListWidget> {
                                           onTap: () {
                                             DateTime now = DateTime.now();
                                             choosedOt = snapshot.data[index];
-                                            widget.otblc.add(SetOpenOt(choosedOt.IDOT, now));
-                  widget.otblc.add(SetEventOt(choosedOt));
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ActionScreen()),
-                  );
+                                            widget.otblc.add(SetEventOt(choosedOt));
+                                            widget.otblc.add(SetOpenOt(now));
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => const ActionScreen()),
+                                        );
                 },
               );
             },

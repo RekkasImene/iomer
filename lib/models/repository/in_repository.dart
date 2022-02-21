@@ -136,8 +136,8 @@ class InRepository {
     return sites;
   }
 
-  Future<List<Article>> getArticle (String codeArticle) async {
-    List<Article> article = await services.fetchArticles(codeArticle);
+  Future<Article> getArticle (String codeArticle) async {
+    Article article = (await services.fetchArticles(codeArticle)) as Article;
     return article;
   }
 

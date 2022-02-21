@@ -134,26 +134,6 @@ class _SiteState extends State<SiteWidget> {
   }
 
 
-  Widget SynchonousButton() {
-    return ElevatedButton.icon(
-      icon: _isLoading
-          ? const SizedBox(
-          height: 20, width: 20, child: CircularProgressIndicator())
-          : const Icon(null),
-      label: Text(
-        _isLoading ? 'Loading...' : 'Synchroniser',
-        style: const TextStyle(fontSize: 20),
-      ),
-      style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed: calculateWhetherDisabledReturnsBool()
-          ? null
-          : () => [choosedConfig = myController.text, navigation()],
-    );
-  }
-
-
-
   calculateWhetherDisabledReturnsBool() {
     if (_isLoading == true) {
       return true;

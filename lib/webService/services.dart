@@ -178,8 +178,7 @@ class Services {
 
   /// Récupérer une liste d'[Article] via le WebService en passant en paramètre "codeArticles"
   Future<List<Article>> fetchArticles(String codeArticle) async {
-    final response =
-        await client.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
+    final response = await client.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
 
     ///Si le serveur renvoie une réponse 200 OK,
     /// puis convertir la réponse JSON en une Liste d'Articles'

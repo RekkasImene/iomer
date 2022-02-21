@@ -34,6 +34,7 @@ class _OTPopupState extends State<OTPopUpWidget> {
       content: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               BlocProvider(
                 create: (context) => _categorieBloc,
@@ -98,7 +99,7 @@ class _OTPopupState extends State<OTPopUpWidget> {
                       child: const Text('Cancel')),
                   TextButton(
                     onPressed: () =>
-                        [ValidationCreateOT(), Navigator.pop(context, 'OK')],
+                        [validationCreateOT(), Navigator.pop(context, 'OK')],
                     child: const Text('OK'),
                   ),
                 ],
@@ -112,7 +113,7 @@ class _OTPopupState extends State<OTPopUpWidget> {
     );
   }
 
-  ValidationCreateOT() {
+  validationCreateOT() {
     print("ValidationCreateOT : ");
     widget.otBloc.add(NewEventOt(chooseValueCategorie!, widget.codeMachine));
   }

@@ -47,7 +47,6 @@ class _OTListState extends State<OTListWidget> {
                   listener: (context, state) {
                     if (state is OtLoaded) {
                       otList.add(state.ots);
-                      print("list ot : " + otList.toString());
                     } else if (state is OtError) {
                       Text(state.message);
                     }
@@ -80,17 +79,6 @@ class _OTListState extends State<OTListWidget> {
         ),
         const SizedBox(height: 20),
       ],
-    );
-  }
-
-  Widget BuildList(List<Ot> ots) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: ots.length,
-      itemBuilder: (context, index) {
-        return ListTile(title: Text(ots[index].LIBELLEOT));
-      },
     );
   }
 

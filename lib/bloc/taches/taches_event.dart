@@ -11,5 +11,6 @@ class FetchTachesEvenet extends TachesEvent {}
 
 class CheckedTachesEvenet extends TachesEvent {
   final Tache tache;
+
   const CheckedTachesEvenet(this.tache);
 }

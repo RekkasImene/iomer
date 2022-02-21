@@ -18,11 +18,8 @@ class Body extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Expanded(
-            child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 20.0),
-                child: MatriculeWidget()),
-          ),
+          /// affiche la liste des matricules a selectionner
+          MatriculeWidget()
         ],
       ),
     );

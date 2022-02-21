@@ -13,6 +13,7 @@ class OTButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     OtBloc otblc = BlocProvider.of<OtBloc>(context);
+    /// bouton ouvrant une pop up pour ajouter un Ot
     return IconButton(
       icon: const Icon(Icons.add),
       onPressed: () => showDialog<String>(

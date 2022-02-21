@@ -1,9 +1,7 @@
 //Vue vers bdd et bdd  vers vue, mode hors ligne
 import 'dart:async';
-import 'dart:developer';
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intl/intl.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import '../bdd/iomer_database.dart';
@@ -56,6 +54,10 @@ class LocalRepository {
     return await database.equipementDao.getAllEquipements();
   }
 
+  Future<List<Document>> getAllDocument() async {
+    return await database.documentDao.getAllDocuments();
+  }
+
   Future<List<Origine>> getAllOrigine() async {
     return await database.origineDao.getAllOrigine();
   }
@@ -97,6 +99,7 @@ class LocalRepository {
       IDORIGINE: idOrigine,
       IDEQUIPEMENT: idEquipement,
       IDCATEGORIE: idCategorie, /*DTOPENOT: DateTime.parse(beforeTime)*/
+      NEWOT: true
     );
 
     await database.otDao.insertOt(newOt);
@@ -140,24 +143,12 @@ class LocalRepository {
         LIBELLEARTICLE: article.LIBELLEARTICLE,
         QTEARTICLE: article.QTEARTICLE,
         IDARTICLE: article.IDARTICLE,
-        IDOT: idOt)
+        IDOT: idOt,
+        NEWRESERVATION: true
+    )
+
     );
     print("insertion fini");
-  }
-
-  Future insertArticle(String codeArticle, String libelle, double quantite) async {
-    int newId = 0;
-    List<Article> lastdata = await database.articleDao.sortTable();
-    newId = lastdata.first.IDARTICLE;
-    newId++;
-
-    Article article = Article(
-        IDARTICLE: newId,
-        CODEARTICLE: codeArticle,
-        LIBELLEARTICLE: libelle,
-        QTEARTICLE: quantite
-    );
-    await database.articleDao.insertArticle(article);
   }
 
   Future modifyReservation(Reservation reservation) async {

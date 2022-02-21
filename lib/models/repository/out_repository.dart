@@ -1,5 +1,7 @@
 //bdd vers webservice
 
+import 'dart:convert';
+
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
@@ -17,7 +19,7 @@ class OutRepository {
   final InRepository inRepository;
   OutRepository(this.database, this.services, this.localRepository,this.inRepository);
 
-  Future<void> pushOT() async {
+  Future<void> pushOts() async {
     List<Ot> ots = await localRepository.getAllOt();
     ots.forEach((ot) {
       if (ot.NEWOT!) {
@@ -38,15 +40,54 @@ class OutRepository {
     });
   }
 
-  Future<void> pushWS() async {
+  Future<void> pushMatricules() async {
     //Matricules traitement
     var matricules = await localRepository.getAllMatricule() ;
     matricules.forEach((matricule) {
       services.postMatricule(matricule.IDMATRICULE, matricule.CHECKED! ? 1 : 0);
     });
-    //Traitement OT vers WS
-    await pushOT();
+  }
+
+  Future<void> pushReservations() async {
+    List<Reservation> reservations = await localRepository
+        .getAllReservation(); //reservations de la base local
+    reservations.forEach((reservation) {
+      if (reservation.NEWRESERVATION!) {
+        services.createOtArticle(
+            reservation.IDOT!, reservation.IDARTICLE, reservation.QTEARTICLE);
+      } else {
+        services.postOtArticle(reservation.IDPIECE, reservation.QTEARTICLE);
+      }
+    });
+  }
+
+  Future<void> pushTaches() async{
+    var taches = await localRepository.getAllTache();
+    taches.forEach((tache) {
+      services.postOtTache(
+          tache.IDTACHE,tache.STATUTTACHE.toString(),tache.COMMENTTACHE!);
+    });
+  }
+
+  Future<void> pushDocuments() async{
+    var documents = await localRepository.getAllDocument();
+    documents.forEach((document) {
+      services.postAttachment(document.IDOT!, base64Encode(document.ATTACHEMENT));
+    });
+  }
+
+  Future<void> pushWS() async {
+    //Matricules traitement
+    await pushMatricules();
+    //Documents traitement
+    await pushDocuments();
+    //Traitement taches
+    await pushTaches();
+    //Traitement OT
+    await pushOts();
     //Reservations Traitement
-    List<Reservation> reservations = await localRepository.getAllReservation(); //reservations de la base local
+    await pushReservations();
+
+    services.client.close();
   }
 }

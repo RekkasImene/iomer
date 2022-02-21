@@ -99,7 +99,7 @@ class InRepository extends InRepositoryAbs {
     }
   }
 
-  Future<void> updateArticles(String idArticle) async{
+  Future<void> updateArticles(String idArticle) async {
     try {
       var articles = await services.fetchArticles(idArticle);
       articles.forEach((e) {
@@ -126,7 +126,7 @@ class InRepository extends InRepositoryAbs {
   Future<void> updateTaches(int idOT) async {
     try {
       var taches = await services.fetchOTTaches(idOT);
-      taches.forEach((e)  {
+      taches.forEach((e) {
         database.tacheDao.insertTache(e);
         log("table tache insérée");
       });
@@ -159,29 +159,28 @@ class InRepository extends InRepositoryAbs {
 
     //push tache & OtArticle(Reservation)
     log("Pause... 1 ");
-    sleep(const Duration(seconds:1));
+    sleep(const Duration(seconds: 1));
 
     var ots = await localRepository.getAllOt();
-    for(int i=0;i<ots.length;i++) {
-      log("ID ot : "+ots[i].IDOT.toString());
+    for (int i = 0; i < ots.length; i++) {
+      log("ID ot : " + ots[i].IDOT.toString());
       await updateReservation(ots[i].IDOT);
       await updateTaches(ots[i].IDOT);
     }
 
     log("Pause... 2 ");
-    sleep(const Duration(seconds:1));
+    sleep(const Duration(seconds: 1));
 
     var reservations = await localRepository.getAllReservation();
-    for(int i=0;i<reservations.length;i++) {
-      //List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
-      //await updateArticles(list[list.length-1]);
-      await updateArticles(reservations[i].CODEARTICLE.toString());
+    for (int i = 0; i < reservations.length; i++) {
+      List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
+      await updateArticles(list[list.length - 1]);
+      //await updateArticles(reservations[i].CODEARTICLE.toString());
     }
 
     services.client.close();
     flag.add(true);
   }
-
 
   Future<void> deleteAllDatabase() async {
     database.deleteEverything();

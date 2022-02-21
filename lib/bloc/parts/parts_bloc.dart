@@ -23,13 +23,12 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
 
   PartsBloc(this._localRepository) : super(PartsInitial()) {
     on<PartsEvent>((event, emit) async {
-
-
       if (event is FetchEventParts) {
         print("FetchEventParts");
         emit(PartsLoading());
         Ot ot = await _localRepository.getOt();
-        final List<Reservation> reservation = await _localRepository.findReservationBy(ot.IDOT);
+        final List<Reservation> reservation =
+            await _localRepository.findReservationBy(ot.IDOT);
 
         if (reservation.isNotEmpty) {
           emit(PartsLoaded(reservation));
@@ -39,19 +38,16 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
       }
 
       if (event is UpdateEventListParts) {
-        for(int i=0;i<event.listreservation.length;i++) {
+        for (int i = 0; i < event.listreservation.length; i++) {
           try {
-            if(event.controller[i].text.isNotEmpty) {
-              _localRepository.modifyReservation(
-                  Reservation(
-                      IDPIECE: event.listreservation[i].IDPIECE,
-                      LIBELLEARTICLE: event.listreservation[i].LIBELLEARTICLE,
-                      IDOT: event.listreservation[i].IDOT,
-                      CODEARTICLE: event.listreservation[i].CODEARTICLE,
-                      QTEARTICLE: double.parse(event.controller[i].text),
-                      IDARTICLE: event.listreservation[i].IDARTICLE
-                  )
-              );
+            if (event.controller[i].text.isNotEmpty) {
+              _localRepository.modifyReservation(Reservation(
+                  IDPIECE: event.listreservation[i].IDPIECE,
+                  LIBELLEARTICLE: event.listreservation[i].LIBELLEARTICLE,
+                  IDOT: event.listreservation[i].IDOT,
+                  CODEARTICLE: event.listreservation[i].CODEARTICLE,
+                  QTEARTICLE: double.parse(event.controller[i].text),
+                  IDARTICLE: event.listreservation[i].IDARTICLE));
             }
             emit(PartsUpdate());
           } catch (e) {
@@ -62,14 +58,11 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
 
       if (event is AddPieceEventParts) {
         Ot ot = await _localRepository.getOt();
-        await _localRepository.insertArticle(event.piece, event.libelle, double.parse(event.qte));
+        //await _localRepository.insertArticle(event.piece, event.libelle, double.parse(event.qte));
         Article article = await _localRepository.findArticleBy(event.piece);
         log(article.toString());
 
-        await _localRepository.insertReservation(
-            article,
-            ot.IDOT
-        );
+        await _localRepository.insertReservation(article, ot.IDOT);
 
         emit(PartsStateAddArticle());
       }

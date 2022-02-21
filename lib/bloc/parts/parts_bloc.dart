@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomer/models/repository/in_repository.dart';
 import 'package:iomer/models/repository/local_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -20,10 +21,10 @@ part 'parts_state.dart';
 @injectable
 class PartsBloc extends Bloc<PartsEvent, PartsState> {
   final LocalRepository _localRepository;
+  final InRepository _inRepository;
 
-  PartsBloc(this._localRepository) : super(PartsInitial()) {
+  PartsBloc(this._localRepository, this._inRepository) : super(PartsInitial()) {
     on<PartsEvent>((event, emit) async {
-
 
       if (event is FetchEventParts) {
         print("FetchEventParts");
@@ -62,12 +63,11 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
 
       if (event is AddPieceEventParts) {
         Ot ot = await _localRepository.getOt();
-       // await _localRepository.insertArticle(event.piece, event.libelle, double.parse(event.qte));
-        Article article = await _localRepository.findArticleBy(event.piece);
+        List<Article> article = await _inRepository.getArticle(event.piece);
         log(article.toString());
 
         await _localRepository.insertReservation(
-            article,
+            article[0],
             ot.IDOT
         );
 

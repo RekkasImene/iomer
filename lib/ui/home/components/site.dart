@@ -100,7 +100,9 @@ class _SiteState extends State<SiteWidget> {
 
                 child: SynchonousButton(),
               ),
-
+    SizedBox(
+      height: 10,
+    ),
               SizedBox(
                 width: double.infinity,
 

@@ -22,7 +22,8 @@ class LocalRepository {
   Ot otSaved = Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
 
   //GetAll Methods from db.sqlite database
-  Future<List<Matricule>> getAllMatricule() async {
+  Future<List<Matricule>> get
+  AllMatricule() async {
     return database.matriculeDao.getAllMatricules();
   }
 

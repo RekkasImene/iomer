@@ -1,21 +1,18 @@
-import 'package:drift/native.dart';
-import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/config.dart';
 import 'package:iomer/models/bdd/origine.dart';
 import 'package:iomer/models/bdd/ot.dart';
 import 'package:iomer/models/bdd/reservation.dart';
 import 'package:iomer/models/bdd/site.dart';
 import 'package:iomer/models/bdd/tache.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:drift/drift.dart';
-import 'dart:io';
 
 import 'article.dart';
 import 'categorie.dart';
 import 'document.dart';
 import 'equipement.dart';
 import 'matricule.dart';
+
+export 'database/shared.dart';
 
 part 'iomer_database.g.dart';
 
@@ -26,9 +23,6 @@ part 'iomer_database.g.dart';
       ReservationDao,SiteDao,TacheDao,ConfigDao,DocumentDao]
 )
 
-@Environment(Env.prod)
-@singleton
-@injectable
 class IomerDatabase extends _$IomerDatabase {
   IomerDatabase(QueryExecutor e) : super(e);
 

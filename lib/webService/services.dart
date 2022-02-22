@@ -138,7 +138,7 @@ class Services {
 
   /// Récupérer une liste de [Tache] via le WebService en passant en paramètre "idOT"
   Future<List<Tache>> fetchOTTaches(int idOT) async {
-    final response = await client.get(Uri.parse('$url/GETOT_TACHES/$idOT'));
+    final response = await client.get(Uri.parse('$url/GETOT_TACHES/$idOT$url/GETOT_TACHES/$idOT'));
 
     ///Si le serveur renvoie une réponse 200 OK,
     /// puis convertir la réponse JSON en une Liste de Taches'.

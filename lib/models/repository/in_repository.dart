@@ -169,10 +169,10 @@ class InRepository {
     log("Pause... 2 ");
     sleep(const Duration(seconds:1));
 
-    var reservations = await localRepository.getAllReservation();
+   /* var reservations = await localRepository.getAllReservation();
     for(int i=0;i<reservations.length;i++) {
       await updateArticles(reservations[i].CODEARTICLE.toString());
-    }
+    }*/
 
     services.client.close();
     flag.add(true);

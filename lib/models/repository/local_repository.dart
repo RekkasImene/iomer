@@ -28,11 +28,12 @@ class LocalRepository {
   Future<List<Matricule>> getAllMatricule() async {
     return database.matriculeDao.getAllMatricules();
   }
-  ///Récupérer tous les [Ot] de la base de donnée locale
 
-  Future<List<Ot>> getOtsCloded() async {
+///Récupérer les [Ot] cloturés
+  Future<List<Ot>> getOtsClosed() async {
     return await database.otDao.getOtsClose();
   }
+  ///Récupérer tous les [Ot] de la base de donnée locale
   Future<List<Ot>> getAllOt() async {
     return await database.otDao.getAllOt();
   }

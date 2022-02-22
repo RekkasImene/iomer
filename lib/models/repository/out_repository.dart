@@ -20,7 +20,7 @@ class OutRepository {
   OutRepository(this.database, this.services, this.localRepository,this.inRepository);
 
   Future<void> pushOts() async {
-    List<Ot> ots = await localRepository.getOtsCloded();
+    List<Ot> ots = await localRepository.getOtsClosed();
     ots.forEach((ot) {
         if (ot.NEWOT!) {
           services.createOt(

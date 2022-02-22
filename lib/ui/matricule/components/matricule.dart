@@ -1,11 +1,10 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/matricule/matricule_bloc.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomere/bloc/matricule/matricule_bloc.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
 
 class MatriculeWidget extends StatefulWidget {
   const MatriculeWidget({Key? key}) : super(key: key);

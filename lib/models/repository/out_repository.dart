@@ -3,11 +3,11 @@
 import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/models/repository/in_repository.dart';
-import 'package:iomer/models/repository/local_repository.dart';
-import 'package:iomer/webService/services.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/repository/in_repository.dart';
+import 'package:iomere/models/repository/local_repository.dart';
+import 'package:iomere/webService/services.dart';
 
 @Environment(Env.prod)
 @singleton

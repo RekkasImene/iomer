@@ -1,13 +1,11 @@
 
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/parts/parts_bloc.dart';
-import 'package:iomer/config/injection.dart';
-
-import '../../new_part/new_part_screen.dart';
+import 'package:iomere/bloc/parts/parts_bloc.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/ui/new_part/new_part_screen.dart';
 
 class ListParts extends StatefulWidget {
   const ListParts({Key? key}) : super(key: key);

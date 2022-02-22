@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/bloc/parts/parts_bloc.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/ui/new_part/components/part_editor.dart';
-import 'package:iomer/ui/parts/parts_screen.dart';
-import 'package:iomer/ui/scan/scan_screen.dart';
-import 'package:iomer/ui/utils/info.dart';
+import 'package:iomere/bloc/parts/parts_bloc.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/ui/new_part/components/part_editor.dart';
+import 'package:iomere/ui/scan/scan_screen.dart';
+import 'package:iomere/ui/utils/info.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);

@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "iomer",
+            "name": "iomere",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "iomer (profile mode)",
+            "name": "iomere (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"

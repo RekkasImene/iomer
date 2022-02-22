@@ -1,15 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/models/repository/in_repository.dart';
-import 'package:iomer/models/repository/local_repository.dart';
-import 'package:meta/meta.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/repository/in_repository.dart';
+import 'package:iomere/models/repository/local_repository.dart';
 
 part 'parts_event.dart';
-
 part 'parts_state.dart';
 
 @Environment(Env.prod)
@@ -23,7 +21,6 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
 
 
       if (event is FetchEventParts) {
-        print("FetchEventParts");
         emit(PartsLoading());
         Ot ot = await _localRepository.getOt();
         final List<Reservation> reservation = await _localRepository.findReservationBy(ot.IDOT);

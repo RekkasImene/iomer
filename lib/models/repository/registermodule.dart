@@ -1,8 +1,7 @@
-import 'package:iomer/models/bdd/database/shared.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-
-import 'package:injectable/injectable.dart';
 import 'package:http/http.dart';
+import 'package:injectable/injectable.dart';
+import 'package:iomere/models/bdd/database/shared.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
 
 @module
 abstract class RegisterModule {

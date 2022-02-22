@@ -1,11 +1,11 @@
 {
-    "name": "iomer",
-    "short_name": "iomer",
+    "name": "iOmere",
+    "short_name": "iOmere",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "iomer project Pic2",
+    "description": "iOmere project Pic2",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

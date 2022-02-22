@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
 
 void main() {
   late IomerDatabase db;

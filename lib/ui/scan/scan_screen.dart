@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/scan/components/body_scan.dart';
+import 'package:iomere/ui/scan/components/body_scan.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/ui/scan/scan_screen.dart';
+import 'package:iomere/ui/scan/scan_screen.dart';
 
 import '../../../bloc/ot/ot_bloc.dart';
 import '../../../config/injection.dart';

@@ -20,23 +20,19 @@ class OutRepository {
   OutRepository(this.database, this.services, this.localRepository,this.inRepository);
 
   Future<void> pushOts() async {
-    List<Ot> ots = await localRepository.getAllOt();
+    List<Ot> ots = await localRepository.getOtsCloded();
     ots.forEach((ot) {
-      if (ot.NEWOT!) {
-        services.createOt(
-            ot.IDEQUIPEMENT!,
-            ot.IDORIGINE!,
-            ot.IDCATEGORIE!,
-            ot.LIBELLEOT
-        );
-      }else{
-        services.postOt(
-            ot.IDOT,
-            ot.COMMENTOT!,
-            ot.DTCLOSOT!.difference(ot.DTOPENOT!).inMinutes.toDouble(), //temps en minute
-            ot.STATUTOT!
-        );
-      }
+        if (ot.NEWOT!) {
+          services.createOt(
+              ot.IDEQUIPEMENT!, ot.IDORIGINE!, ot.IDCATEGORIE!, ot.LIBELLEOT);
+        } else {
+          services.postOt(
+              ot.IDOT,
+              ot.COMMENTOT!,
+              ot.DTCLOSOT!.difference(ot.DTOPENOT!).inMinutes.toDouble(),
+              //temps en minute
+              ot.STATUTOT!);
+        }
     });
   }
 

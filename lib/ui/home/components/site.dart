@@ -158,8 +158,10 @@ class _SiteState extends State<SiteWidget> {
     _sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig));
     _sitesBloc.nextnav.stream.listen((event) {
       if (event) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const FirstScreen())).then(onGoBack);
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const FirstScreen())
+        ).then(onGoBack);
       }
     });
   }

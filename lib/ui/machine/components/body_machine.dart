@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/ui/scan/scan_screen.dart';
@@ -73,18 +75,14 @@ class _BodyState extends State<Body> {
                     width: double.infinity,
                     /// bouton pour actualiser la page et préremplir les champs
                     child: ElevatedButton(
-                      onPressed: isButtonActive
-                          ? () {
-                        _otBloc.add(CodeEventMachine(_controllerCode.text));
-                        setState(() => [
-                          isButtonActive = true,
-                        ]);
-                      }
-                          : null,
-                      child: const Text('Actualiser'),
+
+
+                      child: const Text('Journal'),
                       style: ElevatedButton.styleFrom(
                           padding:
-                          const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+                          const EdgeInsets.symmetric(horizontal: 50, vertical: 20)
+                      ),
+                      onPressed: () {  },
                     ),
                   )
                 ],
@@ -109,14 +107,21 @@ class _BodyState extends State<Body> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
       child: TextFormField(
+
         controller: _controllerCode,
+        onEditingComplete: (){
+          _otBloc.add(CodeEventMachine(_controllerCode.text));
+          print("_______________");
+        },
         decoration: InputDecoration(
           border: const UnderlineInputBorder(),
           labelText: 'Code machine',
+
           suffixIcon: Align(
             widthFactor: 1.0,
             heightFactor: 1.0,
             child: Theme(
+
               data: Theme.of(context),
               child: IconButton(
                   icon: const Icon(Icons.qr_code_scanner_outlined),
@@ -144,7 +149,6 @@ class _BodyState extends State<Body> {
     );
   }
 
-
   _navigateAndRetrieveCode(BuildContext context) async {
     final String nextPageValues = await Navigator.push(
       context,
@@ -153,6 +157,8 @@ class _BodyState extends State<Body> {
     setState(() {
       _controllerCode.text =
           nextPageValues; //first element is stored at the 0th index for a list
+      _otBloc.add(CodeEventMachine(_controllerCode.text));
+
     });
   }
 }

@@ -178,7 +178,7 @@ class InRepository extends InRepositoryAbs {
       await updateArticles(reservations[i].CODEARTICLE.toString());
     }
 
-    services.client.close();
+    //services.client.close();
     flag.add(true);
   }
 

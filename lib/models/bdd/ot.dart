@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:drift/drift.dart';
 import 'iomer_database.dart';
 
@@ -55,7 +53,12 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
 
   Future insertOt(Ot otData) => into(ots).insertOnConflictUpdate(otData);
 
-  Future<List<Ot>> getAllOts() => select(ots).get();
+  Future<List<Ot>> getOtsClose() {
+    return (select(ots)
+      ..where((ot) => ot.DTCLOSOT.isNotNull()))
+        .get();
+  }
+  Future<List<Ot>> getAllOt()=> select(ots).get();
 
   Stream<List<Ot>> watchAllOts() => select(ots).watch();
 
@@ -71,7 +74,9 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
   Future modifieOt(Ot ot) => update(ots).replace(ot);
 
   Future<List<Ot>> findOtsBy(int idEquipement) {
-    return (select(ots)..where((ot) => ot.IDEQUIPEMENT.equals(idEquipement)))
+    return (select(ots)
+          ..where((ot) =>
+              ot.IDEQUIPEMENT.equals(idEquipement) & ot.DTCLOSOT.isNull()))
         .get();
   }
 

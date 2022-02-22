@@ -23,7 +23,6 @@ part 'sites_state.dart';
 @injectable
 class SitesBloc extends Bloc<SitesEvent, SitesState> {
   final InRepository _Inrepository;
-
   final LocalRepository _localRepository;
 
   late StreamController<bool> nextnav = StreamController<bool>.broadcast();
@@ -47,10 +46,14 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
 
       if (event is ValidateEventSites) {
         if (event.monsite != null || event.macategorie != null) {
-          print("Mon site selectionné est  :" + event.monsite.NOMSITE);
-          print("Ma categorie : " + event.macategorie);
+          //print("Mon site selectionné est  :" + event.monsite.NOMSITE);
+          //print("Ma categorie : " + event.macategorie);
+          print("Delete bdd");
           await _Inrepository.deleteAllDatabase();
+          print("PushDB");
           await _Inrepository.pushDB(event.monsite.IDSITE, event.macategorie);
+          print("Fin");
+          emit(NavigationState());
         }
       }
     });

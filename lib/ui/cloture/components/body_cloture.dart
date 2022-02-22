@@ -31,7 +31,7 @@ class _BodyState extends State<Body> {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: Info(),
           ),
@@ -54,14 +54,11 @@ class _BodyState extends State<Body> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => MachineScreen(text: "")),
-                );
+                  MaterialPageRoute(builder: (context) => MachineScreen()),);
               },
+
               child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+              style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
             ),
           ),
         ],

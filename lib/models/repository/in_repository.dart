@@ -160,7 +160,6 @@ class InRepository {
 
     //push tache & OtArticle(Reservation)
     log("Pause... 1 ");
-    sleep(const Duration(seconds:1));
 
     var ots = await localRepository.getAllOt();
     for(int i=0;i<ots.length;i++) {
@@ -170,7 +169,6 @@ class InRepository {
     }
 
     log("Pause... 2 ");
-    sleep(const Duration(seconds:1));
 
     var reservations = await localRepository.getAllReservation();
     for(int i=0;i<reservations.length;i++) {

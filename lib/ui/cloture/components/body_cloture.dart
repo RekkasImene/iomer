@@ -20,14 +20,13 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   late ClotureBloc _clotureBloc;
   late Matricule selectedMatricule;
-  late Duration dureeState = const Duration();
-  late List<String> listDuree =[];
+  late List<String> listDuration;
 
   @override
   void initState() {
     _clotureBloc = getIt.get<ClotureBloc>();
     _clotureBloc.add(getOtOpenTime());
-    dureeState= Duration.zero;
+    listDuration=["00","00","00"];
     super.initState();
   }
 
@@ -57,20 +56,25 @@ class _BodyState extends State<Body> {
             child: BlocConsumer<ClotureBloc, ClotureState>(
               listener: (context, state) {
                 if(state is StateDurationOt) {
-                dureeState=state.duree;
-                listDuree= dureeState.toString().split(":");
+                  listDuration=state.listDuration;
+                  print("Temps d'intervention : "+
+                      listDuration.first+ "h "+
+                      listDuration[1] + "mn "+ listDuration.last+ "s");
                 }
               },
               builder: (context, state) {
+                print( "Temps d'intervention : "+
+                    listDuration.first+ "h "+
+                    listDuration[1] + "mn "+ listDuration.last+ "s");
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Temps d'intervention = Heures : "+
-                          listDuree.first+ " Minutes : "+
-                          listDuree[1] + " Seconds : "+ listDuree.last,
-                      style: TextStyle(fontSize: 20),
+                      "Temps d'intervention : "+
+                    listDuration.first+ "h "+
+                    listDuration[1] + "mn "+ listDuration.last+ "s",
+                      style: TextStyle(fontSize: 15),
                     ),
                   ),
                 );

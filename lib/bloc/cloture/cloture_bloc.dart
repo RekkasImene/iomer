@@ -21,7 +21,16 @@ class ClotureBloc extends Bloc<ClotureEvent, ClotureState> {
         Ot ot= await _localRepository.getOt();
         var now= DateTime.now();
         var duree= now.difference(ot.DTOPENOT!).toString();
-        emit(StateDurationOt(duree));
+        List<String> listDuration= duree.toString().split(":");
+        print("Temps d'intervention= Heures:"+
+            listDuration.first+ " Minutes:"+
+            listDuration[1] + " Seconds:"+ listDuration.last );
+        if(listDuration.isEmpty){
+          emit(const ClotureError('Error Duration'));
+        }else {
+          emit(StateDurationOt(listDuration));
+        }
+
       }
 
       if (event is otCloseTimeEvent) {

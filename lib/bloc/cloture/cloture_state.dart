@@ -10,6 +10,12 @@ List<Object> get props => [];
 
 class ClotureInitial extends ClotureState {}
 class StateDurationOt extends ClotureState {
-  var duree;
- StateDurationOt(this.duree);
+  final List<String> listDuration;
+  const StateDurationOt(this.listDuration);
+}
+
+class ClotureError extends ClotureState {
+  final String message;
+
+  const ClotureError(this.message);
 }

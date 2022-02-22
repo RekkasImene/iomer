@@ -17,14 +17,14 @@ class _BodyState extends State<Body> {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          Align(
+          const Align(
             alignment: Alignment.topLeft,
             child: Text(
               "Sélectionner les intervenants :",
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Expanded(
+          const Expanded(
             child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 child: MatriculeWidget()),

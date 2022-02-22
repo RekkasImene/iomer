@@ -71,11 +71,8 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       }
 
       if (event is SetOpenOt){
-        print("impression date "+ event.openDate.toString());
         Ot ot = await _repository.getOt();
-        print("ot    ====== "+ot.toString());
         _repository.modifyOt(ot.copyWith(DTOPENOT: event.openDate));
-        print("ot   copy ====== "+ot.copyWith(DTOPENOT: event.openDate).toString());
       }
     });
   }

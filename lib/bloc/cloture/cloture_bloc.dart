@@ -33,8 +33,12 @@ class ClotureBloc extends Bloc<ClotureEvent, ClotureState> {
 
       }
 
-      if (event is otCloseTimeEvent) {
+      if (event is SetCloseOt) {
         if (event.otCloseTime != null) {
+          Ot ot = await _localRepository.getOt();
+          print("ot    ====== "+ot.toString());
+          await _localRepository.modifyOt(ot.copyWith(DTCLOSOT: event.otCloseTime));
+          emit(ClotureEnd());
         }
       }
     });

@@ -10,8 +10,11 @@ List<Object> get props => [];
 
 class getOtOpenTime extends ClotureEvent {}
 
-class otCloseTimeEvent extends ClotureEvent {
+
+
+
+class SetCloseOt extends ClotureEvent {
   final DateTime otCloseTime;
 
-  const otCloseTimeEvent(this.otCloseTime);
+  const SetCloseOt(this.otCloseTime);
 }

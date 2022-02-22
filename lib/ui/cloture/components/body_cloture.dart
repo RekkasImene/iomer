@@ -61,6 +61,9 @@ class _BodyState extends State<Body> {
                       listDuration.first+ "h "+
                       listDuration[1] + "mn "+ listDuration.last+ "s");
                 }
+                if(state is ClotureEnd){
+                  navigation();
+                }
               },
               builder: (context, state) {
                 print( "Temps d'intervention : "+
@@ -85,11 +88,9 @@ class _BodyState extends State<Body> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MachineScreen(text: "")),
-                );
+                DateTime now = DateTime.now();
+               _clotureBloc.add(SetCloseOt(now));
+
               },
               child: const Text('Clôturer OT', style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
@@ -99,6 +100,14 @@ class _BodyState extends State<Body> {
           ),
         ],
       ),
+    );
+  }
+
+  navigation() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => MachineScreen(text: "")),
     );
   }
 }

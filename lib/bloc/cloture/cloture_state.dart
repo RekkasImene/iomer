@@ -19,3 +19,5 @@ class ClotureError extends ClotureState {
 
   const ClotureError(this.message);
 }
+
+class ClotureEnd extends ClotureState { }

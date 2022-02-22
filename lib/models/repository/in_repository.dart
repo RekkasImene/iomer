@@ -179,7 +179,6 @@ class InRepository extends InRepositoryAbs {
     }
 
     //services.client.close();
-    flag.add(true);
   }
 
 

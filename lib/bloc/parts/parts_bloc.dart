@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomer/models/repository/in_repository.dart';
 import 'package:iomer/models/repository/local_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -20,8 +21,9 @@ part 'parts_state.dart';
 @injectable
 class PartsBloc extends Bloc<PartsEvent, PartsState> {
   final LocalRepository _localRepository;
+  final InRepository _inRepository;
 
-  PartsBloc(this._localRepository) : super(PartsInitial()) {
+  PartsBloc(this._localRepository, this._inRepository) : super(PartsInitial()) {
     on<PartsEvent>((event, emit) async {
 
 
@@ -62,10 +64,10 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
 
       if (event is AddPieceEventParts) {
         Ot ot = await _localRepository.getOt();
-        //Sawait _localRepository.insertArticle(event.piece, event.libelle, double.parse(event.qte));
-        Article article = await _localRepository.findArticleBy(event.piece);
-        log(article.toString());
 
+        // FAIRE UNE CONDITION POUR VERIFIER INTERNET...
+
+        Article article = await _inRepository.getArticle(event.piece);
         await _localRepository.insertReservation(
             article,
             ot.IDOT

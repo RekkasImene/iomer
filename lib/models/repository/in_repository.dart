@@ -4,16 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:injectable/injectable.dart';
 import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/article.dart';
-import 'package:iomer/models/bdd/categorie.dart';
-import 'package:iomer/models/bdd/equipement.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/models/bdd/matricule.dart';
-import 'package:iomer/models/bdd/origine.dart';
-import 'package:iomer/models/bdd/ot.dart';
-import 'package:iomer/models/bdd/reservation.dart';
-import 'package:iomer/models/bdd/site.dart';
-import 'package:iomer/models/bdd/tache.dart';
 import 'package:iomer/webService/services.dart';
 import 'local_repository.dart';
 
@@ -140,6 +131,13 @@ class InRepository {
     List<Site> sites = await services.fetchSites();
     return sites;
   }
+
+  Future<Article> getArticle (String codeArticle) async {
+    Article article = (await services.fetchArticles(codeArticle)) as Article;
+    return article;
+  }
+
+
 /// Insèrer le site séléctionné dans la table [Sites]
   @override
   Future<void> InsertSite(Site site) async {
@@ -169,17 +167,18 @@ class InRepository {
     log("Pause... 2 ");
     sleep(const Duration(seconds:1));
 
-   /* var reservations = await localRepository.getAllReservation();
+    var reservations = await localRepository.getAllReservation();
     for(int i=0;i<reservations.length;i++) {
+      //List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
+      //await updateArticles(list[list.length-1]);
       await updateArticles(reservations[i].CODEARTICLE.toString());
-    }*/
+    }
 
-    services.client.close();
-    flag.add(true);
+    //services.client.close();
   }
 
 ///Supprimer toutes les tables de la base de donnée
   Future<void> deleteAllDatabase() async {
-    database.deleteEverything();
+    await database.deleteEverything();
   }
 }

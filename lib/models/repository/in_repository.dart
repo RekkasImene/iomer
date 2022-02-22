@@ -185,6 +185,6 @@ class InRepository {
 
 
   Future<void> deleteAllDatabase() async {
-    database.deleteEverything();
+    await database.deleteEverything();
   }
 }

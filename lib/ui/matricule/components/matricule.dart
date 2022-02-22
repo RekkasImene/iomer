@@ -24,6 +24,7 @@ class _MatriculeState extends State<MatriculeWidget> {
   void initState() {
     _matriculeBloc = getIt.get<MatriculeBloc>();
     _matriculeBloc.add(FetchMatriculeEvenet());
+    log("Initialisation : Matricule");
     super.initState();
   }
 
@@ -36,64 +37,47 @@ class _MatriculeState extends State<MatriculeWidget> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20.0),
             child: Container(
-                decoration:
-                    BoxDecoration(border: Border.all(color: Colors.black)),
-                //padding: const EdgeInsets.all(16.0) ,
+                decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+
+
                 child: BlocProvider(
                   create: (context) => _matriculeBloc,
                   child: BlocBuilder<MatriculeBloc, MatriculeState>(
                     builder: (context, state) {
+
                       if (state is MatriculeLoaded) {
                         return ListView.builder(
                           itemCount: state.matricules.length,
                           itemBuilder: (context, index) {
                             selectedMatricule = state.matricules[index];
-                            log("ischecked = " + selectedMatricule.toString());
                             return CheckboxListTile(
                               title: Text(state.matricules[index].NOMMATRICULE),
-                              //  value: _isChecked[index],
-                              value: selectedMatricule.CHECKED == true
-                                  ? true
-                                  : false,
-
+                              value: selectedMatricule.CHECKED == true ? true : false,
                               onChanged: (bool? newValue) {
-                                setState(
-                                  () {
                                     log("la valeur de ischecked" +
                                         selectedMatricule.CHECKED.toString());
 
                                     _matriculeBloc.add(CheckedMatriculeEvenet(
                                         state.matricules[index].copyWith(
-                                            CHECKED:
-                                                newValue! ? true : false)));
+                                            CHECKED: newValue! ? true : false)));
 
                                     log(newValue.toString());
-                                  },
-                                );
                               },
                             );
                           },
                         );
+
                       } else if (state is CheckMatriculeUpdated) {
                         return ListView.builder(
                           itemCount: state.matricules.length,
                           itemBuilder: (context, index) {
                             selectedMatricule = state.matricules[index];
-
                             return CheckboxListTile(
                               title: Text(state.matricules[index].NOMMATRICULE),
-                              value: selectedMatricule.CHECKED == true
-                                  ? true
-                                  : false,
+                              value: selectedMatricule.CHECKED == true ? true : false,
                               onChanged: (bool? newValue) {
-                                setState(
-                                  () {
                                     _matriculeBloc.add(CheckedMatriculeEvenet(
-                                        state.matricules[index].copyWith(
-                                            CHECKED:
-                                                newValue! ? true : false)));
-                                  },
-                                );
+                                        state.matricules[index].copyWith(CHECKED: newValue! ? true : false)));
                               },
                             );
                           },

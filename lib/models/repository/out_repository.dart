@@ -42,7 +42,7 @@ class OutRepository {
 
   Future<void> pushMatricules() async {
     //Matricules traitement
-    var matricules = await localRepository.getAllMatricule ;
+    var matricules = await localRepository.getAllMatricule() ;
     matricules.forEach((matricule) {
       services.postMatricule(matricule.IDMATRICULE, matricule.CHECKED! ? 1 : 0);
     });

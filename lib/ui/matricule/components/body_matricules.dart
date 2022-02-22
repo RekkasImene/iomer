@@ -3,6 +3,8 @@ import 'package:iomer/ui/machine/machine_screen.dart';
 
 import 'package:iomer/ui/matricule/components/matricule.dart';
 
+import '../../../models/bdd/iomer_database.dart';
+
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
@@ -11,45 +13,38 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+
+  TextEditingController dtOpenController = TextEditingController();
+  late Matricule selectedMatricule;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          Align(
+          const Align(
             alignment: Alignment.topLeft,
             child: Text(
-              "Sélectionner les intervenants :",
+              "Selectionner les intervenants :",
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Expanded(
-            child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 20.0),
-                child: MatriculeWidget()),
+          const Expanded(
+            child: MatriculeWidget(),
           ),
+
           SizedBox(
             width: double.infinity,
-            child: _buildButton(),
-          )
+            child: ElevatedButton(
+              child: const Text('Valider', style: TextStyle(fontSize: 20)),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const MachineScreen()),);
+              },
+            ),
+          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildButton() {
-    return ElevatedButton(
-      child: const Text('Valider', style: TextStyle(fontSize: 20)),
-      style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed: () => [
-        //choosedConfig = myController.text,
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MachineScreen(text: "")),
-        )
-      ],
     );
   }
 }

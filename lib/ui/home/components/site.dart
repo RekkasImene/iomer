@@ -163,7 +163,7 @@ class _SiteState extends State<SiteWidget> {
       icon: _isLoading
           ? const SizedBox(
               height: 20, width: 20, child: CircularProgressIndicator())
-          : const Icon(null),
+          : const Text(''),
       label: Text(
         _isLoading ? 'Loading...' : 'Valider',
         style: const TextStyle(fontSize: 20),

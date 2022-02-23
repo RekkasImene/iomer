@@ -54,5 +54,7 @@ class CodePartLoaded extends PartsState{
 
 class StatePartsInternetOk extends PartsState {}
 
-
-
+class StateArticleFind extends PartsState {
+  String libelle;
+  StateArticleFind(this.libelle);
+}

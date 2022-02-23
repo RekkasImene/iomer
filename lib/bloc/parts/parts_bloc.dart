@@ -70,13 +70,32 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
       }
 
 
+      if (event is CodeEventPart) {
+        Article article;
+        try {
+          final result = await InternetAddress.lookup('google.com');
+          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+            article = await _inRepository.getArticle(event.codePart);
+            print(article.toString());
+            if(article.LIBELLEARTICLE.isNotEmpty) {
+              emit(StateArticleFind(article.LIBELLEARTICLE));
+            } else {
+              emit(StatePartsNoArticle('Pas d\'article trouvé pour se code article.'));
+            }
+          }
+        } on SocketException catch (_) {
+          print('Connexion internet non disponible, article non inséré');
+          emit(StatePartsInternetInterrupt('Connexion internet non disponible, article non inséré'));
+        }
+      }
 
 
+
+/*
 
       if (event is AddPieceEventParts) {
         double qte = 0;
-        Article article;
-        Reservation reservation;
+
         Ot ot = await _localRepository.getOt();
 
         try {
@@ -125,8 +144,7 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
                   emit(PartsStateAddArticle());
                 }
               } else {
-                emit(StatePartsNoArticle(
-                    'Pas d\'article trouvé pour se code article.'));
+                emit(StatePartsNoArticle('Pas d\'article trouvé pour se code article.'));
               }
             }
           }
@@ -137,7 +155,7 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
           emit(StatePartsInternetInterrupt('Connexion internet non disponible, article non inséré'));
         }
       }
-
+*/
     });
 
   }

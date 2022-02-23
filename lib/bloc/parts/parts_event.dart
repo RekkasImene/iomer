@@ -25,10 +25,8 @@ class UpdateEventListParts extends PartsEvent {
 
 class AddPieceEventParts extends PartsEvent {
   final String piece;
-  final String libelle;
-  final String qte;
 
-  AddPieceEventParts(this.piece, this.libelle, this.qte);
+  AddPieceEventParts(this.piece);
 }
 
 class InternetEventParts extends PartsEvent {}

@@ -1,6 +1,6 @@
-# iomer
+# iOmere
 
-iomer project Pic2
+iomere project Pic2
 
 ## Getting Started
 

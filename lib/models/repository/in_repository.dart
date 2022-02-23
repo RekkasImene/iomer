@@ -2,23 +2,19 @@
 
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
+
 import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/webService/services.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/webService/services.dart';
+
 import 'local_repository.dart';
 
-abstract class InRepositoryAbs {
-  Future<List<Site>> getAllSite();
-
-  void InsertSite(Site site);
-}
 
 @Environment(Env.prod)
 @singleton
 @injectable
-class InRepository extends InRepositoryAbs {
+class InRepository {
   late Future<List<Site>> futureSite;
   final IomerDatabase database;
   final LocalRepository localRepository;
@@ -141,6 +137,12 @@ class InRepository extends InRepositoryAbs {
     return sites;
   }
 
+  Future<Article> getArticle (String codeArticle) async {
+    List<Article> article = await services.fetchArticles(codeArticle);
+    return article.first;
+  }
+
+
   @override
   Future<void> InsertSite(Site site) async {
     database.siteDao.insertSite(site);
@@ -159,7 +161,10 @@ class InRepository extends InRepositoryAbs {
 
     //push tache & OtArticle(Reservation)
     log("Pause... 1 ");
+<<<<<<< HEAD
     sleep(const Duration(seconds: 1));
+=======
+>>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
 
     var ots = await localRepository.getAllOt();
     for (int i = 0; i < ots.length; i++) {
@@ -169,7 +174,10 @@ class InRepository extends InRepositoryAbs {
     }
 
     log("Pause... 2 ");
+<<<<<<< HEAD
     sleep(const Duration(seconds: 1));
+=======
+>>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
 
     var reservations = await localRepository.getAllReservation();
     for (int i = 0; i < reservations.length; i++) {
@@ -178,11 +186,10 @@ class InRepository extends InRepositoryAbs {
       //await updateArticles(reservations[i].CODEARTICLE.toString());
     }
 
-    services.client.close();
-    flag.add(true);
+    //services.client.close();
   }
 
   Future<void> deleteAllDatabase() async {
-    database.deleteEverything();
+    await database.deleteEverything();
   }
 }

@@ -1,17 +1,12 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:iomer/bloc/categorie/categorie_bloc.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/models/repository/local_repository.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/repository/local_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'ot_event.dart';
-
 part 'ot_state.dart';
 
 @Environment(Env.prod)
@@ -66,7 +61,13 @@ class OtBloc extends Bloc<OtEvent, OtState> {
       }
 
       if (event is SetEventOt) {
+        print("ot event  =========== "+ event.ot.toString());
         _repository.saveOt(event.ot);
+      }
+
+      if (event is SetOpenOt){
+        Ot ot = await _repository.getOt();
+        _repository.modifyOt(ot.copyWith(DTOPENOT: event.openDate));
       }
     });
   }

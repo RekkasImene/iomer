@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/ot/ot_bloc.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/ui/action/action_screen.dart';
-import 'package:iomer/ui/machine/components/ot_button.dart';
+import 'package:iomere/bloc/ot/ot_bloc.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/ui/action/action_screen.dart';
+import 'package:iomere/ui/machine/components/ot_button.dart';
 
 class OTListWidget extends StatefulWidget {
   String codeMachine;
@@ -20,6 +20,7 @@ class OTListWidget extends StatefulWidget {
 
 class _OTListState extends State<OTListWidget> {
   late Ot choosedOt;
+
   StreamController<List<Ot>> otList = StreamController();
 
   @override
@@ -86,21 +87,26 @@ class _OTListState extends State<OTListWidget> {
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(snapshot.data[index].LIBELLEOT),
-                onTap: () {
-                  choosedOt = snapshot.data[index];
-                  widget.otblc.add(SetEventOt(choosedOt));
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ActionScreen()),
-                  );
+          child:ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemCount: snapshot.data.length,
+                                      itemBuilder: (context, index) {
+                                        return ListTile(
+                                          title: Text(
+                                              snapshot.data[index].LIBELLEOT),
+
+                                          onTap: () {
+                                            DateTime now = DateTime.now();
+                                            choosedOt = snapshot.data[index];
+                                            widget.otblc.add(SetEventOt(choosedOt));
+                                            widget.otblc.add(SetOpenOt(now));
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => const ActionScreen()),
+                                        );
                 },
               );
             },

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/machine/machine_screen.dart';
-
-import 'package:iomer/ui/matricule/components/matricule.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/ui/machine/machine_screen.dart';
+import 'package:iomere/ui/matricule/components/matricule.dart';
+import 'package:iomere/ui/utils/nav_button.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -11,45 +12,32 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+
+  TextEditingController dtOpenController = TextEditingController();
+  late Matricule selectedMatricule;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
-        children: [
+        children: const [
           Align(
             alignment: Alignment.topLeft,
             child: Text(
-              "Sélectionner les intervenants :",
+              "Selectionner les intervenants :",
               style: TextStyle(fontSize: 20),
             ),
           ),
           Expanded(
-            child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 20.0),
-                child: MatriculeWidget()),
+            child: MatriculeWidget(),
           ),
-          SizedBox(
-            width: double.infinity,
-            child: _buildButton(),
-          )
+          NavButton(
+            navDestination: MachineScreen(),
+            navName: "Valider",
+          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildButton() {
-    return ElevatedButton(
-      child: const Text('Valider', style: TextStyle(fontSize: 20)),
-      style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed: () => [
-        //choosedConfig = myController.text,
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MachineScreen(text: "")),
-        )
-      ],
     );
   }
 }

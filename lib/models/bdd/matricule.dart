@@ -1,6 +1,6 @@
-import 'dart:developer';
 
 import 'package:drift/drift.dart';
+
 import 'iomer_database.dart';
 
 part 'generate/matricule.g.dart';

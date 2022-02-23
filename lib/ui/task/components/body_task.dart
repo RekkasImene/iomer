@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/task/components/task_list.dart';
-import 'package:iomer/ui/utils/info.dart';
+import 'package:iomere/ui/task/components/task_list.dart';
+import 'package:iomere/ui/utils/info.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);

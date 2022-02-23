@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/site/sites_bloc.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/ui/matricule/first_screen.dart';
+import 'package:iomere/bloc/site/sites_bloc.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/ui/matricule/first_screen.dart';
 
 class SiteWidget extends StatefulWidget {
   const SiteWidget({Key? key}) : super(key: key);
@@ -37,8 +36,12 @@ class _SiteState extends State<SiteWidget> {
       children: [
         BlocProvider(
           create: (context) => _sitesBloc,
-          child: BlocBuilder<SitesBloc, SitesState>(
-
+          child: BlocConsumer<SitesBloc, SitesState>(
+            listener: (context, state) {
+              if (state is NavigationState) {
+                navigation();
+              }
+            },
             builder: (context, state) {
               if (state is SitesLoaded) {
                 /// affiche un dropdown button avec la liste des sites
@@ -72,7 +75,7 @@ class _SiteState extends State<SiteWidget> {
                     },
                   ),
                 );
-              } else  {
+              } else {
                 return const Center(
                   /// affiche un loading
                   child: Padding(
@@ -105,7 +108,6 @@ class _SiteState extends State<SiteWidget> {
     );
   }
 
-
   Widget inputService() {
     return TextField(
       controller: myController,
@@ -128,7 +130,13 @@ class _SiteState extends State<SiteWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
       onPressed: calculateWhetherDisabledReturnsBool()
           ? null
-          : () => [choosedConfig = myController.text, navigation()],
+          : () => [
+                choosedConfig = myController.text,
+                setState(() {
+                  _isLoading = true;
+                }),
+                _sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig))
+              ],
     );
   }
 
@@ -146,21 +154,16 @@ class _SiteState extends State<SiteWidget> {
   FutureOr onGoBack(dynamic value) {
     /// est utilisé pour reinitilaser les parametres après un retour arriere
     setState(() {
+      _sitesBloc.add(FetchEventSites());
       _isLoading = false;
-      chooseValue=null;
+      chooseValue = null;
     });
   }
 
   navigation() {
-    setState(() {
-      _isLoading = true;
-    });
-    _sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig));
-    _sitesBloc.nextnav.stream.listen((event) {
-      if (event) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const FirstScreen())).then(onGoBack);
-      }
-    });
+    print("----- Navigation");
+    Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const FirstScreen()))
+        .then(onGoBack);
   }
 }

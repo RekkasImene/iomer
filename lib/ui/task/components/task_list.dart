@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/taches/taches_bloc.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomere/bloc/taches/taches_bloc.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
 
 class TaskList extends StatefulWidget {
   const TaskList({Key? key}) : super(key: key);
@@ -22,6 +22,7 @@ class _TaskListState extends State<TaskList> {
   void initState() {
     _tachesBloc = getIt.get<TachesBloc>();
     _tachesBloc.add(FetchTachesEvenet());
+    log("Initialisation Task");
     super.initState();
   }
 
@@ -31,8 +32,7 @@ class _TaskListState extends State<TaskList> {
         decoration: BoxDecoration(border: Border.all(color: Colors.black)),
         child: BlocProvider(
           create: (context) => _tachesBloc,
-          child:
-              BlocBuilder<TachesBloc, TachesState>(builder: (context, state) {
+          child: BlocBuilder<TachesBloc, TachesState>(builder: (context, state) {
             if (state is TachesLoaded) {
               return ListView.builder(
                 itemCount: state.taches.length,
@@ -71,14 +71,9 @@ class _TaskListState extends State<TaskList> {
                     onChanged: (bool? newValue) {
                       setState(
                         () {
-                          log("la valeur de ischecked" +
-                              selectedTache.STATUTTACHE.toString());
-
-                          _tachesBloc.add(CheckedTachesEvenet(state
-                              .taches[index]
-                              .copyWith(STATUTTACHE: newValue! ? 1 : 0)));
-
-                          log(newValue.toString());
+                          //log("la valeur de ischecked" + selectedTache.STATUTTACHE.toString());
+                          _tachesBloc.add(CheckedTachesEvenet(state.taches[index].copyWith(STATUTTACHE: newValue! ? 1 : 0)));
+                          //log(newValue.toString());
                         },
                       );
                     },

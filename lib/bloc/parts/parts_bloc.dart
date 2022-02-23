@@ -62,7 +62,7 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
 
       if (event is AddPieceEventParts) {
         Ot ot = await _localRepository.getOt();
-        //Sawait _localRepository.insertArticle(event.piece, event.libelle, double.parse(event.qte));
+        //await _localRepository.insertArticle(event.piece, event.libelle, double.parse(event.qte));
         Article article = await _localRepository.findArticleBy(event.piece);
         log(article.toString());
 

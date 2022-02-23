@@ -20,11 +20,8 @@ class ClotureBloc extends Bloc<ClotureEvent, ClotureState> {
       if (event is ClotureEvent) {
         Ot ot= await _localRepository.getOt();
         var now= DateTime.now();
-        var duree= now.difference(ot.DTOPENOT!).toString();
+        var duree= now.difference(ot.DTOPENOT!);
         List<String> listDuration= duree.toString().split(":");
-        print("Temps d'intervention= Heures:"+
-            listDuration.first+ " Minutes:"+
-            listDuration[1] + " Seconds:"+ listDuration.last );
         if(listDuration.isEmpty){
           emit(const ClotureError('Error Duration'));
         }else {
@@ -36,7 +33,6 @@ class ClotureBloc extends Bloc<ClotureEvent, ClotureState> {
       if (event is SetCloseOt) {
         if (event.otCloseTime != null) {
           Ot ot = await _localRepository.getOt();
-          print("ot    ====== "+ot.toString());
           await _localRepository.modifyOt(ot.copyWith(DTCLOSOT: event.otCloseTime));
           emit(ClotureEnd());
         }

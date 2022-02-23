@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomer/bloc/cloture/cloture_bloc.dart';
-import 'package:iomer/bloc/matricule/matricule_bloc.dart';
-import 'package:iomer/bloc/taches/taches_bloc.dart';
 import 'package:iomer/config/injection.dart';
 import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/ui/machine/machine_screen.dart';

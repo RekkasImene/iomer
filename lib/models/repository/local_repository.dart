@@ -168,7 +168,4 @@ class LocalRepository {
   Future modifyCommentOt(int idOt, String comment) async {
     await database.otDao.updateComment(idOt, comment);
   }
-  Future modifyOpenOt(int idOt, DateTime openDate) async {
-    await database.otDao.updateDTOPENOT(idOt, openDate);
-  }
 }

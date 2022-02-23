@@ -24,3 +24,7 @@ class AddPieceEventParts extends PartsEvent {
 
   AddPieceEventParts(this.piece, this.libelle, this.qte);
 }
+
+class InternetEventParts extends PartsEvent {}
+
+

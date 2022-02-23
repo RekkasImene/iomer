@@ -9,16 +9,11 @@ import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:iomer/webService/services.dart';
 import 'local_repository.dart';
 
-abstract class InRepositoryAbs {
-  Future<List<Site>> getAllSite();
-
-  void InsertSite(Site site);
-}
 
 @Environment(Env.prod)
 @singleton
 @injectable
-class InRepository extends InRepositoryAbs {
+class InRepository {
   late Future<List<Site>> futureSite;
   final IomerDatabase database;
   final LocalRepository localRepository;
@@ -141,6 +136,12 @@ class InRepository extends InRepositoryAbs {
     return sites;
   }
 
+  Future<Article> getArticle (String codeArticle) async {
+    List<Article> article = await services.fetchArticles(codeArticle);
+    return article.first;
+  }
+
+
   @override
   Future<void> InsertSite(Site site) async {
     database.siteDao.insertSite(site);
@@ -178,12 +179,11 @@ class InRepository extends InRepositoryAbs {
       await updateArticles(reservations[i].CODEARTICLE.toString());
     }
 
-    services.client.close();
-    flag.add(true);
+    //services.client.close();
   }
 
 
   Future<void> deleteAllDatabase() async {
-    database.deleteEverything();
+    await database.deleteEverything();
   }
 }

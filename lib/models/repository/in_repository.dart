@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 import 'package:iomere/config/injection.dart';
@@ -9,7 +10,6 @@ import 'package:iomere/models/bdd/iomer_database.dart';
 import 'package:iomere/webService/services.dart';
 
 import 'local_repository.dart';
-
 
 @Environment(Env.prod)
 @singleton
@@ -137,11 +137,10 @@ class InRepository {
     return sites;
   }
 
-  Future<Article> getArticle (String codeArticle) async {
+  Future<Article> getArticle(String codeArticle) async {
     List<Article> article = await services.fetchArticles(codeArticle);
     return article.first;
   }
-
 
   @override
   Future<void> InsertSite(Site site) async {
@@ -149,43 +148,42 @@ class InRepository {
   }
 
   //Filed database
-  Future<void> pushDB(int idSite, String codePocket) async {
+  Future<bool> pushDB(int idSite, String codePocket) async {
     //Push matricule & ot
-    futureConfigs = await services.fetchConfigs(idSite, codePocket);
-    int idOrigine = futureConfigs.first.IDORIGINE!;
+    try {
+      futureConfigs = await services.fetchConfigs(idSite, codePocket);
+      int idOrigine = futureConfigs.first.IDORIGINE!;
 
-    await updateMatricules(idOrigine);
-    await updateOTs(idSite, idOrigine);
-    await updateCategories(idSite);
-    await updateEquipements(idSite);
+      await updateMatricules(idOrigine);
+      await updateOTs(idSite, idOrigine);
+      await updateCategories(idSite);
+      await updateEquipements(idSite);
 
-    //push tache & OtArticle(Reservation)
-    log("Pause... 1 ");
-<<<<<<< HEAD
-    sleep(const Duration(seconds: 1));
-=======
->>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
+      //push tache & OtArticle(Reservation)
+      log("Pause... 1 ");
+      // sleep(const Duration(seconds: 1));
 
-    var ots = await localRepository.getAllOt();
-    for (int i = 0; i < ots.length; i++) {
-      log("ID ot : " + ots[i].IDOT.toString());
-      await updateReservation(ots[i].IDOT);
-      await updateTaches(ots[i].IDOT);
+      var ots = await localRepository.getAllOt();
+      for (int i = 0; i < ots.length; i++) {
+        log("ID ot : " + ots[i].IDOT.toString());
+        await updateReservation(ots[i].IDOT);
+        await updateTaches(ots[i].IDOT);
+      }
+
+      log("Pause... 2 ");
+      // sleep(const Duration(seconds: 1));
+
+      // var reservations = await localRepository.getAllReservation();
+      // for (int i = 0; i < reservations.length; i++) {
+      //   List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
+      //   await updateArticles(list[list.length - 1]);
+      //   //await updateArticles(reservations[i].CODEARTICLE.toString());
+      // }
+
+      return true;
+    } on Exception catch (_) {
+      return false;
     }
-
-    log("Pause... 2 ");
-<<<<<<< HEAD
-    sleep(const Duration(seconds: 1));
-=======
->>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
-
-    var reservations = await localRepository.getAllReservation();
-    for (int i = 0; i < reservations.length; i++) {
-      List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
-      await updateArticles(list[list.length - 1]);
-      //await updateArticles(reservations[i].CODEARTICLE.toString());
-    }
-
     //services.client.close();
   }
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -33,20 +34,24 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
         if (sites.isNotEmpty) {
           emit(SitesLoaded(sites));
         } else {
+          emit(SitesError("Une erreure s'est produite"));
           print("Error");
         }
       }
 
       if (event is ValidateEventSites) {
         if (event.monsite != null || event.macategorie != null) {
-          //print("Mon site selectionné est  :" + event.monsite.NOMSITE);
-          //print("Ma categorie : " + event.macategorie);
-          print("Delete bdd");
+          print("Mon site selectionné est  :" + event.monsite.NOMSITE);
+          print("Ma categorie : " + event.macategorie);
           await _inRepository.deleteAllDatabase();
-          print("PushDB");
-          await _inRepository.pushDB(event.monsite.IDSITE, event.macategorie);
-          print("Fin");
-          emit(NavigationState());
+          bool etat = await _inRepository.pushDB(
+              event.monsite.IDSITE, event.macategorie);
+          if (etat == true) {
+            emit(NavigationState());
+          } else {
+            log("emiiiiit");
+            emit(SitesReload());
+          }
         }
       }
     });

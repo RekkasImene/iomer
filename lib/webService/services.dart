@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 import 'package:iomere/config/injection.dart';
 import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:http/http.dart';
 
 /// La classe Services contient toutes les interactions avec le WebService
 /// Necessite une connexion Internet
@@ -164,9 +166,14 @@ class Services {
     /// puis convertir la réponse JSON en une Liste de Configs'
     if (response.statusCode == 200) {
       List<Config> configs;
-      configs = (json.decode(response.body) as List)
-          .map((configJson) => Config.fromJson(configJson))
-          .toList();
+      try {
+        configs = (json.decode(response.body) as List)
+            .map((configJson) => Config.fromJson(configJson))
+            .toList();
+      } catch (error) {
+        log("error soulevéeeeeeeeeeee");
+        throw Exception('Failed to load Config');
+      }
       return configs;
     } else {
       ///Si le serveur ne renvoie pas une réponse 200 OK,
@@ -220,46 +227,93 @@ class Services {
   /// Envoyer la liste des [Ot] dans le WebService
   Future<void> postOt(
       int idOt, String commentOt, double tempsOt, String statutOt) async {
-    String newTempsOt = tempsOt.toString();
-    newTempsOt = newTempsOt.replaceAll('.', ',');
-    final response = await client
-        .get(Uri.parse('$url/SetOt/$idOt/$commentOt/$newTempsOt/$statutOt'));
+    try {
+      String newTempsOt = tempsOt.toString();
+      newTempsOt = newTempsOt.replaceAll('.', ',');
+      final response = await client
+          .get(Uri.parse('$url/SetOt/$idOt/$commentOt/$newTempsOt/$statutOt'));
+      List<Ot> ots = (json.decode(response.body) as List)
+          .map((otJson) => Ot.fromJson(otJson))
+          .toList();
+    } catch (e) {
+      throw Exception('error or exception in postOt: ' + e.toString());
+    }
   }
   /// Envoyer la liste des [Tache] dans le WebService
   Future<void> postOtTache(
       int idTache, String statutTache, String commentTache) async {
-    final response = await client
-        .get(Uri.parse('$url/SETOT_TACHE/$idTache/$statutTache/$commentTache'));
+    try {
+      final response = await client.get(
+          Uri.parse('$url/SETOT_TACHE/$idTache/$statutTache/$commentTache'));
+      List<Tache> taches = (json.decode(response.body) as List)
+          .map((tacheJson) => Tache.fromJson(tacheJson))
+          .toList();
+    } catch (e) {
+      throw Exception('error or exception in postOtTache: ' + e.toString());
+    }
   }
   /// Envoyer la liste des [Article] dans le WebService
   Future<void> postOtArticle(int idPiece, double qteArticle) async {
-    String newQteArticle = qteArticle.toString();
-    newQteArticle = newQteArticle.replaceAll('.', ',');
-    final response = await client
-        .get(Uri.parse('$url/SETOT_ARTICLE/$idPiece/$newQteArticle'));
+    try {
+      String newQteArticle = qteArticle.toString();
+      newQteArticle = newQteArticle.replaceAll('.', ',');
+      final response = await client
+          .get(Uri.parse('$url/SETOT_ARTICLE/$idPiece/$newQteArticle'));
+      List<Reservation> reservations = (json.decode(response.body) as List)
+          .map((reservationJson) => Reservation.fromJson(reservationJson))
+          .toList();
+    } catch (e) {
+      throw Exception('error or exception in postOtArticle: ' + e.toString());
+    }
   }
   /// Envoyer la liste des [Matricule] dans le WebService
   Future<void> postMatricule(int idMatricule, int checked) async {
-    final response =
-        await client.get(Uri.parse('$url/SETMATRICULE/$idMatricule/$checked'));
+    try {
+      final response = await client
+          .get(Uri.parse('$url/SETMATRICULE/$idMatricule/$checked'));
+      List<Matricule> matricules = (json.decode(response.body) as List)
+          .map((matriculeJson) => Matricule.fromJson(matriculeJson))
+          .toList();
+    } catch (e) {
+      throw Exception('error or exception in postMatricule: ' + e.toString());
+    }
   }
   /// Envoyer la liste des [Document] dans le WebService
   Future<void> postAttachment(int idOt, String attachment) async {
-    final response =
-        await client.get(Uri.parse('$url/SETATTACHMENT/$idOt/$attachment'));
+    try {
+      final response =
+          await client.get(Uri.parse('$url/SETATTACHMENT/$idOt/$attachment'));
+    } catch (e) {
+      throw Exception('error or exception in postAttachement: ' + e.toString());
+    }
   }
   /// Envoyer la liste des [Article] dans le WebService
   Future<void> createOtArticle(
       int idOt, int idArticle, double qteArticle) async {
-    String newQteArticle = qteArticle.toString();
-    newQteArticle = newQteArticle.replaceAll('.', ',');
-    final response = await client.get(
-        Uri.parse('$url/CREATEOT_ARTICLE/$idOt/$idArticle/$newQteArticle'));
+    try {
+      String newQteArticle = qteArticle.toString();
+      newQteArticle = newQteArticle.replaceAll('.', ',');
+      final response = await client.get(
+          Uri.parse('$url/CREATEOT_ARTICLE/$idOt/$idArticle/$newQteArticle'));
+      List<Reservation> reservations = (json.decode(response.body) as List)
+          .map((reservationJson) => Reservation.fromJson(reservationJson))
+          .toList();
+    } catch (e) {
+      throw Exception(
+          'error or exception in create otArticle: ' + e.toString());
+    }
   }
   /// Créer une nouvelle [Ot]
   Future<void> createOt(int idEquipement, int idOrigine, int idCategorie,
       String libelleOt) async {
-    final response = await client.get(Uri.parse(
-        '$url/CREATEOT/$idEquipement/$idOrigine/$idCategorie/$libelleOt'));
+    try {
+      final response = await client.get(Uri.parse(
+          '$url/CREATEOT/$idEquipement/$idOrigine/$idCategorie/$libelleOt'));
+      List<Ot> ots = (json.decode(response.body) as List)
+          .map((otJson) => Ot.fromJson(otJson))
+          .toList();
+    } catch (e) {
+      throw Exception('error or exception in createOt: ' + e.toString());
+    }
   }
 }

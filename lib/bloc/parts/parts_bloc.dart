@@ -68,39 +68,33 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
       if (event is AddPieceEventParts) {
         double qte = 0;
         Ot ot = await _localRepository.getOt();
-<<<<<<< HEAD
-        //await _localRepository.insertArticle(event.piece, event.libelle, double.parse(event.qte));
-        Article article = await _localRepository.findArticleBy(event.piece);
-        log(article.toString());
-
-        await _localRepository.insertReservation(article, ot.IDOT);
-
-        emit(PartsStateAddArticle());
-=======
 
         try {
           final result = await InternetAddress.lookup('google.com');
           if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
             print('Toujours connect');
             Article article = await _inRepository.getArticle(event.piece);
-            if(article != null) {
+            if (article != null) {
               if (event.qte.isEmpty) {
-                qte= article.QTEARTICLE;
+                qte = article.QTEARTICLE;
               } else {
                 qte = double.parse(event.qte);
               }
-              Reservation reservation = await _localRepository.insertReservation(article, ot.IDOT, qte);
-              await _localRepository.modifyReservation(reservation.copyWith(QTEARTICLE: qte));
+              Reservation reservation = await _localRepository
+                  .insertReservation(article, ot.IDOT, qte);
+              await _localRepository
+                  .modifyReservation(reservation.copyWith(QTEARTICLE: qte));
               emit(PartsStateAddArticle());
             } else {
-              emit(StatePartsNoArticle('Pas d\'article trouvé pour se code article.'));
+              emit(StatePartsNoArticle(
+                  'Pas d\'article trouvé pour se code article.'));
             }
           }
         } on SocketException catch (_) {
           print('Connexion internet non disponible, article non inséré');
-          emit(StatePartsInternetInterrupt('Connexion internet non disponible, article non inséré'));
+          emit(StatePartsInternetInterrupt(
+              'Connexion internet non disponible, article non inséré'));
         }
->>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
       }
     });
   }

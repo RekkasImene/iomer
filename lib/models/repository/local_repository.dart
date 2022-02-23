@@ -31,6 +31,7 @@ class LocalRepository {
   Future<List<Ot>> getOtsCloded() async {
     return await database.otDao.getOtsClose();
   }
+
   Future<List<Ot>> getAllOt() async {
     return await database.otDao.getAllOt();
   }
@@ -95,36 +96,20 @@ class LocalRepository {
     newIdOT++;
 
     Ot newOt = Ot(
-<<<<<<< HEAD
         IDOT: newIdOT,
         CODEOT: "null",
         LIBELLEOT: libelleOt,
         IDORIGINE: idOrigine,
         IDEQUIPEMENT: idEquipement,
         IDCATEGORIE: idCategorie,
-        /*DTOPENOT: DateTime.parse(beforeTime)*/
         NEWOT: true);
-=======
-      IDOT: newIdOT,
-      CODEOT: "null",
-      LIBELLEOT: libelleOt,
-      IDORIGINE: idOrigine,
-      IDEQUIPEMENT: idEquipement,
-      IDCATEGORIE: idCategorie,
-      NEWOT: true
-    );
->>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
 
     await database.otDao.insertOt(newOt);
   }
 
   Future insertDocument(int idOt, Uint8List attachement) async {
-<<<<<<< HEAD
-    database.documentDao.insertDocument(
+    await database.documentDao.insertDocument(
         DocumentsCompanion(IDOT: Value(idOt), ATTACHEMENT: Value(attachement)));
-=======
-    await database.documentDao.insertDocument(DocumentsCompanion(IDOT: Value(idOt), ATTACHEMENT: Value(attachement)));
->>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
   }
 
   Future<List<Ot>> findOtsBy(int idEquipement) async {
@@ -142,46 +127,32 @@ class LocalRepository {
   Future<Article> findArticleBy(String codeArticle) async {
     Article article = await database.articleDao.findArticleBy(codeArticle);
     print("article trouve");
-    return  article;
+    return article;
   }
 
   Future<List<Reservation>> findReservationBy(int idOt) async {
     return await database.reservationDao.findReservationBy(idOt);
   }
 
-<<<<<<< HEAD
-  Future insertReservation(Article article, int idOt) async {
-=======
-  Future<Reservation> insertReservation(Article article, int idOt, double qte ) async {
->>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
+  Future<Reservation> insertReservation(
+      Article article, int idOt, double qte) async {
     int newId = 0;
     List<Reservation> lastdata = await database.reservationDao.sortTable();
     newId = lastdata.first.IDPIECE;
     newId++;
 
-<<<<<<< HEAD
-    await database.reservationDao.insertReservation(Reservation(
-        IDPIECE: newId,
-=======
-
     return Reservation(
-        IDPIECE: newId ,
->>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
+        IDPIECE: newId,
         CODEARTICLE: article.CODEARTICLE,
         LIBELLEARTICLE: article.LIBELLEARTICLE,
         QTEARTICLE: qte,
         IDARTICLE: article.IDARTICLE,
         IDOT: idOt,
-<<<<<<< HEAD
-        NEWRESERVATION: true));
-=======
-        NEWRESERVATION: true
-    );
+        NEWRESERVATION: true);
 
-   /* await database.reservationDao.insertReservation(
+    /* await database.reservationDao.insertReservation(
 
     );*/
->>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
   }
 
   Future modifyReservation(Reservation reservation) async {

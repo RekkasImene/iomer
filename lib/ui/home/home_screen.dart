@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iomere/resources/theme.dart';
 import 'package:iomere/ui/home/components/body_home.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -6,10 +7,20 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      theme: lightTheme(),
+      darkTheme: darkTheme(),
+      home: Scaffold(
         appBar: AppBar(
           title: const Text('Iomere'),
         ),
-        body: const Body());
+        body: const Body(),
+      ),
+    );
+    // return Scaffold(
+    //     appBar: AppBar(
+    //       title: const Text('Iomere'),
+    //     ),
+    //     body: const Body());
   }
 }

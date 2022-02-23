@@ -38,18 +38,17 @@ class _SiteState extends State<SiteWidget> {
           create: (context) => _sitesBloc,
           child: BlocConsumer<SitesBloc, SitesState>(
             listener: (context, state) {
-              if(state is NavigationState){
+              if (state is NavigationState) {
                 navigation();
               }
             },
-
             builder: (context, state) {
               if (state is SitesLoaded) {
                 /// affiche un dropdown button avec la liste des sites
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 6),
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.grey, width: 1),
@@ -59,14 +58,14 @@ class _SiteState extends State<SiteWidget> {
                     isExpanded: true,
                     items: state.sites
                         .map((Site valueItem) {
-                      return DropdownMenuItem<Site>(
-                        value: valueItem,
-                        child: Text(
-                          valueItem.NOMSITE,
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                      );
-                    })
+                          return DropdownMenuItem<Site>(
+                            value: valueItem,
+                            child: Text(
+                              valueItem.NOMSITE,
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                          );
+                        })
                         .toSet()
                         .toList(),
                     onChanged: (Site? newvalue) {
@@ -76,7 +75,7 @@ class _SiteState extends State<SiteWidget> {
                     },
                   ),
                 );
-              } else  {
+              } else {
                 return const Center(
                   /// affiche un loading
                   child: Padding(
@@ -109,7 +108,6 @@ class _SiteState extends State<SiteWidget> {
     );
   }
 
-
   Widget inputService() {
     return TextField(
       controller: myController,
@@ -122,7 +120,7 @@ class _SiteState extends State<SiteWidget> {
     return ElevatedButton.icon(
       icon: _isLoading
           ? const SizedBox(
-          height: 20, width: 20, child: CircularProgressIndicator())
+              height: 20, width: 20, child: CircularProgressIndicator())
           : const Icon(null),
       label: Text(
         _isLoading ? 'Loading...' : 'Valider',
@@ -132,7 +130,13 @@ class _SiteState extends State<SiteWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
       onPressed: calculateWhetherDisabledReturnsBool()
           ? null
-          : () => [choosedConfig = myController.text,_sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig))],
+          : () => [
+                choosedConfig = myController.text,
+                setState(() {
+                  _isLoading = true;
+                }),
+                _sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig))
+              ],
     );
   }
 
@@ -150,17 +154,16 @@ class _SiteState extends State<SiteWidget> {
   FutureOr onGoBack(dynamic value) {
     /// est utilisé pour reinitilaser les parametres après un retour arriere
     setState(() {
+      _sitesBloc.add(FetchEventSites());
       _isLoading = false;
-      chooseValue=null;
+      chooseValue = null;
     });
   }
 
   navigation() {
-    setState(() {
-      _isLoading = true;
-    });
-
     print("----- Navigation");
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstScreen())).then(onGoBack);
+    Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const FirstScreen()))
+        .then(onGoBack);
   }
 }

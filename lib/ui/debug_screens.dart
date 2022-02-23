@@ -10,6 +10,7 @@ import 'package:iomere/ui/scan/scan_screen.dart';
 import 'package:iomere/ui/task/tasks_screen.dart';
 import 'package:iomere/ui/utils/nav_button.dart';
 
+import 'journal/journal_screen.dart';
 import 'matricule/first_screen.dart';
 
 class DebugScreen extends StatelessWidget {
@@ -33,6 +34,8 @@ class DebugScreen extends StatelessWidget {
           NavButton(navDestination: ReportScreen(), navName: 'ReportScreen'),
           NavButton(navDestination: TasksScreen(), navName: 'TasksScreen'),
           NavButton(navDestination: ScanScreen(), navName: 'ScanScreen'),
+          NavButton(navDestination: JournalScreen(), navName: 'JournalScreen'),
+
         ],
       ),
     );

@@ -20,26 +20,20 @@ class _BodyState extends State<Body> {
     return Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
-        children: [
-          const Align(
+        children: const [
+          Align(
             alignment: Alignment.topLeft,
             child: Text(
               "Selectionner les intervenants :",
               style: TextStyle(fontSize: 20),
             ),
           ),
-          const Expanded(
+          Expanded(
             child: MatriculeWidget(),
           ),
-
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              child: const Text('Valider', style: TextStyle(fontSize: 20)),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const MachineScreen()),);
-              },
-            ),
+          NavButton(
+            navDestination: MachineScreen(),
+            navName: "Valider",
           ),
         ],
       ),

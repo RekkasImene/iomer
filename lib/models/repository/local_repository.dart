@@ -131,13 +131,14 @@ class LocalRepository {
     return await database.reservationDao.findReservationBy(idOt);
   }
 
-  Future insertReservation(Article article, int idOt, double qte ) async {
+  Future<Reservation> insertReservation(Article article, int idOt, double qte ) async {
     int newId = 0;
     List<Reservation> lastdata = await database.reservationDao.sortTable();
     newId = lastdata.first.IDPIECE;
     newId++;
 
-    await database.reservationDao.insertReservation(Reservation(
+
+    return Reservation(
         IDPIECE: newId ,
         CODEARTICLE: article.CODEARTICLE,
         LIBELLEARTICLE: article.LIBELLEARTICLE,
@@ -145,9 +146,11 @@ class LocalRepository {
         IDARTICLE: article.IDARTICLE,
         IDOT: idOt,
         NEWRESERVATION: true
-    )
-
     );
+
+   /* await database.reservationDao.insertReservation(
+
+    );*/
   }
 
   Future modifyReservation(Reservation reservation) async {

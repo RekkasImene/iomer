@@ -90,7 +90,8 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
               } else {
                 qte = double.parse(event.qte);
               }
-              await _localRepository.insertReservation(article, ot.IDOT, qte);
+              Reservation reservation = await _localRepository.insertReservation(article, ot.IDOT, qte);
+              await _localRepository.modifyReservation(reservation.copyWith(QTEARTICLE: qte));
               emit(PartsStateAddArticle());
             } else {
               emit(StatePartsNoArticle('Pas d\'article trouvé pour se code article.'));

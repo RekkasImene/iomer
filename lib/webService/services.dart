@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:http/http.dart';
+import 'dart:developer';
 import 'package:injectable/injectable.dart';
 import 'package:iomere/config/injection.dart';
 import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:http/http.dart';
 
 /// La classe Services contient toutes les interactions avec le WebService
 /// Necessite une connexion Internet

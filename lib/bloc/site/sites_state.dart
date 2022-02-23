@@ -29,3 +29,5 @@ class FormFilled extends SitesState {
 
   const FormFilled(this.site);
 }
+
+class SitesReload extends SitesState {}

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _SiteState extends State<SiteWidget> {
     chooseValue = null;
     choosedConfig = "";
     _sitesBloc = getIt.get<SitesBloc>();
-    _sitesBloc.add(FetchEventSites());
+    _sitesBloc.add(FetchEventSites()); //evenement initial
     super.initState();
   }
 
@@ -36,75 +37,113 @@ class _SiteState extends State<SiteWidget> {
     return Column(
       children: [
         BlocProvider(
-          create: (context) => _sitesBloc,
-          child: BlocBuilder<SitesBloc, SitesState>(
+            create: (context) => _sitesBloc,
+            child: BlocConsumer<SitesBloc, SitesState>(
+              listener: (context, state) {
+                if (state is SitesError) {
+                  final snackBar = SnackBar(
+                    backgroundColor: Colors.blueGrey,
+                    content: Container(
+                      height: 60,
+                      child: Center(
+                        child: Text(
+                          state.message,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ),
+                    action: SnackBarAction(
+                      label: 'Réessayer',
+                      onPressed: () {
+                        _sitesBloc.add(FetchEventSites());
 
-            builder: (context, state) {
-              if (state is SitesLoaded) {
-                /// affiche un dropdown button avec la liste des sites
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 6),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.grey, width: 1),
-                  ),
-                  child: DropdownButton(
-                    value: chooseValue,
-                    isExpanded: true,
-                    items: state.sites
-                        .map((Site valueItem) {
-                          return DropdownMenuItem<Site>(
-                            value: valueItem,
-                            child: Text(
-                              valueItem.NOMSITE,
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                          );
-                        })
-                        .toSet()
-                        .toList(),
-                    onChanged: (Site? newvalue) {
-                      setState(() {
-                        chooseValue = newvalue!;
-                      });
-                    },
-                  ),
-                );
-              } else  {
-                return const Center(
-                  /// affiche un loading
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: SizedBox(child: CircularProgressIndicator()),
-                  ),
-                );
-              }
-            },
-          ),
-        ),
+                        // Some code to undo the change.
+                      },
+                    ),
+                    duration: const Duration(days: 365),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-        /// affiche un textfield pour rentrer le nom du service rechercher
-        inputService(),
-        Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              SizedBox(
-                width: double.infinity,
+                  // return const SnackBar(content: Text("data"));
 
-                /// bouton pour valider le site et le service
-                /// navigue a la prochaine étape
-                child: buildButton(),
-              ),
-            ],
-          ),
-        )
+                }
+
+                if (state is SitesReload) {
+                  log('initial stataaaaaaaaaaaate');
+                  _sitesBloc.add(FetchEventSites());
+                }
+              },
+              builder: (context, state) {
+                if (state is SitesLoaded) {
+                  /// affiche un dropdown button avec la liste des sites
+                  return Expanded(
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 4),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.grey, width: 1),
+                          ),
+                          child: DropdownButton(
+                            value: chooseValue,
+                            isExpanded: true,
+                            items: state.sites
+                                .map((Site valueItem) {
+                                  return DropdownMenuItem<Site>(
+                                    value: valueItem,
+                                    child: Text(
+                                      valueItem.NOMSITE,
+                                      style: const TextStyle(fontSize: 20),
+                                    ),
+                                  );
+                                })
+                                .toSet()
+                                .toList(),
+                            onChanged: (Site? newvalue) {
+                              setState(() {
+                                chooseValue = newvalue!;
+                              });
+                            },
+                          ),
+                        ),
+                        inputService(),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                width: double.infinity,
+
+                                /// bouton pour valider le site et le service
+                                /// navigue a la prochaine étape
+                                child: buildButton(),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                } else {
+                  return const Center(
+                    /// affiche un loading
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: SizedBox(child: CircularProgressIndicator()),
+                    ),
+                  );
+                }
+              },
+            )),
       ],
     );
   }
-
 
   Widget inputService() {
     return TextField(
@@ -147,7 +186,7 @@ class _SiteState extends State<SiteWidget> {
     /// est utilisé pour reinitilaser les parametres après un retour arriere
     setState(() {
       _isLoading = false;
-      chooseValue=null;
+      chooseValue = null;
     });
   }
 
@@ -159,8 +198,22 @@ class _SiteState extends State<SiteWidget> {
     _sitesBloc.nextnav.stream.listen((event) {
       if (event) {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const FirstScreen())).then(onGoBack);
+                MaterialPageRoute(builder: (context) => const FirstScreen()))
+            .then(onGoBack);
       }
     });
   }
+
+  // void showInSnackBar() {
+  //   final snackBar = SnackBar(
+  //     content: const Text('Yay! A SnackBar!'),
+  //     action: SnackBarAction(
+  //       label: 'Undo',
+  //       onPressed: () {
+  //         // Some code to undo the change.
+  //       },
+  //     ),
+  //   );
+  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  // }
 }

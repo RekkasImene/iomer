@@ -124,13 +124,19 @@ class Services {
 
   /* Get Config */
   Future<List<Config>> fetchConfigs(int idSite, String codePocket) async {
-    final response = await client.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
+    final response =
+        await client.get(Uri.parse('$url/GETCONFIG/$idSite/$codePocket'));
     if (response.statusCode == 200) {
       log(response.body.toString());
       List<Config> configs;
-      configs = (json.decode(response.body) as List)
-          .map((configJson) => Config.fromJson(configJson))
-          .toList();
+      try {
+        configs = (json.decode(response.body) as List)
+            .map((configJson) => Config.fromJson(configJson))
+            .toList();
+      } catch (error) {
+        log("error soulevéeeeeeeeeeee");
+        throw Exception('Failed to load Config');
+      }
       return configs;
     } else {
       throw Exception('Failed to load Config');
@@ -146,7 +152,6 @@ class Services {
           .map((articleJson) => Article.fromJson(articleJson))
           .toList();
       return articles;
-
     } else {
       throw Exception('Failed to load Config');
     }

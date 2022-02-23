@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -37,10 +37,12 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
       if (event is FetchEventSites) {
         emit(SitesLoading());
         final List<Site> sites = await _Inrepository.getAllSite();
+
         print(sites.toString());
         if (sites.isNotEmpty) {
           emit(SitesLoaded(sites));
         } else {
+          emit(SitesError("Une erreure s'est produite"));
           print("Error");
         }
       }
@@ -50,7 +52,13 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
           print("Mon site selectionné est  :" + event.monsite.NOMSITE);
           print("Ma categorie : " + event.macategorie);
           await _Inrepository.deleteAllDatabase();
-          await _Inrepository.pushDB(event.monsite.IDSITE, event.macategorie);
+          bool etat = await _Inrepository.pushDB(
+              event.monsite.IDSITE, event.macategorie);
+          log("L'etat est" + etat.toString());
+          if (etat == false) {
+            log("emiiiiit");
+            emit(SitesReload());
+          }
         }
       }
     });

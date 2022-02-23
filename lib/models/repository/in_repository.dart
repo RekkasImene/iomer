@@ -137,8 +137,13 @@ class InRepository extends InRepositoryAbs {
 
   @override
   Future<List<Site>> getAllSite() async {
-    List<Site> sites = await services.fetchSites();
-    return sites;
+    List<Site> sites = [];
+    try {
+      sites = await services.fetchSites();
+      return sites;
+    } on Exception catch (_) {
+      return sites;
+    }
   }
 
   @override
@@ -147,39 +152,45 @@ class InRepository extends InRepositoryAbs {
   }
 
   //Filed database
-  Future<void> pushDB(int idSite, String codePocket) async {
+  Future<bool> pushDB(int idSite, String codePocket) async {
     //Push matricule & ot
-    futureConfigs = await services.fetchConfigs(idSite, codePocket);
-    int idOrigine = futureConfigs.first.IDORIGINE!;
+    try {
+      log("log avant config");
+      futureConfigs = await services.fetchConfigs(idSite, codePocket);
+      int idOrigine = futureConfigs.first.IDORIGINE!;
 
-    await updateMatricules(idOrigine);
-    await updateOTs(idSite, idOrigine);
-    await updateCategories(idSite);
-    await updateEquipements(idSite);
+      await updateMatricules(idOrigine);
+      await updateOTs(idSite, idOrigine);
+      await updateCategories(idSite);
+      await updateEquipements(idSite);
 
-    //push tache & OtArticle(Reservation)
-    log("Pause... 1 ");
-    sleep(const Duration(seconds: 1));
+      //push tache & OtArticle(Reservation)
+      log("Pause... 1 ");
+      sleep(const Duration(seconds: 1));
 
-    var ots = await localRepository.getAllOt();
-    for (int i = 0; i < ots.length; i++) {
-      log("ID ot : " + ots[i].IDOT.toString());
-      await updateReservation(ots[i].IDOT);
-      await updateTaches(ots[i].IDOT);
+      var ots = await localRepository.getAllOt();
+      for (int i = 0; i < ots.length; i++) {
+        log("ID ot : " + ots[i].IDOT.toString());
+        await updateReservation(ots[i].IDOT);
+        await updateTaches(ots[i].IDOT);
+      }
+
+      log("Pause... 2 ");
+      sleep(const Duration(seconds: 1));
+
+      var reservations = await localRepository.getAllReservation();
+      for (int i = 0; i < reservations.length; i++) {
+        // List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
+        // await updateArticles(list[list.length - 1]);
+        await updateArticles(reservations[i].CODEARTICLE.toString());
+      }
+
+      services.client.close();
+      flag.add(true);
+      return true;
+    } on Exception catch (e) {
+      return false;
     }
-
-    log("Pause... 2 ");
-    sleep(const Duration(seconds: 1));
-
-    var reservations = await localRepository.getAllReservation();
-    for (int i = 0; i < reservations.length; i++) {
-      List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
-      await updateArticles(list[list.length - 1]);
-      //await updateArticles(reservations[i].CODEARTICLE.toString());
-    }
-
-    services.client.close();
-    flag.add(true);
   }
 
   Future<void> deleteAllDatabase() async {

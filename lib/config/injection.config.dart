@@ -61,9 +61,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () =>
           _i14.PartsBloc(get<_i5.LocalRepository>(), get<_i12.InRepository>()),
       registerFor: {_prod});
-  gh.factory<_i15.SitesBloc>(
-      () =>
-          _i15.SitesBloc(get<_i12.InRepository>(), get<_i5.LocalRepository>()),
+  gh.factory<_i15.SitesBloc>(() => _i15.SitesBloc(get<_i12.InRepository>()),
       registerFor: {_prod});
   return get;
 }

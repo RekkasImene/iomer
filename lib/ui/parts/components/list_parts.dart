@@ -112,9 +112,6 @@ class _ListPartsState extends State<ListParts> {
                       ),
                     ),
 
-
-
-
                     Row(
                       children: [
                         const Expanded(child: SizedBox()),
@@ -158,7 +155,6 @@ class _ListPartsState extends State<ListParts> {
       ),
     );
   }
-
 
   void showToast(String message) {
     Fluttertoast.showToast(msg: message);

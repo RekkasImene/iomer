@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -155,6 +154,7 @@ class _SiteState extends State<SiteWidget> {
   FutureOr onGoBack(dynamic value) {
     /// est utilisé pour reinitilaser les parametres après un retour arriere
     setState(() {
+      _sitesBloc.add(FetchEventSites());
       _isLoading = false;
       chooseValue = null;
     });

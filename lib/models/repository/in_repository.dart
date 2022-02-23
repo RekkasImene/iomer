@@ -169,13 +169,16 @@ class InRepository {
       }
 
       log("Pause... 2 ");
-
+/*
       var reservations = await localRepository.getAllReservation();
       for (int i = 0; i < reservations.length; i++) {
         List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
         await updateArticles(list[list.length - 1]);
         //await updateArticles(reservations[i].CODEARTICLE.toString());
       }
+
+*/
+
       return true;
     } on Exception catch (_) {
       return false;

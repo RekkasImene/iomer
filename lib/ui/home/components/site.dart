@@ -76,6 +76,7 @@ class _SiteState extends State<SiteWidget> {
                 if (state is SitesReload) {
                   log('initial stataaaaaaaaaaaate');
                   _sitesBloc.add(FetchEventSites());
+                  _isLoading = false;
                 }
               },
               builder: (context, state) {

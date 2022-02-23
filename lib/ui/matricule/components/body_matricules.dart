@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/machine/machine_screen.dart';
-
-import 'package:iomer/ui/matricule/components/matricule.dart';
-import 'package:iomer/ui/utils/nav_button.dart';
-
-import '../../../models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/ui/machine/machine_screen.dart';
+import 'package:iomere/ui/matricule/components/matricule.dart';
+import 'package:iomere/ui/utils/nav_button.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/cloture/cloture_bloc.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/ui/machine/machine_screen.dart';
-import 'package:iomer/ui/utils/info.dart';
-import 'package:iomer/ui/matricule/components/matricule.dart';
+import 'package:iomere/bloc/cloture/cloture_bloc.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/ui/machine/machine_screen.dart';
+import 'package:iomere/ui/utils/info.dart';
+import 'package:iomere/ui/matricule/components/matricule.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/report/components/body_report.dart';
+import 'package:iomere/ui/report/components/body_report.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({Key? key}) : super(key: key);

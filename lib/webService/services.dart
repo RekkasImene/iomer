@@ -1,14 +1,15 @@
 import 'dart:convert';
-import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
 import 'package:http/http.dart';
+import 'package:injectable/injectable.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
 
 /// La classe Services contient toutes les interactions avec le WebService
 /// Necessite une connexion Internet
 /// URL à modifier par l'adresse réelle du WebService
 
-var url = 'https://iomere.loca.lt' ;      //'http://10.0.2.2:8080';
+//var url = 'http://10.0.2.2:8080';
+var url = 'https://iomere.loca.lt';
 
 @Environment(Env.prod)
 @singleton

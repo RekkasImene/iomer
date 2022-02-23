@@ -1,9 +1,11 @@
 //Vue vers bdd et bdd  vers vue, mode hors ligne
 import 'dart:async';
+
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+
 import '../bdd/iomer_database.dart';
 
 @Environment(Env.prod)
@@ -59,7 +61,6 @@ class LocalRepository {
     return await database.documentDao.getAllDocuments();
   }
 
-
   Future<List<Origine>> getAllOrigine() async {
     return await database.origineDao.getAllOrigine();
   }
@@ -85,30 +86,45 @@ class LocalRepository {
     await database.configDao.insertConfig(config);
   }
 
-  Future<void> addNewOt(int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
+  Future<void> addNewOt(int idEquipement, int idOrigine, int idCategorie,
+      String libelleOt) async {
     int newIdOT = 0;
     List<Ot> lastdata = await database.otDao.sortTable();
 
     newIdOT = lastdata.first.IDOT;
     newIdOT++;
-    /*final DateTime now = DateTime.now();
-    String beforeTime = DateFormat.Hm().format(now);*/
 
     Ot newOt = Ot(
+<<<<<<< HEAD
+        IDOT: newIdOT,
+        CODEOT: "null",
+        LIBELLEOT: libelleOt,
+        IDORIGINE: idOrigine,
+        IDEQUIPEMENT: idEquipement,
+        IDCATEGORIE: idCategorie,
+        /*DTOPENOT: DateTime.parse(beforeTime)*/
+        NEWOT: true);
+=======
       IDOT: newIdOT,
       CODEOT: "null",
       LIBELLEOT: libelleOt,
       IDORIGINE: idOrigine,
       IDEQUIPEMENT: idEquipement,
-      IDCATEGORIE: idCategorie, /*DTOPENOT: DateTime.parse(beforeTime)*/
+      IDCATEGORIE: idCategorie,
       NEWOT: true
     );
+>>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
 
     await database.otDao.insertOt(newOt);
   }
 
   Future insertDocument(int idOt, Uint8List attachement) async {
+<<<<<<< HEAD
+    database.documentDao.insertDocument(
+        DocumentsCompanion(IDOT: Value(idOt), ATTACHEMENT: Value(attachement)));
+=======
     await database.documentDao.insertDocument(DocumentsCompanion(IDOT: Value(idOt), ATTACHEMENT: Value(attachement)));
+>>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
   }
 
   Future<List<Ot>> findOtsBy(int idEquipement) async {
@@ -124,7 +140,7 @@ class LocalRepository {
   }
 
   Future<Article> findArticleBy(String codeArticle) async {
-    Article article =  await database.articleDao.findArticleBy(codeArticle);
+    Article article = await database.articleDao.findArticleBy(codeArticle);
     print("article trouve");
     return  article;
   }
@@ -133,23 +149,39 @@ class LocalRepository {
     return await database.reservationDao.findReservationBy(idOt);
   }
 
-  Future insertReservation(Article article, int idOt ) async {
+<<<<<<< HEAD
+  Future insertReservation(Article article, int idOt) async {
+=======
+  Future<Reservation> insertReservation(Article article, int idOt, double qte ) async {
+>>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
     int newId = 0;
     List<Reservation> lastdata = await database.reservationDao.sortTable();
     newId = lastdata.first.IDPIECE;
     newId++;
 
+<<<<<<< HEAD
     await database.reservationDao.insertReservation(Reservation(
+        IDPIECE: newId,
+=======
+
+    return Reservation(
         IDPIECE: newId ,
+>>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
         CODEARTICLE: article.CODEARTICLE,
         LIBELLEARTICLE: article.LIBELLEARTICLE,
-        QTEARTICLE: article.QTEARTICLE,
+        QTEARTICLE: qte,
         IDARTICLE: article.IDARTICLE,
         IDOT: idOt,
+<<<<<<< HEAD
+        NEWRESERVATION: true));
+=======
         NEWRESERVATION: true
-    )
-
     );
+
+   /* await database.reservationDao.insertReservation(
+
+    );*/
+>>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
   }
 
   Future modifyReservation(Reservation reservation) async {

@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/ot/ot_bloc.dart';
-import 'package:iomer/ui/machine/components/ot_popup.dart';
+import 'package:iomere/bloc/ot/ot_bloc.dart';
+import 'package:iomere/ui/machine/components/ot_popup.dart';
 
 class OTButtonWidget extends StatelessWidget {
   String codeMachine;

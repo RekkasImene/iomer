@@ -2,11 +2,12 @@
 
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
+
 import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/webService/services.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/webService/services.dart';
+
 import 'local_repository.dart';
 
 
@@ -94,7 +95,7 @@ class InRepository {
     }
   }
 
-  Future<void> updateArticles(String idArticle) async{
+  Future<void> updateArticles(String idArticle) async {
     try {
       var articles = await services.fetchArticles(idArticle);
       articles.forEach((e) {
@@ -121,7 +122,7 @@ class InRepository {
   Future<void> updateTaches(int idOT) async {
     try {
       var taches = await services.fetchOTTaches(idOT);
-      taches.forEach((e)  {
+      taches.forEach((e) {
         database.tacheDao.insertTache(e);
         log("table tache insérée");
       });
@@ -160,28 +161,33 @@ class InRepository {
 
     //push tache & OtArticle(Reservation)
     log("Pause... 1 ");
-    sleep(const Duration(seconds:1));
+<<<<<<< HEAD
+    sleep(const Duration(seconds: 1));
+=======
+>>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
 
     var ots = await localRepository.getAllOt();
-    for(int i=0;i<ots.length;i++) {
-      log("ID ot : "+ots[i].IDOT.toString());
+    for (int i = 0; i < ots.length; i++) {
+      log("ID ot : " + ots[i].IDOT.toString());
       await updateReservation(ots[i].IDOT);
       await updateTaches(ots[i].IDOT);
     }
 
     log("Pause... 2 ");
-    sleep(const Duration(seconds:1));
+<<<<<<< HEAD
+    sleep(const Duration(seconds: 1));
+=======
+>>>>>>> 16cb48374f1b3aeb8c58c557a3895827a12cf302
 
     var reservations = await localRepository.getAllReservation();
-    for(int i=0;i<reservations.length;i++) {
-      //List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
-      //await updateArticles(list[list.length-1]);
-      await updateArticles(reservations[i].CODEARTICLE.toString());
+    for (int i = 0; i < reservations.length; i++) {
+      List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
+      await updateArticles(list[list.length - 1]);
+      //await updateArticles(reservations[i].CODEARTICLE.toString());
     }
 
     //services.client.close();
   }
-
 
   Future<void> deleteAllDatabase() async {
     await database.deleteEverything();

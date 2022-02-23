@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/home/components/site.dart';
+import 'package:iomere/ui/home/components/site.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);

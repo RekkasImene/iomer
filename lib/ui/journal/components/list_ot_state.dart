@@ -1,14 +1,11 @@
-
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/ot/ot_bloc.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/ui/home/home_screen.dart';
+import 'package:iomere/bloc/ot/ot_bloc.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/ui/home/home_screen.dart';
 
-import '../journal_screen.dart';
 
 class ListOtStateWidget extends StatefulWidget{
   String codeMachine;

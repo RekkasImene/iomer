@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 import 'package:iomere/config/injection.dart';
@@ -160,6 +161,7 @@ class InRepository {
 
       //push tache & OtArticle(Reservation)
       log("Pause... 1 ");
+      // sleep(const Duration(seconds: 1));
 
       var ots = await localRepository.getAllOt();
       for (int i = 0; i < ots.length; i++) {
@@ -169,21 +171,19 @@ class InRepository {
       }
 
       log("Pause... 2 ");
-/*
-      var reservations = await localRepository.getAllReservation();
-      for (int i = 0; i < reservations.length; i++) {
-        List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
-        await updateArticles(list[list.length - 1]);
-        //await updateArticles(reservations[i].CODEARTICLE.toString());
-      }
+      // sleep(const Duration(seconds: 1));
 
-*/
+      // var reservations = await localRepository.getAllReservation();
+      // for (int i = 0; i < reservations.length; i++) {
+      //   List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
+      //   await updateArticles(list[list.length - 1]);
+      //   //await updateArticles(reservations[i].CODEARTICLE.toString());
+      // }
 
       return true;
     } on Exception catch (_) {
       return false;
     }
-
     //services.client.close();
   }
 

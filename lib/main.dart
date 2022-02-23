@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/resources/theme.dart';
-import 'package:iomer/ui/debug_screens.dart';
+import 'package:iomere/resources/theme.dart';
+import 'package:iomere/ui/debug_screens.dart';
+
 import 'config/injection.dart';
 
 void main() {
@@ -25,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'IomereApp',
+      title: 'iOmereApp',
       theme: lightTheme(),
       darkTheme: darkTheme(),
       home: const DebugScreen(),

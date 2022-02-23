@@ -4,10 +4,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/site/sites_bloc.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/ui/matricule/first_screen.dart';
+import 'package:iomere/bloc/site/sites_bloc.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/ui/matricule/first_screen.dart';
 
 class SiteWidget extends StatefulWidget {
   const SiteWidget({Key? key}) : super(key: key);
@@ -66,9 +66,11 @@ class _SiteState extends State<SiteWidget> {
                     duration: const Duration(days: 365),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
                   // return const SnackBar(content: Text("data"));
+                }
 
+                if (state is NavigationState) {
+                  navigation();
                 }
 
                 if (state is SitesReload) {
@@ -167,7 +169,13 @@ class _SiteState extends State<SiteWidget> {
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
       onPressed: calculateWhetherDisabledReturnsBool()
           ? null
-          : () => [choosedConfig = myController.text, navigation()],
+          : () => [
+                choosedConfig = myController.text,
+                setState(() {
+                  _isLoading = true;
+                }),
+                _sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig))
+              ],
     );
   }
 
@@ -187,21 +195,14 @@ class _SiteState extends State<SiteWidget> {
     setState(() {
       _isLoading = false;
       chooseValue = null;
+      _sitesBloc.add(FetchEventSites());
     });
   }
 
   navigation() {
-    setState(() {
-      _isLoading = true;
-    });
-    _sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig));
-    _sitesBloc.nextnav.stream.listen((event) {
-      if (event) {
-        Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const FirstScreen()))
-            .then(onGoBack);
-      }
-    });
+    Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const FirstScreen()))
+        .then(onGoBack);
   }
 
   // void showInSnackBar() {

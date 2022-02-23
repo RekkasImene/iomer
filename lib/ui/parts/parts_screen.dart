@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/parts/components/body_parts.dart';
+import 'package:iomere/ui/parts/components/body_parts.dart';
 
 class PartsScreen extends StatefulWidget {
   const PartsScreen({Key? key}) : super(key: key);

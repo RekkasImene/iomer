@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/ot/ot_bloc.dart';
-import 'package:iomer/config/injection.dart';
+import 'package:iomere/bloc/ot/ot_bloc.dart';
+import 'package:iomere/config/injection.dart';
 
 class Info extends StatefulWidget {
   const Info({Key? key}) : super(key: key);

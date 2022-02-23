@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 
+/*
 class commonMatricule extends StatefulWidget {
   commonMatricule({Key? key}) : super(key: key);
 
@@ -12,6 +12,5 @@ class _commonMatriculeState extends State<commonMatricule> {
   Widget build(BuildContext context) {
     return Container();
   }
-
-  Container() {}
 }
+*/

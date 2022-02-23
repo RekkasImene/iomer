@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/cloture/components/body_cloture.dart';
+import 'package:iomere/ui/cloture/components/body_cloture.dart';
 
 class ClotureOtScreen extends StatefulWidget {
   const ClotureOtScreen({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class _ClotureOtScreenState extends State<ClotureOtScreen> {
       appBar: AppBar(
         title: const Text('Maintenance'),
       ),
-      body: const Body(),
+      body:  Body(),
     );
   }
 }

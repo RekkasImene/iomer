@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:drift/drift.dart';
+
 import 'iomer_database.dart';
 
 part 'generate/ot.g.dart';
@@ -55,7 +54,12 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
 
   Future insertOt(Ot otData) => into(ots).insertOnConflictUpdate(otData);
 
-  Future<List<Ot>> getAllOts() => select(ots).get();
+  Future<List<Ot>> getOtsClose() {
+    return (select(ots)
+      ..where((ot) => ot.DTCLOSOT.isNotNull()))
+        .get();
+  }
+  Future<List<Ot>> getAllOt()=> select(ots).get();
 
   Stream<List<Ot>> watchAllOts() => select(ots).watch();
 
@@ -71,18 +75,20 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
   Future modifieOt(Ot ot) => update(ots).replace(ot);
 
   Future<List<Ot>> findOtsBy(int idEquipement) {
-    return (select(ots)..where((ot) => ot.IDEQUIPEMENT.equals(idEquipement)))
+    return (select(ots)
+          ..where((ot) =>
+              ot.IDEQUIPEMENT.equals(idEquipement) & ot.DTCLOSOT.isNull()))
         .get();
   }
 
-  Future<List<Ot>> findOtBy(int idOt) {
-    return (select(ots)..where((ot) => ot.IDOT.equals(idOt))).get();
+  Future<Ot> findOtBy(int idOt) {
+    return (select(ots)..where((ot) => ot.IDOT.equals(idOt))).getSingle();
   }
 
   Future updateComment(int idOt, String comment) async {
     var ot;
     findOtBy(idOt).then((value) {
-      ot = value.first;
+      ot = value;
       var otCopy = ot.copyWith(COMMENTOT: comment);
       update(ots).replace(otCopy);
     });

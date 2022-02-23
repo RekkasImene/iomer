@@ -31,3 +31,5 @@ class FormFilled extends SitesState {
 }
 
 class SitesReload extends SitesState {}
+
+class NavigationState extends SitesState {}

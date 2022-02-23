@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/resources/theme.dart';
-import 'package:iomer/ui/home/components/body_home.dart';
+import 'package:iomere/resources/theme.dart';
+import 'package:iomere/ui/home/components/body_home.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

@@ -2,23 +2,18 @@
 
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
+
 import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/webService/services.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/webService/services.dart';
+
 import 'local_repository.dart';
-
-abstract class InRepositoryAbs {
-  Future<List<Site>> getAllSite();
-
-  void InsertSite(Site site);
-}
 
 @Environment(Env.prod)
 @singleton
 @injectable
-class InRepository extends InRepositoryAbs {
+class InRepository {
   late Future<List<Site>> futureSite;
   final IomerDatabase database;
   final LocalRepository localRepository;
@@ -137,13 +132,13 @@ class InRepository extends InRepositoryAbs {
 
   @override
   Future<List<Site>> getAllSite() async {
-    List<Site> sites = [];
-    try {
-      sites = await services.fetchSites();
-      return sites;
-    } on Exception catch (_) {
-      return sites;
-    }
+    List<Site> sites = await services.fetchSites();
+    return sites;
+  }
+
+  Future<Article> getArticle(String codeArticle) async {
+    List<Article> article = await services.fetchArticles(codeArticle);
+    return article.first;
   }
 
   @override
@@ -155,7 +150,6 @@ class InRepository extends InRepositoryAbs {
   Future<bool> pushDB(int idSite, String codePocket) async {
     //Push matricule & ot
     try {
-      log("log avant config");
       futureConfigs = await services.fetchConfigs(idSite, codePocket);
       int idOrigine = futureConfigs.first.IDORIGINE!;
 
@@ -166,7 +160,6 @@ class InRepository extends InRepositoryAbs {
 
       //push tache & OtArticle(Reservation)
       log("Pause... 1 ");
-      sleep(const Duration(seconds: 1));
 
       var ots = await localRepository.getAllOt();
       for (int i = 0; i < ots.length; i++) {
@@ -176,24 +169,22 @@ class InRepository extends InRepositoryAbs {
       }
 
       log("Pause... 2 ");
-      sleep(const Duration(seconds: 1));
 
       var reservations = await localRepository.getAllReservation();
       for (int i = 0; i < reservations.length; i++) {
-        // List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
-        // await updateArticles(list[list.length - 1]);
-        await updateArticles(reservations[i].CODEARTICLE.toString());
+        List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
+        await updateArticles(list[list.length - 1]);
+        //await updateArticles(reservations[i].CODEARTICLE.toString());
       }
-
-      services.client.close();
-      flag.add(true);
       return true;
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       return false;
     }
+
+    //services.client.close();
   }
 
   Future<void> deleteAllDatabase() async {
-    database.deleteEverything();
+    await database.deleteEverything();
   }
 }

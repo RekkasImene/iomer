@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iomer/bloc/parts/parts_bloc.dart';
 import 'package:iomer/config/injection.dart';
-import 'package:path/path.dart';
-
 import '../../new_part/new_part_screen.dart';
 
 class ListParts extends StatefulWidget {

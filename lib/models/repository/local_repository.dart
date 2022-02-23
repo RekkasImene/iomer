@@ -38,9 +38,7 @@ class LocalRepository {
   }
 
   Future<Ot> getOt() async {
-    await database.otDao
-        .findOtBy(otSaved.IDOT)
-        .then((value) => saveOt(value.first));
+    database.otDao.findOtBy(otSaved.IDOT).then((value) => saveOt(value));
     print("Recuperation OT");
     return otSaved;
   }
@@ -82,9 +80,9 @@ class LocalRepository {
     await database.matriculeDao.modifieMatricule(matricule);
   }
 
-  void saveData(Site site, Config config) {
-    database.siteDao.insertSite(site);
-    database.configDao.insertConfig(config);
+  Future<void> saveData(Site site, Config config) async {
+    await database.siteDao.insertSite(site);
+    await database.configDao.insertConfig(config);
   }
 
   Future<void> addNewOt(int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
@@ -110,29 +108,29 @@ class LocalRepository {
   }
 
   Future insertDocument(int idOt, Uint8List attachement) async {
-    database.documentDao.insertDocument(DocumentsCompanion(IDOT: Value(idOt), ATTACHEMENT: Value(attachement)));
+    await database.documentDao.insertDocument(DocumentsCompanion(IDOT: Value(idOt), ATTACHEMENT: Value(attachement)));
   }
 
   Future<List<Ot>> findOtsBy(int idEquipement) async {
-    return database.otDao.findOtsBy(idEquipement);
+    return await database.otDao.findOtsBy(idEquipement);
   }
 
   Future<Equipement> findEquipementsBy(String codeEquipement) async {
-    return database.equipementDao.findEquipementBy(codeEquipement);
+    return await database.equipementDao.findEquipementBy(codeEquipement);
   }
 
   Future<List<Matricule>> findMatriculesChecked() async {
-    return findMatriculesChecked();
+    return await findMatriculesChecked();
   }
 
   Future<Article> findArticleBy(String codeArticle) async {
     Article article =  await database.articleDao.findArticleBy(codeArticle);
     print("article trouve");
-    return article;
+    return  article;
   }
 
   Future<List<Reservation>> findReservationBy(int idOt) async {
-    return database.reservationDao.findReservationBy(idOt);
+    return await database.reservationDao.findReservationBy(idOt);
   }
 
   Future insertReservation(Article article, int idOt ) async {
@@ -155,7 +153,7 @@ class LocalRepository {
   }
 
   Future modifyReservation(Reservation reservation) async {
-    database.reservationDao.modifieReservation(reservation);
+    await database.reservationDao.modifieReservation(reservation);
   }
 
   Future<List<Tache>> findTachesBy(int idOt) async {
@@ -163,17 +161,14 @@ class LocalRepository {
   }
 
   Future modifyOt(Ot ot) async {
-    database.otDao.modifieOt(ot);
+    await database.otDao.modifieOt(ot);
   }
 
   Future modifyTache(Tache tache) async {
-    database.tacheDao.modifieTache(tache);
+    await database.tacheDao.modifieTache(tache);
   }
 
   Future modifyCommentOt(int idOt, String comment) async {
-    database.otDao.updateComment(idOt, comment);
-  }
-  Future modifyOpenOt(int idOt, DateTime openDate) async {
-    database.otDao.updateDTOPENOT(idOt, openDate);
+    await database.otDao.updateComment(idOt, comment);
   }
 }

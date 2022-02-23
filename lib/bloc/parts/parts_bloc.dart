@@ -62,18 +62,39 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
         }
       }
 
+      if (event is InternetEventParts) {
+        try {
+          final result = await InternetAddress.lookup('google.com');
+          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+            print('connected');
+            emit(StatePartsInternetOk());
+          }
+        } on SocketException catch (_) {
+          print('not connected');
+          emit(StatePartsInternetError('Internet non disponible.'));
+        }
+      }
+
       if (event is AddPieceEventParts) {
+
         Ot ot = await _localRepository.getOt();
 
-        // FAIRE UNE CONDITION POUR VERIFIER INTERNET...
-
-        Article article = await _inRepository.getArticle(event.piece);
-        await _localRepository.insertReservation(
-            article,
-            ot.IDOT
-        );
-
-        emit(PartsStateAddArticle());
+        try {
+          final result = await InternetAddress.lookup('google.com');
+          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+            print('Toujours connect');
+            Article article = await _inRepository.getArticle(event.piece);
+            if(article != null) {
+              await _localRepository.insertReservation(article, ot.IDOT);
+              emit(PartsStateAddArticle());
+            } else {
+              emit(StatePartsNoArticle('Pas d\'article trouvé pour se code article.'));
+            }
+          }
+        } on SocketException catch (_) {
+          print('Connexion internet non disponible, article non inséré');
+          emit(StatePartsInternetInterrupt('Connexion internet non disponible, article non inséré'));
+        }
       }
     });
   }

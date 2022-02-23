@@ -31,3 +31,23 @@ class PartsUpdate extends PartsState {
 class PartsStateAddArticle extends PartsState {
   PartsStateAddArticle();
 }
+
+class StatePartsInternetInterrupt extends PartsState {
+  String message;
+  StatePartsInternetInterrupt(this.message);
+}
+
+class StatePartsNoArticle extends PartsState {
+  String message;
+  StatePartsNoArticle(this.message);
+}
+
+class StatePartsInternetError extends PartsState {
+  String message;
+  StatePartsInternetError(this.message);
+}
+
+class StatePartsInternetOk extends PartsState {}
+
+
+

@@ -67,9 +67,7 @@ class _SiteState extends State<SiteWidget> {
                           style: const TextStyle(fontSize: 20),
                         ),
                       );
-                    })
-                        .toSet()
-                        .toList(),
+                    }).toSet().toList(),
                     onChanged: (Site? newvalue) {
                       setState(() {
                         chooseValue = newvalue!;

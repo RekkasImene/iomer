@@ -23,12 +23,17 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'IomereApp',
-      theme: lightTheme(),
-      darkTheme: darkTheme(),
-      home: const DebugScreen(),
+    return GestureDetector(
+        onTap: ()=>FocusManager.instance.primaryFocus?.unfocus(),
+        onVerticalDragEnd: (DragEndDetails details) => FocusManager.instance.primaryFocus?.unfocus(),
+        child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'IomereApp',
+            theme: lightTheme(),
+            darkTheme: darkTheme(),
+            home: const DebugScreen(),
+        )
     );
   }
+
 }

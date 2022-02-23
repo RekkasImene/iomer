@@ -8,7 +8,7 @@ import 'package:http/http.dart';
 /// Necessite une connexion Internet
 /// URL à modifier par l'adresse réelle du WebService
 
-var url = 'http://10.0.2.2:8080';
+var url = 'https://iomere.loca.lt' ;      //'http://10.0.2.2:8080';
 
 @Environment(Env.prod)
 @singleton

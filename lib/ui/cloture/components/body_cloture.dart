@@ -54,18 +54,12 @@ class _BodyState extends State<Body> {
               listener: (context, state) {
                 if(state is StateDurationOt) {
                   listDuration=state.listDuration;
-                  print("Temps d'intervention : "+
-                      listDuration.first+ "h "+
-                      listDuration[1] + "mn "+ listDuration.last+ "s");
                 }
                 if(state is ClotureEnd){
                   navigation();
                 }
               },
               builder: (context, state) {
-                print( "Temps d'intervention : "+
-                    listDuration.first+ "h "+
-                    listDuration[1] + "mn "+ listDuration.last+ "s");
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Align(
@@ -73,8 +67,8 @@ class _BodyState extends State<Body> {
                     child: Text(
                       "Temps d'intervention : "+
                     listDuration.first+ "h "+
-                    listDuration[1] + "mn "+ listDuration.last+ "s",
-                      style: TextStyle(fontSize: 15),
+                    listDuration[1] + "mn "+ listDuration.last.split(".").first+ "s",
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                 );

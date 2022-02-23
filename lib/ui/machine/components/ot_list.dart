@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +26,6 @@ class _OTListState extends State<OTListWidget> {
   @override
   void initState() {
     choosedOt = Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
-    log("Initialisation Machine List");
     super.initState();
   }
 
@@ -89,23 +87,26 @@ class _OTListState extends State<OTListWidget> {
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(snapshot.data[index].LIBELLEOT),
-                onTap: () {
-                  DateTime now = DateTime.now();
-                  choosedOt = snapshot.data[index];
-                  widget.otblc.add(SetOpenOt(choosedOt.IDOT, now));
-                  widget.otblc.add(SetEventOt(choosedOt));
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ActionScreen()),
-                  );
+          child:ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemCount: snapshot.data.length,
+                                      itemBuilder: (context, index) {
+                                        return ListTile(
+                                          title: Text(
+                                              snapshot.data[index].LIBELLEOT),
+
+                                          onTap: () {
+                                            DateTime now = DateTime.now();
+                                            choosedOt = snapshot.data[index];
+                                            widget.otblc.add(SetEventOt(choosedOt));
+                                            widget.otblc.add(SetOpenOt(now));
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => const ActionScreen()),
+                                        );
                 },
               );
             },

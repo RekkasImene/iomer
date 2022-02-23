@@ -21,7 +21,8 @@ class OutRepository {
 
   Future<void> pushOts() async {
     List<Ot> ots = await localRepository.getOtsCloded();
-    ots.forEach((ot) {
+    if (ots.isNotEmpty) {
+      ots.forEach((ot) {
         if (ot.NEWOT!) {
           services.createOt(
               ot.IDEQUIPEMENT!, ot.IDORIGINE!, ot.IDCATEGORIE!, ot.LIBELLEOT);
@@ -33,7 +34,8 @@ class OutRepository {
               //temps en minute
               ot.STATUTOT!);
         }
-    });
+      });
+    }
   }
 
   Future<void> pushMatricules() async {
@@ -72,18 +74,24 @@ class OutRepository {
     });
   }
 
-  Future<void> pushWS() async {
-    //Matricules traitement
-    await pushMatricules();
-    //Documents traitement
-    await pushDocuments();
-    //Traitement taches
-    await pushTaches();
-    //Traitement OT
-    await pushOts();
-    //Reservations Traitement
-    await pushReservations();
-
+  Future<bool> pushWS() async {
+    var flag;
+    try {
+      //Matricules traitement
+      await pushMatricules();
+      //Documents traitement
+      await pushDocuments();
+      //Traitement taches
+      await pushTaches();
+      //Traitement OT
+      await pushOts();
+      //Reservations Traitement
+      await pushReservations();
+      flag = true;
+    }catch(e){
+      flag= false;
+    }
     services.client.close();
+    return flag;
   }
 }

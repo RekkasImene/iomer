@@ -32,7 +32,8 @@ class ArticleDao extends DatabaseAccessor<IomerDatabase>
         .get();
   }
 
-
+  Future modifieArticle(Article article) =>
+      update(articles).replace(article);
 
   Future insertArticle(Article article) =>
       into(articles).insertOnConflictUpdate(article);

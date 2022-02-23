@@ -119,6 +119,7 @@ class _BodyState extends State<Body> {
     setState(() {
       _controllerPiece.text =
           nextPageValues; //first element is stored at the 0th index for a list
+      _partsBloc.add(CodeEventPart(_controllerPiece.text));
     });
   }
 

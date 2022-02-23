@@ -69,33 +69,76 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
         }
       }
 
+
+
+
+
       if (event is AddPieceEventParts) {
         double qte = 0;
+        Article article;
+        Reservation reservation;
         Ot ot = await _localRepository.getOt();
 
         try {
           final result = await InternetAddress.lookup('google.com');
           if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
             print('Toujours connect');
-            Article article = await _inRepository.getArticle(event.piece);
-            if(article != null) {
-              if (event.qte.isEmpty) {
-                qte= article.QTEARTICLE;
-              } else {
+            if (event.piece.isNotEmpty){
+            article = await _localRepository.findArticleBy(event.piece);
+
+            print("article local ================== " + article.toString());
+            if (article != null) {
+              if (event.qte.isNotEmpty) {
                 qte = double.parse(event.qte);
+              } else {
+                qte = article.QTEARTICLE;
               }
-              Reservation reservation = await _localRepository.insertReservation(article, ot.IDOT, qte);
-              await _localRepository.modifyReservation(reservation.copyWith(QTEARTICLE: qte));
-              emit(PartsStateAddArticle());
+              print("qte  ================== " + qte.toString());
+              if (article.QTEARTICLE != qte) {
+                article = article.copyWith(QTEARTICLE: qte);
+                _localRepository.modifyArticle(article);
+                print("local  qte diff ===============");
+                emit(PartsStateAddArticle());
+              }
+              else {
+                print("local qte non diff ===============");
+                emit(PartsStateAddArticle());
+              }
             } else {
-              emit(StatePartsNoArticle('Pas d\'article trouvé pour se code article.'));
+              article = await _inRepository.getArticle(event.piece);
+              print("article web ================== " + article.toString());
+              if (article != null) {
+                if (event.qte.isNotEmpty) {
+                  qte = double.parse(event.qte);
+                } else {
+                  qte = article.QTEARTICLE;
+                }
+                qte = double.parse(event.qte);
+                if (article.QTEARTICLE != qte) {
+                  article = article.copyWith(QTEARTICLE: qte);
+                  await _localRepository.insertReservation(article, ot.IDOT);
+                  print("web qte non diff ===============");
+                  emit(PartsStateAddArticle());
+                } else {
+                  await _localRepository.insertReservation(article, ot.IDOT);
+                  print("web qte diff ===============");
+                  emit(PartsStateAddArticle());
+                }
+              } else {
+                emit(StatePartsNoArticle(
+                    'Pas d\'article trouvé pour se code article.'));
+              }
             }
+          }
+
           }
         } on SocketException catch (_) {
           print('Connexion internet non disponible, article non inséré');
           emit(StatePartsInternetInterrupt('Connexion internet non disponible, article non inséré'));
         }
       }
+
     });
+
   }
 }

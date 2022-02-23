@@ -40,8 +40,9 @@ class _PartEditorState extends State<PartEditor> {
       create: (context) => _partsBloc,
       child: BlocListener<PartsBloc, PartsState>(
         listener: (context, state) {
-          if (state is CodePartLoaded) {
-            _controllerLibelle.text = state.libellePart;
+          if (state is StateArticleFind) {
+            print("Je suis là");
+            widget.controllerLibelle.text  = state.libelle;
           }
         },
         child: Column(
@@ -54,7 +55,7 @@ class _PartEditorState extends State<PartEditor> {
               controller: widget.controllerNpiece,
               onEditingComplete: () {
                 print("No editing");
-                _partsBloc.add(CodeEventPart(_controllerArticle.text));
+                _partsBloc.add(CodeEventPart(widget.controllerNpiece.text));
               },
               decoration: const InputDecoration(
                   border: OutlineInputBorder(), labelText: 'N° Pièce :'),

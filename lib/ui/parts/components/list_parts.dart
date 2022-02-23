@@ -62,6 +62,7 @@ class _ListPartsState extends State<ListParts> {
             },
 
             builder: (context, state) {
+              print(state.toString());
               if (state is PartsLoaded) {
                 return Column(
                   children: [
@@ -162,8 +163,10 @@ class _ListPartsState extends State<ListParts> {
 
   FutureOr onGoBack(dynamic value) {
     /// est utilisé pour reinitilaser les parametres après un retour arriere
+    print("Je suis ONGOBACK");
     setState(() {
       _partsBloc.add(FetchEventParts());
+
     });
   }
 

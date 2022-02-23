@@ -162,8 +162,6 @@ class _SiteState extends State<SiteWidget> {
 
   navigation() {
     print("----- Navigation");
-    Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const FirstScreen()))
-        .then(onGoBack);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const FirstScreen())).then(onGoBack);
   }
 }

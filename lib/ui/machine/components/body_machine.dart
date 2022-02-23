@@ -160,8 +160,7 @@ class _BodyState extends State<Body> {
       MaterialPageRoute(builder: (_) => const ScanScreen()),
     );
     setState(() {
-      _controllerCode.text =
-          nextPageValues; //first element is stored at the 0th index for a list
+      _controllerCode.text = nextPageValues; //first element is stored at the 0th index for a list
       _otBloc.add(CodeEventMachine(_controllerCode.text));
     });
   }

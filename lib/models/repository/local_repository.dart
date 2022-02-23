@@ -124,16 +124,23 @@ class LocalRepository {
   }
 
   Future<Article> findArticleBy(String codeArticle) async {
-    Article article =  await database.articleDao.findArticleBy(codeArticle);
-    print("article trouve");
-    return  article;
+    Article? article = null;
+    try {
+      article = await database.articleDao.findArticleBy(codeArticle);
+      print("article trouve : "+article.toString());
+      return  article;
+    } on Exception catch (_) {
+      print("article introuvé : "+article.toString());
+      return  article!;
+    }
+
   }
 
   Future<List<Reservation>> findReservationBy(int idOt) async {
     return await database.reservationDao.findReservationBy(idOt);
   }
 
-  Future insertReservation(Article article, int idOt ) async {
+  Future insertReservation(Article article, int idOt, double quantite ) async {
     int newId = 0;
     List<Reservation> lastdata = await database.reservationDao.sortTable();
     newId = lastdata.first.IDPIECE;
@@ -144,7 +151,7 @@ class LocalRepository {
             IDPIECE: newId ,
             CODEARTICLE: article.CODEARTICLE,
             LIBELLEARTICLE: article.LIBELLEARTICLE,
-            QTEARTICLE: article.QTEARTICLE,
+            QTEARTICLE: quantite,
             IDARTICLE: article.IDARTICLE,
             IDOT: idOt,
             NEWRESERVATION: true

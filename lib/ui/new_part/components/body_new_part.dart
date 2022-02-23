@@ -8,6 +8,8 @@ import 'package:iomere/ui/new_part/components/part_editor.dart';
 import 'package:iomere/ui/scan/scan_screen.dart';
 import 'package:iomere/ui/utils/info.dart';
 
+import '../../parts/parts_screen.dart';
+
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
@@ -98,9 +100,7 @@ class _BodyState extends State<Body> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    //_partsBloc.add(AddPieceEventParts(_controllerPiece.text, _controllerLibelle.text, _controllerQte.text));
-                    //Navigator.push(context, MaterialPageRoute(builder: (_) => const PartsScreen()),);
-                    //Navigator.pop(context);
+                    _partsBloc.add(AddPieceEventParts(_controllerPiece.text, _controllerLibelle.text, _controllerQte.text));
                   },
                   child: const Text('Valider', style: TextStyle(fontSize: 20)),
                   style: ElevatedButton.styleFrom(

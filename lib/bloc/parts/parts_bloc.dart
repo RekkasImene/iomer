@@ -10,6 +10,7 @@ import 'package:iomere/models/repository/in_repository.dart';
 import 'package:iomere/models/repository/local_repository.dart';
 
 part 'parts_event.dart';
+
 part 'parts_state.dart';
 
 @Environment(Env.prod)
@@ -20,12 +21,11 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
 
   PartsBloc(this._localRepository, this._inRepository) : super(PartsInitial()) {
     on<PartsEvent>((event, emit) async {
-
-
       if (event is FetchEventParts) {
         emit(PartsLoading());
         Ot ot = await _localRepository.getOt();
-        final List<Reservation> reservation = await _localRepository.findReservationBy(ot.IDOT);
+        final List<Reservation> reservation =
+            await _localRepository.findReservationBy(ot.IDOT);
 
         if (reservation.isNotEmpty) {
           emit(PartsLoaded(reservation));
@@ -35,19 +35,16 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
       }
 
       if (event is UpdateEventListParts) {
-        for(int i=0;i<event.listreservation.length;i++) {
+        for (int i = 0; i < event.listreservation.length; i++) {
           try {
-            if(event.controller[i].text.isNotEmpty) {
-              _localRepository.modifyReservation(
-                  Reservation(
-                      IDPIECE: event.listreservation[i].IDPIECE,
-                      LIBELLEARTICLE: event.listreservation[i].LIBELLEARTICLE,
-                      IDOT: event.listreservation[i].IDOT,
-                      CODEARTICLE: event.listreservation[i].CODEARTICLE,
-                      QTEARTICLE: double.parse(event.controller[i].text),
-                      IDARTICLE: event.listreservation[i].IDARTICLE
-                  )
-              );
+            if (event.controller[i].text.isNotEmpty) {
+              _localRepository.modifyReservation(Reservation(
+                  IDPIECE: event.listreservation[i].IDPIECE,
+                  LIBELLEARTICLE: event.listreservation[i].LIBELLEARTICLE,
+                  IDOT: event.listreservation[i].IDOT,
+                  CODEARTICLE: event.listreservation[i].CODEARTICLE,
+                  QTEARTICLE: double.parse(event.controller[i].text),
+                  IDARTICLE: event.listreservation[i].IDARTICLE));
             }
             emit(PartsUpdate());
           } catch (e) {
@@ -69,94 +66,78 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
         }
       }
 
-
       if (event is CodeEventPart) {
         Article article;
+
         try {
           final result = await InternetAddress.lookup('google.com');
           if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+            print("Code parts : " + event.codePart);
             article = await _inRepository.getArticle(event.codePart);
             print(article.toString());
-            if(article.LIBELLEARTICLE.isNotEmpty) {
+            if (article.LIBELLEARTICLE.isNotEmpty) {
               emit(StateArticleFind(article.LIBELLEARTICLE));
             } else {
-              emit(StatePartsNoArticle('Pas d\'article trouvé pour se code article.'));
+              emit(StatePartsNoArticle(
+                  'Pas d\'article trouvé pour se code article.'));
             }
           }
         } on SocketException catch (_) {
           print('Connexion internet non disponible, article non inséré');
-          emit(StatePartsInternetInterrupt('Connexion internet non disponible, article non inséré'));
+          emit(StatePartsInternetInterrupt(
+              'Connexion internet non disponible, article non inséré'));
         }
       }
 
-
-
-/*
-
       if (event is AddPieceEventParts) {
         double qte = 0;
-
+        Article article;
         Ot ot = await _localRepository.getOt();
 
         try {
           final result = await InternetAddress.lookup('google.com');
           if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-            print('Toujours connect');
-            if (event.piece.isNotEmpty){
-            article = await _localRepository.findArticleBy(event.piece);
+            if (event.piece.isNotEmpty & event.libelle.isNotEmpty & event.qte.isNotEmpty) {
+              print("Jai passer les testes -- ");
 
-            print("article local ================== " + article.toString());
-            if (article != null) {
-              if (event.qte.isNotEmpty) {
-                qte = double.parse(event.qte);
-              } else {
-                qte = article.QTEARTICLE;
-              }
-              print("qte  ================== " + qte.toString());
-              if (article.QTEARTICLE != qte) {
-                article = article.copyWith(QTEARTICLE: qte);
-                _localRepository.modifyArticle(article);
-                print("local  qte diff ===============");
+
+
+              Reservation reservation = Reservation(
+                  IDPIECE: int.parse(event.piece),
+                  LIBELLEARTICLE: event.libelle,
+                  QTEARTICLE: double.parse(event.qte),
+                  IDARTICLE: IDARTICLE
+              );
+
+
+              print("Article local : "+article.toString());
+              //if (article.CODEARTICLE.isNotEmpty) {
+                print("Je suis article locale");
+                reservation = reservation.copyWith(QTEARTICLE: double.parse(event.qte));
+                _localRepository.modifyReservation(reservation);
                 emit(PartsStateAddArticle());
-              }
-              else {
-                print("local qte non diff ===============");
-                emit(PartsStateAddArticle());
-              }
-            } else {
-              article = await _inRepository.getArticle(event.piece);
-              print("article web ================== " + article.toString());
-              if (article != null) {
-                if (event.qte.isNotEmpty) {
-                  qte = double.parse(event.qte);
-                } else {
-                  qte = article.QTEARTICLE;
-                }
-                qte = double.parse(event.qte);
-                if (article.QTEARTICLE != qte) {
-                  article = article.copyWith(QTEARTICLE: qte);
-                  await _localRepository.insertReservation(article, ot.IDOT);
-                  print("web qte non diff ===============");
+
+
+
+             // } else {
+                article = await _inRepository.getArticle(event.piece);
+                print("Article WS : "+article.toString());
+                if (article.CODEARTICLE.isNotEmpty) {
+                  print("Je suis article WS");
+                  await _localRepository.insertReservation(article, ot.IDOT, double.parse(event.qte));
+                  print("Fin insertion");
                   emit(PartsStateAddArticle());
                 } else {
-                  await _localRepository.insertReservation(article, ot.IDOT);
-                  print("web qte diff ===============");
-                  emit(PartsStateAddArticle());
+                  emit(StatePartsNoArticle('Il n\'y a pas d\'article avec ce code article'));
                 }
-              } else {
-                emit(StatePartsNoArticle('Pas d\'article trouvé pour se code article.'));
-              }
+             // }
             }
-          }
-
           }
         } on SocketException catch (_) {
           print('Connexion internet non disponible, article non inséré');
           emit(StatePartsInternetInterrupt('Connexion internet non disponible, article non inséré'));
         }
       }
-*/
     });
-
   }
 }

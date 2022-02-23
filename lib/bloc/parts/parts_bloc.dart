@@ -76,7 +76,7 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
       }
 
       if (event is AddPieceEventParts) {
-
+        double qte = 0;
         Ot ot = await _localRepository.getOt();
 
         try {
@@ -85,7 +85,12 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
             print('Toujours connect');
             Article article = await _inRepository.getArticle(event.piece);
             if(article != null) {
-              await _localRepository.insertReservation(article, ot.IDOT);
+              if (event.qte.isEmpty) {
+                qte= article.QTEARTICLE;
+              } else {
+                qte = double.parse(event.qte);
+              }
+              await _localRepository.insertReservation(article, ot.IDOT, qte);
               emit(PartsStateAddArticle());
             } else {
               emit(StatePartsNoArticle('Pas d\'article trouvé pour se code article.'));

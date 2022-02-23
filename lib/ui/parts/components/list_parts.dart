@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +50,7 @@ class _ListPartsState extends State<ListParts> {
 
               if (state is StatePartsInternetOk) {
                 print("Navigation vers NewPartsScreen");
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const NewPartScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const NewPartScreen())).then(onGoBack);
               }
 
               if(state is StatePartsInternetError) {
@@ -158,6 +160,13 @@ class _ListPartsState extends State<ListParts> {
 
   void showToast(String message) {
     Fluttertoast.showToast(msg: message);
+  }
+
+  FutureOr onGoBack(dynamic value) {
+    /// est utilisé pour reinitilaser les parametres après un retour arriere
+    setState(() {
+      _partsBloc.add(FetchEventParts());
+    });
   }
 
 }

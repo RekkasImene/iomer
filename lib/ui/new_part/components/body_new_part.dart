@@ -1,171 +1,129 @@
-import 'dart:async';
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/site/sites_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:iomer/bloc/parts/parts_bloc.dart';
 import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/ui/matricule/first_screen.dart';
+import 'package:iomer/ui/new_part/components/part_editor.dart';
+import 'package:iomer/ui/parts/parts_screen.dart';
+import 'package:iomer/ui/scan/scan_screen.dart';
+import 'package:iomer/ui/utils/info.dart';
 
-class SiteWidget extends StatefulWidget {
-  const SiteWidget({Key? key}) : super(key: key);
+class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _SiteState();
+  State<Body> createState() => _BodyState();
 }
 
-class _SiteState extends State<SiteWidget> {
-  bool _isLoading = false;
-  late SitesBloc _sitesBloc;
-  late Site? chooseValue;
-  late String choosedConfig;
-  final myController = TextEditingController();
+class _BodyState extends State<Body> {
+  final TextEditingController _controllerPiece = TextEditingController();
+  final TextEditingController _controllerLibelle = TextEditingController();
+  final TextEditingController _controllerQte = TextEditingController();
+  late PartsBloc _partsBloc;
 
   @override
   void initState() {
-    chooseValue = null;
-    choosedConfig = "";
-    _sitesBloc = getIt.get<SitesBloc>();
-    _sitesBloc.add(FetchEventSites());
+    _partsBloc = getIt.get<PartsBloc>();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        BlocProvider(
-          create: (context) => _sitesBloc,
-          child: BlocConsumer<SitesBloc, SitesState>(
-            listener: (context, state) {
-              if (state is NavigationState) {
-                navigation();
-              }
-            },
-            builder: (context, state) {
-              if (state is SitesLoaded) {
-                /// affiche un dropdown button avec la liste des sites
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 6),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.grey, width: 1),
-                  ),
-                  child: DropdownButton(
-                    value: chooseValue,
-                    isExpanded: true,
-                    items: state.sites
-                        .map((Site valueItem) {
-                          return DropdownMenuItem<Site>(
-                            value: valueItem,
-                            child: Text(
-                              valueItem.NOMSITE,
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                          );
-                        })
-                        .toSet()
-                        .toList(),
-                    onChanged: (Site? newvalue) {
-                      setState(() {
-                        chooseValue = newvalue!;
-                      });
-                    },
-                  ),
-                );
-              } else {
-                return const Center(
-                  /// affiche un loading
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: SizedBox(child: CircularProgressIndicator()),
-                  ),
-                );
-              }
-            },
-          ),
-        ),
+    return BlocProvider(
+      create: (context) => _partsBloc,
+      child: BlocListener<PartsBloc, PartsState>(
+        listener: (context, state) {
 
-        /// affiche un textfield pour rentrer le nom du service rechercher
-        inputService(),
-        Expanded(
+          if (state is StatePartsInternetInterrupt) {
+            showToast(state.message);
+          }
+
+          if(state is StatePartsNoArticle){
+            showToast(state.message);
+          }
+
+          if(state is PartsStateAddArticle) {
+            Navigator.pop(context);
+          }
+        },
+        child: Container(
+          padding: const EdgeInsets.all(20.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "ajout pièce :",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Column(
+                  children: [
+                    Info(),
+                    PartEditor(
+                        controllerNpiece: _controllerPiece,
+                        controllerLibelle: _controllerLibelle,
+                        controllerQte: _controllerQte),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _navigateAndRetriveCode(context);
+                    },
+                    child:
+                    const Text('Scan Pièce', style: TextStyle(fontSize: 20)),
+                    style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 20)),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(),
+              ),
               SizedBox(
                 width: double.infinity,
-
-                /// bouton pour valider le site et le service
-                /// navigue a la prochaine étape
-                child: buildButton(),
+                child: ElevatedButton(
+                  onPressed: () {
+                    _partsBloc.add(AddPieceEventParts(_controllerPiece.text,
+                        _controllerLibelle.text, _controllerQte.text));
+                    //Navigator.push(context, MaterialPageRoute(builder: (_) => const PartsScreen()),);
+                    //Navigator.pop(context);
+                  },
+                  child: const Text('Valider', style: TextStyle(fontSize: 20)),
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 20)),
+                ),
               ),
             ],
           ),
-        )
-      ],
-    );
-  }
-
-  Widget inputService() {
-    return TextField(
-      controller: myController,
-      decoration: const InputDecoration(
-          border: OutlineInputBorder(), labelText: 'Service :'),
-    );
-  }
-
-  Widget buildButton() {
-    return ElevatedButton.icon(
-      icon: _isLoading
-          ? const SizedBox(
-              height: 20, width: 20, child: CircularProgressIndicator())
-          : const Icon(null),
-      label: Text(
-        _isLoading ? 'Loading...' : 'Valider',
-        style: const TextStyle(fontSize: 20),
+        ),
       ),
-      style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
-      onPressed: calculateWhetherDisabledReturnsBool()
-          ? null
-          : () => [
-                choosedConfig = myController.text,
-                Loading(),
-              ],
     );
   }
 
-  calculateWhetherDisabledReturnsBool() {
-    if (_isLoading == true) {
-      return true;
-    }
-    if (chooseValue != null) {
-      return false; //btn activé
-    } else {
-      return true;
-    }
-  }
-
-  FutureOr onGoBack(dynamic value) {
-    /// est utilisé pour reinitilaser les parametres après un retour arriere
+  _navigateAndRetriveCode(BuildContext context) async {
+    final String nextPageValues = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const ScanScreen()),
+    );
     setState(() {
-      _isLoading = false;
-      chooseValue = null;
+      _controllerPiece.text =
+          nextPageValues; //first element is stored at the 0th index for a list
     });
   }
 
-  Loading() {
-    log("-----------------------------------------------------------------------------------Loading :"+_isLoading.toString());
-    //_sitesBloc.add(ValidateEventSites(chooseValue!, choosedConfig));
+  void showToast(String message) {
+    Fluttertoast.showToast(msg: message);
   }
 
-  navigation() {
-    Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const FirstScreen()))
-        .then(onGoBack);
-  }
 }

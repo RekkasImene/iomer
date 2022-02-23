@@ -101,36 +101,18 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
               print("Jai passer les testes -- ");
 
 
-
-              Reservation reservation = Reservation(
-                  IDPIECE: int.parse(event.piece),
-                  LIBELLEARTICLE: event.libelle,
-                  QTEARTICLE: double.parse(event.qte),
-                  IDARTICLE: IDARTICLE
-              );
-
-
-              print("Article local : "+article.toString());
-              //if (article.CODEARTICLE.isNotEmpty) {
-                print("Je suis article locale");
-                reservation = reservation.copyWith(QTEARTICLE: double.parse(event.qte));
-                _localRepository.modifyReservation(reservation);
-                emit(PartsStateAddArticle());
-
-
-
-             // } else {
                 article = await _inRepository.getArticle(event.piece);
                 print("Article WS : "+article.toString());
                 if (article.CODEARTICLE.isNotEmpty) {
                   print("Je suis article WS");
+
                   await _localRepository.insertReservation(article, ot.IDOT, double.parse(event.qte));
+
                   print("Fin insertion");
                   emit(PartsStateAddArticle());
                 } else {
                   emit(StatePartsNoArticle('Il n\'y a pas d\'article avec ce code article'));
                 }
-             // }
             }
           }
         } on SocketException catch (_) {

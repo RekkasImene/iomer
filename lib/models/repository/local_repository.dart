@@ -142,21 +142,43 @@ class LocalRepository {
 
   Future insertReservation(Article article, int idOt, double quantite ) async {
     int newId = 0;
+    int flag=0;
     List<Reservation> lastdata = await database.reservationDao.sortTable();
-    newId = lastdata.first.IDPIECE;
-    newId++;
 
-    await database.reservationDao.insertReservation(
-        Reservation(
-            IDPIECE: newId ,
-            CODEARTICLE: article.CODEARTICLE,
-            LIBELLEARTICLE: article.LIBELLEARTICLE,
-            QTEARTICLE: quantite,
-            IDARTICLE: article.IDARTICLE,
-            IDOT: idOt,
-            NEWRESERVATION: true
-        )
-    );
+    for (int i = 0; i < lastdata.length; i++){
+      if (article.CODEARTICLE==lastdata[i].CODEARTICLE){
+        print("déja présent------------");
+        flag=1;
+        await database.reservationDao.modifieReservation(
+            Reservation(
+                IDPIECE: lastdata[i].IDPIECE,
+                CODEARTICLE: article.CODEARTICLE,
+                LIBELLEARTICLE: article.LIBELLEARTICLE,
+                QTEARTICLE: quantite,
+                IDARTICLE: article.IDARTICLE,
+                IDOT: idOt,
+                NEWRESERVATION: true
+            )
+        );
+      }
+    }
+    if (flag!=1){
+      newId = lastdata.first.IDPIECE;
+      newId++;
+      await database.reservationDao.insertReservation(
+          Reservation(
+              IDPIECE: newId ,
+              CODEARTICLE: article.CODEARTICLE,
+              LIBELLEARTICLE: article.LIBELLEARTICLE,
+              QTEARTICLE: quantite,
+              IDARTICLE: article.IDARTICLE,
+              IDOT: idOt,
+              NEWRESERVATION: false
+          )
+      );
+      flag=0;
+    }
+
   }
 
   Future modifyReservation(Reservation reservation) async {

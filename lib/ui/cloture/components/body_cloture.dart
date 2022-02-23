@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iomere/bloc/cloture/cloture_bloc.dart';
+import 'package:iomere/config/injection.dart';
 import 'package:iomere/models/bdd/iomer_database.dart';
 import 'package:iomere/ui/machine/machine_screen.dart';
 import 'package:iomere/ui/utils/info.dart';

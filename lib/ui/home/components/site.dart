@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iomere/bloc/site/sites_bloc.dart';
 import 'package:iomere/config/injection.dart';
 import 'package:iomere/models/bdd/iomer_database.dart';
@@ -77,6 +78,7 @@ class _SiteState extends State<SiteWidget> {
                   log('initial stataaaaaaaaaaaate');
                   _sitesBloc.add(FetchEventSites());
                   _isLoading = false;
+                  showToast("Service introuvable");
                 }
               },
               builder: (context, state) {
@@ -204,6 +206,10 @@ class _SiteState extends State<SiteWidget> {
     Navigator.push(context,
             MaterialPageRoute(builder: (context) => const FirstScreen()))
         .then(onGoBack);
+  }
+
+  void showToast(String message) {
+    Fluttertoast.showToast(msg: message);
   }
 
   // void showInSnackBar() {

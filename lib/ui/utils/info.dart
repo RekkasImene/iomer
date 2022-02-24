@@ -23,9 +23,11 @@ class _InfoState extends State<Info> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20.0),
+
+      padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: Theme.of(context).secondaryHeaderColor,
+          border: Border.all(color: Colors.black),
         borderRadius: const BorderRadius.all(Radius.circular(40.0)),
       ),
       child: BlocProvider<OtBloc>(
@@ -40,12 +42,12 @@ class _InfoState extends State<Info> {
                     Align(
                         child: Text(
                       state.ot.LIBELLEOT,
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                          style: const TextStyle(fontSize: 20),
                     )),
                     Align(
                         child: Text(
                       state.ot.CODEOT,
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                      style: const TextStyle(fontSize: 20),
                     ))
                   ],
                 ),

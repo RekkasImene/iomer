@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
 
 ThemeData darkTheme(){
-  TextTheme _baseTextTheme(TextTheme base){
-    return base.copyWith(
-      headline1: base.headline1!.copyWith(
-        fontFamily: 'MerriWeather',
-        fontSize: 22.0,
-        color: Colors.white,
-      )
-    );
-  }
   final ThemeData base= ThemeData.dark();
   return base.copyWith(
-    textTheme: _baseTextTheme(base.textTheme),
     brightness: Brightness.dark,
+    secondaryHeaderColor: Colors.white10,
     primaryColor: Colors.blueGrey,
     primaryColorDark: Colors.blueGrey,
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -28,20 +19,11 @@ ThemeData darkTheme(){
 }
 
 ThemeData lightTheme(){
-  TextTheme _baseTextTheme(TextTheme base){
-    return base.copyWith(
-        headline1: base.headline1!.copyWith(
-          fontFamily: 'MerriWeather',
-          fontSize: 22.0,
-          color: Colors.black,
-        )
-    );
-  }
+
   final ThemeData base= ThemeData.light();
   return base.copyWith(
-    textTheme: _baseTextTheme(base.textTheme),
     backgroundColor: Colors.white38,
-    secondaryHeaderColor: Colors.grey,
+    secondaryHeaderColor: Colors.white,
     brightness: Brightness.dark,
     primaryColor: Colors.blueGrey,
     elevatedButtonTheme: ElevatedButtonThemeData(

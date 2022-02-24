@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
         onVerticalDragEnd: (DragEndDetails details) => FocusManager.instance.primaryFocus?.unfocus(),
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'IomereApp',
+            title: 'iOmereApp',
             theme: lightTheme(),
             darkTheme: darkTheme(),
             home: const DebugScreen(),

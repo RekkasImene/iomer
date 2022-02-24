@@ -12,6 +12,7 @@ part 'ot_state.dart';
 
 /// Cette classe contient le Bloc de l'Ui [machine]
 /// Elle reçoit et traite les évenements définis dans [ot_event], et déclenche par ce fait des méthodes de [LocalRepository]
+/// Emet un etat de [ot_state]
 @Environment(Env.prod)
 @injectable
 class OtBloc extends Bloc<OtEvent, OtState> {
@@ -32,7 +33,6 @@ class OtBloc extends Bloc<OtEvent, OtState> {
           emit(OtLoaded(List<Ot>.empty()));
         }
       }
-
       if (event is NewEventOt) {
         await _repository.getAllOrigine();
         Equipement equipement =

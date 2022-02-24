@@ -12,7 +12,9 @@ import 'package:iomere/models/repository/local_repository.dart';
 part 'parts_event.dart';
 
 part 'parts_state.dart';
-
+/// Cette classe contient le Bloc de l'Ui [parts]
+/// Elle reçoit et traite les évenements définis dans [parts_event], et déclenche par ce fait des méthodes de [LocalRepository] et [InRepository]
+/// /// Emet un etat de [ot_state]
 @Environment(Env.prod)
 @injectable
 class PartsBloc extends Bloc<PartsEvent, PartsState> {

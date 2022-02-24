@@ -201,13 +201,6 @@ class LocalRepository {
   Future modifyTache(Tache tache) async {
     await database.tacheDao.modifieTache(tache);
   }
-///Ajouter un commentaire dans [Ot]
-  Future modifyCommentOt(int idOt, String comment) async {
-    database.otDao.updateComment(idOt, comment);
-  }
 
-  ///Modifier DTOPENOT de [Ot] ( date début d'intervention )
-  Future modifyOpenOt(int idOt, DateTime openDate) async {
-    await database.otDao.updateDTOPENOT(idOt, openDate);
-  }
+
 }

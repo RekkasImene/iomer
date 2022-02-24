@@ -14,6 +14,9 @@ part 'ot_event.dart';
 
 part 'ot_state.dart';
 
+
+/// Cette classe contient le Bloc de l'Ui [machine]
+/// Elle reçoit et traite les évenements définis dans [ot_event], et déclenche par ce fait des méthodes de [LocalRepository]
 @Environment(Env.prod)
 @injectable
 class OtBloc extends Bloc<OtEvent, OtState> {

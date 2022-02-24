@@ -218,7 +218,7 @@ class Services {
     }
   }
 
-  /// Envoyer la liste des [Ot] dans le WebService
+  /// Synchroniser [Ot] avec le WebService
   Future<void> postOt(
       int idOt, String commentOt, double tempsOt, String statutOt) async {
     String newTempsOt = tempsOt.toString();
@@ -226,30 +226,30 @@ class Services {
     final response = await client
         .get(Uri.parse('$url/SetOt/$idOt/$commentOt/$newTempsOt/$statutOt'));
   }
-  /// Envoyer la liste des [Tache] dans le WebService
+  /// Synchroniser [Tache] comprenant un idTache, statutTache, commentTache avec le WebService
   Future<void> postOtTache(
       int idTache, String statutTache, String commentTache) async {
     final response = await client
         .get(Uri.parse('$url/SETOT_TACHE/$idTache/$statutTache/$commentTache'));
   }
-  /// Envoyer la liste des [Article] dans le WebService
+  /// Synchroniser une [Reservation] comprenant un idPiece et une qteArticle avec le WebService
   Future<void> postOtArticle(int idPiece, double qteArticle) async {
     String newQteArticle = qteArticle.toString();
     newQteArticle = newQteArticle.replaceAll('.', ',');
     final response = await client
         .get(Uri.parse('$url/SETOT_ARTICLE/$idPiece/$newQteArticle'));
   }
-  /// Envoyer la liste des [Matricule] dans le WebService
+  /// Synchroniser [Matricule] comprenant un idMatricule et checked avec le WebService
   Future<void> postMatricule(int idMatricule, int checked) async {
     final response =
         await client.get(Uri.parse('$url/SETMATRICULE/$idMatricule/$checked'));
   }
-  /// Envoyer la liste des [Document] dans le WebService
+  /// Synchroniser [Document] comprenant un idOt et attachement avec le WebService
   Future<void> postAttachment(int idOt, String attachment) async {
     final response =
         await client.get(Uri.parse('$url/SETATTACHMENT/$idOt/$attachment'));
   }
-  /// Envoyer la liste des [Article] dans le WebService
+  /// Créer un nouvel [Article] et l'envoyer dans le WebService
   Future<void> createOtArticle(
       int idOt, int idArticle, double qteArticle) async {
     String newQteArticle = qteArticle.toString();
@@ -257,7 +257,7 @@ class Services {
     final response = await client.get(
         Uri.parse('$url/CREATEOT_ARTICLE/$idOt/$idArticle/$newQteArticle'));
   }
-  /// Créer une nouvelle [Ot]
+  /// Créer une nouvelle [Ot] et l'envoyer dans le WebService
   Future<void> createOt(int idEquipement, int idOrigine, int idCategorie,
       String libelleOt) async {
     final response = await client.get(Uri.parse(

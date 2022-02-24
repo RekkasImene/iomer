@@ -2,10 +2,12 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/webService/services.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/webService/services.dart';
+
 import 'local_repository.dart';
 
 /// [InRepository] recupère les données du webService et les stocke dans la base de donnée locale via les DAO
@@ -88,18 +90,18 @@ class InRepository {
       reservations.forEach((e) {
         database.reservationDao.insertReservation(e);
       });
-    } on Exception catch (e) {
+    } on FormatException catch (e) {
       log(e.toString());
     }
   }
   /// Récupère les Articles du WebService ($url/GETARTICLE/$codeArticle) et les insère dans la table [Articles]
-  Future<void> updateArticles(String idArticle) async{
+  Future<void> updateArticles(String idArticle) async {
     try {
       var articles = await services.fetchArticles(idArticle);
       articles.forEach((e) {
         database.articleDao.insertArticle(e);
       });
-    } on Exception catch (e) {
+    } on FormatException catch (e) {
       log(e.toString());
     }
   }
@@ -118,25 +120,31 @@ class InRepository {
   Future<void> updateTaches(int idOT) async {
     try {
       var taches = await services.fetchOTTaches(idOT);
-      taches.forEach((e)  {
+      taches.forEach((e) {
         database.tacheDao.insertTache(e);
       });
-    } on Exception catch (e) {
+    } on FormatException catch (e) {
       log(e.toString());
     }
   }
   /// Récupère tous les [Site] du WebService ($url/GetSites)
   @override
   Future<List<Site>> getAllSite() async {
-    List<Site> sites = await services.fetchSites();
+    log("get all site repo");
+    List<Site> sites = [];
+    try {
+      sites = await services.fetchSites();
+    } on Exception catch (_) {
+      log("sites vide");
+    }
     return sites;
   }
 
-  Future<Article> getArticle (String codeArticle) async {
-    Article article = (await services.fetchArticles(codeArticle)) as Article;
-    return article;
+  Future<Article> getArticle(String codeArticle) async {
+    List<Article> article = await services.fetchArticles(codeArticle);
+    print("Article repo : "+article.toString());
+    return article.first;
   }
-
 
 /// Insèrer le site séléctionné dans la table [Sites]
   @override
@@ -145,35 +153,42 @@ class InRepository {
   }
 
   ///Remplir la base de donnée ( appelle les fonctions d'insértion dans les tables de la bdd )
-  Future<void> pushDB(int idSite, String codePocket) async {
-
+  Future<bool> pushDB(int idSite, String codePocket) async {
+    try {
     //Récupérer la config ( choix du site + code Pocket sur la première vue Home )
     futureConfigs = await services.fetchConfigs(idSite, codePocket);
     int idOrigine = futureConfigs.first.IDORIGINE!;
 
-    await updateMatricules(idOrigine);
-    await updateOTs(idSite, idOrigine);
-    await updateCategories(idSite);
-    await updateEquipements(idSite);
+      await updateMatricules(idOrigine);
+      await updateOTs(idSite, idOrigine);
+      await updateCategories(idSite);
+      await updateEquipements(idSite);
 
+      //push tache & OtArticle(Reservation)
+      log("Pause... 1 ");
+      // sleep(const Duration(seconds: 1));
 
-    sleep(const Duration(seconds:1));
-    var ots = await localRepository.getAllOt();
-    for(int i=0;i<ots.length;i++) {
-      await updateReservation(ots[i].IDOT);
-      await updateTaches(ots[i].IDOT);
+      var ots = await localRepository.getAllOt();
+      for (int i = 0; i < ots.length; i++) {
+        log("ID ot : " + ots[i].IDOT.toString());
+        await updateReservation(ots[i].IDOT);
+        await updateTaches(ots[i].IDOT);
+      }
+
+      log("Pause... 2 ");
+      // sleep(const Duration(seconds: 1));
+
+      // var reservations = await localRepository.getAllReservation();
+      // for (int i = 0; i < reservations.length; i++) {
+      //   List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
+      //   await updateArticles(list[list.length - 1]);
+      //   //await updateArticles(reservations[i].CODEARTICLE.toString());
+      // }
+
+      return true;
+    } on Exception catch (_) {
+      return false;
     }
-
-    log("Pause... 2 ");
-    sleep(const Duration(seconds:1));
-
-    var reservations = await localRepository.getAllReservation();
-    for(int i=0;i<reservations.length;i++) {
-      //List<String> list = reservations[i].LIBELLEARTICLE.split(" ");
-      //await updateArticles(list[list.length-1]);
-      await updateArticles(reservations[i].CODEARTICLE.toString());
-    }
-
     //services.client.close();
   }
 

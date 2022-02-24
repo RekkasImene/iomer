@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:iomer/ui/machine/machine_screen.dart';
-
-import 'package:iomer/ui/matricule/components/matricule.dart';
-
-import '../../../models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/ui/machine/machine_screen.dart';
+import 'package:iomere/ui/matricule/components/matricule.dart';
+import 'package:iomere/ui/utils/nav_button.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -22,26 +21,20 @@ class _BodyState extends State<Body> {
     return Container(
       padding: const EdgeInsets.all(20.0),
       child: Column(
-        children: [
-          const Align(
+        children: const [
+          Align(
             alignment: Alignment.topLeft,
             child: Text(
               "Selectionner les intervenants :",
               style: TextStyle(fontSize: 20),
             ),
           ),
-          const Expanded(
+          Expanded(
             child: MatriculeWidget(),
           ),
-
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              child: const Text('Valider', style: TextStyle(fontSize: 20)),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const MachineScreen()),);
-              },
-            ),
+          NavButton(
+            navDestination: MachineScreen(),
+            navName: "Valider",
           ),
         ],
       ),

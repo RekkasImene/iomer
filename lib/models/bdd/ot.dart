@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+
 import 'iomer_database.dart';
 
 part 'generate/ot.g.dart';
@@ -80,29 +81,16 @@ class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
         .get();
   }
 
-  Future<List<Ot>> findOtBy(int idOt) {
-    return (select(ots)..where((ot) => ot.IDOT.equals(idOt))).get();
+  Future<Ot> findOtBy(int idOt) {
+    return (select(ots)..where((ot) => ot.IDOT.equals(idOt))).getSingle();
   }
 
   Future updateComment(int idOt, String comment) async {
     var ot;
     findOtBy(idOt).then((value) {
-      ot = value.first;
+      ot = value;
       var otCopy = ot.copyWith(COMMENTOT: comment);
       update(ots).replace(otCopy);
     });
   }
-
-  Future updateDTOPENOT(int idOt, DateTime dtOpen) async {
-    var ot;
-    findOtBy(idOt).then((value) {
-      ot = value.first;
-      var otCopy= ot.copyWith(DTOPENOT: dtOpen);
-      update(ots).replace(otCopy);
-      print("date time in bdd "+dtOpen.toString());
-    }) ;
-
-  }
-
-
 }

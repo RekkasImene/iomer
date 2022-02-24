@@ -3,16 +3,16 @@
 import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/document.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/models/bdd/matricule.dart';
-import 'package:iomer/models/bdd/ot.dart';
-import 'package:iomer/models/bdd/reservation.dart';
-import 'package:iomer/models/bdd/tache.dart';
-import 'package:iomer/models/repository/in_repository.dart';
-import 'package:iomer/models/repository/local_repository.dart';
-import 'package:iomer/webService/services.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/document.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/matricule.dart';
+import 'package:iomere/models/bdd/ot.dart';
+import 'package:iomere/models/bdd/reservation.dart';
+import 'package:iomere/models/bdd/tache.dart';
+import 'package:iomere/models/repository/in_repository.dart';
+import 'package:iomere/models/repository/local_repository.dart';
+import 'package:iomere/webService/services.dart';
 
 /// Cette classe contient les méthodes d'envoie des données de la based de donnée locale vers le WebService
 /// Fait appelle aux méthodes de classe [Services]
@@ -29,7 +29,8 @@ class OutRepository {
   ///Envoyer les [Ots] cloturés
   Future<void> pushOts() async {
     List<Ot> ots = await localRepository.getOtsClosed();
-    ots.forEach((ot) {
+    if (ots.isNotEmpty) {
+      ots.forEach((ot) {
         ///Si l'ot n'existe pas dans le WebService, en créer un nouveau et l'envoyer
         if (ot.NEWOT!) {
           services.createOt(
@@ -43,7 +44,8 @@ class OutRepository {
               //temps en minute
               ot.STATUTOT!);
         }
-    });
+      });
+    }
   }
 ///Envoyer les nouvelles valeurs de [Matricules] dans le WebService
   Future<void> pushMatricules() async {
@@ -83,20 +85,27 @@ class OutRepository {
       services.postAttachment(document.IDOT!, base64Encode(document.ATTACHEMENT));
     });
   }
-///Methode qui fait appelle aux fonctions d'envoi de donnée de la bdd vers WebService
-  Future<void> pushWS() async {
-    //Matricules traitement
-    await pushMatricules();
-    //Documents traitement
-    await pushDocuments();
-    //Traitement taches
-    await pushTaches();
-    //Traitement OT
-    await pushOts();
-    //Reservations Traitement
-    await pushReservations();
 
-/// Fermer la connexion avec le Web Service
+  ///Methode qui fait appelle aux fonctions d'envoi de donnée de la bdd vers WebService
+  Future<bool> pushWS() async {
+    var flag;
+    try {
+      //Matricules traitement
+      await pushMatricules();
+      //Documents traitement
+      await pushDocuments();
+      //Traitement taches
+      await pushTaches();
+      //Traitement OT
+      await pushOts();
+      //Reservations Traitement
+      await pushReservations();
+      flag = true;
+    }catch(e){
+      flag= false;
+    }
+    /// Fermer la connexion avec le Web Service
     services.client.close();
+    return flag;
   }
 }

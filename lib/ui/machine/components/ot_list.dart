@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/ot/ot_bloc.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/ui/action/action_screen.dart';
-import 'package:iomer/ui/machine/components/ot_button.dart';
+import 'package:iomere/bloc/ot/ot_bloc.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/ui/action/action_screen.dart';
+import 'package:iomere/ui/machine/components/ot_button.dart';
 
 class OTListWidget extends StatefulWidget {
   String codeMachine;
@@ -27,7 +26,6 @@ class _OTListState extends State<OTListWidget> {
   @override
   void initState() {
     choosedOt = Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
-    log("Initialisation Machine List");
     super.initState();
   }
 
@@ -101,13 +99,14 @@ class _OTListState extends State<OTListWidget> {
                                           onTap: () {
                                             DateTime now = DateTime.now();
                                             choosedOt = snapshot.data[index];
-                                            widget.otblc.add(SetOpenOt(choosedOt.IDOT, now));
-                  widget.otblc.add(SetEventOt(choosedOt));
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ActionScreen()),
-                  );
+                                            widget.otblc.add(SetEventOt(choosedOt));
+                                            widget.otblc.add(SetOpenOt(now));
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => const ActionScreen()),
+                                        );
                 },
               );
             },

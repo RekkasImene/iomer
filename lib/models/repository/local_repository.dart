@@ -1,9 +1,11 @@
 
 import 'dart:async';
+
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+
 import '../bdd/iomer_database.dart';
 
 
@@ -43,9 +45,7 @@ class LocalRepository {
   }
   ///Récuperer un [Ot] de la base de donnée locale
   Future<Ot> getOt() async {
-    await database.otDao
-        .findOtBy(otSaved.IDOT)
-        .then((value) => saveOt(value.first));
+    database.otDao.findOtBy(otSaved.IDOT).then((value) => saveOt(value));
     return otSaved;
   }
   ///Récupérer tous les [Article] de la base de donnée locale
@@ -86,9 +86,9 @@ class LocalRepository {
     await database.matriculeDao.modifieMatricule(matricule);
   }
 ///Stocker [Site], et Config dans la base de donnée locale
-  void saveData(Site site, Config config) {
-    database.siteDao.insertSite(site);
-    database.configDao.insertConfig(config);
+  Future<void> saveData(Site site, Config config) async {
+    await database.siteDao.insertSite(site);
+    await database.configDao.insertConfig(config);
   }
 ///Créer un nouvel [Ot], en lui attribuant un nouvel ID, générée à partir du dernier otID+1
   Future<void> addNewOt(int idEquipement, int idOrigine, int idCategorie, String libelleOt) async {
@@ -109,50 +109,85 @@ class LocalRepository {
   }
 ///Insérer un [Document] dans la base de donnée
   Future insertDocument(int idOt, Uint8List attachement) async {
-    database.documentDao.insertDocument(DocumentsCompanion(IDOT: Value(idOt), ATTACHEMENT: Value(attachement)));
+    await database.documentDao.insertDocument(DocumentsCompanion(IDOT: Value(idOt), ATTACHEMENT: Value(attachement)));
   }
   ///Récupérer les [Ot] correspondant à un idEquipement
   Future<List<Ot>> findOtsBy(int idEquipement) async {
-    return database.otDao.findOtsBy(idEquipement);
+    return await database.otDao.findOtsBy(idEquipement);
   }
 ///Récupérer les [Equipement] correspondant à un codeEquipement
   Future<Equipement> findEquipementsBy(String codeEquipement) async {
-    return database.equipementDao.findEquipementBy(codeEquipement);
+    return await database.equipementDao.findEquipementBy(codeEquipement);
   }
   ///Récupérer les [Matricule] cochés (selectionnés)
   Future<List<Matricule>> findMatriculesChecked() async {
-    return findMatriculesChecked();
+    return await findMatriculesChecked();
   }
   ///Récupérer un [Article] correspondant à un codeArticle
   Future<Article> findArticleBy(String codeArticle) async {
-    Article article =  await database.articleDao.findArticleBy(codeArticle);
-    return article;
+    Article? article = null;
+    try {
+      article = await database.articleDao.findArticleBy(codeArticle);
+      return  article;
+    } on Exception catch (_) {
+      return  article!;
+    }
+
   }
   ///Récupérer une [Reservation] correspondant à un idOt
   Future<List<Reservation>> findReservationBy(int idOt) async {
-    return database.reservationDao.findReservationBy(idOt);
+    return await database.reservationDao.findReservationBy(idOt);
   }
   ///Insérer une nouvelle [Reservation] dans la base de donnéee, en lui attribuant un nouvel ID, générée à partir du dernier IDPIECE+1
-  Future insertReservation(Article article, int idOt ) async {
+  Future insertReservation(Article article, int idOt, double quantite ) async {
     int newId = 0;
+    int flag=0;
     List<Reservation> lastdata = await database.reservationDao.sortTable();
-    newId = lastdata.first.IDPIECE;
-    newId++;
-    await database.reservationDao.insertReservation(Reservation(
-        IDPIECE: newId ,
-        CODEARTICLE: article.CODEARTICLE,
-        LIBELLEARTICLE: article.LIBELLEARTICLE,
-        QTEARTICLE: article.QTEARTICLE,
-        IDARTICLE: article.IDARTICLE,
-        IDOT: idOt,
-        NEWRESERVATION: true
-    )
 
-    );
+    for (int i = 0; i < lastdata.length; i++){
+      if (article.CODEARTICLE==lastdata[i].CODEARTICLE){
+        flag=1;
+        await database.reservationDao.modifieReservation(
+            Reservation(
+                IDPIECE: lastdata[i].IDPIECE,
+                CODEARTICLE: article.CODEARTICLE,
+                LIBELLEARTICLE: article.LIBELLEARTICLE,
+                QTEARTICLE: quantite,
+                IDARTICLE: article.IDARTICLE,
+                IDOT: idOt,
+                NEWRESERVATION: true
+            )
+        );
+      }
+    }
+    if (flag!=1){
+      newId = lastdata.first.IDPIECE;
+      newId++;
+      await database.reservationDao.insertReservation(
+          Reservation(
+              IDPIECE: newId ,
+              CODEARTICLE: article.CODEARTICLE,
+              LIBELLEARTICLE: article.LIBELLEARTICLE,
+              QTEARTICLE: quantite,
+              IDARTICLE: article.IDARTICLE,
+              IDOT: idOt,
+              NEWRESERVATION: false
+          )
+      );
+      flag=0;
+    }
+
+   /* await database.reservationDao.insertReservation(
+
+    );*/
   }
 ///Modification dans [Reservation]
   Future modifyReservation(Reservation reservation) async {
-    database.reservationDao.modifieReservation(reservation);
+    await database.reservationDao.modifieReservation(reservation);
+  }
+
+  Future modifyArticle(Article article) async {
+    await database.articleDao.modifieArticle(article);
   }
   ///Récupérer une [Tache] correspondant à un idOt
   Future<List<Tache>> findTachesBy(int idOt) async {
@@ -160,11 +195,11 @@ class LocalRepository {
   }
 ///Modification dans [Ot]
   Future modifyOt(Ot ot) async {
-    database.otDao.modifieOt(ot);
+    await database.otDao.modifieOt(ot);
   }
 ///Modification dans [Tache]
   Future modifyTache(Tache tache) async {
-    database.tacheDao.modifieTache(tache);
+    await database.tacheDao.modifieTache(tache);
   }
 ///Ajouter un commentaire dans [Ot]
   Future modifyCommentOt(int idOt, String comment) async {
@@ -173,6 +208,6 @@ class LocalRepository {
 
   ///Modifier DTOPENOT de [Ot] ( date début d'intervention )
   Future modifyOpenOt(int idOt, DateTime openDate) async {
-    database.otDao.updateDTOPENOT(idOt, openDate);
+    await database.otDao.updateDTOPENOT(idOt, openDate);
   }
 }

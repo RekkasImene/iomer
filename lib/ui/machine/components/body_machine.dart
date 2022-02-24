@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/ui/scan/scan_screen.dart';
+import 'package:iomere/bloc/ot/ot_bloc.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/ui/journal/journal_screen.dart';
+import 'package:iomere/ui/scan/scan_screen.dart';
 
-import '../../../bloc/ot/ot_bloc.dart';
-import '../../../config/injection.dart';
 import 'ot_list.dart';
 
 class Body extends StatefulWidget {
@@ -57,6 +58,7 @@ class _BodyState extends State<Body> {
                       style: TextStyle(fontSize: 24),
                     ),
                   ),
+
                   /// input du code machine
                   /// avec un bouton QR code (fonctionne aussi avec barcode)
                   inputCodeMachine(),
@@ -66,25 +68,28 @@ class _BodyState extends State<Body> {
 
                   Expanded(
                     child:
-                    /// affiche la liste des Ot en fonction de la machine
-                    OTListWidget(codeMachine: _controllerCode.text, otblc: _otBloc),
+
+                        /// affiche la liste des Ot en fonction de la machine
+                        OTListWidget(
+                            codeMachine: _controllerCode.text, otblc: _otBloc),
                   ),
                   SizedBox(
                     width: double.infinity,
+
                     /// bouton pour actualiser la page et préremplir les champs
                     child: ElevatedButton(
-                      onPressed: isButtonActive
-                          ? () {
-                        _otBloc.add(CodeEventMachine(_controllerCode.text));
-                        setState(() => [
-                          isButtonActive = true,
-                        ]);
-                      }
-                          : null,
-                      child: const Text('Actualiser'),
+                      child:
+                          const Text('Journal', style: TextStyle(fontSize: 20)),
                       style: ElevatedButton.styleFrom(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 50, vertical: 20)),
+                      onPressed: () => [
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const JournalScreen()),
+                        )
+                      ],
                     ),
                   )
                 ],
@@ -95,8 +100,11 @@ class _BodyState extends State<Body> {
             }
             return const Center(
               child: SizedBox(
-                /// affiche loading
-                  width: 32, height: 32, child: CircularProgressIndicator()),
+
+                  /// affiche loading
+                  width: 32,
+                  height: 32,
+                  child: CircularProgressIndicator()),
             );
           },
         ),
@@ -104,12 +112,14 @@ class _BodyState extends State<Body> {
     );
   }
 
-
   Widget inputCodeMachine() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
       child: TextFormField(
         controller: _controllerCode,
+        onChanged: (value) {
+          _otBloc.add(CodeEventMachine(_controllerCode.text));
+        },
         decoration: InputDecoration(
           border: const UnderlineInputBorder(),
           labelText: 'Code machine',
@@ -144,15 +154,14 @@ class _BodyState extends State<Body> {
     );
   }
 
-
   _navigateAndRetrieveCode(BuildContext context) async {
     final String nextPageValues = await Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => const ScanScreen()),
     );
     setState(() {
-      _controllerCode.text =
-          nextPageValues; //first element is stored at the 0th index for a list
+      _controllerCode.text = nextPageValues; //first element is stored at the 0th index for a list
+      _otBloc.add(CodeEventMachine(_controllerCode.text));
     });
   }
 }

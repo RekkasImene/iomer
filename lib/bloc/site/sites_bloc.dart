@@ -16,6 +16,12 @@ part 'sites_state.dart';
 
 @Environment(Env.prod)
 @injectable
+
+/// Cette classe contient le Bloc de l'Ui [home]
+/// Elle reçoit et traite les évenements définis dans [site_event],
+/// émit un état de [site_state]
+/// et déclenche par ce fait des méthodes de [LocalRepository]
+
 class SitesBloc extends Bloc<SitesEvent, SitesState> {
   final InRepository _inRepository;
 

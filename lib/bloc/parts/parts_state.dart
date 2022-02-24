@@ -25,11 +25,11 @@ class PartsError extends PartsState {
 }
 
 class PartsUpdate extends PartsState {
-  PartsUpdate();
+  const PartsUpdate();
 }
 
 class PartsStateAddArticle extends PartsState {
-  PartsStateAddArticle();
+  const PartsStateAddArticle();
 }
 
 class StatePartsInternetInterrupt extends PartsState {
@@ -56,5 +56,6 @@ class StatePartsInternetOk extends PartsState {}
 
 class StateArticleFind extends PartsState {
   String libelle;
-  StateArticleFind(this.libelle);
+  String npiece;
+  StateArticleFind(this.libelle,this.npiece);
 }

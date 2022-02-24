@@ -25,7 +25,7 @@ class _InfoState extends State<Info> {
     return Container(
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).secondaryHeaderColor,
         borderRadius: const BorderRadius.all(Radius.circular(40.0)),
       ),
       child: BlocProvider<OtBloc>(

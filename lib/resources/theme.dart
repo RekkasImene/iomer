@@ -41,6 +41,7 @@ ThemeData lightTheme(){
   return base.copyWith(
     textTheme: _baseTextTheme(base.textTheme),
     backgroundColor: Colors.white38,
+    secondaryHeaderColor: Colors.grey,
     brightness: Brightness.dark,
     primaryColor: Colors.blueGrey,
     elevatedButtonTheme: ElevatedButtonThemeData(

@@ -8,6 +8,8 @@ import 'package:iomere/ui/new_part/components/part_editor.dart';
 import 'package:iomere/ui/scan/scan_screen.dart';
 import 'package:iomere/ui/utils/info.dart';
 
+import '../../parts/parts_screen.dart';
+
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
@@ -16,9 +18,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final TextEditingController _controllerPiece = TextEditingController();
-  final TextEditingController _controllerLibelle = TextEditingController();
-  final TextEditingController _controllerQte = TextEditingController();
+  TextEditingController _controllerPiece = TextEditingController();
+  TextEditingController _controllerLibelle = TextEditingController();
+  TextEditingController _controllerQte = TextEditingController();
   late PartsBloc _partsBloc;
 
   @override
@@ -44,6 +46,11 @@ class _BodyState extends State<Body> {
 
           if(state is PartsStateAddArticle) {
             Navigator.pop(context);
+          }
+
+
+          if(state is StateArticleFind) {
+            _controllerLibelle.text = state.libelle;
           }
         },
         child: Container(
@@ -93,10 +100,7 @@ class _BodyState extends State<Body> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    _partsBloc.add(AddPieceEventParts(_controllerPiece.text,
-                        _controllerLibelle.text, _controllerQte.text));
-                    //Navigator.push(context, MaterialPageRoute(builder: (_) => const PartsScreen()),);
-                    //Navigator.pop(context);
+                    _partsBloc.add(AddPieceEventParts(_controllerPiece.text, _controllerLibelle.text, _controllerQte.text));
                   },
                   child: const Text('Valider', style: TextStyle(fontSize: 20)),
                   style: ElevatedButton.styleFrom(
@@ -117,8 +121,8 @@ class _BodyState extends State<Body> {
       MaterialPageRoute(builder: (_) => const ScanScreen()),
     );
     setState(() {
-      _controllerPiece.text =
-          nextPageValues; //first element is stored at the 0th index for a list
+      _controllerPiece.text = nextPageValues; //first element is stored at the 0th index for a list
+      _partsBloc.add(CodeEventPart(_controllerPiece.text));
     });
   }
 

@@ -10,8 +10,8 @@ import 'package:http/http.dart';
 /// Necessite une connexion Internet
 /// URL à modifier par l'adresse réelle du WebService
 
-//var url = 'http://10.0.2.2:8080';
-var url = 'https://iomere.loca.lt';
+var url = 'http://10.0.2.2:8080';
+//var url = 'https://iomere.loca.lt';
 
 @Environment(Env.prod)
 @singleton
@@ -184,16 +184,15 @@ class Services {
 
   /// Récupérer une liste d'[Article] via le WebService en passant en paramètre "codeArticles"
   Future<List<Article>> fetchArticles(String codeArticle) async {
-    final response =
-        await client.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
+    final response = await client.get(Uri.parse('$url/GETARTICLE/$codeArticle'));
 
     ///Si le serveur renvoie une réponse 200 OK,
     /// puis convertir la réponse JSON en une Liste d'Articles'
     if (response.statusCode == 200) {
       List<Article> articles;
-      articles = (json.decode(response.body) as List)
-          .map((articleJson) => Article.fromJson(articleJson))
-          .toList();
+      print("Avant decode json  : ");
+      articles = (json.decode(response.body) as List).map((articleJson) => Article.fromJson(articleJson)).toList();
+      print("Article service : "+articles.toString());
       return articles;
     } else {
       ///Si le serveur ne renvoie pas une réponse 200 OK,

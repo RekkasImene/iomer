@@ -47,7 +47,14 @@ class StatePartsInternetError extends PartsState {
   StatePartsInternetError(this.message);
 }
 
+class CodePartLoaded extends PartsState{
+  final String libellePart;
+  const CodePartLoaded(this.libellePart);
+}
+
 class StatePartsInternetOk extends PartsState {}
 
-
-
+class StateArticleFind extends PartsState {
+  String libelle;
+  StateArticleFind(this.libelle);
+}

@@ -78,7 +78,7 @@ class _SiteState extends State<SiteWidget> {
                   log('initial stataaaaaaaaaaaate');
                   _sitesBloc.add(FetchEventSites());
                   _isLoading = false;
-                  showToast("Service introuvable");
+                  showToast("Mauvaise combinaison, Veuillez Réessayer");
                 }
               },
               builder: (context, state) {

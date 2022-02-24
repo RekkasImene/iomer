@@ -1,5 +1,6 @@
 part of 'ot_bloc.dart';
 
+///Cette classe contient tous les evenements lié à l'UI [machine]
 @immutable
 abstract class OtEvent extends Equatable {
   const OtEvent();

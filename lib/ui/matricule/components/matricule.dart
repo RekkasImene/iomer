@@ -71,7 +71,7 @@ class _MatriculeState extends State<MatriculeWidget> {
                           itemBuilder: (context, index) {
                             selectedMatricule = state.matricules[index];
                             return CheckboxListTile(
-                              title: Text(state.matricules[index].NOMMATRICULE),
+                              title: Text(state.matricules[index].PRENOMMATRICULE+" "+state.matricules[index].NOMMATRICULE.toUpperCase()),
                               value: selectedMatricule.CHECKED == true ? true : false,
                               onChanged: (bool? newValue) {
                                     _matriculeBloc.add(CheckedMatriculeEvenet(

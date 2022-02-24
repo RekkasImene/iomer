@@ -139,6 +139,7 @@ class InRepository {
 
   Future<Article> getArticle(String codeArticle) async {
     List<Article> article = await services.fetchArticles(codeArticle);
+    print("Article repo : "+article.toString());
     return article.first;
   }
 

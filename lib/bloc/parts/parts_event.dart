@@ -8,6 +8,12 @@ abstract class PartsEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class CodeEventPart extends PartsEvent {
+  final String codePart;
+
+  const CodeEventPart(this.codePart);
+}
+
 class FetchEventParts extends PartsEvent {}
 
 class UpdateEventListParts extends PartsEvent {

@@ -10,6 +10,7 @@ import 'package:iomere/models/repository/in_repository.dart';
 import 'package:iomere/models/repository/local_repository.dart';
 
 part 'parts_event.dart';
+
 part 'parts_state.dart';
 
 @Environment(Env.prod)
@@ -65,26 +66,17 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
         }
       }
 
-      if (event is AddPieceEventParts) {
-        double qte = 0;
-        Ot ot = await _localRepository.getOt();
+      if (event is CodeEventPart) {
+        Article article;
 
         try {
           final result = await InternetAddress.lookup('google.com');
           if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-            print('Toujours connect');
-            Article article = await _inRepository.getArticle(event.piece);
-            if (article != null) {
-              if (event.qte.isEmpty) {
-                qte = article.QTEARTICLE;
-              } else {
-                qte = double.parse(event.qte);
-              }
-              Reservation reservation = await _localRepository
-                  .insertReservation(article, ot.IDOT, qte);
-              await _localRepository
-                  .modifyReservation(reservation.copyWith(QTEARTICLE: qte));
-              emit(PartsStateAddArticle());
+            print("Code parts : " + event.codePart);
+            article = await _inRepository.getArticle(event.codePart);
+            print(article.toString());
+            if (article.LIBELLEARTICLE.isNotEmpty) {
+              emit(StateArticleFind(article.LIBELLEARTICLE));
             } else {
               emit(StatePartsNoArticle(
                   'Pas d\'article trouvé pour se code article.'));
@@ -94,6 +86,38 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
           print('Connexion internet non disponible, article non inséré');
           emit(StatePartsInternetInterrupt(
               'Connexion internet non disponible, article non inséré'));
+        }
+      }
+
+      if (event is AddPieceEventParts) {
+        double qte = 0;
+        Article article;
+        Ot ot = await _localRepository.getOt();
+
+        try {
+          final result = await InternetAddress.lookup('google.com');
+          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+            if (event.piece.isNotEmpty & event.libelle.isNotEmpty & event.qte.isNotEmpty) {
+              print("Jai passer les testes -- ");
+
+
+                article = await _inRepository.getArticle(event.piece);
+                print("Article WS : "+article.toString());
+                if (article.CODEARTICLE.isNotEmpty) {
+                  print("Je suis article WS");
+
+                  await _localRepository.insertReservation(article, ot.IDOT, double.parse(event.qte));
+
+                  print("Fin insertion");
+                  emit(PartsStateAddArticle());
+                } else {
+                  emit(StatePartsNoArticle('Il n\'y a pas d\'article avec ce code article'));
+                }
+            }
+          }
+        } on SocketException catch (_) {
+          print('Connexion internet non disponible, article non inséré');
+          emit(StatePartsInternetInterrupt('Connexion internet non disponible, article non inséré'));
         }
       }
     });

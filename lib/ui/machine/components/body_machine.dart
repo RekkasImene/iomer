@@ -117,9 +117,8 @@ class _BodyState extends State<Body> {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
       child: TextFormField(
         controller: _controllerCode,
-        onEditingComplete: () {
+        onChanged: (value) {
           _otBloc.add(CodeEventMachine(_controllerCode.text));
-          print("_______________");
         },
         decoration: InputDecoration(
           border: const UnderlineInputBorder(),
@@ -161,8 +160,7 @@ class _BodyState extends State<Body> {
       MaterialPageRoute(builder: (_) => const ScanScreen()),
     );
     setState(() {
-      _controllerCode.text =
-          nextPageValues; //first element is stored at the 0th index for a list
+      _controllerCode.text = nextPageValues; //first element is stored at the 0th index for a list
       _otBloc.add(CodeEventMachine(_controllerCode.text));
     });
   }

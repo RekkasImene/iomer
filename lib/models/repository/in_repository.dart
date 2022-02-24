@@ -90,7 +90,7 @@ class InRepository {
         database.reservationDao.insertReservation(e);
         log("table reservation insérée");
       });
-    } on Exception catch (e) {
+    } on FormatException catch (e) {
       log(e.toString());
     }
   }
@@ -102,7 +102,7 @@ class InRepository {
         database.articleDao.insertArticle(e);
         log("table articles insérée");
       });
-    } on Exception catch (e) {
+    } on FormatException catch (e) {
       log(e.toString());
     }
   }
@@ -126,14 +126,20 @@ class InRepository {
         database.tacheDao.insertTache(e);
         log("table tache insérée");
       });
-    } on Exception catch (e) {
+    } on FormatException catch (e) {
       log(e.toString());
     }
   }
 
   @override
   Future<List<Site>> getAllSite() async {
-    List<Site> sites = await services.fetchSites();
+    log("get all site repo");
+    List<Site> sites = [];
+    try {
+      sites = await services.fetchSites();
+    } on Exception catch (_) {
+      log("sites vide");
+    }
     return sites;
   }
 

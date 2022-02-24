@@ -14,7 +14,6 @@ class SitesLoading extends SitesState {}
 
 class SitesLoaded extends SitesState {
   final List<Site> sites;
-
   const SitesLoaded(this.sites);
 }
 

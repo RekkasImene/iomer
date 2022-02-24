@@ -23,7 +23,7 @@ class OtBloc extends Bloc<OtEvent, OtState> {
           if (ots.isNotEmpty) {
             emit(OtLoaded(ots));
           } else {
-            emit(const OtError('Error'));
+            emit(OtLoaded(List<Ot>.empty()));
           }
         } else {
           emit(OtLoaded(List<Ot>.empty()));

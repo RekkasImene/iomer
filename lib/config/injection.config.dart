@@ -10,6 +10,7 @@ import 'package:injectable/injectable.dart' as _i2;
 
 import '../bloc/categorie/categorie_bloc.dart' as _i11;
 import '../bloc/cloture/cloture_bloc.dart' as _i12;
+import '../bloc/journal/journal_bloc.dart' as _i17;
 import '../bloc/matricule/matricule_bloc.dart' as _i6;
 import '../bloc/ot/ot_bloc.dart' as _i7;
 import '../bloc/parts/parts_bloc.dart' as _i15;
@@ -20,7 +21,7 @@ import '../models/bdd/iomer_database.dart' as _i4;
 import '../models/repository/in_repository.dart' as _i13;
 import '../models/repository/local_repository.dart' as _i5;
 import '../models/repository/out_repository.dart' as _i14;
-import '../models/repository/registermodule.dart' as _i17;
+import '../models/repository/registermodule.dart' as _i18;
 import '../webService/services.dart' as _i9;
 
 const String _prod = 'prod';
@@ -67,7 +68,11 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       registerFor: {_prod});
   gh.factory<_i16.SitesBloc>(() => _i16.SitesBloc(get<_i13.InRepository>()),
       registerFor: {_prod});
+  gh.factory<_i17.JournalBloc>(
+      () => _i17.JournalBloc(
+          get<_i14.OutRepository>(), get<_i5.LocalRepository>()),
+      registerFor: {_prod});
   return get;
 }
 
-class _$RegisterModule extends _i17.RegisterModule {}
+class _$RegisterModule extends _i18.RegisterModule {}

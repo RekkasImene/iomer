@@ -28,7 +28,7 @@ class LocalRepository {
     return database.matriculeDao.getAllMatricules();
   }
 
-  Future<List<Ot>> getOtsCloded() async {
+  Future<List<Ot>> getOtsClosed() async {
     return await database.otDao.getOtsClose();
   }
 

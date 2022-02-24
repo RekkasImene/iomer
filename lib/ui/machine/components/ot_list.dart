@@ -64,10 +64,7 @@ class _OTListState extends State<OTListWidget> {
                                   AsyncSnapshot<dynamic> snapshot) {
                                 if (!snapshot.hasData) {
                                   return const Center(
-                                    child: SizedBox(
-                                        width: 32,
-                                        height: 32,
-                                        child: CircularProgressIndicator()),
+                                    child: SizedBox(),
                                   );
                                 } else {
                                   return listOt(snapshot);
@@ -87,26 +84,24 @@ class _OTListState extends State<OTListWidget> {
     return Column(
       children: [
         Expanded(
-          child:ListView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      itemCount: snapshot.data.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                              snapshot.data[index].LIBELLEOT),
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(snapshot.data[index].LIBELLEOT),
+                onTap: () {
+                  DateTime now = DateTime.now();
+                  choosedOt = snapshot.data[index];
+                  widget.otblc.add(SetEventOt(choosedOt));
+                  widget.otblc.add(SetOpenOt(now));
 
-                                          onTap: () {
-                                            DateTime now = DateTime.now();
-                                            choosedOt = snapshot.data[index];
-                                            widget.otblc.add(SetEventOt(choosedOt));
-                                            widget.otblc.add(SetOpenOt(now));
-
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => const ActionScreen()),
-                                        );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ActionScreen()),
+                  );
                 },
               );
             },

@@ -3,11 +3,11 @@
 import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/models/repository/in_repository.dart';
-import 'package:iomer/models/repository/local_repository.dart';
-import 'package:iomer/webService/services.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/repository/in_repository.dart';
+import 'package:iomere/models/repository/local_repository.dart';
+import 'package:iomere/webService/services.dart';
 
 @Environment(Env.prod)
 @singleton
@@ -20,24 +20,22 @@ class OutRepository {
   OutRepository(this.database, this.services, this.localRepository,this.inRepository);
 
   Future<void> pushOts() async {
-    List<Ot> ots = await localRepository.getAllOt();
-    ots.forEach((ot) {
-      if (ot.NEWOT!) {
-        services.createOt(
-            ot.IDEQUIPEMENT!,
-            ot.IDORIGINE!,
-            ot.IDCATEGORIE!,
-            ot.LIBELLEOT
-        );
-      }else{
-        services.postOt(
-            ot.IDOT,
-            ot.COMMENTOT!,
-            ot.DTCLOSOT!.difference(ot.DTOPENOT!).inMinutes.toDouble(), //temps en minute
-            ot.STATUTOT!
-        );
-      }
-    });
+    List<Ot> ots = await localRepository.getOtsCloded();
+    if (ots.isNotEmpty) {
+      ots.forEach((ot) {
+        if (ot.NEWOT!) {
+          services.createOt(
+              ot.IDEQUIPEMENT!, ot.IDORIGINE!, ot.IDCATEGORIE!, ot.LIBELLEOT);
+        } else {
+          services.postOt(
+              ot.IDOT,
+              ot.COMMENTOT!,
+              ot.DTCLOSOT!.difference(ot.DTOPENOT!).inMinutes.toDouble(),
+              //temps en minute
+              ot.STATUTOT!);
+        }
+      });
+    }
   }
 
   Future<void> pushMatricules() async {
@@ -76,18 +74,24 @@ class OutRepository {
     });
   }
 
-  Future<void> pushWS() async {
-    //Matricules traitement
-    await pushMatricules();
-    //Documents traitement
-    await pushDocuments();
-    //Traitement taches
-    await pushTaches();
-    //Traitement OT
-    await pushOts();
-    //Reservations Traitement
-    await pushReservations();
-
+  Future<bool> pushWS() async {
+    var flag;
+    try {
+      //Matricules traitement
+      await pushMatricules();
+      //Documents traitement
+      await pushDocuments();
+      //Traitement taches
+      await pushTaches();
+      //Traitement OT
+      await pushOts();
+      //Reservations Traitement
+      await pushReservations();
+      flag = true;
+    }catch(e){
+      flag= false;
+    }
     services.client.close();
+    return flag;
   }
 }

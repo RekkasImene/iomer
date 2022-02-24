@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+
 import 'iomer_database.dart';
 
 part 'generate/article.g.dart';
@@ -24,14 +25,11 @@ class ArticleDao extends DatabaseAccessor<IomerDatabase>
   ArticleDao(this.db) : super(db);
 
   Future<List<Article>> sortTable() async {
-    return (select(articles)
-      ..orderBy([
-            (t) => OrderingTerm(expression: t.IDARTICLE, mode: OrderingMode.desc)
-      ]))
-        .get();
+    return (select(articles)..orderBy([(t) => OrderingTerm(expression: t.IDARTICLE, mode: OrderingMode.desc)])).get();
   }
 
-
+  Future modifieArticle(Article article) =>
+      update(articles).replace(article);
 
   Future insertArticle(Article article) =>
       into(articles).insertOnConflictUpdate(article);
@@ -39,8 +37,6 @@ class ArticleDao extends DatabaseAccessor<IomerDatabase>
   Future<List<Article>> getAllArticles() => select(articles).get();
 
   Future<Article> findArticleBy(String codeArticle) {
-    return (select(articles)
-          ..where((article) => article.CODEARTICLE.equals(codeArticle)))
-        .getSingle();
+    return (select(articles)..where((article) => article.CODEARTICLE.equals(codeArticle))).getSingle();
   }
 }

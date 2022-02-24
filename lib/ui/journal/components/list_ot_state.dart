@@ -4,30 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomere/bloc/ot/ot_bloc.dart';
 import 'package:iomere/models/bdd/iomer_database.dart';
-import 'package:iomere/ui/action/action_screen.dart';
-import 'package:iomere/ui/machine/components/ot_button.dart';
+import 'package:iomere/ui/home/home_screen.dart';
 
-class OTListWidget extends StatefulWidget {
+
+class ListOtStateWidget extends StatefulWidget{
   String codeMachine;
   OtBloc otblc;
 
-  OTListWidget({Key? key, required this.codeMachine, required this.otblc})
+  ListOtStateWidget({Key? key, required this.codeMachine, required this.otblc})
       : super(key: key);
 
+
+
   @override
-  State<StatefulWidget> createState() => _OTListState();
+  State<ListOtStateWidget> createState() => _ListOtStateWidgetState();
 }
 
-class _OTListState extends State<OTListWidget> {
+class _ListOtStateWidgetState extends State<ListOtStateWidget> {
   late Ot choosedOt;
-
+  bool _isDone= false;
   StreamController<List<Ot>> otList = StreamController();
 
-  @override
-  void initState() {
-    choosedOt = Ot(IDOT: 0, CODEOT: "CODEOT", LIBELLEOT: "LIBELLEOT");
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +51,7 @@ class _OTListState extends State<OTListWidget> {
                   },
                   child: Container(
                     decoration:
-                        BoxDecoration(border: Border.all(color: Colors.black)),
+                    BoxDecoration(border: Border.all(color: Colors.black)),
                     child: Column(
                       children: [
                         Expanded(
@@ -79,47 +76,45 @@ class _OTListState extends State<OTListWidget> {
                   ))),
         ),
         const SizedBox(height: 20),
+        SizedBox(
+          width: double.infinity,
+
+          /// bouton pour actualiser la page et préremplir les champs
+          child: ElevatedButton(
+            child:
+            const Text('Synchroniser', style: TextStyle(fontSize: 20)),
+            style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 50, vertical: 20)),
+            onPressed: () => [
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const HomeScreen()),
+              )
+            ],
+          ),
+        )
       ],
     );
   }
+
 
   Widget listOt(AsyncSnapshot snapshot) {
     return Column(
       children: [
         Expanded(
-          child:ListView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      itemCount: snapshot.data.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                              snapshot.data[index].LIBELLEOT),
-
-                                          onTap: () {
-                                            DateTime now = DateTime.now();
-                                            choosedOt = snapshot.data[index];
-                                            widget.otblc.add(SetEventOt(choosedOt));
-                                            widget.otblc.add(SetOpenOt(now));
-
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => const ActionScreen()),
-                                        );
-                },
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(snapshot.data[index].LIBELLEOT),
+                leading: _isDone ? Icon(Icons.block,color: Colors.red,) : Icon(Icons.check,color: Colors.green,),
               );
             },
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Align(
-              alignment: Alignment.bottomRight,
-              child: OTButtonWidget(codeMachine: widget.codeMachine),
-            ),
-          ],
         ),
       ],
     );

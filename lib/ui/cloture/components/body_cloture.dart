@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iomer/bloc/cloture/cloture_bloc.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
-import 'package:iomer/ui/machine/machine_screen.dart';
-import 'package:iomer/ui/utils/info.dart';
-import 'package:iomer/ui/matricule/components/matricule.dart';
+import 'package:iomere/bloc/cloture/cloture_bloc.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/ui/machine/machine_screen.dart';
+import 'package:iomere/ui/utils/info.dart';
+import 'package:iomere/ui/matricule/components/matricule.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
   @override
   State<Body> createState() => _BodyState();
-
 }
 
 class _BodyState extends State<Body> {
@@ -42,7 +41,7 @@ class _BodyState extends State<Body> {
               style: TextStyle(fontSize: 20),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: Info(),
           ),
@@ -55,18 +54,12 @@ class _BodyState extends State<Body> {
               listener: (context, state) {
                 if(state is StateDurationOt) {
                   listDuration=state.listDuration;
-                  print("Temps d'intervention : "+
-                      listDuration.first+ "h "+
-                      listDuration[1] + "mn "+ listDuration.last+ "s");
                 }
                 if(state is ClotureEnd){
                   navigation();
                 }
               },
               builder: (context, state) {
-                print( "Temps d'intervention : "+
-                    listDuration.first+ "h "+
-                    listDuration[1] + "mn "+ listDuration.last+ "s");
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Align(
@@ -74,8 +67,8 @@ class _BodyState extends State<Body> {
                     child: Text(
                       "Temps d'intervention : "+
                     listDuration.first+ "h "+
-                    listDuration[1] + "mn "+ listDuration.last+ "s",
-                      style: TextStyle(fontSize: 15),
+                    listDuration[1] + "mn "+ listDuration.last.split(".").first+ "s",
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                 );
@@ -105,7 +98,7 @@ class _BodyState extends State<Body> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => MachineScreen(text: "")),
+          builder: (context) => MachineScreen()),
     );
   }
 }

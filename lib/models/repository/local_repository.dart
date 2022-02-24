@@ -1,9 +1,11 @@
 //Vue vers bdd et bdd  vers vue, mode hors ligne
 import 'dart:async';
+
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
-import 'package:iomer/config/injection.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomere/config/injection.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
+
 import '../bdd/iomer_database.dart';
 
 @Environment(Env.prod)
@@ -26,8 +28,12 @@ class LocalRepository {
     return database.matriculeDao.getAllMatricules();
   }
 
+  Future<List<Ot>> getOtsCloded() async {
+    return await database.otDao.getOtsClose();
+  }
+
   Future<List<Ot>> getAllOt() async {
-    return await database.otDao.getAllOts();
+    return await database.otDao.getAllOt();
   }
 
   void saveOt(Ot ot) async {
@@ -88,8 +94,6 @@ class LocalRepository {
 
     newIdOT = lastdata.first.IDOT;
     newIdOT++;
-    /*final DateTime now = DateTime.now();
-    String beforeTime = DateFormat.Hm().format(now);*/
 
     Ot newOt = Ot(
       IDOT: newIdOT,
@@ -97,7 +101,7 @@ class LocalRepository {
       LIBELLEOT: libelleOt,
       IDORIGINE: idOrigine,
       IDEQUIPEMENT: idEquipement,
-      IDCATEGORIE: idCategorie, /*DTOPENOT: DateTime.parse(beforeTime)*/
+      IDCATEGORIE: idCategorie,
       NEWOT: true
     );
 
@@ -121,36 +125,72 @@ class LocalRepository {
   }
 
   Future<Article> findArticleBy(String codeArticle) async {
-    Article article =  await database.articleDao.findArticleBy(codeArticle);
-    print("article trouve");
-    return  article;
+    Article? article = null;
+    try {
+      article = await database.articleDao.findArticleBy(codeArticle);
+      print("article trouve : "+article.toString());
+      return  article;
+    } on Exception catch (_) {
+      print("article introuvé : "+article.toString());
+      return  article!;
+    }
+
   }
 
   Future<List<Reservation>> findReservationBy(int idOt) async {
     return await database.reservationDao.findReservationBy(idOt);
   }
 
-  Future insertReservation(Article article, int idOt ) async {
+  Future insertReservation(Article article, int idOt, double quantite ) async {
     int newId = 0;
+    int flag=0;
     List<Reservation> lastdata = await database.reservationDao.sortTable();
-    newId = lastdata.first.IDPIECE;
-    newId++;
 
-    await database.reservationDao.insertReservation(Reservation(
-        IDPIECE: newId ,
-        CODEARTICLE: article.CODEARTICLE,
-        LIBELLEARTICLE: article.LIBELLEARTICLE,
-        QTEARTICLE: article.QTEARTICLE,
-        IDARTICLE: article.IDARTICLE,
-        IDOT: idOt,
-        NEWRESERVATION: true
-    )
+    for (int i = 0; i < lastdata.length; i++){
+      if (article.CODEARTICLE==lastdata[i].CODEARTICLE){
+        print("déja présent------------");
+        flag=1;
+        await database.reservationDao.modifieReservation(
+            Reservation(
+                IDPIECE: lastdata[i].IDPIECE,
+                CODEARTICLE: article.CODEARTICLE,
+                LIBELLEARTICLE: article.LIBELLEARTICLE,
+                QTEARTICLE: quantite,
+                IDARTICLE: article.IDARTICLE,
+                IDOT: idOt,
+                NEWRESERVATION: true
+            )
+        );
+      }
+    }
+    if (flag!=1){
+      newId = lastdata.first.IDPIECE;
+      newId++;
+      await database.reservationDao.insertReservation(
+          Reservation(
+              IDPIECE: newId ,
+              CODEARTICLE: article.CODEARTICLE,
+              LIBELLEARTICLE: article.LIBELLEARTICLE,
+              QTEARTICLE: quantite,
+              IDARTICLE: article.IDARTICLE,
+              IDOT: idOt,
+              NEWRESERVATION: false
+          )
+      );
+      flag=0;
+    }
 
-    );
+   /* await database.reservationDao.insertReservation(
+
+    );*/
   }
 
   Future modifyReservation(Reservation reservation) async {
     await database.reservationDao.modifieReservation(reservation);
+  }
+
+  Future modifyArticle(Article article) async {
+    await database.articleDao.modifieArticle(article);
   }
 
   Future<List<Tache>> findTachesBy(int idOt) async {

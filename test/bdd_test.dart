@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:iomer/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomer_database.dart';
 
 void main() {
   late IomerDatabase db;
@@ -97,7 +97,7 @@ void main() {
     test("ots can be created", () async {
       var ot = Ot(IDOT: 101010, CODEOT: "CODEOT", LIBELLEOT: 'LIBELLEOT');
       await db.otDao.insertOt(ot);
-      List<Ot> otDb = await db.otDao.getAllOts();
+      List<Ot> otDb = await db.otDao.getAllOt();
       expect(otDb.first, ot);
     });
   });

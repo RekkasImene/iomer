@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomere/bloc/parts/parts_bloc.dart';
 import 'package:iomere/config/injection.dart';
+import 'package:iomere/ui/scan/scan_screen.dart';
 
 class PartEditor extends StatefulWidget {
   final TextEditingController controllerNpiece;
@@ -22,15 +23,16 @@ class PartEditor extends StatefulWidget {
 }
 
 class _PartEditorState extends State<PartEditor> {
-  late TextEditingController _controllerArticle;
-  late TextEditingController _controllerLibelle;
+  final TextEditingController _controllerArticle=TextEditingController();
   late PartsBloc _partsBloc;
+  late TextEditingController controllerLibelle;
+  late TextEditingController controllerNpiece;
 
   @override
   void initState() {
     _partsBloc = getIt.get<PartsBloc>();
-    _controllerArticle = TextEditingController();
-    _controllerLibelle = TextEditingController();
+    controllerNpiece=TextEditingController();
+    controllerLibelle = TextEditingController();
     super.initState();
   }
 
@@ -41,7 +43,7 @@ class _PartEditorState extends State<PartEditor> {
       child: BlocListener<PartsBloc, PartsState>(
         listener: (context, state) {
           if (state is StateArticleFind) {
-            print("Je suis là");
+            widget.controllerNpiece.text=state.npiece;
             widget.controllerLibelle.text  = state.libelle;
           }
         },
@@ -51,14 +53,28 @@ class _PartEditorState extends State<PartEditor> {
               width: 10,
               height: 10,
             ),
-            TextField(
+            TextFormField(
               controller: widget.controllerNpiece,
               onEditingComplete: () {
-                print("No editing");
                 _partsBloc.add(CodeEventPart(widget.controllerNpiece.text));
               },
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: 'N° Pièce :'),
+              decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  labelText: 'N° Pièce :',
+                suffixIcon: Align(
+                  widthFactor: 1.0,
+                  heightFactor: 1.0,
+                  child: Theme(
+                    data: Theme.of(context),
+                    child: IconButton(
+                        icon: const Icon(Icons.qr_code_scanner_outlined),
+                        onPressed: () {
+                          /// lance le scan pour récuperer un code machine
+                          _navigateAndRetrieveCode(context);
+                        }),
+                  ),
+                ),
+              ),
             ),
             const SizedBox(
               width: 10,
@@ -94,5 +110,16 @@ class _PartEditorState extends State<PartEditor> {
         ),
       ),
     );
+  }
+
+  _navigateAndRetrieveCode(BuildContext context) async {
+    final String nextPageValues = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const ScanScreen()),
+    );
+    setState(() {
+      _controllerArticle.text = nextPageValues; //first element is stored at the 0th index for a list
+      _partsBloc.add(CodeEventPart(_controllerArticle.text));
+    });
   }
 }

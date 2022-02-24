@@ -5,10 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iomere/bloc/parts/parts_bloc.dart';
 import 'package:iomere/config/injection.dart';
 import 'package:iomere/ui/new_part/components/part_editor.dart';
-import 'package:iomere/ui/scan/scan_screen.dart';
 import 'package:iomere/ui/utils/info.dart';
 
-import '../../parts/parts_screen.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -18,9 +16,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  TextEditingController _controllerPiece = TextEditingController();
-  TextEditingController _controllerLibelle = TextEditingController();
-  TextEditingController _controllerQte = TextEditingController();
+  final TextEditingController _controllerPiece = TextEditingController();
+  final TextEditingController _controllerLibelle = TextEditingController();
+  final TextEditingController _controllerQte = TextEditingController();
   late PartsBloc _partsBloc;
 
   @override
@@ -69,28 +67,12 @@ class _BodyState extends State<Body> {
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Column(
                   children: [
-                    Info(),
+                    const Info(),
                     PartEditor(
                         controllerNpiece: _controllerPiece,
                         controllerLibelle: _controllerLibelle,
                         controllerQte: _controllerQte),
                   ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _navigateAndRetriveCode(context);
-                    },
-                    child:
-                    const Text('Scan Pièce', style: TextStyle(fontSize: 20)),
-                    style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 50, vertical: 20)),
-                  ),
                 ),
               ),
               Expanded(
@@ -113,17 +95,6 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
-  }
-
-  _navigateAndRetriveCode(BuildContext context) async {
-    final String nextPageValues = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const ScanScreen()),
-    );
-    setState(() {
-      _controllerPiece.text = nextPageValues; //first element is stored at the 0th index for a list
-      _partsBloc.add(CodeEventPart(_controllerPiece.text));
-    });
   }
 
   void showToast(String message) {

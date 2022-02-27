@@ -21,7 +21,7 @@ class UpdateEventListParts extends PartsEvent {
   final List<Reservation> listreservation;
   final List<TextEditingController> controller;
 
-  UpdateEventListParts(this.listreservation, this.controller);
+  const UpdateEventListParts(this.listreservation, this.controller);
 }
 
 class AddPieceEventParts extends PartsEvent {
@@ -29,7 +29,7 @@ class AddPieceEventParts extends PartsEvent {
   final String libelle;
   final String qte;
 
-  AddPieceEventParts(this.piece, this.libelle, this.qte);
+  const AddPieceEventParts(this.piece, this.libelle, this.qte);
 }
 
 class InternetEventParts extends PartsEvent {}

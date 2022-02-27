@@ -8,7 +8,7 @@ const ClotureEvent();
 List<Object> get props => [];
 }
 
-class getOtOpenTime extends ClotureEvent {}
+class GetOtOpenTime extends ClotureEvent {}
 
 
 

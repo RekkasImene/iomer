@@ -6,9 +6,9 @@ import 'package:iomere/bloc/ot/ot_bloc.dart';
 import 'package:iomere/ui/machine/components/ot_popup.dart';
 
 class OTButtonWidget extends StatelessWidget {
-  String codeMachine;
+  final String codeMachine;
 
-  OTButtonWidget({Key? key, required this.codeMachine}) : super(key: key);
+  const OTButtonWidget({Key? key, required this.codeMachine}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

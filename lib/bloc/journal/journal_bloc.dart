@@ -15,31 +15,28 @@ part 'journal_state.dart';
 @Environment(Env.prod)
 @injectable
 class JournalBloc extends Bloc<JournalEvent, JournalState> {
-  OutRepository _outRepository;
-  LocalRepository _localRepository;
+  final OutRepository _outRepository;
+  final LocalRepository _localRepository;
 
   JournalBloc(this._outRepository, this._localRepository)
       : super(JournalInitial()) {
     on<JournalEvent>((event, emit) async {
       if (event is FetchEventJournal) {
         emit(JournalStateLoading());
-        final List<Ot> ots_clotures = await _localRepository.getAllOt();
-        print(ots_clotures.toString());
-        if (ots_clotures.isNotEmpty) {
-          emit(JounalStateLoaded(ots_clotures));
+        final List<Ot> otsClotures = await _localRepository.getAllOt();
+        if (otsClotures.isNotEmpty) {
+          emit(JounalStateLoaded(otsClotures));
         } else {
           emit(JournalStateError());
-          print("Error");
         }
       }
 
       if (event is JournalEventSynchronisation) {
         bool flag = await _outRepository.pushWS();
-        log("bonjoour lr flag "+flag.toString());
         if (flag) {
-          emit(JournalStatePushSuccess('Synchronisation terminée'));
+          emit(const JournalStatePushSuccess('Synchronisation terminée'));
         } else {
-          emit(JournalStatePushFail('Synchronisation échoué veuillez recommencer'));
+          emit(const JournalStatePushFail('Synchronisation échoué veuillez recommencer'));
         }
       }
     });

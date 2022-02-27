@@ -4,7 +4,6 @@ part of 'journal_bloc.dart';
 abstract class JournalState {
   const JournalState();
 
-  @override
   List<Object> get props => [];
 }
 
@@ -21,11 +20,11 @@ class JournalStateLoading extends JournalState {}
 class JournalStateError extends JournalState {}
 
 class JournalStatePushSuccess extends JournalState {
-  String message;
-  JournalStatePushSuccess(this.message);
+  final String message;
+  const JournalStatePushSuccess(this.message);
 }
 
 class JournalStatePushFail extends JournalState {
-  String message;
-  JournalStatePushFail(this.message);
+  final String message;
+  const JournalStatePushFail(this.message);
 }

@@ -104,7 +104,7 @@ class OutRepository {
 
   ///Methode qui fait appelle aux fonctions d'envoi de donnée de la bdd vers WebService
   Future<bool> pushWS() async {
-    var flag;
+    bool flag;
     try {
       //Matricules traitement
       log("----------1-------------");

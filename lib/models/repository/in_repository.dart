@@ -1,7 +1,5 @@
-
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 import 'package:iomere/config/injection.dart';
@@ -128,7 +126,6 @@ class InRepository {
     }
   }
   /// Récupère tous les [Site] du WebService ($url/GetSites)
-  @override
   Future<List<Site>> getAllSite() async {
     log("get all site repo");
     List<Site> sites = [];
@@ -147,8 +144,7 @@ class InRepository {
   }
 
 /// Insèrer le site séléctionné dans la table [Sites]
-  @override
-  Future<void> InsertSite(Site site) async {
+  Future<void> insertSite(Site site) async {
     database.siteDao.insertSite(site);
   }
 

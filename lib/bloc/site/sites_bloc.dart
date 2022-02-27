@@ -41,7 +41,7 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
         if (sites.isNotEmpty) {
           emit(SitesLoaded(sites));
         } else {
-          emit(SitesError("Une erreure s'est produite"));
+          emit(const SitesError("Une erreur s'est produite"));
           print("Error");
         }
       }

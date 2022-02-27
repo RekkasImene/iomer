@@ -4,20 +4,20 @@ import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
 import 'package:iomere/config/injection.dart';
 import 'package:iomere/models/bdd/iomere_database.dart';
-import 'package:http/http.dart';
 
 /// La classe Services contient toutes les interactions avec le WebService
 /// Necessite une connexion Internet
 /// URL à modifier par l'adresse réelle du WebService
 
-//var url = 'https://iomere.loca.lt';
-//var url = 'http://10.0.2.2:8080'; //Adresse locale android
-var url = 'http://localhost:8080';
-
 @Environment(Env.prod)
 @singleton
 @injectable
 class Services {
+  //var url = 'https://iomere.loca.lt';
+  //var url = 'http://10.0.2.2:8080'; //Adresse locale émulateur android
+  var url = 'http://localhost:8080';
+
+
   final Client client;
 
   Services(Client httpClient) : client = httpClient;
@@ -147,7 +147,7 @@ class Services {
 
   /// Récupérer une liste de [Tache] via le WebService en passant en paramètre "idOT"
   Future<List<Tache>> fetchOTTaches(int idOT) async {
-    final response = await client.get(Uri.parse('$url/GETOT_TACHES/$idOT$url/GETOT_TACHES/$idOT'));
+    final response = await client.get(Uri.parse('$url/GETOT_TACHES/$idOT'));
 
     ///Si le serveur renvoie une réponse 200 OK,
     /// puis convertir la réponse JSON en une Liste de Taches'.

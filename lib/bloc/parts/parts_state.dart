@@ -4,7 +4,6 @@ part of 'parts_bloc.dart';
 abstract class PartsState {
   const PartsState();
 
-  @override
   List<Object> get props => [];
 }
 
@@ -33,18 +32,18 @@ class PartsStateAddArticle extends PartsState {
 }
 
 class StatePartsInternetInterrupt extends PartsState {
-  String message;
-  StatePartsInternetInterrupt(this.message);
+  final String message;
+  const StatePartsInternetInterrupt(this.message);
 }
 
 class StatePartsNoArticle extends PartsState {
-  String message;
-  StatePartsNoArticle(this.message);
+  final String message;
+  const StatePartsNoArticle(this.message);
 }
 
 class StatePartsInternetError extends PartsState {
-  String message;
-  StatePartsInternetError(this.message);
+  final String message;
+  const StatePartsInternetError(this.message);
 }
 
 class CodePartLoaded extends PartsState{
@@ -55,7 +54,7 @@ class CodePartLoaded extends PartsState{
 class StatePartsInternetOk extends PartsState {}
 
 class StateArticleFind extends PartsState {
-  String libelle;
-  String npiece;
-  StateArticleFind(this.libelle,this.npiece);
+  final String libelle;
+  final String npiece;
+  const StateArticleFind(this.libelle,this.npiece);
 }

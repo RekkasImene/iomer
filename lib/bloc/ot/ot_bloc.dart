@@ -54,7 +54,7 @@ class OtBloc extends Bloc<OtEvent, OtState> {
             emit(const OtError('Error'));
           }
         } else {
-          emit(CodeMachineLoaded(""));
+          emit(const CodeMachineLoaded(""));
         }
       }
 

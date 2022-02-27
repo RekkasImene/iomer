@@ -7,7 +7,6 @@ part of 'sites_bloc.dart';
 abstract class SitesState {
   const SitesState();
 
-  @override
   List<Object> get props => [];
 }
 

@@ -13,14 +13,14 @@ class HomeScreen extends StatelessWidget {
       darkTheme: darkTheme(),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Iomere'),
+          title: const Text('iOmere'),
         ),
         body: const Body(),
       ),
     );
     // return Scaffold(
     //     appBar: AppBar(
-    //       title: const Text('Iomere'),
+    //       title: const Text('iOmere'),
     //     ),
     //     body: const Body());
   }

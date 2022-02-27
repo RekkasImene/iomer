@@ -20,7 +20,7 @@ class DebugScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Iomere'),
+        title: const Text('iOmere'),
       ),
       body: ListView(
         children: const [

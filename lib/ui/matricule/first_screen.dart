@@ -13,7 +13,7 @@ class _FirstScreenState extends State<FirstScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Iomere'),
+        title: const Text('iOmere'),
       ),
       body: const Body(),
     );

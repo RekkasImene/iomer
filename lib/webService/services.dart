@@ -11,7 +11,7 @@ import 'package:http/http.dart';
 /// URL à modifier par l'adresse réelle du WebService
 
 //var url = 'https://iomere.loca.lt';
-//var url = 'http://10.0.2.2:8080'; //Adresse locale android
+//var url = 'http://10.0.2.2:8080'; //Adresse locale émulateur android
 var url = 'http://localhost:8080';
 
 @Environment(Env.prod)

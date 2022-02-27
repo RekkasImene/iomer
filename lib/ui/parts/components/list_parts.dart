@@ -147,7 +147,27 @@ class _ListPartsState extends State<ListParts> {
                 ],
               );
             } else if (state is PartsError) {
-              return Text(state.message);
+              return Column(
+                children: [
+                  Text(state.message),
+                  Row(
+                    children: [
+                      const Expanded(child: SizedBox()),
+                      Align(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _partsBloc.add(InternetEventParts());
+                          },
+                          child: const Text('Ajout'),
+                          style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
             }
             return const Center(
               child: SizedBox(

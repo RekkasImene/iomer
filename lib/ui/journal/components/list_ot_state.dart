@@ -4,17 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iomere/bloc/journal/journal_bloc.dart';
-import 'package:iomere/bloc/ot/ot_bloc.dart';
+import 'package:iomere/bloc/journal/journal_event.dart';
 import 'package:iomere/models/bdd/iomere_database.dart';
-import 'package:iomere/ui/home/home_screen.dart';
 
-import '../../../bloc/journal/journal_event.dart';
 
 
 class ListOtStateWidget extends StatefulWidget{
-  JournalBloc journalbloc;
+  final JournalBloc journalbloc;
 
-  ListOtStateWidget({Key? key, required this.journalbloc}) : super(key: key);
+  const ListOtStateWidget({Key? key, required this.journalbloc}) : super(key: key);
 
   @override
   State<ListOtStateWidget> createState() => _ListOtStateWidgetState();
@@ -22,7 +20,6 @@ class ListOtStateWidget extends StatefulWidget{
 
 class _ListOtStateWidgetState extends State<ListOtStateWidget> {
   late Ot choosedOt;
-  bool _isDone= false;
   StreamController<List<Ot>> otList = StreamController();
 
   @override

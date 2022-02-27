@@ -1,6 +1,5 @@
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
-import 'package:iomere/models/bdd/database/shared.dart';
 import 'package:iomere/models/bdd/iomere_database.dart';
 
 @module

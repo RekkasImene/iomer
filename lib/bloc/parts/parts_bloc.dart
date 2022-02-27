@@ -48,7 +48,7 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
                   QTEARTICLE: double.parse(event.controller[i].text),
                   IDARTICLE: event.listreservation[i].IDARTICLE));
             }
-            emit(PartsUpdate());
+            emit(const PartsUpdate());
           } catch (e) {
             emit(const PartsError("Ce nest pas un nombre.."));
           }
@@ -64,7 +64,7 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
           }
         } on SocketException catch (_) {
           print('not connected');
-          emit(StatePartsInternetError('Internet non disponible.'));
+          emit(const StatePartsInternetError('Internet non disponible.'));
         }
       }
 
@@ -80,19 +80,18 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
             if (article.LIBELLEARTICLE.isNotEmpty) {
               emit(StateArticleFind(article.LIBELLEARTICLE,article.CODEARTICLE));
             } else {
-              emit(StatePartsNoArticle(
+              emit(const StatePartsNoArticle(
                   'Pas d\'article trouvé pour se code article.'));
             }
           }
         } on SocketException catch (_) {
           print('Connexion internet non disponible, article non inséré');
-          emit(StatePartsInternetInterrupt(
+          emit(const StatePartsInternetInterrupt(
               'Connexion internet non disponible, article non inséré'));
         }
       }
 
       if (event is AddPieceEventParts) {
-        double qte = 0;
         Article article;
         Ot ot = await _localRepository.getOt();
 
@@ -111,15 +110,15 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
                   await _localRepository.insertReservation(article, ot.IDOT, double.parse(event.qte));
 
                   print("Fin insertion");
-                  emit(PartsStateAddArticle());
+                  emit(const PartsStateAddArticle());
                 } else {
-                  emit(StatePartsNoArticle('Il n\'y a pas d\'article avec ce code article'));
+                  emit(const StatePartsNoArticle('Il n\'y a pas d\'article avec ce code article'));
                 }
             }
           }
         } on SocketException catch (_) {
           print('Connexion internet non disponible, article non inséré');
-          emit(StatePartsInternetInterrupt('Connexion internet non disponible, article non inséré'));
+          emit(const StatePartsInternetInterrupt('Connexion internet non disponible, article non inséré'));
         }
       }
     });

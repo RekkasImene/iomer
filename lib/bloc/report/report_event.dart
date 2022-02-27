@@ -13,5 +13,5 @@ class ValidateReport extends ReportEvent {
   final List<Uint8List> listAttachements;
   final String textReport;
 
-  ValidateReport(this.listAttachements, this.textReport);
+  const ValidateReport(this.listAttachements, this.textReport);
 }

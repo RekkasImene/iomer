@@ -4,7 +4,6 @@ part of 'report_bloc.dart';
 abstract class ReportState {
   const ReportState();
 
-  @override
   List<Object> get props => [];
 }
 

@@ -22,7 +22,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     _clotureBloc = getIt.get<ClotureBloc>();
-    _clotureBloc.add(getOtOpenTime());
+    _clotureBloc.add(GetOtOpenTime());
     listDuration=["00","00","00"];
     super.initState();
   }
@@ -61,14 +61,14 @@ class _BodyState extends State<Body> {
               },
               builder: (context, state) {
                 return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       "Temps d'intervention : "+
                     listDuration.first+ "h "+
                     listDuration[1] + "mn "+ listDuration.last.split(".").first+ "s",
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                   ),
                 );
@@ -98,7 +98,7 @@ class _BodyState extends State<Body> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => MachineScreen()),
+          builder: (context) => const MachineScreen()),
     );
   }
 }

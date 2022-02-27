@@ -125,7 +125,7 @@ class LocalRepository {
   }
   ///Récupérer un [Article] correspondant à un codeArticle
   Future<Article> findArticleBy(String codeArticle) async {
-    Article? article = null;
+    Article? article;
     try {
       article = await database.articleDao.findArticleBy(codeArticle);
       return  article;

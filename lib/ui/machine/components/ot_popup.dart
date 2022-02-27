@@ -6,10 +6,10 @@ import 'package:iomere/config/injection.dart';
 import 'package:iomere/models/bdd/iomere_database.dart';
 
 class OTPopUpWidget extends StatefulWidget {
-  OtBloc otBloc;
-  String codeMachine;
+  final OtBloc otBloc;
+  final String codeMachine;
 
-  OTPopUpWidget({Key? key, required this.otBloc, required this.codeMachine})
+  const OTPopUpWidget({Key? key, required this.otBloc, required this.codeMachine})
       : super(key: key);
 
   @override

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +43,7 @@ class _SiteState extends State<SiteWidget> {
                 if (state is SitesError) {
                   final snackBar = SnackBar(
                     backgroundColor: Colors.blueGrey,
-                    content: Container(
+                    content: SizedBox(
                       height: 60,
                       child: Center(
                         child: Text(

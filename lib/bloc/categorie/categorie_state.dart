@@ -4,7 +4,6 @@ part of 'categorie_bloc.dart';
 abstract class CategorieState {
   const CategorieState();
 
-  @override
   List<Object> get props => [];
 }
 

@@ -3,7 +3,7 @@ import 'package:iomere/ui/parts/components/list_parts.dart';
 import 'package:iomere/ui/utils/info.dart';
 
 class Body extends StatelessWidget {
-  Body({Key? key}) : super(key: key);
+  const Body({Key? key}) : super(key: key);
 
 
 

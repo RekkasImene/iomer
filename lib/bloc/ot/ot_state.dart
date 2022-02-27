@@ -4,7 +4,6 @@ part of 'ot_bloc.dart';
 abstract class OtState {
   const OtState();
 
-  @override
   List<Object> get props => [];
 }
 

@@ -8,10 +8,10 @@ import 'package:iomere/ui/action/action_screen.dart';
 import 'package:iomere/ui/machine/components/ot_button.dart';
 
 class OTListWidget extends StatefulWidget {
-  String codeMachine;
-  OtBloc otblc;
+  final String codeMachine;
+  final OtBloc otblc;
 
-  OTListWidget({Key? key, required this.codeMachine, required this.otblc})
+  const OTListWidget({Key? key, required this.codeMachine, required this.otblc})
       : super(key: key);
 
   @override

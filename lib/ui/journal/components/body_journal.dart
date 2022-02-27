@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iomere/bloc/journal/journal_bloc.dart';
-import 'package:iomere/bloc/ot/ot_bloc.dart';
 import 'package:iomere/config/injection.dart';
-import 'package:iomere/ui/home/components/site.dart';
 import 'package:iomere/ui/journal/components/list_ot_state.dart';
 
 class Body extends StatefulWidget {

@@ -16,5 +16,5 @@ class ValidateEventSites extends SitesEvent {
   final Site monsite;
   final String macategorie;
 
-  ValidateEventSites(this.monsite, this.macategorie);
+  const ValidateEventSites(this.monsite, this.macategorie);
 }

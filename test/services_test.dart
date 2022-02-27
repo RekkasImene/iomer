@@ -7,8 +7,6 @@ import 'package:mockito/mockito.dart';
 
 import 'services_test.mocks.dart';
 
-var url ="https://iomere.loca.lt";
-
 /// Ce Fichier comporte les tests unitaires qui traitent les appels du web Service.
 ///  Les requetes sont simulées avec Mockito.
 ///  build_runner générera un fichier avec un nom basé sur le fichier contenant l'annotation @GenerateMocks.
@@ -19,9 +17,11 @@ var url ="https://iomere.loca.lt";
 void main() {
   final client = MockClient();
   late Services services;
+  late String url;
 
   setUp(() {
     services = Services(client);
+    url = services.url;
   });
 
 // Test Fetch Sites
@@ -102,7 +102,7 @@ void main() {
     test('Should return a Taches list when successful', () async {
       when(client.get(Uri.parse('$url/GETOT_TACHES/101')))
           .thenAnswer((_) async => Response(
-              '[{"IDOT":101,"CODETACHE":"OT.S01.EQ0002\/003","LIBELLETACHE":"Libelle OT.S01.EQ0002\/003","STATUTTACHE":1,"COMMENTTACHE":"debug","IDTACHE":102},{"IDOT":101,"CODETACHE":"OT.S01.EQ0002\/004","LIBELLETACHE":"Libelle OT.S01.EQ0002\/004","STATUTTACHE":1,"COMMENTTACHE":"ttt","IDTACHE":103},{"IDOT":101,"CODETACHE":"OT.S01.EQ0002\/005","LIBELLETACHE":"Libelle OT.S01.EQ0002\/005","STATUTTACHE":0,"COMMENTTACHE":"","IDTACHE":104},{"IDOT":101,"CODETACHE":"OT.S01.EQ0002\/006","LIBELLETACHE":"Libelle OT.S01.EQ0002\/006","STATUTTACHE":0,"COMMENTTACHE":"","IDTACHE":105},{"IDOT":101,"CODETACHE":"OT.S01.EQ0002\/007","LIBELLETACHE":"Libelle OT.S01.EQ0002\/007","STATUTTACHE":0,"COMMENTTACHE":"","IDTACHE":106}]',
+              '[{"IDOT":101,"CODETACHE":"OT.S01.EQ0002/003","LIBELLETACHE":"Libelle OT.S01.EQ0002/003","STATUTTACHE":1,"COMMENTTACHE":"debug","IDTACHE":102},{"IDOT":101,"CODETACHE":"OT.S01.EQ0002/004","LIBELLETACHE":"Libelle OT.S01.EQ0002/004","STATUTTACHE":1,"COMMENTTACHE":"ttt","IDTACHE":103},{"IDOT":101,"CODETACHE":"OT.S01.EQ0002/005","LIBELLETACHE":"Libelle OT.S01.EQ0002/005","STATUTTACHE":0,"COMMENTTACHE":"","IDTACHE":104},{"IDOT":101,"CODETACHE":"OT.S01.EQ0002/006","LIBELLETACHE":"Libelle OT.S01.EQ0002/006","STATUTTACHE":0,"COMMENTTACHE":"","IDTACHE":105},{"IDOT":101,"CODETACHE":"OT.S01.EQ0002/007","LIBELLETACHE":"Libelle OT.S01.EQ0002/007","STATUTTACHE":0,"COMMENTTACHE":"","IDTACHE":106}]',
               200));
 
       expect(await services.fetchOTTaches(101), isA<List<Tache>>());

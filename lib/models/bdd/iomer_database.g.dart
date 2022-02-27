@@ -1014,7 +1014,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
   final String CODEMATRICULE;
   final String NOMMATRICULE;
   final String PRENOMMATRICULE;
-  final bool? CHECKED;
+  final int? CHECKED;
   Matricule(
       {required this.IDMATRICULE,
       this.IDORIGINE,
@@ -1035,7 +1035,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
           .mapFromDatabaseResponse(data['${effectivePrefix}nommatricule'])!,
       PRENOMMATRICULE: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}prenommatricule'])!,
-      CHECKED: const BoolType()
+      CHECKED: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}checked']),
     );
   }
@@ -1050,7 +1050,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
     map['nommatricule'] = Variable<String>(NOMMATRICULE);
     map['prenommatricule'] = Variable<String>(PRENOMMATRICULE);
     if (!nullToAbsent || CHECKED != null) {
-      map['checked'] = Variable<bool?>(CHECKED);
+      map['checked'] = Variable<int?>(CHECKED);
     }
     return map;
   }
@@ -1079,7 +1079,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
       CODEMATRICULE: serializer.fromJson<String>(json['CODEMATRICULE']),
       NOMMATRICULE: serializer.fromJson<String>(json['NOMMATRICULE']),
       PRENOMMATRICULE: serializer.fromJson<String>(json['PRENOMMATRICULE']),
-      CHECKED: serializer.fromJson<bool?>(json['CHECKED']),
+      CHECKED: serializer.fromJson<int?>(json['CHECKED']),
     );
   }
   @override
@@ -1091,7 +1091,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
       'CODEMATRICULE': serializer.toJson<String>(CODEMATRICULE),
       'NOMMATRICULE': serializer.toJson<String>(NOMMATRICULE),
       'PRENOMMATRICULE': serializer.toJson<String>(PRENOMMATRICULE),
-      'CHECKED': serializer.toJson<bool?>(CHECKED),
+      'CHECKED': serializer.toJson<int?>(CHECKED),
     };
   }
 
@@ -1101,7 +1101,7 @@ class Matricule extends DataClass implements Insertable<Matricule> {
           String? CODEMATRICULE,
           String? NOMMATRICULE,
           String? PRENOMMATRICULE,
-          bool? CHECKED}) =>
+          int? CHECKED}) =>
       Matricule(
         IDMATRICULE: IDMATRICULE ?? this.IDMATRICULE,
         IDORIGINE: IDORIGINE ?? this.IDORIGINE,
@@ -1144,7 +1144,7 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
   final Value<String> CODEMATRICULE;
   final Value<String> NOMMATRICULE;
   final Value<String> PRENOMMATRICULE;
-  final Value<bool?> CHECKED;
+  final Value<int?> CHECKED;
   const MatriculesCompanion({
     this.IDMATRICULE = const Value.absent(),
     this.IDORIGINE = const Value.absent(),
@@ -1169,7 +1169,7 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
     Expression<String>? CODEMATRICULE,
     Expression<String>? NOMMATRICULE,
     Expression<String>? PRENOMMATRICULE,
-    Expression<bool?>? CHECKED,
+    Expression<int?>? CHECKED,
   }) {
     return RawValuesInsertable({
       if (IDMATRICULE != null) 'idmatricule': IDMATRICULE,
@@ -1187,7 +1187,7 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
       Value<String>? CODEMATRICULE,
       Value<String>? NOMMATRICULE,
       Value<String>? PRENOMMATRICULE,
-      Value<bool?>? CHECKED}) {
+      Value<int?>? CHECKED}) {
     return MatriculesCompanion(
       IDMATRICULE: IDMATRICULE ?? this.IDMATRICULE,
       IDORIGINE: IDORIGINE ?? this.IDORIGINE,
@@ -1217,7 +1217,7 @@ class MatriculesCompanion extends UpdateCompanion<Matricule> {
       map['prenommatricule'] = Variable<String>(PRENOMMATRICULE.value);
     }
     if (CHECKED.present) {
-      map['checked'] = Variable<bool?>(CHECKED.value);
+      map['checked'] = Variable<int?>(CHECKED.value);
     }
     return map;
   }
@@ -1277,12 +1277,11 @@ class $MatriculesTable extends Matricules
           typeName: 'TEXT',
           requiredDuringInsert: true);
   final VerificationMeta _CHECKEDMeta = const VerificationMeta('CHECKED');
-  late final GeneratedColumn<bool?> CHECKED = GeneratedColumn<bool?>(
+  late final GeneratedColumn<int?> CHECKED = GeneratedColumn<int?>(
       'checked', aliasedName, true,
       typeName: 'INTEGER',
       requiredDuringInsert: false,
-      defaultConstraints: 'CHECK (checked IN (0, 1))',
-      defaultValue: const Constant(false));
+      defaultValue: const Constant(0));
   @override
   List<GeneratedColumn> get $columns => [
         IDMATRICULE,

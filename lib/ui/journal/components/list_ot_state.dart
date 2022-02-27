@@ -2,19 +2,19 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:iomere/bloc/journal/journal_bloc.dart';
 import 'package:iomere/bloc/ot/ot_bloc.dart';
 import 'package:iomere/models/bdd/iomer_database.dart';
 import 'package:iomere/ui/home/home_screen.dart';
 
+import '../../../bloc/journal/journal_event.dart';
+
 
 class ListOtStateWidget extends StatefulWidget{
-  String codeMachine;
-  OtBloc otblc;
+  JournalBloc journalbloc;
 
-  ListOtStateWidget({Key? key, required this.codeMachine, required this.otblc})
-      : super(key: key);
-
-
+  ListOtStateWidget({Key? key, required this.journalbloc}) : super(key: key);
 
   @override
   State<ListOtStateWidget> createState() => _ListOtStateWidgetState();
@@ -24,7 +24,6 @@ class _ListOtStateWidgetState extends State<ListOtStateWidget> {
   late Ot choosedOt;
   bool _isDone= false;
   StreamController<List<Ot>> otList = StreamController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -39,46 +38,29 @@ class _ListOtStateWidgetState extends State<ListOtStateWidget> {
           ),
         ),
         Expanded(
-          child: BlocProvider<OtBloc>(
-              create: (context) => widget.otblc,
-              child: BlocListener<OtBloc, OtState>(
-                  listener: (context, state) {
-                    if (state is OtLoaded) {
-                      otList.add(state.ots);
-                    } else if (state is OtError) {
-                      Text(state.message);
-                    }
-                  },
-                  child: Container(
-                    decoration:
-                    BoxDecoration(border: Border.all(color: Colors.black)),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: StreamBuilder<List<Ot>>(
-                              stream: otList.stream,
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<dynamic> snapshot) {
-                                if (!snapshot.hasData) {
-                                  return const Center(
-                                    child: SizedBox(
-                                        width: 32,
-                                        height: 32,
-                                        child: CircularProgressIndicator()),
-                                  );
-                                } else {
-                                  return listOt(snapshot);
-                                }
-                              }),
-                        ),
-                      ],
-                    ),
-                  ))),
+          child: BlocProvider(
+              create: (context) => widget.journalbloc..add(FetchEventJournal()),
+              child: BlocConsumer<JournalBloc, JournalState>(
+                listener: (context,state) {
+                  if(state is JournalStatePushSuccess) {
+                    showToast(state.message);
+                  } else if (state is JournalStatePushFail) {
+                    showToast(state.message);
+                  }
+                },
+                builder: (context, state) {
+                  if(state is JounalStateLoaded){
+                    return listOt(state.ots);
+                  } else {
+                    return const SizedBox() ;
+                  }
+                }
+                ),
+          ),
         ),
         const SizedBox(height: 20),
         SizedBox(
           width: double.infinity,
-
           /// bouton pour actualiser la page et préremplir les champs
           child: ElevatedButton(
             child:
@@ -87,11 +69,7 @@ class _ListOtStateWidgetState extends State<ListOtStateWidget> {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 50, vertical: 20)),
             onPressed: () => [
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const HomeScreen()),
-              )
+              widget.journalbloc.add(JournalEventSynchronisation())
             ],
           ),
         )
@@ -100,18 +78,18 @@ class _ListOtStateWidgetState extends State<ListOtStateWidget> {
   }
 
 
-  Widget listOt(AsyncSnapshot snapshot) {
+  Widget listOt(List<Ot> listot) {
     return Column(
       children: [
         Expanded(
           child: ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            itemCount: snapshot.data.length,
+            itemCount: listot.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(snapshot.data[index].LIBELLEOT),
-                leading: _isDone ? Icon(Icons.block,color: Colors.red,) : Icon(Icons.check,color: Colors.green,),
+                title: Text(listot[index].LIBELLEOT),
+                leading: listot[index].DTCLOSOT == null ? const Icon(Icons.block,color: Colors.red,) : const Icon(Icons.check,color: Colors.green,),
               );
             },
           ),
@@ -119,4 +97,8 @@ class _ListOtStateWidgetState extends State<ListOtStateWidget> {
       ],
     );
   }
+}
+
+void showToast(String message) {
+  Fluttertoast.showToast(msg: message);
 }

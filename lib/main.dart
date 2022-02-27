@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iomere/resources/theme.dart';
 import 'package:iomere/ui/debug_screens.dart';
+import 'package:iomere/ui/home/home_screen.dart';
 import 'config/injection.dart';
 
 void main() {
@@ -28,10 +29,10 @@ class _MyAppState extends State<MyApp> {
         onVerticalDragEnd: (DragEndDetails details) => FocusManager.instance.primaryFocus?.unfocus(),
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'iOmereApp',
+            title: 'iOmere',
             theme: lightTheme(),
             darkTheme: darkTheme(),
-            home: const DebugScreen(),
+            home: const HomeScreen(),
         )
     );
   }

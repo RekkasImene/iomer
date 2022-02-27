@@ -86,7 +86,7 @@ void main() {
           CODEMATRICULE: "CODEMATRICUL",
           NOMMATRICULE: "NOMMATRICULE",
           PRENOMMATRICULE: "PRENOMMATRICULE",
-          CHECKED: false);
+          CHECKED: 0);
       await db.matriculeDao.insertMatricule(matricule);
       List<Matricule> matriculeDb = await db.matriculeDao.getAllMatricules();
       expect(matriculeDb.first, matricule);

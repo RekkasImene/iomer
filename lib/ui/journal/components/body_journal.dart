@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iomere/bloc/journal/journal_bloc.dart';
 import 'package:iomere/bloc/ot/ot_bloc.dart';
 import 'package:iomere/config/injection.dart';
 import 'package:iomere/ui/home/components/site.dart';
@@ -12,12 +13,11 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  late OtBloc _otBloc;
+  late JournalBloc _journalBloc;
 
   @override
   void initState() {
-    _otBloc = getIt.get<OtBloc>();
-    _otBloc.add(CodeEventMachine("S01.EQ0001"));
+    _journalBloc = getIt.get<JournalBloc>();
     super.initState();
   }
 
@@ -27,7 +27,7 @@ class _BodyState extends State<Body> {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-          Expanded(child: ListOtStateWidget(codeMachine: "S01.EQ0001", otblc: _otBloc)),
+          Expanded(child: ListOtStateWidget(journalbloc: _journalBloc)),
         ],
       ),
     );

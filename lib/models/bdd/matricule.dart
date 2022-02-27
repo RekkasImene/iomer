@@ -18,8 +18,8 @@ class Matricules extends Table {
 
   TextColumn get PRENOMMATRICULE => text().withLength(min: 1, max: 48)();
 
-  BoolColumn get CHECKED =>
-      boolean().nullable().withDefault(const Constant(false))();
+  IntColumn get CHECKED =>
+      integer().nullable().withDefault(const Constant(0))();
 
   @override
   Set<Column> get primaryKey => {IDMATRICULE};
@@ -42,7 +42,7 @@ class MatriculeDao extends DatabaseAccessor<IomerDatabase>
 
   Future<List<Matricule>> findMatriculesChecket() {
     return (select(matricules)
-          ..where((matricule) => matricule.CHECKED.equals(true)))
+          ..where((matricule) => matricule.CHECKED.equals(1)))
         .get();
   }
 }

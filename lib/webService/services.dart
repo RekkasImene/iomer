@@ -10,8 +10,8 @@ import 'package:http/http.dart';
 /// Necessite une connexion Internet
 /// URL à modifier par l'adresse réelle du WebService
 
+//var url = 'http://10.0.2.2:8080';
 var url = 'https://iomere.loca.lt';
-//var url = 'https://iomere.loca.lt';
 
 @Environment(Env.prod)
 @singleton
@@ -146,7 +146,7 @@ class Services {
 
   /// Récupérer une liste de [Tache] via le WebService en passant en paramètre "idOT"
   Future<List<Tache>> fetchOTTaches(int idOT) async {
-    final response = await client.get(Uri.parse('$url/GETOT_TACHES/$idOT'));
+    final response = await client.get(Uri.parse('$url/GETOT_TACHES/$idOT$url/GETOT_TACHES/$idOT'));
 
     ///Si le serveur renvoie une réponse 200 OK,
     /// puis convertir la réponse JSON en une Liste de Taches'.
@@ -239,7 +239,7 @@ class Services {
     /// Alors une exception est levée.
   }
 
-  /// Envoyer la liste des [Ot] dans le WebService
+  /// Synchroniser [Ot] avec le WebService
   Future<void> postOt(
       int idOt, String commentOt, double tempsOt, String statutOt) async {
     try {
@@ -254,8 +254,7 @@ class Services {
       throw Exception('error or exception in postOt: ' + e.toString());
     }
   }
-
-  /// Envoyer la liste des [Tache] dans le WebService
+  /// Synchroniser [Tache] comprenant un idTache, statutTache, commentTache avec le WebService
   Future<void> postOtTache(
       int idTache, String statutTache, String commentTache) async {
     try {
@@ -268,8 +267,7 @@ class Services {
       throw Exception('error or exception in postOtTache: ' + e.toString());
     }
   }
-
-  /// Envoyer la liste des [Article] dans le WebService
+  /// Synchroniser une [Reservation] comprenant un idPiece et une qteArticle avec le WebService
   Future<void> postOtArticle(int idPiece, double qteArticle) async {
     try {
       String newQteArticle = qteArticle.toString();
@@ -283,8 +281,7 @@ class Services {
       throw Exception('error or exception in postOtArticle: ' + e.toString());
     }
   }
-
-  /// Envoyer la liste des [Matricule] dans le WebService
+  /// Synchroniser [Matricule] comprenant un idMatricule et checked avec le WebService
   Future<void> postMatricule(int idMatricule, int checked) async {
     try {
       final response = await client
@@ -296,8 +293,7 @@ class Services {
       throw Exception('error or exception in postMatricule: ' + e.toString());
     }
   }
-
-  /// Envoyer la liste des [Document] dans le WebService
+  /// Synchroniser [Document] comprenant un idOt et attachement avec le WebService
   Future<void> postAttachment(int idOt, String attachment) async {
     try {
       final response =
@@ -306,8 +302,7 @@ class Services {
       throw Exception('error or exception in postAttachement: ' + e.toString());
     }
   }
-
-  /// Envoyer la liste des [Article] dans le WebService
+  /// Créer un nouvel [Article] et l'envoyer dans le WebService
   Future<void> createOtArticle(
       int idOt, int idArticle, double qteArticle) async {
     try {
@@ -323,8 +318,7 @@ class Services {
           'error or exception in create otArticle: ' + e.toString());
     }
   }
-
-  /// Créer une nouvelle [Ot]
+  /// Créer une nouvelle [Ot] et l'envoyer dans le WebService
   Future<void> createOt(int idEquipement, int idOrigine, int idCategorie,
       String libelleOt) async {
     try {

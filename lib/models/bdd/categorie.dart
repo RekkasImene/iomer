@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import 'iomer_database.dart';
+import 'iomere_database.dart';
 
 part 'generate/categorie.g.dart';
 
@@ -19,9 +19,9 @@ class Categories extends Table {
 }
 
 @DriftAccessor(tables: [Categories])
-class CategorieDao extends DatabaseAccessor<IomerDatabase>
+class CategorieDao extends DatabaseAccessor<IomereDatabase>
     with _$CategorieDaoMixin {
-  final IomerDatabase db;
+  final IomereDatabase db;
 
   CategorieDao(this.db) : super(db);
 

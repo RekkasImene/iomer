@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:iomere/config/injection.dart';
-import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomere_database.dart';
 import 'package:iomere/models/repository/in_repository.dart';
 import 'package:iomere/models/repository/local_repository.dart';
 

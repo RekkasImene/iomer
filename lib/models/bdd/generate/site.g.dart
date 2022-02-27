@@ -6,6 +6,6 @@ part of '../site.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$SiteDaoMixin on DatabaseAccessor<IomerDatabase> {
+mixin _$SiteDaoMixin on DatabaseAccessor<IomereDatabase> {
   $SitesTable get sites => attachedDatabase.sites;
 }

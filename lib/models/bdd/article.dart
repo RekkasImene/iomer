@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import 'iomer_database.dart';
+import 'iomere_database.dart';
 
 part 'generate/article.g.dart';
 
@@ -18,9 +18,9 @@ class Articles extends Table {
 }
 
 @DriftAccessor(tables: [Articles])
-class ArticleDao extends DatabaseAccessor<IomerDatabase>
+class ArticleDao extends DatabaseAccessor<IomereDatabase>
     with _$ArticleDaoMixin {
-  final IomerDatabase db;
+  final IomereDatabase db;
 
   ArticleDao(this.db) : super(db);
 

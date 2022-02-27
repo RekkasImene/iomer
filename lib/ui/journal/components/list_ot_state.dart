@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iomere/bloc/journal/journal_bloc.dart';
 import 'package:iomere/bloc/ot/ot_bloc.dart';
-import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomere_database.dart';
 import 'package:iomere/ui/home/home_screen.dart';
 
 import '../../../bloc/journal/journal_event.dart';

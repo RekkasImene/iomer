@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import 'iomer_database.dart';
+import 'iomere_database.dart';
 
 part 'generate/origine.g.dart';
 
@@ -19,9 +19,9 @@ class Origines extends Table {
 }
 
 @DriftAccessor(tables: [Origines])
-class OrigineDao extends DatabaseAccessor<IomerDatabase>
+class OrigineDao extends DatabaseAccessor<IomereDatabase>
     with _$OrigineDaoMixin {
-  final IomerDatabase db;
+  final IomereDatabase db;
 
   OrigineDao(this.db) : super(db);
 

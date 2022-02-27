@@ -6,6 +6,6 @@ part of '../categorie.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$CategorieDaoMixin on DatabaseAccessor<IomerDatabase> {
+mixin _$CategorieDaoMixin on DatabaseAccessor<IomereDatabase> {
   $CategoriesTable get categories => attachedDatabase.categories;
 }

@@ -6,6 +6,6 @@ part of '../matricule.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$MatriculeDaoMixin on DatabaseAccessor<IomerDatabase> {
+mixin _$MatriculeDaoMixin on DatabaseAccessor<IomereDatabase> {
   $MatriculesTable get matricules => attachedDatabase.matricules;
 }

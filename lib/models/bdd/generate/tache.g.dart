@@ -6,6 +6,6 @@ part of '../tache.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$TacheDaoMixin on DatabaseAccessor<IomerDatabase> {
+mixin _$TacheDaoMixin on DatabaseAccessor<IomereDatabase> {
   $TachesTable get taches => attachedDatabase.taches;
 }

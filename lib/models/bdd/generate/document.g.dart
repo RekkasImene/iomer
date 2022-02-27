@@ -6,6 +6,6 @@ part of '../document.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$DocumentDaoMixin on DatabaseAccessor<IomerDatabase> {
+mixin _$DocumentDaoMixin on DatabaseAccessor<IomereDatabase> {
   $DocumentsTable get documents => attachedDatabase.documents;
 }

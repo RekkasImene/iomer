@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iomere/bloc/site/sites_bloc.dart';
 import 'package:iomere/config/injection.dart';
-import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomere_database.dart';
 import 'package:iomere/ui/matricule/first_screen.dart';
 
 class SiteWidget extends StatefulWidget {
@@ -183,7 +183,7 @@ class _SiteState extends State<SiteWidget> {
   }
 
   calculateWhetherDisabledReturnsBool() {
-    if (_isLoading == true) {
+    if (_isLoading) {
       return true;
     }
     if (chooseValue != null) {

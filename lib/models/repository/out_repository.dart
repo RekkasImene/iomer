@@ -6,7 +6,7 @@ import 'dart:developer';
 import 'package:injectable/injectable.dart';
 import 'package:iomere/config/injection.dart';
 import 'package:iomere/models/bdd/document.dart';
-import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomere_database.dart';
 import 'package:iomere/models/bdd/matricule.dart';
 import 'package:iomere/models/bdd/ot.dart';
 import 'package:iomere/models/bdd/reservation.dart';
@@ -21,7 +21,7 @@ import 'package:iomere/webService/services.dart';
 @singleton
 @injectable
 class OutRepository {
-  final IomerDatabase database;
+  final IomereDatabase database;
   final Services services;
   final LocalRepository localRepository;
   final InRepository inRepository;

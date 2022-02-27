@@ -6,6 +6,6 @@ part of '../article.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$ArticleDaoMixin on DatabaseAccessor<IomerDatabase> {
+mixin _$ArticleDaoMixin on DatabaseAccessor<IomereDatabase> {
   $ArticlesTable get articles => attachedDatabase.articles;
 }

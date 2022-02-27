@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomere/bloc/taches/taches_bloc.dart';
 import 'package:iomere/config/injection.dart';
-import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomere_database.dart';
 
 class TaskList extends StatefulWidget {
   const TaskList({Key? key}) : super(key: key);
@@ -41,7 +41,7 @@ class _TaskListState extends State<TaskList> {
                   log("ischecked = " + selectedTache.toString());
                   return CheckboxListTile(
                     title: Text(state.taches[index].LIBELLETACHE),
-                    value: selectedTache.STATUTTACHE == 1 ? true : false,
+                    value: selectedTache.STATUTTACHE == 1,
                     onChanged: (bool? newValue) {
                       setState(
                         () {
@@ -67,7 +67,7 @@ class _TaskListState extends State<TaskList> {
                   log("ischecked = " + selectedTache.toString());
                   return CheckboxListTile(
                     title: Text(state.taches[index].LIBELLETACHE),
-                    value: selectedTache.STATUTTACHE == 1 ? true : false,
+                    value: selectedTache.STATUTTACHE == 1,
                     onChanged: (bool? newValue) {
                       setState(
                         () {

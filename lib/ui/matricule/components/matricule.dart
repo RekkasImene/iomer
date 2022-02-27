@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iomere/bloc/matricule/matricule_bloc.dart';
 import 'package:iomere/config/injection.dart';
-import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomere_database.dart';
 
 class MatriculeWidget extends StatefulWidget {
   const MatriculeWidget({Key? key}) : super(key: key);
@@ -49,7 +49,7 @@ class _MatriculeState extends State<MatriculeWidget> {
                           itemBuilder: (context, index) {
                             selectedMatricule = state.matricules[index];
                             return CheckboxListTile(
-                              title: Text(state.matricules[index].NOMMATRICULE),
+                              title: Text(state.matricules[index].PRENOMMATRICULE+" "+state.matricules[index].NOMMATRICULE.toUpperCase()),
                               value: selectedMatricule.CHECKED==1,
                               onChanged: (bool? newValue) {
                                     log("la valeur de ischecked" +
@@ -57,7 +57,7 @@ class _MatriculeState extends State<MatriculeWidget> {
 
                                     _matriculeBloc.add(CheckedMatriculeEvenet(
                                         state.matricules[index].copyWith(
-                                            CHECKED: newValue! ? 1 : 0)));
+                                            CHECKED: newValue!?1:0)));
 
                                     log(newValue.toString());
                               },
@@ -71,11 +71,11 @@ class _MatriculeState extends State<MatriculeWidget> {
                           itemBuilder: (context, index) {
                             selectedMatricule = state.matricules[index];
                             return CheckboxListTile(
-                              title: Text(state.matricules[index].NOMMATRICULE),
-                              value: selectedMatricule.CHECKED == 1,
+                              title: Text(state.matricules[index].PRENOMMATRICULE+" "+state.matricules[index].NOMMATRICULE.toUpperCase()),
+                              value: selectedMatricule.CHECKED==1,
                               onChanged: (bool? newValue) {
                                     _matriculeBloc.add(CheckedMatriculeEvenet(
-                                        state.matricules[index].copyWith(CHECKED: newValue! ? 1 : 0)));
+                                        state.matricules[index].copyWith(CHECKED: newValue!?1:0)));
                               },
                             );
                           },

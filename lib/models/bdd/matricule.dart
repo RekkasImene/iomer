@@ -1,7 +1,7 @@
 
 import 'package:drift/drift.dart';
 
-import 'iomer_database.dart';
+import 'iomere_database.dart';
 
 part 'generate/matricule.g.dart';
 
@@ -26,9 +26,9 @@ class Matricules extends Table {
 }
 
 @DriftAccessor(tables: [Matricules])
-class MatriculeDao extends DatabaseAccessor<IomerDatabase>
+class MatriculeDao extends DatabaseAccessor<IomereDatabase>
     with _$MatriculeDaoMixin {
-  final IomerDatabase db;
+  final IomereDatabase db;
 
   MatriculeDao(this.db) : super(db);
 

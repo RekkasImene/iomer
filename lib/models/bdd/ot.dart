@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import 'iomer_database.dart';
+import 'iomere_database.dart';
 
 part 'generate/ot.g.dart';
 
@@ -47,8 +47,8 @@ class Ots extends Table {
 }
 
 @DriftAccessor(tables: [Ots])
-class OtDao extends DatabaseAccessor<IomerDatabase> with _$OtDaoMixin {
-  final IomerDatabase db;
+class OtDao extends DatabaseAccessor<IomereDatabase> with _$OtDaoMixin {
+  final IomereDatabase db;
 
   OtDao(this.db) : super(db);
 

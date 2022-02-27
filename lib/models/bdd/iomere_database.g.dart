@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'iomer_database.dart';
+part of 'iomere_database.dart';
 
 // **************************************************************************
 // MoorGenerator
@@ -3608,8 +3608,8 @@ class $ConfigsTable extends Configs with TableInfo<$ConfigsTable, Config> {
   }
 }
 
-abstract class _$IomerDatabase extends GeneratedDatabase {
-  _$IomerDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+abstract class _$IomereDatabase extends GeneratedDatabase {
+  _$IomereDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final $ArticlesTable articles = $ArticlesTable(this);
   late final $CategoriesTable categories = $CategoriesTable(this);
   late final $DocumentsTable documents = $DocumentsTable(this);
@@ -3621,18 +3621,19 @@ abstract class _$IomerDatabase extends GeneratedDatabase {
   late final $SitesTable sites = $SitesTable(this);
   late final $TachesTable taches = $TachesTable(this);
   late final $ConfigsTable configs = $ConfigsTable(this);
-  late final ArticleDao articleDao = ArticleDao(this as IomerDatabase);
-  late final CategorieDao categorieDao = CategorieDao(this as IomerDatabase);
-  late final EquipementDao equipementDao = EquipementDao(this as IomerDatabase);
-  late final MatriculeDao matriculeDao = MatriculeDao(this as IomerDatabase);
-  late final OrigineDao origineDao = OrigineDao(this as IomerDatabase);
-  late final OtDao otDao = OtDao(this as IomerDatabase);
+  late final ArticleDao articleDao = ArticleDao(this as IomereDatabase);
+  late final CategorieDao categorieDao = CategorieDao(this as IomereDatabase);
+  late final EquipementDao equipementDao =
+      EquipementDao(this as IomereDatabase);
+  late final MatriculeDao matriculeDao = MatriculeDao(this as IomereDatabase);
+  late final OrigineDao origineDao = OrigineDao(this as IomereDatabase);
+  late final OtDao otDao = OtDao(this as IomereDatabase);
   late final ReservationDao reservationDao =
-      ReservationDao(this as IomerDatabase);
-  late final SiteDao siteDao = SiteDao(this as IomerDatabase);
-  late final TacheDao tacheDao = TacheDao(this as IomerDatabase);
-  late final ConfigDao configDao = ConfigDao(this as IomerDatabase);
-  late final DocumentDao documentDao = DocumentDao(this as IomerDatabase);
+      ReservationDao(this as IomereDatabase);
+  late final SiteDao siteDao = SiteDao(this as IomereDatabase);
+  late final TacheDao tacheDao = TacheDao(this as IomereDatabase);
+  late final ConfigDao configDao = ConfigDao(this as IomereDatabase);
+  late final DocumentDao documentDao = DocumentDao(this as IomereDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override

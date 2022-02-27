@@ -14,7 +14,7 @@ import 'matricule.dart';
 
 export 'database/shared.dart';
 
-part 'iomer_database.g.dart';
+part 'iomere_database.g.dart';
 
 
 @DriftDatabase(tables: [Articles,Categories,Documents,Equipements,Matricules,
@@ -23,8 +23,8 @@ part 'iomer_database.g.dart';
       ReservationDao,SiteDao,TacheDao,ConfigDao,DocumentDao]
 )
 
-class IomerDatabase extends _$IomerDatabase {
-  IomerDatabase(QueryExecutor e) : super(e);
+class IomereDatabase extends _$IomereDatabase {
+  IomereDatabase(QueryExecutor e) : super(e);
 
   @override
   int get schemaVersion => 1;

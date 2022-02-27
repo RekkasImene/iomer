@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import 'iomer_database.dart';
+import 'iomere_database.dart';
 
 part 'generate/tache.g.dart';
 
@@ -24,8 +24,8 @@ class Taches extends Table {
 }
 
 @DriftAccessor(tables: [Taches])
-class TacheDao extends DatabaseAccessor<IomerDatabase> with _$TacheDaoMixin {
-  final IomerDatabase db;
+class TacheDao extends DatabaseAccessor<IomereDatabase> with _$TacheDaoMixin {
+  final IomereDatabase db;
 
   TacheDao(this.db) : super(db);
 

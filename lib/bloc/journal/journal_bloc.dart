@@ -1,12 +1,9 @@
-import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-import 'package:iomere/bloc/ot/ot_bloc.dart';
-import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomere_database.dart';
 import 'package:iomere/models/repository/local_repository.dart';
 import 'package:iomere/models/repository/out_repository.dart';
 

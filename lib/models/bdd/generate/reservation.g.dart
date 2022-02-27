@@ -6,6 +6,6 @@ part of '../reservation.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$ReservationDaoMixin on DatabaseAccessor<IomerDatabase> {
+mixin _$ReservationDaoMixin on DatabaseAccessor<IomereDatabase> {
   $ReservationsTable get reservations => attachedDatabase.reservations;
 }

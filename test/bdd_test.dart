@@ -1,13 +1,13 @@
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomere_database.dart';
 
 void main() {
-  late IomerDatabase db;
+  late IomereDatabase db;
 
   setUp(() {
-    db = IomerDatabase(NativeDatabase.memory());
+    db = IomereDatabase(NativeDatabase.memory());
   });
   tearDown(() async {
     await db.close();

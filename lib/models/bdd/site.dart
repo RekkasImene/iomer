@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import 'iomer_database.dart';
+import 'iomere_database.dart';
 
 part 'generate/site.g.dart';
 
@@ -18,8 +18,8 @@ class Sites extends Table {
 }
 
 @DriftAccessor(tables: [Sites])
-class SiteDao extends DatabaseAccessor<IomerDatabase> with _$SiteDaoMixin {
-  final IomerDatabase db;
+class SiteDao extends DatabaseAccessor<IomereDatabase> with _$SiteDaoMixin {
+  final IomereDatabase db;
 
   SiteDao(this.db) : super(db);
 

@@ -4,19 +4,19 @@ import 'dart:async';
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:iomere/config/injection.dart';
-import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomere_database.dart';
 
-import '../bdd/iomer_database.dart';
+import '../bdd/iomere_database.dart';
 
 
-/// [LocalRepository] gère l'envoi des données de la vue vers la base de donnée locale [IomerDatabase] et de la base de donnée locale vers la vue en mode hors ligne
+/// [LocalRepository] gère l'envoi des données de la vue vers la base de donnée locale [IomereDatabase] et de la base de donnée locale vers la vue en mode hors ligne
 /// La base de donnée est stockée dans db.sqlite à l'aide de Drift///
 /// Les requêtes de la base de donnée sont définient dans le fichier DAO de chaque table
 @Environment(Env.prod)
 @singleton
 @injectable
 class LocalRepository {
-  final IomerDatabase database;
+  final IomereDatabase database;
   LocalRepository(this.database);
 
   ///Cloturer la base de donnée locale

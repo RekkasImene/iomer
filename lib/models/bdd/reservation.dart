@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import 'iomer_database.dart';
+import 'iomere_database.dart';
 
 part 'generate/reservation.g.dart';
 
@@ -33,9 +33,9 @@ class Reservations extends Table {
 }
 
 @DriftAccessor(tables: [Reservations])
-class ReservationDao extends DatabaseAccessor<IomerDatabase>
+class ReservationDao extends DatabaseAccessor<IomereDatabase>
     with _$ReservationDaoMixin {
-  final IomerDatabase db;
+  final IomereDatabase db;
 
   ReservationDao(this.db) : super(db);
 

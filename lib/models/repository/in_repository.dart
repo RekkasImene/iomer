@@ -5,7 +5,7 @@ import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 import 'package:iomere/config/injection.dart';
-import 'package:iomere/models/bdd/iomer_database.dart';
+import 'package:iomere/models/bdd/iomere_database.dart';
 import 'package:iomere/webService/services.dart';
 
 import 'local_repository.dart';
@@ -19,7 +19,7 @@ import 'local_repository.dart';
 @injectable
 class InRepository {
   late Future<List<Site>> futureSite;
-  final IomerDatabase database;
+  final IomereDatabase database;
   final LocalRepository localRepository;
   final Services services;
 

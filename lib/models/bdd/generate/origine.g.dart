@@ -6,6 +6,6 @@ part of '../origine.dart';
 // DaoGenerator
 // **************************************************************************
 
-mixin _$OrigineDaoMixin on DatabaseAccessor<IomerDatabase> {
+mixin _$OrigineDaoMixin on DatabaseAccessor<IomereDatabase> {
   $OriginesTable get origines => attachedDatabase.origines;
 }

@@ -17,7 +17,7 @@ import '../bloc/parts/parts_bloc.dart' as _i15;
 import '../bloc/report/report_bloc.dart' as _i8;
 import '../bloc/site/sites_bloc.dart' as _i16;
 import '../bloc/taches/taches_bloc.dart' as _i10;
-import '../models/bdd/iomer_database.dart' as _i4;
+import '../models/bdd/iomere_database.dart' as _i4;
 import '../models/repository/in_repository.dart' as _i13;
 import '../models/repository/local_repository.dart' as _i5;
 import '../models/repository/out_repository.dart' as _i14;
@@ -33,9 +33,9 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final registerModule = _$RegisterModule();
   gh.singleton<_i3.Client>(registerModule.client);
-  gh.singleton<_i4.IomerDatabase>(registerModule.iomerDatabase);
+  gh.singleton<_i4.IomereDatabase>(registerModule.iomereDatabase);
   gh.singleton<_i5.LocalRepository>(
-      _i5.LocalRepository(get<_i4.IomerDatabase>()),
+      _i5.LocalRepository(get<_i4.IomereDatabase>()),
       registerFor: {_prod});
   gh.factory<_i6.MatriculeBloc>(
       () => _i6.MatriculeBloc(get<_i5.LocalRepository>()),
@@ -55,11 +55,11 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i12.ClotureBloc(get<_i5.LocalRepository>()),
       registerFor: {_prod});
   gh.singleton<_i13.InRepository>(
-      _i13.InRepository(get<_i4.IomerDatabase>(), get<_i5.LocalRepository>(),
+      _i13.InRepository(get<_i4.IomereDatabase>(), get<_i5.LocalRepository>(),
           get<_i9.Services>()),
       registerFor: {_prod});
   gh.singleton<_i14.OutRepository>(
-      _i14.OutRepository(get<_i4.IomerDatabase>(), get<_i9.Services>(),
+      _i14.OutRepository(get<_i4.IomereDatabase>(), get<_i9.Services>(),
           get<_i5.LocalRepository>(), get<_i13.InRepository>()),
       registerFor: {_prod});
   gh.factory<_i15.PartsBloc>(

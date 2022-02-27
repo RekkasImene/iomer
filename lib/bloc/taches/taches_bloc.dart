@@ -7,7 +7,8 @@ import 'package:iomere/models/repository/local_repository.dart';
 
 part 'taches_event.dart';
 part 'taches_state.dart';
-
+/// Cette classe contient le Bloc de l'Ui [task]
+/// Elle reçoit et traite les évenements définis dans [taches_event], et déclenche par ce fait des méthodes de [LocalRepository]
 @Environment(Env.prod)
 @injectable
 class TachesBloc extends Bloc<TachesEvent, TachesState> {

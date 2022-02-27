@@ -10,7 +10,9 @@ import 'package:meta/meta.dart';
 
 part 'report_event.dart';
 part 'report_state.dart';
-
+/// Cette classe contient le Bloc de l'Ui [report]
+/// Elle reçoit et traite les évenements définis dans [report_ot], et déclenche par ce fait des méthodes de [LocalRepository]
+/// Emet un etat de [ot_state]
 @Environment(Env.prod)
 @injectable
 class ReportBloc extends Bloc<ReportEvent, ReportState> {
@@ -24,7 +26,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
           await _repository.insertDocument(ot.IDOT, element);
         });
 
-        await _repository.modifyCommentOt(ot.IDOT, event.textReport);
+
       } else {
         emit(const ReportError('Error'));
       }

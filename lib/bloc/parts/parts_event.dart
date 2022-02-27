@@ -1,5 +1,6 @@
 part of 'parts_bloc.dart';
 
+///Cette classe contient tous les evenements lié à l'UI [parts]
 @immutable
 abstract class PartsEvent extends Equatable {
   const PartsEvent();

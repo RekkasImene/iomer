@@ -1,5 +1,6 @@
 part of 'report_bloc.dart';
 
+///Cette classe contient tous les evenements lié à l'UI [report]
 @immutable
 abstract class ReportEvent extends Equatable {
   const ReportEvent();

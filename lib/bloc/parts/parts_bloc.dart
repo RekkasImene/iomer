@@ -78,7 +78,7 @@ class PartsBloc extends Bloc<PartsEvent, PartsState> {
             article = await _inRepository.getArticle(event.codePart);
             print(article.toString());
             if (article.LIBELLEARTICLE.isNotEmpty) {
-              emit(StateArticleFind(article.LIBELLEARTICLE));
+              emit(StateArticleFind(article.LIBELLEARTICLE,article.CODEARTICLE));
             } else {
               emit(StatePartsNoArticle(
                   'Pas d\'article trouvé pour se code article.'));

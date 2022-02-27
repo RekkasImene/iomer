@@ -10,8 +10,9 @@ import 'package:http/http.dart';
 /// Necessite une connexion Internet
 /// URL à modifier par l'adresse réelle du WebService
 
-//var url = 'http://10.0.2.2:8080';
-var url = 'https://iomere.loca.lt';
+//var url = 'https://iomere.loca.lt';
+//var url = 'http://10.0.2.2:8080'; //Adresse locale android
+var url = 'http://localhost:8080';
 
 @Environment(Env.prod)
 @singleton
@@ -250,8 +251,10 @@ class Services {
       List<Ot> ots = (json.decode(response.body) as List)
           .map((otJson) => Ot.fromJson(otJson))
           .toList();
+      log("OTS push :"+ots.toString());
     } catch (e) {
-      throw Exception('error or exception in postOt: ' + e.toString());
+      rethrow;
+      //throw Exception('error or exception in postOt: ' + e.toString());
     }
   }
   /// Synchroniser [Tache] comprenant un idTache, statutTache, commentTache avec le WebService
@@ -260,9 +263,11 @@ class Services {
     try {
       final response = await client.get(
           Uri.parse('$url/SETOT_TACHE/$idTache/$statutTache/$commentTache'));
+        log(response.body);
       List<Tache> taches = (json.decode(response.body) as List)
           .map((tacheJson) => Tache.fromJson(tacheJson))
           .toList();
+      log("Tache push :"+taches.toString());
     } catch (e) {
       throw Exception('error or exception in postOtTache: ' + e.toString());
     }
@@ -284,13 +289,16 @@ class Services {
   /// Synchroniser [Matricule] comprenant un idMatricule et checked avec le WebService
   Future<void> postMatricule(int idMatricule, int checked) async {
     try {
-      final response = await client
-          .get(Uri.parse('$url/SETMATRICULE/$idMatricule/$checked'));
+      final response = await client.get(Uri.parse('$url/SETMATRICULE/$idMatricule/$checked'));
+      log("response matricule"+ response.body.toString());
+
       List<Matricule> matricules = (json.decode(response.body) as List)
           .map((matriculeJson) => Matricule.fromJson(matriculeJson))
           .toList();
     } catch (e) {
-      throw Exception('error or exception in postMatricule: ' + e.toString());
+      log("Je suis avant : Exception");
+      //throw Exception('error or exception in postMatricule: ' + e.toString());
+      rethrow;
     }
   }
   /// Synchroniser [Document] comprenant un idOt et attachement avec le WebService
@@ -314,8 +322,7 @@ class Services {
           .map((reservationJson) => Reservation.fromJson(reservationJson))
           .toList();
     } catch (e) {
-      throw Exception(
-          'error or exception in create otArticle: ' + e.toString());
+      throw Exception('error or exception in create otArticle: ' + e.toString());
     }
   }
   /// Créer une nouvelle [Ot] et l'envoyer dans le WebService
